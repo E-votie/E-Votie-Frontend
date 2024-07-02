@@ -2,21 +2,36 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {object} from "yup";
-import {Bot} from "../../Components/Bot.jsx";
+import { useMutation } from 'react-query';
+import axios from 'axios';
 
 export const VoterRegistration = () => {
 
     const schema = object({
-        NIC: yup.string().required().length(10),
+        NIC: yup.string("Invalid NIC").required("Can not be empty").length(12, "NIC must be 12 characters long"),
         Email: yup.string().required().email(),
+        Phone: yup.string().matches(/^\d{3}-\d{7}$/, "Phone number must be in the format 071-1234567")
     })
 
-    const {register, handleSubmit} = useForm({
+    const {register, handleSubmit, formState:{errors}} = useForm({
         resolver: yupResolver(schema)
     })
 
+    const mutation = useMutation((data) => {
+        return axios.post('http://localhost:8081/voter-registration/voter', data);
+    });
+
     const onSubmit = (data) => {
-        console.log(data);
+        mutation.mutate(data, {
+            onSuccess: (response) => {
+                console.log('Data submitted successfully:', response.data);
+                // Handle success (e.g., show success message)
+            },
+            onError: (error) => {
+                console.error('Error submitting data:', error);
+                // Handle error (e.g., show error message)
+            }
+        });
     }
 
     return (
@@ -49,6 +64,7 @@ export const VoterRegistration = () => {
 
                             <input type="text" className="grow" placeholder="NIC" {...register("NIC")}/>
                         </label>
+                        {errors.NIC && <p className="text-red-500 text-xs italic ml-5">{errors.NIC.message}</p>}
                         <label className="input input-bordered flex items-center gap-2 input-primary">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -72,15 +88,12 @@ export const VoterRegistration = () => {
                                     d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.12-.21 11.72 11.72 0 004.39 1.19 1 1 0 011 .88v3.81a1 1 0 01-.88 1A19.78 19.78 0 012 4.88a1 1 0 011-.88h3.81a1 1 0 01.99.88 11.72 11.72 0 001.2 4.39 1 1 0 01-.21 1.12l-2.2 2.2z"/>
                             </svg>
 
-                            <input type="text" className="grow" placeholder="Phone" {...register("Phone")}/>
+                            <input type="text" className="grow" placeholder="Phone (07*-*******)" {...register("Phone")}/>
                         </label>
                         <div className="card-actions justify-end">
                             <button className="btn btn-outline btn-primary">Verify</button>
                         </div>
                     </form>
-                    <div className="card-actions justify-end">
-                        <Bot/>
-                    </div>
                 </div>
             </div>
         </div>
