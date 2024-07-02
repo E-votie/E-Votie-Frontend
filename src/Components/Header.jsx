@@ -1,10 +1,6 @@
-import React from 'react'
-
-const Header = () => {
+export const Header = () => {
   return (
-    <div className='h-16 border-2 border-black'>
-        Header
-    </div>
+    <div>Header</div>
   )
 }
 
