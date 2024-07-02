@@ -5,11 +5,15 @@ import {Footer} from "./Components/Footer.jsx";
 function Layout(){
     return(
         <div className="flex flex-col min-h-screen">
-            <Header></Header>
-            <div className="flex-grow px-8 py-4">
+            <div className="h-[10%]">
+                <Header></Header>
+            </div>
+            <div className="h-[80%] flex-grow px-8 py-8 border-2 border-red-600">
                 <Outlet />
             </div>            
-            <Footer></Footer>
+            <div className="h-[10%]">
+                <Footer></Footer>
+            </div>
         </div>
     )
 }
