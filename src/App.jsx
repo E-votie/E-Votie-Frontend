@@ -16,6 +16,7 @@ function App() {
                     <Route path="/VoterRegistration" element={<VoterRegistration/>}/>
                     <Route path="*" element={<h1> PAGE NOT FOUND</h1>}/>
                 </Routes>
+                <Footer />
             </Router>
         </div>
     );

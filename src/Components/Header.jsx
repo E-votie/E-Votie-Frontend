@@ -1,7 +1,7 @@
-export const Header = () => {
-    return (
-        <div>
+import React from 'react'
 
-        </div>
-    );
+const Header = () => {
+  return (
+    <div className='h-16'>Header</div>
+  )
 }
