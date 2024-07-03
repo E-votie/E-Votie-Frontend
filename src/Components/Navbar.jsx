@@ -1,6 +1,6 @@
 export const Navbar = () => {
     return (
-        <div className="z-10 sticky left-0 right-0 top-0 border-2 bottom-2 border-black">
+        <div className="h-28 flex grow z-10 sticky left-0 right-0 top-0 border-b-2 border-b-black">
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">

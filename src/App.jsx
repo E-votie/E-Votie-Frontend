@@ -2,7 +2,7 @@ import "./App.css";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {VoterRegistration} from "./Pages/VoterRegistration/VoterRegistration_1";
 import {Layout} from "./Layout.jsx";
-import {Home} from "./Pages/PartyMember/Home.jsx";
+import {Home} from "./Pages/Home.jsx";
 
 function App() {
     return (
