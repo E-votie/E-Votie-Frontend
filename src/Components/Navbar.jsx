@@ -1,6 +1,6 @@
 export const Navbar = () => {
     return (
-        <div className="h-28 flex grow z-10 sticky left-0 right-0 top-0 border-b-2 border-b-black">
+        <div className="h-20 flex grow z-10 sticky left-0 right-0 top-0 border-b-2 border-b-pink-500">
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -26,9 +26,10 @@ export const Navbar = () => {
                             <li><a>About</a></li>
                         </ul>
                     </div>
+                    <a className="btn btn-ghost text-xl">E Votie</a>
                 </div>
                 <div className="navbar-center">
-                    <a className="btn btn-ghost text-xl">E Votie</a>
+                    {/* <a className="btn btn-ghost text-xl">E Votie</a> */}
                 </div>
                 <div className="navbar-end">
                     <button className="btn btn-ghost btn-circle">
