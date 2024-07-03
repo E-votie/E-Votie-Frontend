@@ -1,6 +1,6 @@
 export const Navbar = () => {
     return (
-        <div>
+        <div className="z-10 sticky left-0 right-0 top-0 border-2 bottom-2 border-black">
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -28,7 +28,7 @@ export const Navbar = () => {
                     </div>
                 </div>
                 <div className="navbar-center">
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <a className="btn btn-ghost text-xl">E Votie</a>
                 </div>
                 <div className="navbar-end">
                     <button className="btn btn-ghost btn-circle">

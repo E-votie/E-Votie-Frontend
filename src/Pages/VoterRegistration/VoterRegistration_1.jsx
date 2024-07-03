@@ -35,7 +35,7 @@ export const VoterRegistration = () => {
     }
 
     return (
-        <div className="card card-side bg-base-100 shadow-xl gap-10">
+        <div className="card card-side bg-base-100 shadow-xl gap-10 px-4">
             <figure>
                 <ul className="steps steps-vertical ml-28 hidden md:block">
                     <li className="step step-primary">Registration of Email and Mobile</li>
