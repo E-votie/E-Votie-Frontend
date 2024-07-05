@@ -7,7 +7,7 @@ export const Layout = () => {
     return(
         <div className="flex flex-col min-h-screen">
             <Navbar/>
-            <div className="flex grow w-full px-24 py-4">
+            <div className="flex grow w-full md:px-24">
                 <div className="w-full">
                     <Breadcrumbs/>
                     <Outlet />
