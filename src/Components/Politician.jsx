@@ -7,7 +7,7 @@ import { CardActionArea } from '@mui/material';
 
 export const Politician = () => {
   return (
-    <Card className='w-full border-2 border-gray-100'>
+    <Card className='w-full '>
       <CardActionArea>
         <div className='flex'> 
             <img

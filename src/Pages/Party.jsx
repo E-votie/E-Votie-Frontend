@@ -6,7 +6,7 @@ const candidates = [1,1,1,1,1,1,1,1,1,1,1,1];
 
 export const Party = () => {
   return (
-    <div className="min-h-[600px] flex flex-col bg-gray-100 shadow-2xl pb-4 ">
+    <div className="min-h-[600px] flex flex-col bg-gray-100 shadow-2xl pb-4 rounded-lg">
       {/* Cover Image */}
       <div className="relative">
         <img
@@ -35,7 +35,7 @@ export const Party = () => {
       </div>
       {/* Summary Section */}
       <div className="mt-8 flex justify-center">
-        <div className="bg-white rounded-lg shadow-lg p-8 w-4/5">
+        <div className="bg-white rounded-lg p-8 w-4/5">
           <div className="flex justify-around mb-8">
             <div className="text-center">
               <p className="text-3xl font-bold text-yellow-600">17122</p>
@@ -52,29 +52,31 @@ export const Party = () => {
               {/* Top 5 MPs Section */}
               <h6 className="text-xl font-bold mb-4">Politicians</h6>
               {/* List of Politicians */}
-              <div>
+              <div className='flex flex-col gap-1'>
                 {
                   candidates.map((candidate) => <Politician />)
                 }
               </div>
             </div>
             {/* Sidebar for summary, top MPs, politicians, and compare politicians */}
-            <div className="w-60 bg-white border-2 border-pink-500 rounded-lg  p-4">
-              <div className="mb-4">
-                <h4 className="text-l font-bold">Summary</h4>
-                <p className="text-gray-600">Summary details here...</p>
-              </div>
-              <div className="mb-4">
-                <h3 className="text-l font-bold">Top 5 MPs</h3>
-                <p className="text-gray-600">Top MPs details here...</p>
-              </div>
-              <div className="mb-4">
-                <h3 className="text-l font-bold">Politicians</h3>
-                <p className="text-gray-600">Politician details here...</p>
-              </div>
-              <div className="mb-4">
-                <h3 className="text-l font-bold">Compare Politicians</h3>
-                <p className="text-gray-600">How have your favourite politicians performed?</p>
+            <div className="w-60 bg-white">
+              <div className='border-2 border-pink-500 rounded-lg p-4'>
+                <div className="mb-4">
+                  <h4 className="text-l font-bold">Summary</h4>
+                  <p className="text-gray-600">Summary details here...</p>
+                </div>
+                <div className="mb-4">
+                  <h3 className="text-l font-bold">Top 5 MPs</h3>
+                  <p className="text-gray-600">Top MPs details here...</p>
+                </div>
+                <div className="mb-4">
+                  <h3 className="text-l font-bold">Politicians</h3>
+                  <p className="text-gray-600">Politician details here...</p>
+                </div>
+                <div className="mb-4">
+                  <h3 className="text-l font-bold">Compare Politicians</h3>
+                  <p className="text-gray-600">How have your favourite politicians performed?</p>
+                </div>
               </div>
             </div>
           </div>
