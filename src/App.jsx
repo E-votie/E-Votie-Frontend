@@ -7,6 +7,8 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import {EmailVerification} from "./Pages/VoterRegistration/EmailVerification.jsx";
 import {VoterRegistration_2} from "./Pages/VoterRegistration/VoterRegistration_2.jsx";
 const queryClient = new QueryClient()
+import {Home} from "./Pages/Home.jsx";
+import {Party} from "./Pages/Party.jsx";
 
 function App() {
     return (
@@ -18,6 +20,7 @@ function App() {
                         <Route path="/VoterRegistration/:ApplicationID" element={<QueryClientProvider client={queryClient}> <VoterRegistration_2/> </QueryClientProvider>} />
                         <Route path="/verify/:Hash" element={<QueryClientProvider client={queryClient}> <EmailVerification /> </QueryClientProvider>} />
                         <Route path="/home" element={<Home />} />
+                        <Route path="/party" element={<Party />} />
                         <Route path="*" element={<h1> PAGE NOT FOUND</h1>} />
                     </Route>
                 </Routes>
