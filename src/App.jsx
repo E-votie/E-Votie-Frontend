@@ -24,7 +24,7 @@ function App() {
                 <Router>
                     <Routes>
                         <Route path="/" element={<Layout />}>
-                            <Route path="/VoterRegistration" element={<VoterRegistration />} />
+                            <Route path="/VoterRegistration" element={<VoterRegistration_1 />} />
                             <Route path="/VoterRegistration" element={<QueryClientProvider client={queryClient}> <VoterRegistration_1/> </QueryClientProvider>} />
                             <Route path="/VoterRegistration/:ApplicationID" element={<QueryClientProvider client={queryClient}> <VoterRegistration_2/> </QueryClientProvider>} />
                             <Route path="/verify/:Hash" element={<QueryClientProvider client={queryClient}> <EmailVerification /> </QueryClientProvider>} />
