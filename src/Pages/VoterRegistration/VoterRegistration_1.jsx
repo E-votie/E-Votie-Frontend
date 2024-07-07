@@ -4,13 +4,20 @@ import * as yup from "yup";
 import {object} from "yup";
 import { useMutation } from 'react-query';
 import axios from 'axios';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { useNavigate } from 'react-router-dom';
 
-export const VoterRegistration = () => {
+const MySwal = withReactContent(Swal)
+
+export const VoterRegistration_1 = () => {
+
+    const navigate = useNavigate();
 
     const schema = object({
         NIC: yup.string("Invalid NIC").required("Can not be empty").length(12, "NIC must be 12 characters long"),
         Email: yup.string().required().email(),
-        Phone: yup.string().matches(/^\d{3}-\d{7}$/, "Phone number must be in the format 071-1234567")
+        Contact: yup.string().matches(/^\d{3}-\d{7}$/, "Phone number must be in the format 071-1234567")
     })
 
     const {register, handleSubmit, formState:{errors}} = useForm({
@@ -24,12 +31,34 @@ export const VoterRegistration = () => {
     const onSubmit = (data) => {
         mutation.mutate(data, {
             onSuccess: (response) => {
-                console.log('Data submitted successfully:', response.data);
-                // Handle success (e.g., show success message)
+                MySwal.fire({
+                    title: <p>Please check email and phone</p>,
+                    icon: 'success',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    didOpen: () => {
+                        // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/Home');
+                    }
+                })
             },
             onError: (error) => {
-                console.error('Error submitting data:', error);
-                // Handle error (e.g., show error message)
+                MySwal.fire({
+                    title: `<p>${error.response.data}</p>`,
+                    icon: 'error',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    didOpen: () => {
+                        // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/Home');
+                    }
+                })
             }
         });
     }
@@ -61,7 +90,6 @@ export const VoterRegistration = () => {
                                 <path
                                     d="M6 10h4c.55 0 1 .45 1 1s-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1zm0 4h4c.55 0 1 .45 1 1s-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1zm6-4h4c.55 0 1 .45 1 1s-.45 1-1 1h-4c-.55 0-1-.45-1-1s.45-1 1-1zm0 4h4c.55 0 1 .45 1 1s-.45 1-1 1h-4c-.55 0-1-.45-1-1s.45-1 1-1z"/>
                             </svg>
-
                             <input type="text" className="grow" placeholder="NIC" {...register("NIC")}/>
                         </label>
                         {errors.NIC && <p className="text-red-500 text-xs italic ml-5">{errors.NIC.message}</p>}
@@ -78,6 +106,7 @@ export const VoterRegistration = () => {
                             </svg>
                             <input type="text" className="grow" placeholder="Email" {...register("Email")}/>
                         </label>
+                        {errors.Email && <p className="text-red-500 text-xs italic ml-5">{errors.Email.message}</p>}
                         <label className="input input-bordered flex items-center gap-2 input-primary">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -88,8 +117,9 @@ export const VoterRegistration = () => {
                                     d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.12-.21 11.72 11.72 0 004.39 1.19 1 1 0 011 .88v3.81a1 1 0 01-.88 1A19.78 19.78 0 012 4.88a1 1 0 011-.88h3.81a1 1 0 01.99.88 11.72 11.72 0 001.2 4.39 1 1 0 01-.21 1.12l-2.2 2.2z"/>
                             </svg>
 
-                            <input type="text" className="grow" placeholder="Phone (07*-*******)" {...register("Phone")}/>
+                            <input type="text" className="grow" placeholder="Phone (07*-*******)" {...register("Contact")}/>
                         </label>
+                        {errors.Contact && <p className="text-red-500 text-xs italic ml-5">{errors.Contact.message}</p>}
                         <div className="card-actions justify-end">
                             <button className="btn btn-outline btn-primary">Verify</button>
                         </div>
