@@ -56,7 +56,7 @@ export const Party = () => {
       </div>
       {/* Summary Section */}
       <div className="mt-8 flex justify-center">
-        <div className="bg-white rounded-lg py-8 px-4 w-4/5">
+        <div className="bg-white rounded-lg py-8 px-4 w-[90%]">
           <div className="flex justify-around mb-8">
             <div className="text-center">
               <p className="text-3xl font-bold text-yellow-600">17122</p>
