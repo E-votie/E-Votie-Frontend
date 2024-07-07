@@ -1,8 +1,29 @@
 import React from 'react';
-import {Politician} from '../Components/Politician';
+import {Politician} from '../../Components/PoliticianCard';
 import Divider from '@mui/material/Divider';
+import { PartyDetails } from '../../Components/PartyDetails';
 
 const candidates = [1,1,1,1,1,1,1,1,1,1,1,1];
+
+const party = {
+  "partyName": "Sri Lanka Podujana Peramuna",
+  "abbreviation": "SLPP",
+  "logo": "https://pbs.twimg.com/profile_images/1042605472249864192/P8mqmZXX_400x400.jpg",
+  "leader": "Mahinda Rajapaksa",
+  "secretary": "Sagara Kariyawasam",
+  "foundedYear": 2016,
+  "headquarters": {
+      "address": "No. 1316, Podujana Peramuna, Jayanthipura, Nelum Mawatha, Battaramulla 10120, Sri Lanka",
+      "contactNumber": "+94112866010"
+  },
+  "colors": ["Red", "Blue", "Green"],
+  "seatsInParliament": {
+      "districtBasisSeats": 128,
+      "nationalBasisSeats": 17,
+      "totalSeats": 145
+  },
+  "website": "http://www.slpp.lk"
+};
 
 export const Party = () => {
   return (
@@ -10,14 +31,14 @@ export const Party = () => {
       {/* Cover Image */}
       <div className="relative">
         <img
-          src="src\assets\politician-bg.png" // Replace with the actual cover image URL
+          src="..\src\assets\politician-bg.png" // Replace with the actual cover image URL
           alt="Cover"
           className="w-full h-64 object-cover"
         />
         {/* Party Symbol */}
         <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-white border-4 border-gray-300 rounded-full overflow-hidden">
           <img
-            src="src\assets\slpp.jpg" // Replace with the actual party symbol URL
+            src="..\src\assets\slpp.jpg" // Replace with the actual party symbol URL
             alt="Party Symbol"
             className="w-full h-full object-cover"
           />
@@ -35,7 +56,7 @@ export const Party = () => {
       </div>
       {/* Summary Section */}
       <div className="mt-8 flex justify-center">
-        <div className="bg-white rounded-lg p-8 w-4/5">
+        <div className="bg-white rounded-lg py-8 px-4 w-4/5">
           <div className="flex justify-around mb-8">
             <div className="text-center">
               <p className="text-3xl font-bold text-yellow-600">17122</p>
@@ -47,36 +68,22 @@ export const Party = () => {
             </div>
           </div>
           <Divider />
-          <div className='flex justify-between gap-6 p-4 mt-4'>
-            <div className=''>
-              {/* Top 5 MPs Section */}
+          <div className='flex flex-row-reverse gap-6 py-4 mt-4'>
+            <div className='partyDetailsContainer w-2/5'>
+              <h6 className="text-xl font-bold mb-4">Party Info</h6>
+              <div className='partyInfo'>
+                <PartyDetails party={party}/>
+              </div>
+            </div>
+            <Divider orientation="vertical" flexItem/>
+            {/* Politician Section */}
+            <div className='politicianContainer'>
               <h6 className="text-xl font-bold mb-4">Politicians</h6>
               {/* List of Politicians */}
-              <div className='flex flex-col gap-1'>
+              <div className='flex flex-col gap-2'>
                 {
                   candidates.map((candidate) => <Politician />)
                 }
-              </div>
-            </div>
-            {/* Sidebar for summary, top MPs, politicians, and compare politicians */}
-            <div className="w-60 bg-white">
-              <div className='border-2 border-pink-500 rounded-lg p-4'>
-                <div className="mb-4">
-                  <h4 className="text-l font-bold">Summary</h4>
-                  <p className="text-gray-600">Summary details here...</p>
-                </div>
-                <div className="mb-4">
-                  <h3 className="text-l font-bold">Top 5 MPs</h3>
-                  <p className="text-gray-600">Top MPs details here...</p>
-                </div>
-                <div className="mb-4">
-                  <h3 className="text-l font-bold">Politicians</h3>
-                  <p className="text-gray-600">Politician details here...</p>
-                </div>
-                <div className="mb-4">
-                  <h3 className="text-l font-bold">Compare Politicians</h3>
-                  <p className="text-gray-600">How have your favourite politicians performed?</p>
-                </div>
               </div>
             </div>
           </div>
