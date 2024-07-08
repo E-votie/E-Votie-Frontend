@@ -1,4 +1,15 @@
+import KeycloakService from "../services/KeycloakService.jsx";
+import RenderWhenAnonymous from "../utilities/RenderWhenAnonymous.jsx";
+import RenderWhenAuthenticated from "../utilities/RenderWhenAuthenticated.jsx";
+import { AuthContext } from "../Auth/AuthProvider.jsx";
+import {useContext, useEffect} from "react";
+
 export const Navbar = () => {
+    const { isAuthenticated } = useContext(AuthContext);
+
+    useEffect(() => {
+        console.log("App component rendered. Is authenticated:", isAuthenticated);
+    }, [isAuthenticated]);
     return (
         <div className="h-20 flex grow z-10 sticky left-0 right-0 top-0 border-b-2 ">
             <div className="navbar  bg-[#f8f8f8]">
@@ -32,6 +43,16 @@ export const Navbar = () => {
                     {/* <a className="btn btn-ghost text-xl">E Votie</a> */}
                 </div>
                 <div className="navbar-end">
+                    <RenderWhenAnonymous>
+                        <button className="btn btn-ghost btn-square" onClick={() => KeycloakService.doLogin()}>
+                            Log in
+                        </button>
+                    </RenderWhenAnonymous>
+                    <RenderWhenAuthenticated>
+                        <button className="btn btn-ghost btn-square" onClick={() => KeycloakService.doLogout()}>
+                            Log out
+                        </button>
+                    </RenderWhenAuthenticated>
                     <button className="btn btn-ghost btn-circle">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

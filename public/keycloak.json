@@ -1,0 +1,5 @@
+{
+  "realm": "demo",
+  "resource": "demo-rest-api",
+  "auth-server-url": "http://localhost:8086/"
+}
