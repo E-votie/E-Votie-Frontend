@@ -11,7 +11,7 @@ export const Politician = () => {
       <CardActionArea>
         <div className='flex'> 
             <img
-            src="src\assets\mr.jpg"
+            src="..\src\assets\mr.jpg"
             alt="green iguana"
             className='w-[120px] h-[120px] object-cover p-2'
             />
