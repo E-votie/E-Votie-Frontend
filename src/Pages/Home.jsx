@@ -13,11 +13,11 @@ const actions = [
     "icon": "candidate",
     "description": "Information about the election candidates."
   },
-  {
-    "action": "Manifestos",
-    "icon": "manifesto",
-    "description": "Read the manifestos of each party."
-  },
+  // {
+  //   "action": "Manifestos",
+  //   "icon": "manifesto",
+  //   "description": "Read the manifestos of each party."
+  // },
   {
     "action": "Elections",
     "icon": "election",
@@ -64,7 +64,7 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 gap-6">
+    <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6">
       <div className="h-1/5 flex-grow flex flex-col justify-center items-center text-3xl text-center">
         <h1 className={`transition-opacity duration-500 ${fade ? 'opacity-100' : 'opacity-0'}`}>
           {messages[language]}
