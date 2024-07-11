@@ -15,10 +15,15 @@ import {VoterRegistration_2} from "./Pages/VoterRegistration/VoterRegistration_2
 import {EmailVerification} from "./Pages/VoterRegistration/EmailVerification.jsx";
 import ErrorBoundary from "./Components/ErrorBoundary.jsx";
 import {FormReview} from "./Pages/GramaNiladhari/FormReview.jsx";
+import {GnHome} from "./Pages/GramaNiladhari/GnHome.jsx";
+import {VoterApplications} from "./Pages/GramaNiladhari/VoterApplications.jsx";
+import ProtectedRoute from "./services/ProtectedRoute.jsx";
 
 const queryClient = new QueryClient()
 
 function App() {
+    const userRole = localStorage.getItem('userRole') || 'guest';
+
     return (
         <QueryClientProvider client={queryClient} >
             <div className="App">
@@ -35,6 +40,33 @@ function App() {
                             <Route path="/party/:partyId" element={<Party />} />
                             <Route path="/party/list" element={<PartyList />} />
                             <Route path="/party/registration" element={<PartyRegistration />} />
+                            <Route
+                                path="/GN"
+                                element={
+                                    <ProtectedRoute
+                                        element={GnHome}
+                                        role="GramaNiladhari"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/GN/voter_applications"
+                                element={
+                                    <ProtectedRoute
+                                        element={VoterApplications}
+                                        role="GramaNiladhari"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/GN/form_review/:ApplicationID"
+                                element={
+                                    <ProtectedRoute
+                                        element={FormReview}
+                                        role="GramaNiladhari"
+                                    />
+                                }
+                            />
                             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
                         </Route>
                     </Routes>
