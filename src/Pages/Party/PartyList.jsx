@@ -11,7 +11,8 @@ import slppImage from '../../assets/slpp.jpg';
 const parties = [
   {
     id: "1",
-    name: "United National Party (UNP)",
+    name: "United National Party",
+    abbreviation: "(UNP)",
     leader: "Mr. Ranil Wickremesinghe",
     secretary: "Mr. Akila Viraj Kariyawasam",
     image: unpImage,  // Updated to use the imported image
@@ -19,7 +20,8 @@ const parties = [
   },
   {
     id: "2",
-    name: "Sri Lanka Podujana Peramuna (SLPP)",
+    name: "Sri Lanka Podujana Peramuna",
+    abbreviation: "(SLPP)",
     leader: "Mr. Mahinda Rajapaksha",
     secretary: "Mr. Sagara Kariyawasam",
     image: slppImage,  // Updated to use the imported image
@@ -49,12 +51,10 @@ export const PartyList = () => {
           </div>
         </div>
         <div className='flex gap-4'>
-          <div className='leftContainer w-[70%]'>
-            <div className="flex flex-col">
+            <div className="flex flex-wrap gap-4">
               {parties.map((party, index) => (
                 <PartyCard key={index} party={party} />
               ))}
-            </div>
           </div>
           <div className='rightContainer w=[30%]'>
 

@@ -11,8 +11,10 @@ import { Announcements } from "./Pages/Announcements";
 import { Inquiries } from "./Pages/Party/Inquiries";
 import {VoterRegistration_2} from "./Pages/VoterRegistration/VoterRegistration_2.jsx";
 import {EmailVerification} from "./Pages/VoterRegistration/EmailVerification.jsx";
-
+import { Manifesto } from "./Pages/Party/Manifesto";
+import {PartyMember} from "./Pages/Party/PartyMember";
 import "./App.css";
+
 
 // Create a QueryClient instance
 const queryClient = new QueryClient();
@@ -34,6 +36,8 @@ function App() {
                             <Route path="/party/:partyId" element={<Party />} />
                             <Route path="/party/list" element={<PartyList />} />
                             <Route path="/party/registration" element={<PartyRegistration />} />
+                            <Route path="/party/member" element={<PartyMember />} />
+                            <Route path="/party/member/manifesto" element={<Manifesto />} />
                             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
                         </Route>
                     </Routes>

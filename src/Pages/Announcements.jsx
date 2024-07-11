@@ -1,5 +1,6 @@
 import React from 'react'
 import {AnnouncementCard} from '../Components/AnnouncementCard';
+import { PublishAnnouncementModal } from '../Components/PublishAnnouncementModal';
 import Button from '@mui/material/Button';
 
 const announcements = [
@@ -89,8 +90,10 @@ const announcements = [
 
 export const Announcements = () => {
 
-    const openPublishAnnouncementModal = () => {
+    const [open, setOpen] = React.useState(false);
 
+    const openPublishAnnouncementModal = () => {
+        setOpen(true);
     }
 
 
@@ -114,6 +117,8 @@ export const Announcements = () => {
                     announcements.map(announcement => <AnnouncementCard title={announcement.title} author={announcement.author} date={announcement.date} content={announcement.content}/>)
                 }
             </div>
+            {/* Publish Announcement Modal */}
+            <PublishAnnouncementModal open={open}/>
         </div>
     </div>
   )
