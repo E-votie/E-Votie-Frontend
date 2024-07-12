@@ -1,18 +1,21 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from 'react-query';
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {QueryClient, QueryClientProvider} from 'react-query';
 import {VoterRegistration_1} from "./Pages/VoterRegistration/VoterRegistration_1";
-import { Layout } from "./Layout.jsx";
-import { Home } from "./Pages/Home.jsx";
-import { Party } from "./Pages/Party/Party.jsx";
-import { PartyList } from "./Pages/Party/PartyList.jsx";
-import { PartyRegistration } from "./Pages/Party/PartyRegistration";
-import { Announcements } from "./Pages/Announcements";
-import { Inquiries } from "./Pages/Party/Inquiries";
+import {Layout} from "./Layout.jsx";
+import {Home} from "./Pages/Home.jsx";
+import {Party} from "./Pages/Party/Party.jsx";
+import {PartyList} from "./Pages/Party/PartyList.jsx";
+import {PartyRegistration} from "./Pages/Party/PartyRegistration";
+import {Announcements} from "./Pages/Announcements";
+import {Inquiries} from "./Pages/Party/Inquiries";
 import {VoterRegistration_2} from "./Pages/VoterRegistration/VoterRegistration_2.jsx";
 import {EmailVerification} from "./Pages/VoterRegistration/EmailVerification.jsx";
 import { Manifesto } from "./Pages/Party/Manifesto";
 import {PartyMember} from "./Pages/Party/PartyMember";
+import ErrorBoundary from "./Components/ErrorBoundary.jsx";
+import {FormReview} from "./Pages/GramaNiladhari/FormReview.jsx";
+
 import "./App.css";
 
 
@@ -44,7 +47,7 @@ function App() {
                 </Router>
             </div>
         </QueryClientProvider>
-    )
+    );
 }
 
 export default App;
