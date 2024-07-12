@@ -226,6 +226,7 @@ export const PartyMember = () => {
                   </div>
                 </div>
               </div>
+              
             </div>
           </div>
 
