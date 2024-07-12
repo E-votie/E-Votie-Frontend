@@ -32,7 +32,18 @@ class KeycloakService {
     }
 
     doLogin() {
-        this.keycloak.login();
+        console.log('Logging in...')
+        this.keycloak.login()
+            .then(() => {
+                console.log('Login successful');
+                if (this.isLoggedIn()) {
+                    console.log('User is logged in');
+                    this.redirectBasedOnRole();
+                }
+            })
+            .catch(error => {
+                console.error('Login failed', error);
+            });
     }
 
     doLogout() {
@@ -50,6 +61,46 @@ class KeycloakService {
     notifyListeners() {
         this.authListeners.forEach(callback => callback(this.authenticated));
     }
+
+    // New method to get user roles
+    getUserRoles() {
+        if (this.keycloak && this.keycloak.tokenParsed) {
+            // Check realm roles
+            const realmRoles = this.keycloak.tokenParsed.realm_access?.roles || [];
+
+            // Check client roles
+            const clientId = this.keycloak.clientId;
+            const clientRoles = this.keycloak.tokenParsed.resource_access?.[clientId]?.roles || [];
+
+            // Combine realm and client roles
+            return [...realmRoles, ...clientRoles];
+        }
+        return [];
+    }
+
+    getToken() {
+        return this.keycloak.token;
+    }
+
+    // New method to handle redirection based on role
+    redirectBasedOnRole() {
+        console.log('Redirecting based on role')
+        const roles = this.getUserRoles();
+        console.log('Roles:', roles);
+        if (roles.includes('GramaNiladhari')) {
+            window.location.href = '/GN';
+        } else if (roles.includes('user')) {
+            window.location.href = '/user-dashboard';
+        } else {
+            // Default redirection if no specific role is found
+            window.location.href = '/home';
+        }
+    }
+
+    hasRole(role) {
+        return this.getUserRoles().includes(role);
+    }
+
 }
 
 const instance = new KeycloakService();
