@@ -4,12 +4,23 @@ import { PartyDetails } from '../../Components/PartyDetails';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, Grid, Typography, LinearProgress, Avatar } from '@mui/material';
 import { PopUpChat } from '../../Components/PopUpChat';
-
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleOutlineSharpIcon from '@mui/icons-material/AddCircleOutlineSharp';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { PartyMemberTermsInParliment } from '../../Components/PartyMemberTermsInParliment';
+import { PartyMemberBiography } from '../../Components/PartyMemberBiography';
 
 const candidates = [1,1,1,1,1,1,1,1,1,1,1,1];
 
 const partyMember = {
-    name: "Mahinda Rajapaksa",
+    name: "Percy Mahinda Rajapaksa",
     position: "Prime Minister - Finance, Economic and Policy Planning",
     profilePicture: "../src/assets/mr.jpg",
     summary: {
@@ -29,10 +40,18 @@ const partyMember = {
     ],
     biography: {
       dob: "1945-11-18",
+      born: "Weeraketiya",
       gender: "Male",
-      education: [
+      schoolEducation: [
         { school: "Richmond College, Galle" },
         { school: "Nalanda College, Colombo" },
+        // Add more education details as needed
+      ],
+      undergraduateEducation: [
+        { university: " Sri Lanka Law College" }
+        // Add more education details as needed
+      ],
+      postgraduateEducation: [
         // Add more education details as needed
       ],
       // Add more biography details as needed
@@ -46,37 +65,52 @@ const partyMember = {
 
 const terms = [
   {
+    termId: 1,
     dateRange: '2020-08-20 to present',
+    startDate: '2020-08-20',
+    endDate: 'present',
     party: 'Sri Lanka Podujana Peramuna (SLPP)',
     logo: 'path-to-slpp-logo.png',
     progress: 100,
   },
   {
+    termId: 2,
     dateRange: '2015-09-01 - 2020-03-02',
+    startDate: '2015-09-01',
+    endDate: '2020-03-02',
     party: 'United People\'s Freedom Alliance (UPFA)',
     logo: 'path-to-upfa-logo.png',
     progress: 80,
   },
   {
+    termId: 3,
     dateRange: '2004-04-22 - 2005-11-19',
+    startDate: '2004-04-22',
+    endDate: '2005-11-19',
     party: 'United People\'s Freedom Alliance (UPFA)',
     logo: 'path-to-upfa-logo.png',
     progress: 60,
   },
   {
+    termId: 4,
     dateRange: '2001-12-19 - 2004-02-07',
+    startDate: '2001-12-19',
+    endDate: '2004-02-07',
     party: 'People\'s Alliance (PA)',
     logo: 'path-to-pa-logo.png',
     progress: 40,
   },
   {
+    termId: 5,
     dateRange: '2000-10-18 - 2001-10-10',
+    startDate: '2000-10-18',
+    endDate: '2001-10-10',
     party: 'People\'s Alliance (PA)',
     logo: 'path-to-pa-logo.png',
     progress: 20,
   },
 ];
-
+  
 
 const contactDetails = {
   address: {
@@ -140,38 +174,101 @@ const party = {
   "website": "http://www.slpp.lk"
 };
 
+const activities = [
+  {
+    hansardCode: '311-6',
+    date: '2024-02-22',
+    method: 'Oral Contribution',
+    topic: 'Governance, Administration and Parliamentary Affairs',
+    page: '24'
+  },
+  {
+    hansardCode: '307-8',
+    date: '2023-11-21',
+    method: 'Bill / Regulation / Order /Resolution - Debate Oral Contribution',
+    topic: 'Economy and Finance',
+    page: '44'
+  },
+  {
+    hansardCode: '304-13',
+    date: '2023-07-18',
+    method: 'Adjournment Motion Type 2',
+    topic: 'Governance, Administration and Parliamentary Affairs',
+    page: '68'
+  },
+  {
+    hansardCode: '303-8',
+    date: '2023-05-26',
+    method: 'Oral Contribution - Core Statements',
+    topic: 'Governance, Administration and Parliamentary Affairs',
+    page: '20'
+  },
+  {
+    hansardCode: '297-08',
+    date: '2022-11-22',
+    method: 'Bill / Regulation / Order /Resolution - Debate Oral Contribution',
+    topic: 'Economy and Finance',
+    page: '14'
+  },
+  {
+    hansardCode: '296-17',
+    date: '2022-11-11',
+    method: 'Oral Contribution - Core Statements',
+    topic: 'Governance, Administration and Parliamentary Affairs',
+    page: '29'
+  },
+  {
+    hansardCode: '296-04',
+    date: '2022-09-23',
+    method: 'Oral Contribution - Core Statements',
+    topic: 'Governance, Administration and Parliamentary Affairs',
+    page: '14'
+  }
+];
+
+const topics = [
+  { number: 75, topic: 'Governance, Administration and Parliamentary Affairs', color: 'primary' },
+  { number: 83, topic: 'Trade & Industry', color: 'secondary' },
+  { number: 84, topic: 'Economy and Finance', color: 'error' },
+  { number: 89, topic: 'Labour & Employment', color: 'warning' },
+  { number: 124, topic: 'National Heritage, Media & Sports', color: 'info' },
+  { number: 130, topic: 'Urban Planning, Infrastructure and Transportation', color: 'error' },
+  { number: 143, topic: 'Justice, Defence & Public Order', color: 'warning' },
+  { number: 173, topic: 'Agriculture, Plantations, Livestock & Fisheries', color: 'info' },
+  { number: 173, topic: 'Health', color: 'error' }
+];
+
 
 export const PartyMember = () => {
+
   return (
     <div className="min-h-[600px] flex flex-col bg-gray-100 shadow-2xl pb-4 rounded-lg">
-      {/* Cover Image */}
+      
+      {/* Politician Header */}
       <div className="relative">
+        {/* Cover Image */}
         <img
-          src="..\src\assets\politician-bg.png" 
+          src="..\src\assets\politician-bg.png"
           alt="Cover"
           className="w-full h-64 object-cover"
         />
-        {/* <EditIcon /> */}
-        {/* Politician Header */}
-        <div className="absolute top-16 right-1/2 overflow-hidden text-white">
-          <div className='relative flex items-center justify-normal gap-6'>
+        {/* Politician Profile Pictue, Name and Contact Details */}
+        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 text-white w-full max-w-4xl px-4">
+          <div className="relative flex flex-col md:flex-row items-center justify-center md:justify-start gap-6 md:gap-6">
             {/* Politician Profile Picture */}
-            <div className="profilePicture relative w-32 h-32 bg-white border-4 border-gray-300 rounded-full ">
+            <div className="profilePicture relative w-32 h-32 bg-white border-4 border-gray-300 rounded-full">
               <img
-                src={partyMember.profilePicture} 
+                src={partyMember.profilePicture}
                 alt="Party Symbol"
                 className="w-full h-full object-cover rounded-full"
               />
-              <div className="absolute bottom-2 right-2 transform translate-x-2 translate-y-2 p-1 bg-gray-800 rounded-full z-10">
-                <EditIcon className="text-white cursor-pointer" />
-              </div>          
             </div>
-            <div className=" text-white">
-              <h1 className="text-4xl font-bold">{partyMember.name}</h1>
-              <p className="mt-2 ">
-                <span className="mr-4">📞 {partyMember.contact.phone}</span>
+            <div className="text-center md:text-left text-white">
+              <h1 className="text-2xl md:text-4xl font-bold">{partyMember.name}</h1>
+              <p className="mt-2 flex flex-col md:flex-row justify-center md:justify-start gap-2 md:gap-4">
+                <span className="mr-0 md:mr-4">📞 {partyMember.contact.phone}</span>
                 <span>📧 {partyMember.contact.email}</span>
-                <span className="ml-4">🌐 slpp.org</span>
+                <span className="ml-0 md:ml-4">🌐 slpp.org</span>
               </p>
             </div>
           </div>
@@ -183,93 +280,19 @@ export const PartyMember = () => {
         <div className="bg-white rounded-lg py-8 px-4 w-[90%]">
 
           {/* Biography */}
-          <div className="pb-2 mb-8">
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              Biography
-            </Typography>   
-            <Divider />
-
-            <div className="p-4">
-
-              <div className="mt-4 w-1/2">
-                <h2 className="text-gray-600 font-semibold">Personal</h2>
-                <div className="bg-gray-100 p-2 mt-2">
-                  <div className="flex justify-between">
-                    <span className="font-semibold">Date Of Birth:</span>
-                    <span>1945-11-18</span>
-                  </div>
-                  <div className="flex justify-between mt-2">
-                    <span className="font-semibold">Gender:</span>
-                    <span>Male</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="mt-6 w-1/2">
-                <h2 className="text-gray-600 font-semibold">Education</h2>
-                <div className="bg-gray-100 p-2 mt-2">
-                  <div className="flex justify-between">
-                    <span className="font-semibold">School:</span>
-                    <span>Richmond College, Galle, Nalanda College, Colombo</span>
-                  </div>
-                  <div className="flex justify-between mt-2">
-                    <span className="font-semibold">School 2:</span>
-                    <span>Thurstan College, Colombo</span>
-                  </div>
-                  <div className="flex justify-between mt-2">
-                    <span className="font-semibold">Undergraduate:</span>
-                    <span>Sri Lanka Law College, Colombo</span>
-                  </div>
-                  <div className="flex justify-between mt-2">
-                    <span className="font-semibold">Postgraduate:</span>
-                    <span></span>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          </div>
+          <PartyMemberBiography partyMember={partyMember}/>
 
           {/* Terms in Parliment */}
-          <div className="pb-2 mb-8">
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              Terms in parliament
-            </Typography>            
-            <Divider />
-
-            <Box p={2}>
-              {terms.map((term, index) => (
-                <Grid container alignItems="center" spacing={2} key={index} my={1}>
-                  <Grid item xs={3}>
-                    <Typography>{term.dateRange}</Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <LinearProgress
-                      variant="determinate"
-                      value={term.progress}
-                      sx={{ height: 10, borderRadius: 5 }}
-                    />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <Avatar src={term.logo} alt="Party Logo" />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography>{term.party}</Typography>
-                  </Grid>
-                </Grid>
-              ))}
-            </Box>
-          </div>
+          <PartyMemberTermsInParliment terms={terms}/>
 
           {/* Contact*/}
           <div className="pb-2 mb-8">
-            <h6 className="text-xl font-bold mb-4">Contact</h6>
+            <Typography variant="h6" color="textSecondary" gutterBottom>
+              Contact
+            </Typography> 
             <Divider />
 
             <Box p={2}>
-              <Typography variant="h6" color="textSecondary" gutterBottom>
-                Contact
-              </Typography>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Typography variant="subtitle1" sx={{ backgroundColor: '#e0e0e0', p: 1, fontWeight: 'bold' }}>
@@ -318,15 +341,51 @@ export const PartyMember = () => {
             <h6 className="text-xl font-bold mb-4">Topics Participated</h6>
             <Divider />
           </div>
+
           {/* Activities in Parliment */}
           <div>
             <h6 className="text-xl font-bold mb-4">Activities in Parliment</h6>
             <Divider />
 
+            <Paper elevation={3}>
+            <Typography variant="h6" color="textSecondary" gutterBottom>
+              Activities
+            </Typography>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Hansard code & date</TableCell>
+                      <TableCell>Method of contribution</TableCell>
+                      <TableCell>Topic</TableCell>
+                      <TableCell>Page number</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {activities.map((activity, index) => (
+                      <TableRow key={index}>
+                        <TableCell>
+                          {activity.hansardCode} ({activity.date})
+                        </TableCell>
+                        <TableCell>{activity.method}</TableCell>
+                        <TableCell>
+                          <span style={{ display: 'flex', alignItems: 'center' }}>
+                            <img src="path/to/icon.png" alt="icon" style={{ marginRight: 8 }} />
+                            {activity.topic}
+                          </span>
+                        </TableCell>
+                        <TableCell>Page {activity.page}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
           </div>
 
         </div>
       </div>
+
       <PopUpChat messages={messages}/>
     </div>
   );
