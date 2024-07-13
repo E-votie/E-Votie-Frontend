@@ -40,14 +40,14 @@ export const PartyList = () => {
     <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6">
       <div className='partyListcontainer'>
         {/* Header */}
-        <div className='header mt-8 mb-4 flex justify-between items-center'>
+        <div className='header my-8 flex justify-between items-center'>
           {/* Topic */}
           <div className="topic text-3xl">
               Recognized Parties
           </div>
           {/* Publish new announcement */}
           <div className=''>
-              <Button variant="contained" onClick={openPartyRegistration} className='bg-pink-500'>Register New Party</Button>
+              <Button variant="outlined" onClick={openPartyRegistration} className='bg-pink-500'>Register New Party</Button>
           </div>
         </div>
         <div className='flex gap-4'>

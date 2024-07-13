@@ -18,6 +18,8 @@ import {FormReview} from "./Pages/GramaNiladhari/FormReview.jsx";
 import {GnHome} from "./Pages/GramaNiladhari/GnHome.jsx";
 import {VoterApplications} from "./Pages/GramaNiladhari/VoterApplications.jsx";
 import ProtectedRoute from "./services/ProtectedRoute.jsx";
+import {ElectionList} from "./Pages/Party/ElectionList";
+import {Election} from "./Pages/Party/Election";
 
 import "./App.css";
 
@@ -46,6 +48,9 @@ function App() {
                             <Route path="/party/registration" element={<PartyRegistration />} />
                             <Route path="/party/member" element={<PartyMember />} />
                             <Route path="/party/member/manifesto" element={<Manifesto />} />
+                            <Route path="/election/list" element={<ElectionList />} />
+                            <Route path="/election" element={<Election />} />
+
                             <Route
                                 path="/GN"
                                 element={
