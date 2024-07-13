@@ -9,6 +9,8 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import HowToVoteIcon from '@mui/icons-material/HowToVote';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
+import CampaignIcon from '@mui/icons-material/Campaign';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 const getIcon = (icon) => {
   switch (icon) {
@@ -24,6 +26,10 @@ const getIcon = (icon) => {
       return <ContactSupportIcon sx={{ fontSize: 40 }} />;
     case "announcement":
       return <AnnouncementIcon sx={{ fontSize: 40 }} />;
+    case "results":
+      return <CampaignIcon sx={{ fontSize: 40 }} />;
+    case "create":
+      return <AddBoxIcon sx={{ fontSize:40}} />;
     default:
       return <AnnouncementIcon sx={{ fontSize: 40 }} />; // Default icon
   }
