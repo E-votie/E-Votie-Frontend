@@ -7,17 +7,17 @@ import Tooltip from '@mui/material/Tooltip';
 import { EditPartyMemberBiography } from './EditPartyMemberBiography';
 
 export const PartyMemberBiography = ({partyMember}) => {
-    const [editBiography, setEditBiography] = React.useState(false);
+    const [openEditBiographyModal, setOpenEditBiographyModal] = React.useState(false);
     const [selectedPartyMember, setSelectedPartyMember] = React.useState(null);
 
     const handleOpenEditBiographyModal = () => {
         setSelectedPartyMember(partyMember);
-        setEditBiography(true);
+        setOpenEditBiographyModal(true);
         console.log("Edit Biography is called");
     };
 
     const handleCloseEditBiographyModal = () => {
-        setEditBiography(false);
+        setOpenEditBiographyModal(false);
     };
 
 
@@ -36,7 +36,7 @@ export const PartyMemberBiography = ({partyMember}) => {
 
             {/* Edit Biography Modal */}
             {
-                editBiography && <EditPartyMemberBiography open={editBiography} handleClose={handleCloseEditBiographyModal} partyMember={selectedPartyMember}/>
+                openEditBiographyModal && <EditPartyMemberBiography open={openEditBiographyModal} handleClose={handleCloseEditBiographyModal} partyMember={selectedPartyMember}/>
             }
 
             <Divider />

@@ -1,44 +1,65 @@
 import React from 'react';
-import {Politician} from '../../Components/PoliticianCard';
+import { Politician } from '../../Components/PoliticianCard';
 import Divider from '@mui/material/Divider';
 import { PartyDetails } from '../../Components/PartyDetails';
+import { Box, Typography } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import Tooltip from '@mui/material/Tooltip';
+import { EditPartyInfo } from '../../Components/EditPartyInfo';
+import { MoreOverMenu } from '../../Components/MoreOverMenu';
 
-const candidates = [1,1,1,1,1,1,1,1,1,1,1,1];
+const options = [
+  "View Join Requests",
+  "Add New Party Member"
+];
+
+const candidates = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
 const party = {
-  "partyName": "Sri Lanka Podujana Peramuna",
-  "abbreviation": "SLPP",
-  "logo": "https://pbs.twimg.com/profile_images/1042605472249864192/P8mqmZXX_400x400.jpg",
-  "leader": "Mahinda Rajapaksa",
-  "secretary": "Sagara Kariyawasam",
-  "foundedYear": 2016,
-  "headquarters": {
-      "address": "No. 1316, Podujana Peramuna, Jayanthipura, Nelum Mawatha, Battaramulla 10120, Sri Lanka",
-      "contactNumber": "+94112866010"
+  partyName: "Sri Lanka Podujana Peramuna",
+  abbreviation: "SLPP",
+  logo: "https://pbs.twimg.com/profile_images/1042605472249864192/P8mqmZXX_400x400.jpg",
+  leader: "Mahinda Rajapaksa",
+  secretary: "Sagara Kariyawasam",
+  foundedYear: 2016,
+  headquarters: {
+    address: "No. 1316, Podujana Peramuna, Jayanthipura, Nelum Mawatha, Battaramulla 10120, Sri Lanka",
+    contactNumber: "+94112866010",
   },
-  "colors": ["Red", "Blue", "Green"],
-  "seatsInParliament": {
-      "districtBasisSeats": 128,
-      "nationalBasisSeats": 17,
-      "totalSeats": 145
+  colors: ["Red", "Blue", "Green"],
+  seatsInParliament: {
+    districtBasisSeats: 128,
+    nationalBasisSeats: 17,
+    totalSeats: 145,
   },
-  "website": "http://www.slpp.lk"
+  website: "http://www.slpp.lk",
 };
 
 export const Party = () => {
+  const [openEditPartyInfoModal, setOpenEditPartyInfoModal] = React.useState(false);
+
+  const handleOpenEditPartyInfoModal = () => {
+    setOpenEditPartyInfoModal(true);
+  };
+
+  const handleCloseEditPartyInfoModal = () => {
+    setOpenEditPartyInfoModal(false);
+  };
+
   return (
     <div className="min-h-[600px] flex flex-col bg-gray-100 shadow-2xl pb-4 rounded-lg">
       {/* Cover Image */}
       <div className="relative">
         <img
-          src="..\src\assets\politician-bg.png" // Replace with the actual cover image URL
+          src="..\src\assets\politician-bg.png"
           alt="Cover"
           className="w-full h-64 object-cover"
         />
         {/* Party Symbol */}
         <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-white border-4 border-gray-300 rounded-full overflow-hidden">
           <img
-            src="..\src\assets\slpp.jpg" // Replace with the actual party symbol URL
+            src="..\src\assets\slpp.jpg"
             alt="Party Symbol"
             className="w-full h-full object-cover"
           />
@@ -68,22 +89,47 @@ export const Party = () => {
             </div>
           </div>
           <Divider />
-          <div className='flex flex-row-reverse gap-6 py-4 mt-4'>
-            <div className='partyDetailsContainer w-2/5'>
-              <h6 className="text-xl font-bold mb-4">Party Info</h6>
-              <div className='partyInfo'>
-                <PartyDetails party={party}/>
+          <div className="flex flex-row-reverse gap-12 py-4 mt-4">
+            {/* Party Information */}
+            <div className="partyDetailsContainer w-3/5">
+              <Box className="flex justify-between">
+                <Typography variant="h6" color="textSecondary" gutterBottom>
+                  Party Info
+                </Typography>
+                <Tooltip title="Update Party Info" arrow>
+                  <IconButton onClick={handleOpenEditPartyInfoModal} color="primary">
+                    <EditNoteIcon />
+                  </IconButton>
+                </Tooltip>
+              </Box>
+              <Divider />
+              <Box my={2} />
+              {/* Edit Party Info Modal */}
+              {openEditPartyInfoModal && (
+                <EditPartyInfo
+                  open={openEditPartyInfoModal}
+                  handleClose={handleCloseEditPartyInfoModal}
+                  partyInfo={party}
+                />
+              )}
+              <div className="partyInfo">
+                <PartyDetails party={party} />
               </div>
             </div>
-            <Divider orientation="vertical" flexItem/>
-            {/* Politician Section */}
-            <div className='politicianContainer'>
-              <h6 className="text-xl font-bold mb-4">Politicians</h6>
-              {/* List of Politicians */}
-              <div className='flex flex-col gap-2'>
-                {
-                  candidates.map((candidate) => <Politician />)
-                }
+            {/* Set of Politicians */}
+            <div className="politicianContainer">
+              <Box className="flex justify-between">
+                <Typography variant="h6" color="textSecondary" gutterBottom>
+                  Politicians
+                </Typography>
+                <MoreOverMenu options={options} />
+              </Box>
+              <Divider />
+              <Box my={2} />
+              <div className="flex flex-col gap-2">
+                {candidates.map((candidate, index) => (
+                  <Politician key={index} />
+                ))}
               </div>
             </div>
           </div>
@@ -91,5 +137,5 @@ export const Party = () => {
       </div>
     </div>
   );
-}
+};
 

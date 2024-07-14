@@ -6,6 +6,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 const options = [
   'Edit',
@@ -18,6 +20,10 @@ const getIcon = (option) => {
           return <EditIcon sx={{fontSize: 20}}/>;
       case "Delete":
           return <DeleteIcon sx={{fontSize: 20}}/>;
+      case "View Join Requests":
+        return <PeopleAltIcon sx={{fontSize: 20}}/>;
+      case "Add New Party Member":
+        return <PersonAddIcon sx={{fontSize: 20}}/>;
       default:
           return <AnnouncementIcon sx={{fontSize: 40}}/>; // Default icon
   }
@@ -65,7 +71,7 @@ export const MoreOverMenu = ({ options, onEdit, onDelete }) => {
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: '20ch',
+            maxWidth: '30ch',
           },
         }}
       >
