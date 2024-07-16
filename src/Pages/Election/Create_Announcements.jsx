@@ -11,7 +11,7 @@ import React, {useState} from 'react';
 
 const MySwal = withReactContent(Swal)
 
-export const CreateElection = () => {
+export const Create_Announcements = () => {
 
     const schema = object({
         // ElectionName: yup.string("Invalid Name").required("Can not be empty").matches(/^\D*$/, "Invalid name"),
@@ -28,7 +28,7 @@ export const CreateElection = () => {
     })
 
     const mutation = useMutation((data) => {
-        return axios.post('http://localhost:8081/Election/Create', data);
+        return axios.post('http://localhost:8081/Election/Create_Announcements', data);
     });
 
     const onSubmit = async (data) => {
