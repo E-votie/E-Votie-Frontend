@@ -33,7 +33,7 @@ export const PartyRegistrationForm = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex-initial space-y-3 mb-4 w-full">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex-initial space-y-3 mb-4 w-full shadow-md rounded-lg p-2">
                 {/* Party name and abbreviation */}
                 <div className="partyName flex gap-4">
                 <TextField

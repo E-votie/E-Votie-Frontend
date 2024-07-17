@@ -89,9 +89,9 @@ export const Party = () => {
             </div>
           </div>
           <Divider />
-          <div className="flex flex-row-reverse gap-12 py-4 mt-4">
+          <div className="flex lg:flex-row-reverse sm:flex-col xs:flex-col-reverse gap-12 py-4 mt-4">
             {/* Party Information */}
-            <div className="partyDetailsContainer w-3/5">
+            <div className="partyDetailsContainer lg:w-3/5 sm:w-full">
               <Box className="flex justify-between">
                 <Typography variant="h6" color="textSecondary" gutterBottom>
                   Party Info

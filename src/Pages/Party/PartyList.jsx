@@ -2,7 +2,25 @@ import React from 'react';
 import PartyCard from '../../Components/PartyCard';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
+}
+
+const rows = [
+  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  createData('Eclair', 262, 16.0, 24, 6.0),
+  createData('Cupcake', 305, 3.7, 67, 4.3),
+  createData('Gingerbread', 356, 16.0, 49, 3.9),
+];
 
 // Importing images
 import unpImage from '../../assets/unp.png';
@@ -50,14 +68,51 @@ export const PartyList = () => {
               <Button variant="outlined" onClick={openPartyRegistration} className='bg-pink-500'>Register New Party</Button>
           </div>
         </div>
-        <div className='flex gap-4'>
-            <div className="flex flex-wrap gap-4">
+        <div className='flex gap-12'>
+          <div className='leftContainer'>
+            <label className="input input-bordered flex items-center gap-2 mb-6 h-8">
+              <input type="text" className="grow input-xs" placeholder="Search" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="h-4 w-4 opacity-70">
+                <path
+                  fillRule="evenodd"
+                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                  clipRule="evenodd" />
+              </svg>
+            </label>
+            <div className="flex flex-wrap gap-2">
               {parties.map((party, index) => (
                 <PartyCard key={index} party={party} />
               ))}
+            </div>
           </div>
-          <div className='rightContainer w=[30%]'>
-
+          <div className='rightContainer w-2/5'>
+            <TableContainer component={Paper}>
+              <Table sx={{ maxWidth: 650 }} size="small" aria-label="a dense table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Party</TableCell>
+                    <TableCell align="right">No. Of MPs</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow
+                      key={row.name}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="right">{row.fat}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </div>
         </div>
       </div>

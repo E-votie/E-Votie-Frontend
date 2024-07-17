@@ -1,4 +1,4 @@
-import { Divider } from "@mui/material";
+import { Divider, Paper } from "@mui/material";
 import { List, ListItem, ListItemText, Typography } from '@mui/material';
 import {PartyRegistrationForm} from '../../Components/PartyRegistrationForm';
 import {Box, Stack} from "@mui/material";
@@ -15,7 +15,7 @@ export const PartyRegistration = () => {
                     </div>
                 </div>   
                 {/* Application form and instructions */}
-                <div className="flex gap-8">      
+                <div className="flex lg:flex-row sm:flex-col gap-12">      
                     <div className="instructions w-1/2 flex-col grow ">
                         <Stack >
                             <div className="topic text-xl mb-4 font-bold ">
@@ -64,11 +64,12 @@ export const PartyRegistration = () => {
                         </Stack>
 
                     </div>
-                    <Divider orientation="vertical" flexItem/>
+                    {/* Party Registration Application */}
                     <div className="applicationForm w-1/2">
                         <div className="topic text-xl mb-4 font-bold ">
                             Application
                         </div> 
+                        <Divider />
                         <PartyRegistrationForm />
                     </div>
                 </div>
