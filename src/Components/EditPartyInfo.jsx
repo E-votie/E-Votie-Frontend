@@ -283,7 +283,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                             </ Stack>
 
                             <Stack direction="row" className='gap-4'>
-                                <Box mb={2} className="w-1/2">
+                                <Box mb={3} className="w-1/2">
                                     <FormControl fullWidth required>
                                         <Stack>
                                             <InputLabel id="born-label">City</InputLabel>
@@ -306,7 +306,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                         </Stack>
                                     </FormControl>
                                 </Box>
-                                <Box mb={2}>
+                                <Box mb={3}>
                                     <TextField
                                         helperText="Headquarter postal code"
                                         variant='outlined'
