@@ -8,7 +8,7 @@ const actions = [
         "action": "Create Election",
         "icon": "create",
         "description": "Create a new election.",
-        "route" : "/Election/Create"
+        "Link" : "/Election/Create"
     },
 
     {
@@ -17,8 +17,8 @@ const actions = [
         "description": "General information about the elections."
     },
     {
-        "action": "Candidate Manifestos",
-        "icon": "candidate",
+        "action": "Dashboard",
+        "icon": "dashboard",
         "description": "Information about the election candidates."
     },
     {
@@ -70,7 +70,7 @@ export const Election_Home = () => {
             </div>
             <div className="h-2/5 flex-grow flex flex-wrap gap-4 justify-center items-center ">
                 {actions.map((action, index) => (
-                    <ActionCard key={index} icon={action.icon} action={action.action} description={action.description}  />
+                    <ActionCard key={index} icon={action.icon} action={action.action} description={action.description} link={action.Link}  />
                 ))}
             </div>
             <div className="h-[2/5] flex-grow flex flex-col justify-center items-center">

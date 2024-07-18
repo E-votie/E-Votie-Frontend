@@ -12,6 +12,7 @@ import AnnouncementIcon from '@mui/icons-material/Announcement';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ArticleIcon from '@mui/icons-material/Article';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const getIcon = (icon) => {
     switch (icon) {
@@ -33,12 +34,15 @@ const getIcon = (icon) => {
             return <CampaignIcon sx={{ fontSize: 40 }} />;
         case "create":
             return <AddBoxIcon sx={{ fontSize:40}} />;
+        case "dashboard":
+            return <DashboardIcon sx={{ fontSize: 40 }} />;
         default:
             return <AnnouncementIcon sx={{ fontSize: 40 }} />; // Default icon
     }
 };
 
 const ActionCard = ({icon, action, description, link}) => {
+    console.log("----------------->>>>>>>>>>>>", link);
     return (
         <a href={link}>
             <Card sx={{width: 230, height:170 }}>
