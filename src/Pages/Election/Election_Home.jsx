@@ -7,7 +7,8 @@ const actions = [
     {
         "action": "Create Election",
         "icon": "create",
-        "description": "Details about the political parties."
+        "description": "Create a new election.",
+        "route" : "/Election/Create"
     },
 
     {
@@ -23,7 +24,7 @@ const actions = [
     {
         "action": "Election Results",
         "icon": "results",
-        "description": "Submit your inquiries here."
+        "description": "View the election results."
     },
     {
         "action": "Announcements",

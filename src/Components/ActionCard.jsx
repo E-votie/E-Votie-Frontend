@@ -41,7 +41,7 @@ const getIcon = (icon) => {
 const ActionCard = ({icon, action, description, link}) => {
     return (
         <a href={link}>
-            <Card sx={{width: 200}}>
+            <Card sx={{width: 230, height:170 }}>
                 <CardActionArea>
                     <div className="flex justify-center items-center my-2">
                         {getIcon(icon)}

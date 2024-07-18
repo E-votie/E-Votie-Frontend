@@ -14,7 +14,6 @@ const MySwal = withReactContent(Swal)
 export const CreateElection = () => {
 
     const schema = object({
-        // ElectionName: yup.string("Invalid Name").required("Can not be empty").matches(/^\D*$/, "Invalid name"),
         Address: yup.string().required("Can not be empty"),
         ChiefOccupantNIC: yup.string("Invalid NIC").required("Can not be empty").length(12, "NIC must be 12 characters long"),
         // NICFront: yup.mixed().required("A file is required").test("fileSize", "File size is too large", value => value && value[0].size <= FILE_SIZE).test("fileFormat", "Unsupported file format", value => value && SUPPORTED_FORMATS.includes(value[0].type)),
