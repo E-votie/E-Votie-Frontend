@@ -26,6 +26,10 @@ import {VoterApplicationsVerificationOfficer} from "./Pages/VerificationOfficer/
 import {FormReviewVerificationOfficer} from "./Pages/VerificationOfficer/FormReview.jsx";
 import {Election_Home} from "./Pages/Election/Election_Home.jsx";
 import {Election_Announcements} from "./Pages/Election/Election_Announcements.jsx";
+import {CreateElection} from "./Pages/Election/CreateElection.jsx";
+import {Create_Announcements} from "./Pages/Election/Create_Announcements.jsx";
+// import {Poling_Stations} from "./Pages/Election/Poling_Stations.jsx";
+
 
 import "./App.css";
 
@@ -111,9 +115,11 @@ function App() {
                                     />
                                 }
                             />
+                            <Route path="/Election/Create" element={<CreateElection />} />
                             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
                             <Route path="/Election/Home" element={<Election_Home />} />
                             <Route path="/Election/Announcements" element={<Election_Announcements />} />
+                            {/*<Route path="/Election/Poling_Stations" element={<Poling_Stations />} />*/}
 
                         </Route>
                     </Routes>

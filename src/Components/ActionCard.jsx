@@ -13,6 +13,7 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ArticleIcon from '@mui/icons-material/Article';
 import { useNavigate } from 'react-router-dom';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const getIcon = (icon) => {
     switch (icon) {
@@ -34,6 +35,8 @@ const getIcon = (icon) => {
             return <CampaignIcon sx={{ fontSize: 40 }} />;
         case "create":
             return <AddBoxIcon sx={{ fontSize:40}} />;
+        case "dashboard":
+            return <DashboardIcon sx={{ fontSize: 40 }} />;
         default:
             return <AnnouncementIcon sx={{ fontSize: 40 }} />; // Default icon
     }
