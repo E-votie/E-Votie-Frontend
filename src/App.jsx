@@ -88,15 +88,7 @@ function App() {
                                     />
                                 }
                             />
-                            <Route
-                                path="/verification_officer"
-                                element={
-                                    <ProtectedRoute
-                                        element={VerificationHome}
-                                        role="VerificationOfficer"
-                                    />
-                                }
-                            />
+
                             <Route
                                 path="/verification_officer/voter_applications"
                                 element={
