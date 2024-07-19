@@ -80,7 +80,7 @@ export const PublishAnnouncementModal = ({open}) => {
               Announcement
             </div>
             <div>
-              
+
             </div>
           </div>
           <ConfirmationModal />

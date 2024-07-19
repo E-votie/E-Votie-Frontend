@@ -1,6 +1,6 @@
 // AuthProvider.jsx
 import React, { createContext, useState, useEffect } from 'react';
-import KeycloakService from "../Pages/services/KeycloakService.jsx";
+import KeycloakService from "./../services/KeycloakService.jsx";
 
 const AuthContext = createContext();
 

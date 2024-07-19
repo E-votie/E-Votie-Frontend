@@ -5,8 +5,8 @@ import ColumnGroupingTable from './../../Components/Table.jsx';
 export const VoterApplications = () => {
 
     return (
-        <DataProvider>
-            <ColumnGroupingTable />
+        <DataProvider link={"/gramaniladhari/new-applications"}>
+            <ColumnGroupingTable link={"/GN/form_review/"} />
         </DataProvider>
     );
 };

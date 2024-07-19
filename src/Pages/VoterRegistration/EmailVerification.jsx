@@ -55,7 +55,6 @@ export const EmailVerification = () => {
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate('/Home');
                     }
                 })
                 // Handle error (e.g., show error message)

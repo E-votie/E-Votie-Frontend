@@ -34,7 +34,7 @@ export const VoterRegistration_2 = () => {
         NICFront: yup.mixed().required("A file is required").test("fileSize", "File size is too large", value => value && value[0].size <= FILE_SIZE).test("fileFormat", "Unsupported file format", value => value && SUPPORTED_FORMATS.includes(value[0].type)),
         NICBack: yup.mixed().required("A file is required").test("fileSize", "File size is too large", value => value && value[0].size <= FILE_SIZE).test("fileFormat", "Unsupported file format", value => value && SUPPORTED_FORMATS.includes(value[0].type)),
         Face: yup.mixed().required("A file is required").test("fileSize", "File size is too large", value => value && value[0].size <= FILE_SIZE).test("fileFormat", "Unsupported file format", value => value && SUPPORTED_FORMATS.includes(value[0].type)),
-        Relationship: yup.string().required("Can not be empty").matches(/^\D*$/, "Invalid Relationship"),
+        RelationshipToTheChiefOccupant: yup.string().required("Can not be empty").matches(/^\D*$/, "Invalid Relationship"),
     })
 
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -46,53 +46,53 @@ export const VoterRegistration_2 = () => {
     });
 
     const onSubmit = async (data) => {
-        // console.log(data);
-        // const NICFront = new FormData();
-        // const NICFrontFileName = responseData.applicationID+"NICFront";
-        // const NICFrontFile = new File([data.NICFront], NICFrontFileName, { type: data.NICFront.type });
-        // NICFront.append('file', NICFrontFile);
-        // try {
-        //     const response = await axios.post('http://localhost:8081/api/files/upload', NICFront, {
-        //         headers: { 'Content-Type': 'multipart/form-data' }
-        //     });
-        //     setUploadStatus(`File uploaded successfully: ${response.data}`);
-        // } catch (error) {
-        //     console.error('Error uploading file:', error);
-        //     setUploadStatus('Error uploading file');
-        // }
-        // const NICBack = new FormData();
-        // const NICBackFileName = responseData.applicationID+"NICBack";
-        // const NICBackFile = new File([data.NICBack], NICBackFileName, { type: data.NICBack.type });
-        // NICBack.append('file', NICBackFile);
-        // try {
-        //     const response = await axios.post('http://localhost:8081/api/files/upload', NICBack, {
-        //         headers: { 'Content-Type': 'multipart/form-data' }
-        //     });
-        //     setUploadStatus(`File uploaded successfully: ${response.data}`);
-        // } catch (error) {
-        //     console.error('Error uploading file:', error);
-        //     setUploadStatus('Error uploading file');
-        // }
-        // const Face = new FormData();
-        // const FaceFileName = responseData.applicationID+"Face";
-        // const FaceFile = new File([data.Face], FaceFileName, { type: data.Face.type });
-        // Face.append('file', FaceFile);
-        // try {
-        //     const response = await axios.post('http://localhost:8081/api/files/upload', Face, {
-        //         headers: { 'Content-Type': 'multipart/form-data' }
-        //     });
-        //     setUploadStatus(`File uploaded successfully: ${response.data}`);
-        // } catch (error) {
-        //     console.error('Error uploading file:', error);
-        //     setUploadStatus('Error uploading file');
-        // }
+        const NICFront = new FormData();
+        const NICFrontFileName = responseData.applicationID+"_NICFront.jpg";
+        console.log(data.NICFront[0])
+        const NICFrontFile = new File([data.NICFront[0]], NICFrontFileName, { type: data.NICFront.type });
+        NICFront.append('file', NICFrontFile);
+        try {
+            const response = await axios.post('http://localhost:8081/api/files/upload', NICFront, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            setUploadStatus(`File uploaded successfully: ${response.data}`);
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            setUploadStatus('Error uploading file');
+        }
+        const NICBack = new FormData();
+        const NICBackFileName = responseData.applicationID+"_NICBack.jpg";
+        const NICBackFile = new File([data.NICBack[0]], NICBackFileName, { type: data.NICBack.type });
+        NICBack.append('file', NICBackFile);
+        try {
+            const response = await axios.post('http://localhost:8081/api/files/upload', NICBack, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            setUploadStatus(`File uploaded successfully: ${response.data}`);
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            setUploadStatus('Error uploading file');
+        }
+        const Face = new FormData();
+        const FaceFileName = responseData.applicationID+"_Face.jpg";
+        const FaceFile = new File([data.Face[0]], FaceFileName, { type: data.Face.type });
+        Face.append('file', FaceFile);
+        try {
+            const response = await axios.post('http://localhost:8081/api/files/upload', Face, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            setUploadStatus(`File uploaded successfully: ${response.data}`);
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            setUploadStatus('Error uploading file');
+        }
         delete data.NICFront;
         delete data.NICBack;
         delete data.Face;
         mutation.mutate(data, {
             onSuccess: (response) => {
                 MySwal.fire({
-                    title: <p>Please check Date_of_Birth and phone</p>,
+                    title: <p>Application Successfully Submitted. Check the your email for reference number</p>,
                     icon: 'success',
                     showConfirmButton: true,
                     confirmButtonText: 'OK',
@@ -101,7 +101,7 @@ export const VoterRegistration_2 = () => {
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate('/Home');
+                        navigate('/');
                     }
                 })
             },
@@ -119,8 +119,7 @@ export const VoterRegistration_2 = () => {
 
     }
 
-    return (
-        <div className="card card-side bg-base-100 shadow-xl gap-10 px-4">
+    return (<div className="card card-side bg-base-100 shadow-xl gap-10 px-4">
             <figure>
                 <ul className="steps steps-vertical ml-28 md:block">
                     <li className="step step-primary">Registration of Email and Mobile</li>
@@ -187,6 +186,7 @@ export const VoterRegistration_2 = () => {
                             <option>Devose</option>
                         </select>
                         <div className="flex gap-5">
+                            <div className="flex flex-col">
                             <label className="form-control w-full max-w-xs">
                                 <div className="label">
                                     <span className="label-text">NIC Front</span>
@@ -196,15 +196,19 @@ export const VoterRegistration_2 = () => {
                             </label>
                             {errors.NICFront &&
                                 <p className="text-red-500 text-xs italic ml-5">{errors.NICFront.message}</p>}
-                            <label className="form-control w-full max-w-xs">
-                                <div className="label">
-                                    <span className="label-text">NIC Back</span>
-                                </div>
-                                <input type="file"
-                                       className="file-input file-input-bordered w-full max-w-xs" {...register("NICBack")}/>
-                            </label>
-                            {errors.NICBack &&
-                                <p className="text-red-500 text-xs italic ml-5">{errors.NICBack.message}</p>}
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="form-control w-full max-w-xs">
+                                    <div className="label">
+                                        <span className="label-text">NIC Back</span>
+                                    </div>
+                                    <input type="file"
+                                           className="file-input file-input-bordered w-full max-w-xs" {...register("NICBack")}/>
+                                </label>
+                                {errors.NICBack &&
+                                    <p className="text-red-500 text-xs italic ml-5">{errors.NICBack.message}</p>}
+                            </div>
+                            <div className="flex flex-col">
                             <label className="form-control w-full max-w-xs">
                                 <div className="label">
                                     <span className="label-text">Current facial photo for verification</span>
@@ -212,8 +216,8 @@ export const VoterRegistration_2 = () => {
                                 <input type="file"
                                        className="file-input file-input-bordered w-full max-w-xs" {...register("Face")}/>
                             </label>
-                            {errors.Face &&
-                                <p className="text-red-500 text-xs italic ml-5">{errors.Face.message}</p>}
+                            {errors.Face && <p className="text-red-500 text-xs italic ml-5">{errors.Face.message}</p>}
+                            </div>
                         </div>
                     </div>
                     <div className="space-y-3">
@@ -225,8 +229,7 @@ export const VoterRegistration_2 = () => {
                             <textarea className="textarea textarea-bordered h-24 textarea-primary"
                                       placeholder="Address" {...register("Address")}></textarea>
                         </label>
-                        {errors.Address &&
-                            <p className="text-red-500 text-xs italic ml-5">{errors.Address.message}</p>}
+                        {errors.Address && <p className="text-red-500 text-xs italic ml-5">{errors.Address.message}</p>}
                         <div className="flex flex-col lg:flex-row w-full">
                             <select {...register("AdminDistrict")}
                                     className="select select-primary w-full max-w-xs lg:w-fit">
@@ -243,7 +246,7 @@ export const VoterRegistration_2 = () => {
                                 <option disabled selected>Polling Division</option>
                                 <option>Kesbewa</option>
                             </select>
-                            <select {...register("GNDivision")}
+                            <select {...register("GramaNiladhariDivision")}
                                     className="select select-primary w-full max-w-xs lg:w-fit lg:ml-3">
                                 <option disabled selected>GN Division</option>
                                 <option>584/A</option>
@@ -283,17 +286,15 @@ export const VoterRegistration_2 = () => {
                                     d="M6 10h4c.55 0 1 .45 1 1s-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1zm0 4h4c.55 0 1 .45 1 1s-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1zm6-4h4c.55 0 1 .45 1 1s-.45 1-1 1h-4c-.55 0-1-.45-1-1s.45-1 1-1zm0 4h4c.55 0 1 .45 1 1s-.45 1-1 1h-4c-.55 0-1-.45-1-1s.45-1 1-1z"/>
                             </svg>
                             <input type="text" className="grow"
-                                   placeholder="Relationship with chife ocupent" {...register("Relationship")}/>
+                                   placeholder="Relationship with chife ocupent" {...register("RelationshipToTheChiefOccupant")}/>
                         </label>
-                        {errors.Relationship &&
-                            <p className="text-red-500 text-xs italic ml-5">{errors.Relationship.message}</p>}
+                        {errors.RelationshipToTheChiefOccupant &&
+                            <p className="text-red-500 text-xs italic ml-5">{errors.RelationshipToTheChiefOccupant.message}</p>}
                         <div className="card-actions justify-end">
                             <button className="btn btn-outline btn-primary">Submit</button>
                         </div>
                     </div>
                 </form>
             </div>
-        </div>
-    )
-        ;
+        </div>);
 }

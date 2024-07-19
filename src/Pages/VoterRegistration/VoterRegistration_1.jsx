@@ -85,7 +85,7 @@ const messages = [
       status: "Seen at 12:46"
     }
   ];
-  
+
 
 export const VoterRegistration_1 = () => {
 
@@ -118,7 +118,7 @@ export const VoterRegistration_1 = () => {
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate('/Home');
+                        navigate('/');
                     }
                 })
             },
@@ -133,7 +133,7 @@ export const VoterRegistration_1 = () => {
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate('/Home');
+                        navigate('/');
                     }
                 })
             }

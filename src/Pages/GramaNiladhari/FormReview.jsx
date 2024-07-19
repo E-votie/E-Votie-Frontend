@@ -5,9 +5,11 @@ import {useMutation} from 'react-query';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {useNavigate, useParams} from 'react-router-dom';
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {authGet, authPost} from '../../Auth/authFetch.jsx';
-import {signing} from "../services/Signing.jsx";
+import {signing} from "../../services/Signing.jsx";
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 
 const MySwal = withReactContent(Swal)
 
@@ -16,6 +18,9 @@ export const FormReview = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [responseData, setResponseData] = useState(null);
+    const [photoData, setPhotoData] = useState(null);
+    const [nicFrontData, setNicFrontData] = useState(null);
+    const [nicBackData, setNicBackData] = useState(null);
     const {ApplicationID} = useParams();
 
     const {
@@ -26,31 +31,36 @@ export const FormReview = () => {
         connectWallet();
     }, []);
 
+    const fetchData = useCallback(async () => {
+        try {
+            setLoading(true);
+            const data = await authGet(`/gramaniladhari/voter_application?applicationID=${ApplicationID}`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            console.log(data)
+            const {
+                GramaNiladhariSignature,
+                VerificationOfficerSignature,
+                Photo,
+                NICFront,
+                NICBack,
+                ...cleanedData
+            } = data;
+            console.log(cleanedData, Photo)
+            setResponseData(cleanedData);
+            setPhotoData(Photo);
+            setNicFrontData(NICFront);
+            setNicBackData(NICBack);
+            setMessage(JSON.stringify(cleanedData));
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setLoading(false);
+        }
+    }, [ApplicationID, setMessage]);
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Set loading to true to show the loading screen
-                setLoading(true);
-
-                // Replace 'your_api_endpoint' with your actual API endpoint
-                const data = await authGet(`/gramaniladhari/voter_application?applicationID=${ApplicationID}`);
-                console.log(data);
-                // Simulate delay for demonstration
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                delete data.GramaNiladhariSignature;
-                delete data.VerificationOfficerSignature;
-                // Set response data and loading to false after data is fetched
-                setResponseData(data);
-                setMessage(JSON.stringify(data));
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            }
-        };
-
         fetchData();
-    }, []);
+    }, [fetchData]);
 
     const schema = object({})
 
@@ -64,13 +74,14 @@ export const FormReview = () => {
 
     const onSubmit = async (data) => {
         const signature = await signMessage();
-        console.log(signature)
+        if (!signature) {
+            return
+        }
         data.sign = signature;
-        console.log(data);
         mutation.mutate(data, {
             onSuccess: (response) => {
                 MySwal.fire({
-                    title: <p>Verified</p>,
+                    title: <p>Please check email and phone</p>,
                     icon: 'success',
                     showConfirmButton: true,
                     confirmButtonText: 'OK',
@@ -79,7 +90,7 @@ export const FormReview = () => {
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate('/Home');
+                        navigate('/GN/voter_applications');
                     }
                 })
             }, onError: (error) => {
@@ -105,7 +116,7 @@ export const FormReview = () => {
             <div className="space-y-3">
                 <div className="label flex gap-3">
                     <span className="label-text">Application ID : </span>
-                    <input type="text" value={responseData.applicationID} className="grow"
+                    <input type="text" value={responseData.ApplicationID} className="grow"
                            placeholder="ApplicationID" {...register("applicationID")} readOnly/>
                 </div>
                 <p className="font-sans text-2xl">Personal Details</p>
@@ -171,22 +182,31 @@ export const FormReview = () => {
                         <div className="label">
                             <span className="label-text">NIC Front</span>
                         </div>
-                        <input type="file"
-                               className="file-input file-input-bordered w-full max-w-xs"/>
+                        <PhotoProvider>
+                            <PhotoView src={nicFrontData}>
+                                <img style={{width:100, height:100}} src={nicFrontData} alt="" />
+                            </PhotoView>
+                        </PhotoProvider>
                     </label>
                     <label className="form-control w-full max-w-xs">
                         <div className="label">
                             <span className="label-text">NIC Back</span>
                         </div>
-                        <input type="file"
-                               className="file-input file-input-bordered w-full max-w-xs"/>
+                        <PhotoProvider>
+                            <PhotoView src={nicBackData}>
+                                <img style={{width:100, height:100}} src={nicBackData} alt="" />
+                            </PhotoView>
+                        </PhotoProvider>
                     </label>
                     <label className="form-control w-full max-w-xs">
                         <div className="label">
                             <span className="label-text">Current facial photo for verification</span>
                         </div>
-                        <input type="file"
-                               className="file-input file-input-bordered w-full max-w-xs"/>
+                        <PhotoProvider>
+                            <PhotoView src={photoData}>
+                                <img style={{width:100, height:100}} src={photoData} alt="" />
+                            </PhotoView>
+                        </PhotoProvider>
                     </label>
                 </div>
             </div>
@@ -225,7 +245,7 @@ export const FormReview = () => {
                         <div className="label">
                             <span className="label-text">GN Division</span>
                         </div>
-                        <input type="text" placeholder="Type here" value={responseData.GNDivision}
+                        <input type="text" placeholder="Type here" value={responseData.GramaNiladhariDivision}
                                className="input input-bordered w-full max-w-xs input-primary" readOnly/>
                     </label>
                     <label className="form-control w-full max-w-xs">
