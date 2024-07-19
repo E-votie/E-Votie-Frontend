@@ -1,5 +1,3 @@
-import "./App.css";
-
 import React from "react";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {QueryClient, QueryClientProvider} from 'react-query';
@@ -13,6 +11,9 @@ import {Announcements} from "./Pages/Announcements";
 import {Inquiries} from "./Pages/Party/Inquiries";
 import {VoterRegistration_2} from "./Pages/VoterRegistration/VoterRegistration_2.jsx";
 import {EmailVerification} from "./Pages/VoterRegistration/EmailVerification.jsx";
+
+import { Manifesto } from "./Pages/Party/Manifesto";
+import {PartyMember} from "./Pages/Party/PartyMember";
 import ErrorBoundary from "./Components/ErrorBoundary.jsx";
 import {FormReview} from "./Pages/GramaNiladhari/FormReview.jsx";
 import {GnHome} from "./Pages/GramaNiladhari/GnHome.jsx";
@@ -21,8 +22,14 @@ import ProtectedRoute from "./services/ProtectedRoute.jsx";
 import {VerificationHome} from "./Pages/VerificationOfficer/VerificationHome.jsx";
 import {VoterApplicationsVerificationOfficer} from "./Pages/VerificationOfficer/VoterApplications.jsx";
 import {FormReviewVerificationOfficer} from "./Pages/VerificationOfficer/FormReview.jsx";
+import {Election_Home} from "./Pages/Election/Election_Home.jsx";
+import {Election_Announcements} from "./Pages/Election/Election_Announcements.jsx";
 
-const queryClient = new QueryClient()
+import "./App.css";
+
+
+// Create a QueryClient instance
+const queryClient = new QueryClient();
 
 function App() {
     const userRole = localStorage.getItem('userRole') || 'guest';
@@ -43,6 +50,8 @@ function App() {
                             <Route path="/party/:partyId" element={<Party />} />
                             <Route path="/party/list" element={<PartyList />} />
                             <Route path="/party/registration" element={<PartyRegistration />} />
+                            <Route path="/party/member" element={<PartyMember />} />
+                            <Route path="/party/member/manifesto" element={<Manifesto />} />
                             <Route
                                 path="/GN"
                                 element={
@@ -98,6 +107,9 @@ function App() {
                                 }
                             />
                             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
+                            <Route path="/Election/Home" element={<Election_Home />} />
+                            <Route path="/Election/Announcements" element={<Election_Announcements />} />
+
                         </Route>
                     </Routes>
                 </Router>

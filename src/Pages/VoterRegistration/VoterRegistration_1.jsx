@@ -7,8 +7,85 @@ import axios from 'axios';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
+import {PopUpChat} from '../../Components/PopUpChat';
 
 const MySwal = withReactContent(Swal)
+
+const messages = [
+    {
+      sentByUser: false,
+      avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+      alt: "User avatar",
+      name: "Obi-Wan Kenobi",
+      time: "12:45",
+      text: "You were the Chosen One!",
+      status: "Delivered"
+    },
+    {
+      sentByUser: true,
+      avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+      alt: "User avatar",
+      name: "Anakin",
+      time: "12:46",
+      text: "I hate you!",
+      status: "Seen at 12:46"
+    },
+    {
+      sentByUser: false,
+      avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+      alt: "User avatar",
+      name: "Obi-Wan Kenobi",
+      time: "12:45",
+      text: "You were the Chosen One!",
+      status: "Delivered"
+    },
+    {
+      sentByUser: true,
+      avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+      alt: "User avatar",
+      name: "Anakin",
+      time: "12:46",
+      text: "I hate you!",
+      status: "Seen at 12:46"
+    },
+    {
+      sentByUser: false,
+      avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+      alt: "User avatar",
+      name: "Obi-Wan Kenobi",
+      time: "12:45",
+      text: "You were the Chosen One!",
+      status: "Delivered"
+    },
+    {
+      sentByUser: true,
+      avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+      alt: "User avatar",
+      name: "Anakin",
+      time: "12:46",
+      text: "I hate you!",
+      status: "Seen at 12:46"
+    },
+    {
+      sentByUser: false,
+      avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+      alt: "User avatar",
+      name: "Obi-Wan Kenobi",
+      time: "12:45",
+      text: "You were the Chosen One!You were the Chosen One!You were the Chosen One!You were the Chosen One!You were the Chosen One!You were the Chosen One!",
+      status: "Delivered"
+    },
+    {
+      sentByUser: true,
+      avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+      alt: "User avatar",
+      name: "Anakin",
+      time: "12:46",
+      text: "I hate you!",
+      status: "Seen at 12:46"
+    }
+  ];
+
 
 export const VoterRegistration_1 = () => {
 
@@ -126,6 +203,7 @@ export const VoterRegistration_1 = () => {
                     </form>
                 </div>
             </div>
+            <PopUpChat messages={messages}/>
         </div>
     );
 }

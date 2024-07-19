@@ -13,7 +13,7 @@ export const PartyDetails = ({ party }) => {
 
             <div className="mb-4">
                 <span className="font-bold">Party Logo:</span>
-                {party.logo && <img src={party.logo} alt="Party Logo" className="h-20 mt-2" />}
+                {party.logo && <img src={party.logo} alt="Party Logo" className="h-20 w-20 mt-2" />}
             </div>
 
             <div className="mb-4">
