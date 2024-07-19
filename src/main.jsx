@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 import { AuthProvider } from "./Auth/AuthProvider.jsx";
-import KeycloakService from "./Pages/services/KeycloakService.jsx";
+import KeycloakService from "./services/KeycloakService.jsx";
 
 console.log("Initializing Keycloak in index.js...");
 KeycloakService.initKeycloak(() => {
