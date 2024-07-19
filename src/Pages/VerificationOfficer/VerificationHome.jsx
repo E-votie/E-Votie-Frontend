@@ -7,35 +7,39 @@ const actions = [
         "action": "Voter Applications",
         "icon": "application",
         "description": "Pending applications for verification.",
-        "Link": "/verification_officer/voter_applications"
+        "link": "/verification_officer/voter_applications"
     },
     // {
     //     "action": "Candidates",
     //     "icon": "candidate",
-    //     "description": "Information about the election candidates."
-    //     "Link": "/candidates"
+    //     "description": "Information about the election candidates.",
+    //     "link": "/candidates"
     // },
     // {
     //   "action": "Manifestos",
     //   "icon": "manifesto",
-    //   "description": "Read the manifestos of each party."
+    //   "description": "Read the manifestos of each party.",
+    //   "link": "/manifestos"
     // },
     // {
     //     "action": "Elections",
     //     "icon": "election",
-    //     "description": "General information about the elections."
+    //     "description": "General information about the elections.",
+    //     "link": "/elections"
     // },
     // {
     //     "action": "Inquiries",
     //     "icon": "inquiry",
-    //     "description": "Submit your inquiries here."
+    //     "description": "Submit your inquiries here.",
+    //     "link": "/inquiries"
     // },
     // {
     //     "action": "Announcements",
     //     "icon": "announcement",
-    //     "description": "Latest announcements and updates."
+    //     "description": "Latest announcements and updates.",
+    //     "link": "/announcements"
     // }
-]
+];
 
 const messages = {
     en: "Welcome to our website!",
@@ -72,9 +76,9 @@ export const VerificationHome = () => {
                     {messages[language]}
                 </h1>
             </div>
-            <div className="h-2/5 flex-grow flex flex-wrap gap-4 justify-center items-center ">
+            <div className="h-2/5 flex-grow flex flex-wrap gap-4 justify-center items-center">
                 {actions.map((action, index) => (
-                    <ActionCard key={index} icon={action.icon} action={action.action} description={action.description} link={action.Link} />
+                    <ActionCard key={index} icon={action.icon} action={action.action} description={action.description} link={action.link} />
                 ))}
             </div>
             <div className="h-[2/5] flex-grow flex flex-col justify-center items-center">
@@ -83,4 +87,3 @@ export const VerificationHome = () => {
         </div>
     );
 };
-
