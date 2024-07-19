@@ -53,6 +53,8 @@ const ActionCard = ({icon, action, description, link}) => {
             navigate(`/inquiries`);
         }else if(action === "Announcements"){
             navigate(`/announcements`);
+        }else if(action === "Voter Registration"){
+            navigate(`/VoterRegistration`);
         }else{
             console.log("Invalid navigation");
         }

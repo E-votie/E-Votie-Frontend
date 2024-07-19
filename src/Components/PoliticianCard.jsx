@@ -16,12 +16,11 @@ export const Politician = () => {
             className='w-[120px] h-[120px] object-cover p-2'
             />
             <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-                Lizard
+            <Typography gutterBottom variant="body1" component="div">
+                Mahinda Rajapaksha
             </Typography>
             <Typography variant="body2" color="text.secondary">
-                Lizards are a widespread group of squamate reptiles, with over 6,000
-                species, ranging across all continents except Antarctica
+              Mahinda Rajapaksa, Sri Lankan politician who served as president of Sri Lanka from 2005 to 2015 and as prime minister from 2019 to 2022.
             </Typography>
             </CardContent>
         </div>

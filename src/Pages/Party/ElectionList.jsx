@@ -47,6 +47,7 @@ const pastElections = [
   {"id": 42, "type": "General Election - 9th Parliament of the D.S.R. of Sri Lanka (16th Parliament)", "startDate": "05.08.2020", "endDate": "", "duration": ""}
 ]
 
+const currentElections = [];
 
 export const ElectionList = () => {
   return (
@@ -68,7 +69,7 @@ export const ElectionList = () => {
               Upcoming Elections
           </div> 
           <div className='electionList'>
-            <Elections />
+            <Elections electionData={currentElections}/>
           </div>
         </div>
         <div className='pastElections'>
@@ -76,7 +77,7 @@ export const ElectionList = () => {
               Past Elections
           </div> 
           <div className='electionList'>
-            <Elections />
+            <Elections electionData={pastElections}/>
           </div>
         </div>
       </div>
