@@ -7,7 +7,7 @@ import withReactContent from 'sweetalert2-react-content'
 import {useNavigate, useParams} from 'react-router-dom';
 import React, {useEffect, useState} from "react";
 import {authGet, authPost} from '../../Auth/authFetch.jsx';
-import {signing} from "../../services/Signing.jsx";
+import {signing} from "../services/Signing.jsx";
 
 const MySwal = withReactContent(Swal)
 

@@ -18,7 +18,7 @@ import ErrorBoundary from "./Components/ErrorBoundary.jsx";
 import {FormReview} from "./Pages/GramaNiladhari/FormReview.jsx";
 import {GnHome} from "./Pages/GramaNiladhari/GnHome.jsx";
 import {VoterApplications} from "./Pages/GramaNiladhari/VoterApplications.jsx";
-import ProtectedRoute from "./services/ProtectedRoute.jsx";
+import ProtectedRoute from "./Pages/services/ProtectedRoute.jsx";
 import {ElectionList} from "./Pages/Party/ElectionList";
 import {Election} from "./Pages/Party/Election";
 import {Election_Home} from "./Pages/Election/Election_Home.jsx";

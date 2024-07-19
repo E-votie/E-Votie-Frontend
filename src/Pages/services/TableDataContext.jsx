@@ -1,6 +1,6 @@
 // DataContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import {authGet} from '../Auth/authFetch.jsx';
+import {authGet} from '../../Auth/authFetch.jsx';
 
 const DataContext = createContext();
 

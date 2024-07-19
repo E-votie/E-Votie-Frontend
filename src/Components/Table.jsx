@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { useData } from './../services/TableDataContext.jsx';
+import { useData } from '../Pages/services/TableDataContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 export default function ColumnGroupingTable() {
