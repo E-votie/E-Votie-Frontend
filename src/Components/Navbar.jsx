@@ -11,8 +11,8 @@ export const Navbar = () => {
         console.log("App component rendered. Is authenticated:", isAuthenticated);
     }, [isAuthenticated]);
     return (
-        <div className="h-20 flex grow z-10 sticky left-0 right-0 top-0 border-b-2 ">
-            <div className="navbar  bg-[#f8f8f8]">
+        <div className="flex flex-wrap z-10 sticky border-b-2 ">
+            <div className="navbar bg-[#f8f8f8] h-[100px]">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -49,7 +49,7 @@ export const Navbar = () => {
                         </button>
                     </RenderWhenAnonymous>
                     <RenderWhenAuthenticated>
-                        <button className="btn btn-ghost btn-square" onClick={() => KeycloakService.doLogout()}>
+                        <button className="btn btn-ghost btn-square w-[70px]" onClick={() => KeycloakService.doLogout()}>
                             Log out
                         </button>
                     </RenderWhenAuthenticated>

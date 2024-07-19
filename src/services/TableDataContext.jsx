@@ -4,7 +4,7 @@ import {authGet} from '../Auth/authFetch.jsx';
 
 const DataContext = createContext();
 
-export const DataProvider = ({ children }) => {
+export const DataProvider = ({children, link}) => {
     const [columns, setColumns] = useState([
         { id: 'applicationID', label: 'Application ID', minWidth: 170 },
         { id: 'name', label: 'Name', minWidth: 100 },
@@ -15,9 +15,10 @@ export const DataProvider = ({ children }) => {
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
+        console.log(link);
         const fetchData = async () => {
             try {
-                const data = await authGet('/gramaniladhari/new-applications');
+                const data = await authGet(link);
                 setRows(data);
             } catch (error) {
                 console.error('Error fetching data:', error);
