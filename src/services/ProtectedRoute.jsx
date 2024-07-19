@@ -5,13 +5,13 @@ import KeycloakService from './KeycloakService';
 
 const ProtectedRoute = ({ element: Element, role, ...rest }) => {
     if (!KeycloakService.isLoggedIn()) {
-        return <Navigate to="/login" replace />;
+        return <Navigate to="/" replace />;
     }
 
     if (KeycloakService.hasRole(role)) {
         return <Element {...rest} />;
     } else {
-        return <Navigate to="/unauthorized" replace />;
+        return <Navigate to="/" replace />;
     }
 };
 

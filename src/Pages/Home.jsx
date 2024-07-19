@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Carousel from '../Components/Carousel';
 import ActionCard from '../Components/ActionCard';
+import KeycloakService from "../services/KeycloakService.jsx";
+import {Navigate, useNavigate} from "react-router-dom";
 
 const actions = [
+  {
+    "action": "Voter Registration",
+    "icon": "candidate",
+    "description": "New voters register here. Online Voter Registration",
+    "link": "VoterRegistration"
+  },
   {
     "action": "Party Details",
     "icon": "party",
@@ -44,6 +52,17 @@ const messages = {
 const languageOrder = ['en', 'si', 'ta'];
 
 export const Home = () => {
+  const navigate = useNavigate();
+
+  if (KeycloakService.isLoggedIn()) {
+    if (KeycloakService.hasRole("GramaNiladhari")) {
+      return <Navigate to="/GN"/>;
+    }
+    if (KeycloakService.hasRole("VerificationOfficer")){
+      return <Navigate to="/verification_officer"/>;
+    }
+  }
+
   const [language, setLanguage] = useState('en');
   const [fade, setFade] = useState(true);
 
@@ -72,7 +91,7 @@ export const Home = () => {
       </div>
       <div className="h-2/5 flex-grow flex flex-wrap gap-4 justify-center items-center ">
         {actions.map((action, index) => (
-          <ActionCard key={index} icon={action.icon} action={action.action} description={action.description}  />
+          <ActionCard key={index} icon={action.icon} action={action.action} description={action.description}  link={action.link}/>
         ))}
       </div>
       <div className="h-[2/5] flex-grow flex flex-col justify-center items-center">

@@ -2,7 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 
 const style = {
   position: 'absolute',
@@ -18,7 +17,7 @@ const style = {
   pb: 3,
 };
 
-function ConfirmationModal() {
+function ChildModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -29,8 +28,7 @@ function ConfirmationModal() {
 
   return (
     <React.Fragment>
-      <Button variant="filled" onClick={handleOpen} >Cancel</Button>
-      <Button onClick={handleOpen} variant="contained">Publish</Button>
+      <Button onClick={handleOpen}>Open Child Modal</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -38,28 +36,29 @@ function ConfirmationModal() {
         aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style, width: 200 }}>
-          <div>
-            Are you sure want to continue?
-          </div>
-          <Stack>
-            <Button onClick={handleClose} variant="contained" color="error">No</Button>
-            <Button onClick={handleClose} variant="contained" color="success">Yes</Button>
-          </Stack>
+          <h2 id="child-modal-title">Text in a child modal</h2>
+          <p id="child-modal-description">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+          </p>
+          <Button onClick={handleClose}>Close Child Modal</Button>
         </Box>
       </Modal>
     </React.Fragment>
   );
 }
 
-export const PublishAnnouncementModal = ({open}) => {
-
+export default function NestedModal() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
   const handleClose = () => {
     setOpen(false);
   };
 
   return (
     <div>
-      <Button>Open modal</Button>
+      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -67,23 +66,11 @@ export const PublishAnnouncementModal = ({open}) => {
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
-          <div className='announcementType'>
-            <div>
-              Announcement Type
-            </div>
-            <div>
-
-            </div>
-          </div>
-          <div className='announcement'>
-            <div>
-              Announcement
-            </div>
-            <div>
-
-            </div>
-          </div>
-          <ConfirmationModal />
+          <h2 id="parent-modal-title">Text in a modal</h2>
+          <p id="parent-modal-description">
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </p>
+          <ChildModal />
         </Box>
       </Modal>
     </div>

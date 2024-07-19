@@ -1,5 +1,5 @@
 // authFetch.js
-import KeycloakService from './../services/KeycloakService.jsx';
+import KeycloakService from '../services/KeycloakService.jsx';
 
 const BaseURL = import.meta.env.VITE_API_BASE_URL;
 

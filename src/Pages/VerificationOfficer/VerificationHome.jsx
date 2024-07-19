@@ -7,7 +7,7 @@ const actions = [
         "action": "Voter Applications",
         "icon": "application",
         "description": "Pending applications for verification.",
-        "Link": "/GN/voter_applications"
+        "Link": "/verification_officer/voter_applications"
     },
     // {
     //     "action": "Candidates",
@@ -45,7 +45,7 @@ const messages = {
 
 const languageOrder = ['en', 'si', 'ta'];
 
-export const GnHome = () => {
+export const VerificationHome = () => {
     const [language, setLanguage] = useState('en');
     const [fade, setFade] = useState(true);
 

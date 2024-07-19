@@ -19,6 +19,11 @@ import {FormReview} from "./Pages/GramaNiladhari/FormReview.jsx";
 import {GnHome} from "./Pages/GramaNiladhari/GnHome.jsx";
 import {VoterApplications} from "./Pages/GramaNiladhari/VoterApplications.jsx";
 import ProtectedRoute from "./services/ProtectedRoute.jsx";
+import {ElectionList} from "./Pages/Party/ElectionList";
+import {Election} from "./Pages/Party/Election";
+import {VerificationHome} from "./Pages/VerificationOfficer/VerificationHome.jsx";
+import {VoterApplicationsVerificationOfficer} from "./Pages/VerificationOfficer/VoterApplications.jsx";
+import {FormReviewVerificationOfficer} from "./Pages/VerificationOfficer/FormReview.jsx";
 import {Election_Home} from "./Pages/Election/Election_Home.jsx";
 import {Election_Announcements} from "./Pages/Election/Election_Announcements.jsx";
 import {CreateElection} from "./Pages/Election/CreateElection.jsx";
@@ -41,11 +46,11 @@ function App() {
                 <Router>
                     <Routes>
                         <Route path="/" element={<Layout />}>
+                            <Route path="/" element={<Home />} />
                             <Route path="/VoterRegistration" element={<VoterRegistration_1 />} />
                             <Route path="/VoterRegistration" element={<QueryClientProvider client={queryClient}> <VoterRegistration_1/> </QueryClientProvider>} />
                             <Route path="/VoterRegistration/:ApplicationID" element={<QueryClientProvider client={queryClient}> <VoterRegistration_2/> </QueryClientProvider>} />
                             <Route path="/verify/:Hash" element={<QueryClientProvider client={queryClient}> <EmailVerification /> </QueryClientProvider>} />
-                            <Route path="/home" element={<Home />} />
                             <Route path="/announcements" element={<Announcements />} />
                             <Route path="/inquiries" element={<Inquiries />} />
                             <Route path="/party/:partyId" element={<Party />} />
@@ -53,6 +58,9 @@ function App() {
                             <Route path="/party/registration" element={<PartyRegistration />} />
                             <Route path="/party/member" element={<PartyMember />} />
                             <Route path="/party/member/manifesto" element={<Manifesto />} />
+                            <Route path="/election/list" element={<ElectionList />} />
+                            <Route path="/election" element={<Election />} />
+
                             <Route
                                 path="/GN"
                                 element={
@@ -80,17 +88,34 @@ function App() {
                                     />
                                 }
                             />
+                            <Route
+                                path="/verification_officer"
+                                element={
+                                    <ProtectedRoute
+                                        element={VerificationHome}
+                                        role="VerificationOfficer"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/verification_officer/voter_applications"
+                                element={
+                                    <ProtectedRoute
+                                        element={VoterApplicationsVerificationOfficer}
+                                        role="VerificationOfficer"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/verification_officer/form_review/:ApplicationID"
+                                element={
+                                    <ProtectedRoute
+                                        element={FormReviewVerificationOfficer}
+                                        role="VerificationOfficer"
+                                    />
+                                }
+                            />
                             <Route path="/Election/Create" element={<CreateElection />} />
-                            {/*<Route*/}
-                            {/*path="/Election/Create"*/}
-                            {/*element={*/}
-                            {/*    <ProtectedRoute*/}
-                            {/*        element={CreateElection}*/}
-                            {/*        role="ElectionCommissioner"*/}
-                            {/*    />*/}
-                            {/*}*/}
-                            {/*/>*/}
-                            <Route path="/Election/Create_Announcements" element={<Create_Announcements />} />
                             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
                             <Route path="/Election/Home" element={<Election_Home />} />
                             <Route path="/Election/Announcements" element={<Election_Announcements />} />

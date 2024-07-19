@@ -12,6 +12,7 @@ import AnnouncementIcon from '@mui/icons-material/Announcement';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ArticleIcon from '@mui/icons-material/Article';
+import { useNavigate } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const getIcon = (icon) => {
@@ -42,26 +43,44 @@ const getIcon = (icon) => {
 };
 
 const ActionCard = ({icon, action, description, link}) => {
-    console.log("----------------->>>>>>>>>>>>", link);
+    const navigate = useNavigate();
+
+    const navigator = (action) => {
+        if(action === "Party Details"){
+            navigate(`/party/list`);
+        }else if(action === "Candidates"){
+
+        }else if(action === "Elections"){
+            navigate(`/election/list`);
+        }else if(action === "Inquiries"){
+            navigate(`/inquiries`);
+        }else if(action === "Announcements"){
+            navigate(`/announcements`);
+        }else if(action === "Voter Registration"){
+            navigate(`/VoterRegistration`);
+        }else{
+            console.log("Invalid navigation");
+        }
+        console.log(action);
+    };
+
     return (
-        <a href={link}>
-            <Card sx={{width: 230, height:170 }}>
-                <CardActionArea>
-                    <div className="flex justify-center items-center my-2">
-                        {getIcon(icon)}
-                    </div>
-                    <CardContent>
-                        <Typography gutterBottom variant="h6" component="div"
-                                    className='flex justify-center items-center'>
-                            {action}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {description}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </a>
+        <Card sx={{width: 200}} onClick={() => navigator({action}.action)}>
+            <CardActionArea>
+                <div className="flex justify-center items-center my-2">
+                    {getIcon(icon)}
+                </div>
+                <CardContent>
+                    <Typography gutterBottom variant="h6" component="div"
+                                className='flex justify-center items-center'>
+                        {action}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {description}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+        </Card>
     );
 };
 
