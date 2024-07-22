@@ -32,6 +32,8 @@ import {Create_Announcements} from "./Pages/Election/Create_Announcements.jsx";
 
 
 import "./App.css";
+import {VoterDetails} from "./Pages/Voter/VoterDetails.jsx";
+import {FingerprintScan} from "./Pages/VerificationOfficer/Fingerprintscan.jsx";
 
 
 // Create a QueryClient instance
@@ -88,7 +90,15 @@ function App() {
                                     />
                                 }
                             />
-
+                            <Route
+                                path="/verification_officer"
+                                element={
+                                    <ProtectedRoute
+                                        element={VerificationHome}
+                                        role="VerificationOfficer"
+                                    />
+                                }
+                            />
                             <Route
                                 path="/verification_officer/voter_applications"
                                 element={
@@ -103,6 +113,24 @@ function App() {
                                 element={
                                     <ProtectedRoute
                                         element={FormReviewVerificationOfficer}
+                                        role="VerificationOfficer"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/voter/profile"
+                                element={
+                                    <ProtectedRoute
+                                        element={VoterDetails}
+                                        role="Voter"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/verification_officer/fingerprint_scan"
+                                element={
+                                    <ProtectedRoute
+                                        element={FingerprintScan}
                                         role="VerificationOfficer"
                                     />
                                 }

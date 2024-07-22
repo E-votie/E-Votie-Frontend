@@ -14,6 +14,9 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import ArticleIcon from '@mui/icons-material/Article';
 import { useNavigate } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import keycloakService from "../services/KeycloakService.jsx";
+import KeycloakService from "../services/KeycloakService.jsx";
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
 
 const getIcon = (icon) => {
     switch (icon) {
@@ -37,50 +40,46 @@ const getIcon = (icon) => {
             return <AddBoxIcon sx={{ fontSize:40}} />;
         case "dashboard":
             return <DashboardIcon sx={{ fontSize: 40 }} />;
+        case "FingerprintIcon":
+            return <FingerprintIcon sx={{ fontSize: 40 }} />;
         default:
             return <AnnouncementIcon sx={{ fontSize: 40 }} />; // Default icon
     }
 };
 
-const ActionCard = ({icon, action, description, link}) => {
+const shouldShowCard = (roles) => {
+    console.log("------------->>>>>>>>>>>>")
+    console.log(roles, Array.isArray(roles));
+    if (roles.includes("ALL")) return true;
+    if (roles.includes("Anonymous") && !keycloakService.isLoggedIn()) return true;
+    if (keycloakService.isLoggedIn()) {
+        console.log("+++++++++++++>>>>>>>>>>>>>>>>>++++++++++++++++")
+        return roles.some(role => KeycloakService.hasRole(role));
+    }
+    return false;
+};
+
+const ActionCard = ({icon, action, description, link, role}) => {
     const navigate = useNavigate();
-
-    const navigator = (action) => {
-        if(action === "Party Details"){
-            navigate(`/party/list`);
-        }else if(action === "Candidates"){
-
-        }else if(action === "Elections"){
-            navigate(`/election/list`);
-        }else if(action === "Inquiries"){
-            navigate(`/inquiries`);
-        }else if(action === "Announcements"){
-            navigate(`/announcements`);
-        }else if(action === "Voter Registration"){
-            navigate(`/VoterRegistration`);
-        }else{
-            console.log("Invalid navigation");
-        }
-        console.log(action);
-    };
-
+    //Add navigate links in the home page not hear
     return (
-        <Card sx={{width: 200}} onClick={() => navigator({action}.action)}>
-            <CardActionArea>
-                <div className="flex justify-center items-center my-2">
-                    {getIcon(icon)}
-                </div>
-                <CardContent>
-                    <Typography gutterBottom variant="h6" component="div"
-                                className='flex justify-center items-center'>
-                        {action}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {description}
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-        </Card>
+        shouldShowCard(role) && (
+            <Card sx={{ width: 218 }} onClick={() => navigate(link)}>
+                <CardActionArea>
+                    <div className="flex justify-center items-center my-2">
+                        {getIcon(icon)}
+                    </div>
+                    <CardContent>
+                        <Typography gutterBottom variant="h6" component="div" className="flex justify-center items-center">
+                            {action}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {description}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        )
     );
 };
 

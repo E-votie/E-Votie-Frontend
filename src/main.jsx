@@ -6,7 +6,7 @@ import './index.css';
 import { AuthProvider } from "./Auth/AuthProvider.jsx";
 import KeycloakService from "./services/KeycloakService.jsx";
 
-console.log("Initializing Keycloak in index.js...");
+console.log("Initializing Keycloak in index.jsx...");
 KeycloakService.initKeycloak(() => {
     console.log("Keycloak initialized, rendering React app...");
     ReactDOM.createRoot(document.getElementById('root')).render(

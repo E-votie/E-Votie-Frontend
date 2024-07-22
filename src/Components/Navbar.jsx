@@ -16,6 +16,9 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {AccountMenu} from "../Components/AccountMenu.jsx";
+import RenderWhenAuthenticated from "../utilities/RenderWhenAuthenticated.jsx";
+import RenderWhenAnonymous from "../utilities/RenderWhenAnonymous.jsx";
+import KeycloakService from "../services/KeycloakService.jsx";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -170,7 +173,7 @@ export const Navbar = () => {
             <MenuIcon />
           </IconButton>
           <div className="logo w-24">
-            <a>
+            <a href={"/"}>
               <img
                 src='/e-votie-high-resolution-logo-transparent.png'
                 alt='e votie logo'
@@ -178,15 +181,15 @@ export const Navbar = () => {
               />
             </a>
           </div>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+          {/*<Search>*/}
+          {/*  <SearchIconWrapper>*/}
+          {/*    <SearchIcon />*/}
+          {/*  </SearchIconWrapper>*/}
+          {/*  <StyledInputBase*/}
+          {/*    placeholder="Search…"*/}
+          {/*    inputProps={{ 'aria-label': 'search' }}*/}
+          {/*  />*/}
+          {/*</Search>*/}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
@@ -203,32 +206,15 @@ export const Navbar = () => {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-              sx={{ backgroundColor: 'pink' }}
-            >
-              <AccountCircle />
-            </IconButton>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-          <AccountMenu />
+          <RenderWhenAnonymous>
+            <button className="btn btn-ghost btn-square" onClick={() => KeycloakService.doLogin()}>
+              Log in
+            </button>
+          </RenderWhenAnonymous>
+          <RenderWhenAuthenticated>
+            <AccountMenu />
+          </RenderWhenAuthenticated>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
