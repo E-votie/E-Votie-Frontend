@@ -1,6 +1,7 @@
 // DataContext.js
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { ethers } from 'ethers'
+import {useState} from 'react';
+import {ethers} from 'ethers'
+import Swal from "sweetalert2";
 
 const ABI = [
     {
@@ -164,7 +165,21 @@ export const signing = () => {
 
     const signMessage = async () => {
         if (!account) {
-            alert('Please connect to MetaMask first');
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Please connect to MetaMask first"
+            });
             return;
         }
         if (!message) {
@@ -178,7 +193,21 @@ export const signing = () => {
             setSignature(signature);
             return signature;
         } catch (error) {
-            console.error('Error signing message:', error);
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "User rejected the request"
+            });
         }
     };
 

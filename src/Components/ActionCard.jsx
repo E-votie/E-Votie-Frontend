@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -48,15 +49,15 @@ const getIcon = (icon) => {
 };
 
 const shouldShowCard = (roles) => {
-    console.log("------------->>>>>>>>>>>>")
-    console.log(roles, Array.isArray(roles));
-    if (roles.includes("ALL")) return true;
-    if (roles.includes("Anonymous") && !keycloakService.isLoggedIn()) return true;
-    if (keycloakService.isLoggedIn()) {
-        console.log("+++++++++++++>>>>>>>>>>>>>>>>>++++++++++++++++")
-        return roles.some(role => KeycloakService.hasRole(role));
-    }
-    return false;
+    // Memoize the function to prevent unnecessary recalculations
+    return useMemo(() => {
+        if (roles.includes("ALL")) return true;
+        if (roles.includes("Anonymous") && !keycloakService.isLoggedIn()) return true;
+        if (keycloakService.isLoggedIn()) {
+            return roles.some(role => KeycloakService.hasRole(role));
+        }
+        return false;
+    }, [roles, keycloakService.isLoggedIn()]); // Dependencies array
 };
 
 const ActionCard = ({icon, action, description, link, role}) => {

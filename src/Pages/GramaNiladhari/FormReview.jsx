@@ -8,7 +8,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import React, {useCallback, useEffect, useState} from "react";
 import {authGet, authPost} from '../../Auth/authFetch.jsx';
 import {signing} from "../../services/Signing.jsx";
-import { PhotoProvider, PhotoView } from 'react-photo-view';
+import {PhotoProvider, PhotoView} from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 
 const MySwal = withReactContent(Swal)
@@ -112,7 +112,8 @@ export const FormReview = () => {
     }
 
     return (<div>
-        {loading ? (<div>Loading...</div>) : (<form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+        {loading ? (<div>Loading...</div>) : (
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
             <div className="space-y-3">
                 <div className="label flex gap-3">
                     <span className="label-text">Application ID : </span>

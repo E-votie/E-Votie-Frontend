@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Carousel from '../Components/Carousel';
 import ActionCard from '../Components/ActionCard';
-import KeycloakService from "../services/KeycloakService.jsx";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const actions = [
   {
@@ -31,7 +30,14 @@ const actions = [
     "icon": "application",
     "description": "Pending applications for verification.",
     "link": "/verification_officer/voter_applications",
-    "Roll": ["VerificationOfficer"]
+    "Roll": ["VerificationOfficer"],
+  },
+  {
+    "action": "Voter Applications",
+    "icon": "application",
+    "description": "Pending applications for verification.",
+    "link": "/GN/voter_applications",
+    "Roll": ["GramaNiladhari"],
   },
   {
     "action": "Fingerprint Scan",
@@ -51,7 +57,7 @@ const actions = [
     "action": "Candidates",
     "icon": "candidate",
     "description": "Information about the election candidates.",
-    "Roll": ["Anonymous", "Voter"]
+    "Roll": ["Anonymous", "Voter", "GramaNiladhari"]
   },
   // {
   //   "action": "Manifestos",
@@ -92,15 +98,6 @@ const languageOrder = ['en', 'si', 'ta'];
 export const Home = () => {
   const navigate = useNavigate();
 
-  // if (KeycloakService.isLoggedIn()) {
-  //   if (KeycloakService.hasRole("GramaNiladhari")) {
-  //     return <Navigate to="/GN"/>;
-  //   }
-  //   if (KeycloakService.hasRole("VerificationOfficer")){
-  //     return <Navigate to="/verification_officer"/>;
-  //   }
-  // }
-
   const [language, setLanguage] = useState('en');
   const [fade, setFade] = useState(true);
 
@@ -121,7 +118,7 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6">
+    <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6 rounded-3xl">
       <div className="h-1/5 flex-grow flex flex-col justify-center items-center text-3xl text-center">
         <h1 className={`transition-opacity duration-500 ${fade ? 'opacity-100' : 'opacity-0'}`}>
           {messages[language]}
