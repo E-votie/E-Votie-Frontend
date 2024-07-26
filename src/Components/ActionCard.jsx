@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -13,6 +14,10 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ArticleIcon from '@mui/icons-material/Article';
 import { useNavigate } from 'react-router-dom';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import keycloakService from "../services/KeycloakService.jsx";
+import KeycloakService from "../services/KeycloakService.jsx";
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
 
 const getIcon = (icon) => {
     switch (icon) {
@@ -34,50 +39,48 @@ const getIcon = (icon) => {
             return <CampaignIcon sx={{ fontSize: 40 }} />;
         case "create":
             return <AddBoxIcon sx={{ fontSize:40}} />;
+        case "dashboard":
+            return <DashboardIcon sx={{ fontSize: 40 }} />;
+        case "FingerprintIcon":
+            return <FingerprintIcon sx={{ fontSize: 40 }} />;
         default:
             return <AnnouncementIcon sx={{ fontSize: 40 }} />; // Default icon
     }
 };
 
-const ActionCard = ({icon, action, description, link}) => {
-    const navigate = useNavigate();
-
-    const navigator = (action) => {
-        if(action === "Party Details"){
-            navigate(`/party/list`);
-        }else if(action === "Candidates"){
-
-        }else if(action === "Elections"){
-            navigate(`/election/list`);
-        }else if(action === "Inquiries"){
-            navigate(`/inquiries`);
-        }else if(action === "Announcements"){
-            navigate(`/announcements`);
-        }else if(action === "Voter Registration"){
-            navigate(`/VoterRegistration`);
-        }else{
-            console.log("Invalid navigation");
+const shouldShowCard = (roles) => {
+    // Memoize the function to prevent unnecessary recalculations
+    return useMemo(() => {
+        if (roles.includes("ALL")) return true;
+        if (roles.includes("Anonymous") && !keycloakService.isLoggedIn()) return true;
+        if (keycloakService.isLoggedIn()) {
+            return roles.some(role => KeycloakService.hasRole(role));
         }
-        console.log(action);
-    };
+        return false;
+    }, [roles, keycloakService.isLoggedIn()]); // Dependencies array
+};
 
+const ActionCard = ({icon, action, description, link, role}) => {
+    const navigate = useNavigate();
+    //Add navigate links in the home page not hear
     return (
-        <Card sx={{width: 200}} onClick={() => navigator({action}.action)}>
-            <CardActionArea>
-                <div className="flex justify-center items-center my-2">
-                    {getIcon(icon)}
-                </div>
-                <CardContent>
-                    <Typography gutterBottom variant="h6" component="div"
-                                className='flex justify-center items-center'>
-                        {action}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {description}
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-        </Card>
+        shouldShowCard(role) && (
+            <Card sx={{ width: 218 }} onClick={() => navigate(link)}>
+                <CardActionArea>
+                    <div className="flex justify-center items-center my-2">
+                        {getIcon(icon)}
+                    </div>
+                    <CardContent>
+                        <Typography gutterBottom variant="h6" component="div" className="flex justify-center items-center">
+                            {action}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {description}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        )
     );
 };
 

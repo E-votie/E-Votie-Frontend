@@ -34,13 +34,13 @@ export default function ColumnGroupingTable({ link }) {
     };
 
     return (
-        <div>
-            <div className="flex my-7 flex-auto justify-center items-center bg-[#f8f8f8] h-[70px]">
+        <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6 rounded-2xl">
+            <div className="flex my-7 justify-center items-center bg-[#f8f8f8] h-[70px]">
                 <AccountCircleIcon/>
                 <h2 className="ml-5">Voter Registration Application Details</h2>
             </div>
-            <Paper sx={{ width: '100%' }}>
-                <TableContainer sx={{ maxHeight: 440 }}>
+            <Paper sx={{width: '100%'}}>
+                <TableContainer sx={{maxHeight: 440}}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -48,7 +48,7 @@ export default function ColumnGroupingTable({ link }) {
                                     <TableCell
                                         key={column.id}
                                         align={column.align}
-                                        style={{ top: 57, minWidth: column.minWidth }}
+                                        style={{minWidth: column.minWidth}}
                                     >
                                         {column.label}
                                     </TableCell>

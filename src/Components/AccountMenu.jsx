@@ -11,6 +11,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import KeycloakService from "../services/KeycloakService.jsx";
 
 export const AccountMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -92,7 +93,7 @@ export const AccountMenu = () => {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => KeycloakService.doLogout()}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

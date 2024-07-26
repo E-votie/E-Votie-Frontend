@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import {alpha, styled} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,13 +9,14 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import { AccountMenu } from '../Components/AccountMenu.jsx';
 import { useNavigate } from 'react-router-dom';
+import RenderWhenAuthenticated from "../utilities/RenderWhenAuthenticated.jsx";
+import RenderWhenAnonymous from "../utilities/RenderWhenAnonymous.jsx";
+import KeycloakService from "../services/KeycloakService.jsx";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -162,7 +163,7 @@ const Navbar = () => {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }} mb={4}>
+    <Box mb={4}>
       <AppBar position="static" sx={{ backgroundColor: '#f8f8f8', color: 'black' }}>
         <Toolbar>
           <IconButton
@@ -174,7 +175,7 @@ const Navbar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <div className="logo w-24 cursor-pointer" onClick={handleLogoClick}>
+          <div className="logo w-24">
             <a>
               <img
                 src='/e-votie-high-resolution-logo-transparent.png'
@@ -183,33 +184,40 @@ const Navbar = () => {
               />
             </a>
           </div>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+          {/*<Search>*/}
+          {/*  <SearchIconWrapper>*/}
+          {/*    <SearchIcon />*/}
+          {/*  </SearchIconWrapper>*/}
+          {/*  <StyledInputBase*/}
+          {/*    placeholder="Search…"*/}
+          {/*    inputProps={{ 'aria-label': 'search' }}*/}
+          {/*  />*/}
+          {/*</Search>*/}
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-          </Box>
-          <AccountMenu />
+          <RenderWhenAnonymous>
+            <button className="btn btn-ghost btn-square" onClick={() => KeycloakService.doLogin()}>
+              Log in
+            </button>
+          </RenderWhenAnonymous>
+          <RenderWhenAuthenticated>
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                <Badge badgeContent={4} color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                  size="large"
+                  aria-label="show 17 new notifications"
+                  color="inherit"
+              >
+                <Badge badgeContent={17} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+            </Box>
+            <AccountMenu />
+          </RenderWhenAuthenticated>
         </Toolbar>
       </AppBar>
     </Box>
