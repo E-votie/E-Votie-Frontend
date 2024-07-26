@@ -70,6 +70,7 @@ export const PartyList = () => {
         </div>
         <div className='flex gap-12'>
           <div className='leftContainer'>
+            {/* search bar */}
             <label className="input input-bordered flex items-center gap-2 mb-6 h-8">
               <input type="text" className="grow input-xs" placeholder="Search" />
               <svg

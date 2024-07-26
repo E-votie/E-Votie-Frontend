@@ -47,6 +47,7 @@ function App() {
                             <Route path="/VoterRegistration" element={<QueryClientProvider client={queryClient}> <VoterRegistration_1/> </QueryClientProvider>} />
                             <Route path="/VoterRegistration/:ApplicationID" element={<QueryClientProvider client={queryClient}> <VoterRegistration_2/> </QueryClientProvider>} />
                             <Route path="/verify/:Hash" element={<QueryClientProvider client={queryClient}> <EmailVerification /> </QueryClientProvider>} />
+                            <Route path="/home" element={<Home />} />
                             <Route path="/announcements" element={<Announcements />} />
                             <Route path="/inquiries" element={<Inquiries />} />
                             <Route path="/party/:partyId" element={<Party />} />

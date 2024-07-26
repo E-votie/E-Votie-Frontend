@@ -260,10 +260,9 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                             <Stack >
                                 <Box mb={3}>
                                     <TextField
-                                        helperText="Headquarter address line 1"
                                         variant='outlined'
                                         id="addressLine1"
-                                        label="Address Line 1"
+                                        label="Headquarter's Address Line 1"
                                         className='w-full'
                                         required
                                         {...register("addressLine1")}
@@ -271,10 +270,9 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                 </Box>
                                 <Box mb={3}>
                                     <TextField
-                                        helperText="Headquarter address line 2"
                                         variant='outlined'
                                         id="addressLine2"
-                                        label="Address Line 2"
+                                        label="Headquarter's Address Line 2"
                                         className='w-full'
                                         required
                                         {...register("addressLine2")}
@@ -288,7 +286,6 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                         <Stack>
                                             <InputLabel id="born-label">City</InputLabel>
                                             <Select
-                                                helperText="Headquarter located city"
                                                 labelId="born-label"
                                                 label="City"
                                                 id="city"
@@ -308,7 +305,6 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                 </Box>
                                 <Box mb={3}>
                                     <TextField
-                                        helperText="Headquarter postal code"
                                         variant='outlined'
                                         id="postalCode"
                                         label="Postal Code"
@@ -321,7 +317,6 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
 
                             <Box mb={3}>
                                 <TextField
-                                    helperText="Enter contact number"
                                     variant='outlined'
                                     id="contactNumber"
                                     label="Contact Number"
@@ -335,7 +330,6 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                 {/* Party WebSite */}
                                 <Box mb={3}>
                                     <TextField
-                                        helperText="Enter party website"
                                         id="partyWebsite"
                                         variant='outlined'
                                         label="Website"
@@ -346,20 +340,6 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                 </Box>
                             </Stack>
                         </Box>
-
-
-                        {/* <Box mb={2}>
-                            <Typography variant="body1" gutterBottom>
-                                Party Colors
-                            </Typography>
-                            <ButtonGroup>
-                                <Button variant="contained" style={{ backgroundColor: 'red' }}>Red</Button>
-                                <Button variant="contained" style={{ backgroundColor: 'blue' }}>Blue</Button>
-                                <Button variant="contained" style={{ backgroundColor: 'green' }}>Green</Button>
-                            </ButtonGroup>
-                        </Box> */}
-
-
 
                     </FormControl>
                 </DialogContent>

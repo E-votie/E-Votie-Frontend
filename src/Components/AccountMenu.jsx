@@ -6,11 +6,11 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 export const AccountMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -34,7 +34,7 @@ export const AccountMenu = () => {
             aria-expanded={open ? 'true' : undefined}
             className='bg-pink-500'
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <AccountCircle sx={{ width: 32, height: 32 }}/>
           </IconButton>
         </Tooltip>
       </Box>
