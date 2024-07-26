@@ -196,7 +196,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 1 }} />
           <RenderWhenAnonymous>
             <button className="btn btn-ghost btn-square" onClick={() => KeycloakService.doLogin()}>
-              Log in
+              Sign In
             </button>
           </RenderWhenAnonymous>
           <RenderWhenAuthenticated>
