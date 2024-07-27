@@ -1,21 +1,22 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import Tooltip from '@mui/material/Tooltip';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import Divider from '@mui/material/Divider';
+import { PartyMemberRequestCard } from './PartyMemberRequestCard';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export const PartyMemberSideBar = () => {
+export const PartyMemberSideBar = ({ requestList }) => {
   const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
     right: false,
   });
 
@@ -23,59 +24,84 @@ export const PartyMemberSideBar = () => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
 
-  const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-
   return (
     <div>
-      {['left', 'right', 'top', 'bottom'].map((anchor) => (
+      {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Tooltip title="New Party Members" arrow>
+            <IconButton size="large" onClick={toggleDrawer(anchor, true)} aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={4} color="error">
+                <PeopleAltIcon />
+              </Badge>
+            </IconButton>
+          </Tooltip>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
+            PaperProps={{ style: { width: 350 } }} // Fixed width
           >
-            {list(anchor)}
+            <Box sx={{height: '100%', overflowY: 'auto' }}>
+
+              {/* Received Requests */}
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="received-requests-content"
+                  id="received-requests-header"
+                >
+                  <Typography variant="body1">Received Requests</Typography>
+                </AccordionSummary>
+                <div className='flex flex-col gap-2 py-2 px-6'>
+                  {requestList.map((politician, index) => (
+                      <PartyMemberRequestCard key={index} politician={politician} requestState="received request" />
+                  ))}
+                </div>
+
+              </Accordion>
+              <Divider />
+
+              {/* Sent Requests */}
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="sent-requests-content"
+                  id="sent-requests-header"
+                >
+                  <Typography variant="body1">Sent Requests</Typography>
+                </AccordionSummary>
+                <div className='flex flex-col gap-2 py-2 px-6'>
+                    {requestList.map((politician, index) => (
+                        <PartyMemberRequestCard key={index} politician={politician} requestState="sent request" />
+                    ))}
+                </div>
+              </Accordion>
+              <Divider />
+
+              {/* All Politicians */}
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="sent-requests-content"
+                  id="sent-requests-header"
+                >
+                  <Typography variant="body1">All Politicians</Typography>
+                </AccordionSummary>
+                <div className='flex flex-col gap-2 py-2 px-6'>
+                    {requestList.map((politician, index) => (
+                        <PartyMemberRequestCard key={index} politician={politician} requestState="new politician" />
+                    ))}
+                </div>
+              </Accordion>
+              <Divider />
+              
+            </Box>
           </Drawer>
         </React.Fragment>
       ))}
     </div>
   );
-}
+};

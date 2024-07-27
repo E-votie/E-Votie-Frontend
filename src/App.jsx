@@ -11,7 +11,6 @@ import {Announcements} from "./Pages/Announcements";
 import {Inquiries} from "./Pages/Party/Inquiries";
 import {VoterRegistration_2} from "./Pages/VoterRegistration/VoterRegistration_2.jsx";
 import {EmailVerification} from "./Pages/VoterRegistration/EmailVerification.jsx";
-
 import { Manifesto } from "./Pages/Party/Manifesto";
 import {PartyMember} from "./Pages/Party/PartyMember";
 import ErrorBoundary from "./Components/ErrorBoundary.jsx";
