@@ -18,6 +18,7 @@ export const CreateElection = () => {
         EndingDateTime: yup.string().required("Cannot be empty"),
         ElectionType: yup.string().required("Cannot be empty"),
         // ChiefOccupantNIC: yup.string("Invalid NIC").required("Can not be empty").length(12, "NIC must be 12 characters long"),
+        ElectionTitle: yup.string().required("Cannot be empty"),
         ElectionDetails: yup.string().required("Cannot be empty"),
     })
 
@@ -95,7 +96,7 @@ export const CreateElection = () => {
                             <p className="font-sans text-2l">Election Title</p>
                             <input className="input input-bordered input-primary w-full max-w-xs" placeholder="Enter Election Title"/>
 
-                            {errors.EndingDateTime && <p>{errors.ElectionType.message}</p>}
+                            {errors.EndingDateTime && <p>{errors.ElectionTitle.message}</p>}
                         </div>
 
                         <div className="flex gap-5">
