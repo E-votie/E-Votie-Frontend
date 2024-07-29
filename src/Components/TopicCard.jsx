@@ -70,7 +70,7 @@ export const TopicCard = ({ topic }) => {
 
             {/* Delete Modal */}
             {
-                openDeleteModal && <DeleteModal open={openDeleteModal} handleClose={handleCloseDeleteModal} message="Are You Sure Want To Delete This Topic?" action="delete topic" topicId={topic.topicId} userId={topic.userId}/>
+                openDeleteModal && <DeleteModal open={openDeleteModal} handleClose={handleCloseDeleteModal} message="Are You Sure Want To Remove This Topic ?" action="delete topic" topicId={topic.topicId} userId={topic.userId}/>
             }        
         </div>
     );

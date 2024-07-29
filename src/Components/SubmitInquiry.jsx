@@ -126,7 +126,6 @@ export const SubmitInquiry = ({ open, handleClose }) => {
                                 )}
                             />
                         </Box>
-
                         <Box>                        
                             <Typography variant="body1" gutterBottom>
                             Attachments
