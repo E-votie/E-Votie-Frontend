@@ -11,7 +11,6 @@ import {Announcements} from "./Pages/Announcements";
 import {Inquiries} from "./Pages/Party/Inquiries";
 import {VoterRegistration_2} from "./Pages/VoterRegistration/VoterRegistration_2.jsx";
 import {EmailVerification} from "./Pages/VoterRegistration/EmailVerification.jsx";
-
 import { Manifesto } from "./Pages/Party/Manifesto";
 import {PartyMember} from "./Pages/Party/PartyMember";
 import ErrorBoundary from "./Components/ErrorBoundary.jsx";
@@ -56,6 +55,7 @@ function App() {
                             <Route path="/VoterRegistration" element={<QueryClientProvider client={queryClient}> <VoterRegistration_1/> </QueryClientProvider>} />
                             <Route path="/VoterRegistration/:ApplicationID" element={<QueryClientProvider client={queryClient}> <VoterRegistration_2/> </QueryClientProvider>} />
                             <Route path="/verify/:Hash" element={<QueryClientProvider client={queryClient}> <EmailVerification /> </QueryClientProvider>} />
+                            <Route path="/home" element={<Home />} />
                             <Route path="/announcements" element={<Announcements />} />
                             <Route path="/inquiries" element={<Inquiries />} />
                             <Route path="/party/:partyId" element={<Party />} />

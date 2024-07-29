@@ -12,10 +12,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import {AccountMenu} from "../Components/AccountMenu.jsx";
+import { AccountMenu } from '../Components/AccountMenu.jsx';
+import { useNavigate } from 'react-router-dom';
 import RenderWhenAuthenticated from "../utilities/RenderWhenAuthenticated.jsx";
 import RenderWhenAnonymous from "../utilities/RenderWhenAnonymous.jsx";
 import KeycloakService from "../services/KeycloakService.jsx";
+import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,9 +60,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export const Navbar = () => {
+const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -79,6 +83,10 @@ export const Navbar = () => {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const navigator = () => {
+    navigate('/home');
   };
 
   const menuId = 'primary-search-account-menu';
@@ -169,14 +177,12 @@ export const Navbar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <div className="logo w-24">
-            <a href={"/"}>
+          <div className="logo w-24 cursor-pointer" onClick={navigator}>
               <img
                 src='/e-votie-high-resolution-logo-transparent.png'
                 alt='e votie logo'
                 loading="lazy" 
               />
-            </a>
           </div>
           {/*<Search>*/}
           {/*  <SearchIconWrapper>*/}
@@ -189,9 +195,9 @@ export const Navbar = () => {
           {/*</Search>*/}
           <Box sx={{ flexGrow: 1 }} />
           <RenderWhenAnonymous>
-            <button className="btn btn-ghost btn-square" onClick={() => KeycloakService.doLogin()}>
-              Log in
-            </button>
+            <Button sx={{color: "rgb(236 72 153)"}} variant='text' onClick={() => KeycloakService.doLogin()}>
+              <Typography variant='body2'>Sign In</Typography>
+            </Button>
           </RenderWhenAnonymous>
           <RenderWhenAuthenticated>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -214,109 +220,8 @@ export const Navbar = () => {
           </RenderWhenAuthenticated>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
     </Box>
   );
 };
 
-
-
-// import KeycloakService from "../services/KeycloakService.jsx";
-// import RenderWhenAnonymous from "../utilities/RenderWhenAnonymous.jsx";
-// import RenderWhenAuthenticated from "../utilities/RenderWhenAuthenticated.jsx";
-// import { AuthContext } from "../Auth/AuthProvider.jsx";
-// import {useContext, useEffect} from "react";
-// import {AccountMenu} from "../Components/AccountMenu.jsx";
-
-// export const Navbar = () => {
-//     const { isAuthenticated } = useContext(AuthContext);
-
-//     useEffect(() => {
-//         console.log("App component rendered. Is authenticated:", isAuthenticated);
-//     }, [isAuthenticated]);
-//     return (
-//         <div className="h-20 flex grow z-10 sticky left-0 right-0 top-0 border-b-2 mb-4 px-8">
-//             <div className="navbar flex justify-between items-center bg-[#f8f8f8]">
-//                 <div className="navbar-start flex items-center">
-//                     {/* <div className="dropdown">
-//                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-//                             <svg
-//                                 xmlns="http://www.w3.org/2000/svg"
-//                                 className="h-5 w-5"
-//                                 fill="none"
-//                                 viewBox="0 0 24 24"
-//                                 stroke="currentColor">
-//                                 <path
-//                                     strokeLinecap="round"
-//                                     strokeLinejoin="round"
-//                                     strokeWidth="2"
-//                                     d="M4 6h16M4 12h16M4 18h7"/>
-//                             </svg>
-//                         </div>
-//                         <ul
-//                             tabIndex={0}
-//                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-//                             <li><a>Homepage</a></li>
-//                             <li><a>Portfolio</a></li>
-//                             <li><a>About</a></li>
-//                         </ul>
-//                     </div> */}
-//                     <div className="logo w-24">
-//                         <a>
-//                             <img
-//                                 src='/e-votie-high-resolution-logo-transparent.png'
-//                                 alt='e votie logo'
-//                                 loading="lazy"
-//                             />
-//                         </a>
-//                     </div>
-//                 </div>
-//                 <div className="navbar-end">
-//                     <RenderWhenAnonymous>
-//                         <button className="btn btn-ghost btn-square" onClick={() => KeycloakService.doLogin()}>
-//                             Log in
-//                         </button>
-//                     </RenderWhenAnonymous>
-//                     <RenderWhenAuthenticated>
-//                         <button className="btn btn-ghost btn-square" onClick={() => KeycloakService.doLogout()}>
-//                             Log out
-//                         </button>
-//                     </RenderWhenAuthenticated>
-//                     <button className="btn btn-ghost btn-circle">
-//                         <svg
-//                             xmlns="http://www.w3.org/2000/svg"
-//                             className="h-5 w-5"
-//                             fill="none"
-//                             viewBox="0 0 24 24"
-//                             stroke="currentColor">
-//                             <path
-//                                 strokeLinecap="round"
-//                                 strokeLinejoin="round"
-//                                 strokeWidth="2"
-//                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-//                         </svg>
-//                     </button>
-//                     <button className="btn btn-ghost btn-circle">
-//                         <div className="indicator">
-//                             <svg
-//                                 xmlns="http://www.w3.org/2000/svg"
-//                                 className="h-5 w-5"
-//                                 fill="none"
-//                                 viewBox="0 0 24 24"
-//                                 stroke="currentColor">
-//                                 <path
-//                                     strokeLinecap="round"
-//                                     strokeLinejoin="round"
-//                                     strokeWidth="2"
-//                                     d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-//                             </svg>
-//                             <span className="badge badge-xs badge-primary indicator-item"></span>
-//                         </div>
-//                     </button>
-//                     <AccountMenu />
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
+export default Navbar;

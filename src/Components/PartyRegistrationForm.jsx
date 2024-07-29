@@ -34,31 +34,34 @@ export const PartyRegistrationForm = () => {
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)} className="flex-initial space-y-3 mb-4 w-full shadow-md rounded-lg p-2">
+                
                 {/* Party name and abbreviation */}
-                <div className="partyName flex gap-4">
-                <TextField
-                    helperText="Enter party name"
-                    id="partyName"
-                    label="Party Name"
-                    className="w-2/3"
-                    required
-                    {...register("partyName")}
-                />
-                <TextField
-                    helperText="Enter party abbreviation"
-                    id="abbreviation"
-                    label="Abbreviation"
-                    className="w-1/3"
-                    required
-                    {...register("abbreviation")}
-                />
-                </div>
+                <Stack direction="row" className="gap-4">
+                    <Box mb={3} className="w-2/3">
+                        <TextField
+                            // helperText="Enter party name"
+                            id="partyName"
+                            label="Party Name"
+                            required
+                            {...register("partyName")}
+                        />
+                    </Box>
+                    <Box mb={3}>
+                        <TextField
+                            // helperText="Enter party abbreviation"
+                            id="abbreviation"
+                            label="Abbreviation"
+                            required
+                            {...register("abbreviation")}
+                        />
+                    </Box>
+                </Stack>
 
                 {/* Leader and Secretary */}
                 <Stack direction="row" className="flex gap-4">
                     {/* Founded Date */}
                     <TextField
-                        helperText="Enter founded date"
+                        // helperText="Enter founded date"
                         id="foundedDate"
                         label="Founded Date"
                         type="date"
@@ -74,7 +77,7 @@ export const PartyRegistrationForm = () => {
                         <InputLabel id="leader-label">Leader</InputLabel>
                         <Select
                             labelId="leader-label"
-                            helperText="Enter party leader"
+                            // helperText="Enter party leader"
                             id="leader"
                             value={selectedLeader}
                             label="Leader"
@@ -93,7 +96,7 @@ export const PartyRegistrationForm = () => {
                 {/* Headquarters Address */}
                 <Stack direction="row" className="flex gap-4">
                     <TextField
-                        helperText="Headquarter address line 1"
+                        // helperText="Headquarter address line 1"
                         id="addressLine1"
                         label="Address Line 1"
                         className="w-1/2"
@@ -101,7 +104,7 @@ export const PartyRegistrationForm = () => {
                         {...register("addressLine1")}
                     />
                     <TextField
-                        helperText="Headquarter address line 2"
+                        // helperText="Headquarter address line 2"
                         id="addressLine2"
                         label="Address Line 2"
                         className="w-1/2"
@@ -111,21 +114,21 @@ export const PartyRegistrationForm = () => {
                 </ Stack>
                 <Stack direction="row" className="flex gap-4">
                     <TextField
-                        helperText="Headquarter located city"
+                        // helperText="Headquarter located city"
                         id="city"
                         label="City"
                         required
                         {...register("city")}
                     />
                     <TextField
-                        helperText="Headquarter postal code"
+                        // helperText="Headquarter postal code"
                         id="postalCode"
                         label="Postal Code"
                         required
                         {...register("postalCode")}
                     />
                     <TextField
-                        helperText="Enter contact number"
+                        // helperText="Enter contact number"
                         id="contactNumber"
                         label="Contact Number"
                         required

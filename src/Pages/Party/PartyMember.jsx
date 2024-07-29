@@ -16,6 +16,10 @@ import { CardActionArea } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { PartyMemberTermsInParliment } from '../../Components/PartyMemberTermsInParliment';
 import { PartyMemberBiography } from '../../Components/PartyMemberBiography';
+import { PartyMemberContactInfo } from '../../Components/PartyMemberContactInfo';
+import { PartyMemberParticipatedTopics } from '../../Components/PartyMemberParticipatedTopics';
+import { PartyMemberActivities } from '../../Components/PartyMemberActivities';
+import { PartyMemberManifestos } from '../../Components/PartyMemberManifestos';
 
 const candidates = [1,1,1,1,1,1,1,1,1,1,1,1];
 
@@ -174,6 +178,45 @@ const party = {
   "website": "http://www.slpp.lk"
 };
 
+const manifestos = [
+  {
+    id: 1, // Updated to 'id' as per DataGrid row requirements
+    manifestoName: "100 days and beyond",
+    createdDate: "28.07.2024",
+    progress: 20 // Changed to number
+  },
+  {
+    id: 2, // Updated to 'id' as per DataGrid row requirements
+    manifestoName: "test manifesto",
+    createdDate: "15.06.2024",
+    progress: 0 // Changed to number and provided a default value
+  },
+  {
+    id: 2, // Updated to 'id' as per DataGrid row requirements
+    manifestoName: "test manifesto",
+    createdDate: "15.06.2024",
+    progress: 0 // Changed to number and provided a default value
+  },
+  {
+    id: 2, // Updated to 'id' as per DataGrid row requirements
+    manifestoName: "test manifesto",
+    createdDate: "15.06.2024",
+    progress: 0 // Changed to number and provided a default value
+  },
+  {
+    id: 2, // Updated to 'id' as per DataGrid row requirements
+    manifestoName: "test manifesto",
+    createdDate: "15.06.2024",
+    progress: 0 // Changed to number and provided a default value
+  },
+  {
+    id: 2, // Updated to 'id' as per DataGrid row requirements
+    manifestoName: "test manifesto",
+    createdDate: "15.06.2024",
+    progress: 0 // Changed to number and provided a default value
+  }
+];
+
 const activities = [
   {
     hansardCode: '311-6',
@@ -238,6 +281,21 @@ const topics = [
   { number: 173, topic: 'Health', color: 'error' }
 ];
 
+const topicsAddressed = [
+  { topicId: 1, topicName: "Governance, Administration and Parliamentary Affairs", userId: 101 },
+  { topicId: 2, topicName: "Trade & Industry", userId: 102 },
+  { topicId: 3, topicName: "Economy and Finance", userId: 103 },
+  { topicId: 4, topicName: "Labour & Employment", userId: 104 },
+  { topicId: 5, topicName: "National Heritage, Media & Sports", userId: 105 },
+  { topicId: 6, topicName: "Urban Planning, Infrastructure and Transportation", userId: 106 },
+  { topicId: 7, topicName: "Justice, Defence & Public Order", userId: 107 },
+  { topicId: 8, topicName: "Agriculture, Plantations, Livestock & Fisheries", userId: 108 },
+  { topicId: 9, topicName: "Health", userId: 109 },
+  { topicId: 10, topicName: "Natural Resources & Environment", userId: 110 },
+  { topicId: 11, topicName: "Rights & Representation", userId: 111 }
+];
+
+
 
 export const PartyMember = () => {
 
@@ -286,107 +344,19 @@ export const PartyMember = () => {
           <PartyMemberTermsInParliment terms={terms}/>
 
           {/* Contact*/}
-          <div className="pb-2 mb-8">
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              Contact
-            </Typography> 
-            <Divider />
+          <PartyMemberContactInfo contactDetails={contactDetails}/>
 
-            <Box p={2}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Typography variant="subtitle1" sx={{ backgroundColor: '#e0e0e0', p: 1, fontWeight: 'bold' }}>
-                    Address
-                  </Typography>
-                  <Box sx={{ p: 1 }}>
-                    <Typography>Residence: {contactDetails.address.residence}</Typography>
-                    <Typography>Office: {contactDetails.address.office}</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="subtitle1" sx={{ backgroundColor: '#e0e0e0', p: 1, fontWeight: 'bold' }}>
-                    Email
-                  </Typography>
-                  <Box sx={{ p: 1 }}>
-                    <Typography>Personal: {contactDetails.email.personal}</Typography>
-                    <Typography>Office: {contactDetails.email.office}</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="subtitle1" sx={{ backgroundColor: '#e0e0e0', p: 1, fontWeight: 'bold' }}>
-                    Mobile
-                  </Typography>
-                  <Box sx={{ p: 1 }}>
-                    <Typography>Residence: {contactDetails.mobile.residence}</Typography>
-                    <Typography>Office: {contactDetails.mobile.office}</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="subtitle1" sx={{ backgroundColor: '#e0e0e0', p: 1, fontWeight: 'bold' }}>
-                    Contact Details of the Secretary
-                  </Typography>
-                  <Box sx={{ p: 1 }}>
-                    <Typography>Name: {contactDetails.secretary.name}</Typography>
-                    <Typography>Email: {contactDetails.secretary.email}</Typography>
-                    <Typography>Mobile: {contactDetails.secretary.mobile}</Typography>
-                    <Typography>Telephone: {contactDetails.secretary.telephone}</Typography>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Box>
-          </div>
+          {/* Manifestos */}
+          <PartyMemberManifestos manifestos={manifestos}/>
 
           {/* Topics Participated */}
-          <div className='pb-2 mb-8'>
-            <h6 className="text-xl font-bold mb-4">Topics Participated</h6>
-            <Divider />
-          </div>
+          <PartyMemberParticipatedTopics topicsAddressed={topicsAddressed}/>
 
           {/* Activities in Parliment */}
-          <div>
-            <h6 className="text-xl font-bold mb-4">Activities in Parliment</h6>
-            <Divider />
-
-            <Paper elevation={3}>
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              Activities
-            </Typography>
-              <TableContainer>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Hansard code & date</TableCell>
-                      <TableCell>Method of contribution</TableCell>
-                      <TableCell>Topic</TableCell>
-                      <TableCell>Page number</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {activities.map((activity, index) => (
-                      <TableRow key={index}>
-                        <TableCell>
-                          {activity.hansardCode} ({activity.date})
-                        </TableCell>
-                        <TableCell>{activity.method}</TableCell>
-                        <TableCell>
-                          <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <img src="path/to/icon.png" alt="icon" style={{ marginRight: 8 }} />
-                            {activity.topic}
-                          </span>
-                        </TableCell>
-                        <TableCell>Page {activity.page}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Paper>
-          </div>
+          <PartyMemberActivities activities={activities}/>
 
         </div>
       </div>
-
-      <PopUpChat messages={messages}/>
     </div>
   );
 }

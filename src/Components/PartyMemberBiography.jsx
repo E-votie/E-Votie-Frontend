@@ -28,7 +28,7 @@ export const PartyMemberBiography = ({partyMember}) => {
                     Biography
                 </Typography>
                 <Tooltip title="Update Biography" arrow>
-                    <IconButton onClick={handleOpenEditBiographyModal} color="primary">
+                    <IconButton size="large" onClick={handleOpenEditBiographyModal} color="primary">
                         <EditNoteIcon />
                     </IconButton>
                 </Tooltip>

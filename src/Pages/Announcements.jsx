@@ -2,6 +2,7 @@ import React from 'react'
 import {AnnouncementCard} from '../Components/AnnouncementCard';
 import { PublishAnnouncementModal } from '../Components/PublishAnnouncementModal';
 import Button from '@mui/material/Button';
+import CreateIcon from '@mui/icons-material/Create';
 
 const announcements = [
     {
@@ -89,26 +90,46 @@ const announcements = [
 ];
 
 export const Announcements = () => {
-
     const [open, setOpen] = React.useState(false);
+    const [value, setValue] = React.useState(0);
+    const [openPublishAnnouncementModal, setOpenPublishAnnouncementModal] = React.useState(false);
+  
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+  
+    const handleChangeIndex = (index) => {
+      setValue(index);
+    };
 
-    const openPublishAnnouncementModal = () => {
-        setOpen(true);
-    }
+    const handleOpenPublishAnnouncementModal = () => {
+        setOpenPublishAnnouncementModal(true);
+    };
+
+    const handleClosePublishAnnouncementModal = () => {
+        setOpenPublishAnnouncementModal(false);
+    };
 
 
   return (
     <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6">
         <div className='announcementContainer'>
             {/* Header */}
-            <div className='header mt-8 mb-4 flex justify-between items-center'>
+            <div className='header my-8 flex justify-between items-center'>
                 {/* Topic */}
                 <div className="topic text-3xl">
                     Site Announcements
                 </div>
                 {/* Publish new announcement */}
                 <div className=''>
-                    <Button variant="contained" onClick={openPublishAnnouncementModal} className='bg-pink-500'>Craft New Announcement</Button>
+                    <Button
+                        variant="contained"
+                        onClick={handleOpenPublishAnnouncementModal}
+                        startIcon={<CreateIcon />}
+                        sx={{ backgroundColor: '#1976d2', color: '#fff', '&:hover': { backgroundColor: '#115293' } }}
+                        >
+                        Craft New Announcement
+                    </Button>                
                 </div>
             </div>
             {/* Announcements */}
@@ -118,7 +139,9 @@ export const Announcements = () => {
                 }
             </div>
             {/* Publish Announcement Modal */}
-            <PublishAnnouncementModal open={open}/>
+            {
+                openPublishAnnouncementModal && <PublishAnnouncementModal open={openPublishAnnouncementModal} handleClose={handleClosePublishAnnouncementModal}/>
+            }
         </div>
     </div>
   )

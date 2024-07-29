@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 import {Elections} from '../../Components/Elections';
+import CreateIcon from '@mui/icons-material/Create';
 
 const pastElections = [
   {"id": 1, "type": "General Election - 1st State Council", "startDate": "13.06.1931", "endDate": "20.06.1931", "duration": "7 days"},
@@ -60,25 +61,23 @@ export const ElectionList = () => {
         </div>
         {/* Publish new announcement */}
         <div className=''>
-            <Button variant="outlined" className='bg-pink-500'>Create New Election</Button>
+            <Button
+                variant="contained"
+                startIcon={<CreateIcon />}
+                sx={{ backgroundColor: '#1976d2', color: '#fff', '&:hover': { backgroundColor: '#115293' } }}
+                >
+                Create New Election
+            </Button>  
         </div>
       </div>
       <div className='electionContainer'>
-        <div className='upcomingElections'>
-          <div className="topic text-xl mb-4 font-bold ">
-              Upcoming Elections
-          </div> 
-          <div className='electionList'>
-            <Elections electionData={currentElections}/>
-          </div>
+        {/* Current Elections */}
+        <div className='electionList'>
+          <Elections topic="Upcoming Elections" electionData={currentElections}/>
         </div>
-        <div className='pastElections'>
-          <div className="topic text-xl mb-4 font-bold ">
-              Past Elections
-          </div> 
-          <div className='electionList'>
-            <Elections electionData={pastElections}/>
-          </div>
+        {/* Upcoming Elections */}
+        <div className='electionList'>
+          <Elections topic="Past Elections" electionData={pastElections}/>
         </div>
       </div>
     </div>

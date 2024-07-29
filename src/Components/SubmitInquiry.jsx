@@ -52,7 +52,7 @@ const customStyle = `
     }
 `;
 
-export const PublishAnnouncementModal = ({ open, handleClose }) => {
+export const SubmitInquiry = ({ open, handleClose }) => {
     const { control, handleSubmit, register } = useForm();
     const [attachments, setAttachments] = useState([]);
 
@@ -81,7 +81,7 @@ export const PublishAnnouncementModal = ({ open, handleClose }) => {
             open={open}
         >
             <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                Publish Announcement
+                Inquiry Submission
             </DialogTitle>
             <IconButton
                 aria-label="close"
@@ -98,7 +98,6 @@ export const PublishAnnouncementModal = ({ open, handleClose }) => {
             <DialogContent dividers>
                 <FormControl fullWidth variant="outlined" margin='normal'>
                     <Stack spacing={3}>
-                        {/* Announcement Topic  */}
                         <Box>
                             <Typography variant="body1" gutterBottom>
                             Subject
@@ -108,13 +107,12 @@ export const PublishAnnouncementModal = ({ open, handleClose }) => {
                                 fullWidth
                             />
                         </Box>
-                        {/* Announcement */}
                         <Box>
                             <Typography variant="body1" gutterBottom>
-                            Announcement
+                            Description
                             </Typography>
                             <Controller
-                                name="Announcement"
+                                name="inquiryDescription"
                                 control={control}
                                 render={({ field }) => (
                                     <ReactQuill
@@ -128,7 +126,6 @@ export const PublishAnnouncementModal = ({ open, handleClose }) => {
                                 )}
                             />
                         </Box>
-                        {/* Attachments */}
                         <Box>                        
                             <Typography variant="body1" gutterBottom>
                             Attachments
