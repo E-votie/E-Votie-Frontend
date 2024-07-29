@@ -7,11 +7,12 @@ import {useMutation} from "react-query";
 import {authGet} from "../../Auth/authFetch.jsx";
 import Swal from "sweetalert2";
 import {PhotoProvider, PhotoView} from "react-photo-view";
-import './../../assets/css/Scan.css'
+import FingerprintScanner from "../../Components/FingerprintScanner.jsx";
 
-export const FingerprintScan = (props) => {
+export const FingerprintReg = (props) => {
 
     const [responseData, setResponseData] = useState(null);
+    const [showFingerprintScanner, setShowFingerprintScanner] = useState(false);
 
     useEffect(() => {
         if (responseData) {
@@ -52,6 +53,7 @@ export const FingerprintScan = (props) => {
                     OTPVerify.mutate(result.value,{
                         onSuccess: (response) => {
                             setResponseData(response)
+                            setShowFingerprintScanner(true);
                             console.log(response);
                         },
                         onError: (error) => {
@@ -198,12 +200,11 @@ export const FingerprintScan = (props) => {
                     </div>
                 </form>
             </div>
-            <div>
-                <div className="scan">
-                    <div className="fingerprint"></div>
-                    <h3>Scanning...</h3>
+            {showFingerprintScanner && (
+                <div>
+                    <FingerprintScanner ApplicationID={responseData.applicationID} />
                 </div>
-            </div>
+            )}
         </Stack>
     </div>)
 }

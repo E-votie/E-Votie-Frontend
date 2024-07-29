@@ -33,7 +33,10 @@ import {Create_Announcements} from "./Pages/Election/Create_Announcements.jsx";
 
 import "./App.css";
 import {VoterDetails} from "./Pages/Voter/VoterDetails.jsx";
-import {FingerprintScan} from "./Pages/VerificationOfficer/Fingerprintscan.jsx";
+import {FingerprintReg} from "./Pages/VerificationOfficer/FingerprintReg.jsx";
+import {ElectionRegistration} from "./Pages/Voter/ElectionRegistration.jsx";
+import {ElectionRegistrationForm} from "./Pages/Voter/ElectionRegistrationForm.jsx";
+import {ReportView} from "./Pages/ReportGeneration/ReportView.jsx";
 
 
 // Create a QueryClient instance
@@ -62,7 +65,7 @@ function App() {
                             <Route path="/party/member/manifesto" element={<Manifesto />} />
                             <Route path="/election/list" element={<ElectionList />} />
                             <Route path="/election" element={<Election />} />
-
+                            <Route path="/reports/View" element={<ReportView />} />
                             <Route
                                 path="/GN"
                                 element={
@@ -130,8 +133,26 @@ function App() {
                                 path="/verification_officer/fingerprint_scan"
                                 element={
                                     <ProtectedRoute
-                                        element={FingerprintScan}
+                                        element={FingerprintReg}
                                         role="VerificationOfficer"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/voter/election_registration"
+                                element={
+                                    <ProtectedRoute
+                                        element={ElectionRegistration}
+                                        role="Voter"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/voter/election_registration/:ElectionID"
+                                element={
+                                    <ProtectedRoute
+                                        element={ElectionRegistrationForm}
+                                        role="Voter"
                                     />
                                 }
                             />
