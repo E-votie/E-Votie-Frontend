@@ -12,8 +12,9 @@ import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
 const schema = object({
-    Address: yup.string().required("Cannot be empty"),
-    ChiefOccupantNIC: yup.string().required("Cannot be empty").length(12, "NIC must be 12 characters long"),
+    StartingDateTime: yup.string().required("Cannot be empty"),
+    EndingDateTime: yup.string().required("Cannot be empty"),
+    ElectionType: yup.string().required("Cannot be empty"),
 });
 
 const Polling_Stations = () => {
@@ -143,7 +144,7 @@ const Polling_Stations = () => {
                                                 type="datetime-local"
                                                 placeholder="Type here"
                                                 className="input input-bordered input-primary w-full max-w-xs" />
-                                            {errors.ElectionType && <p>{errors.ElectionType.message}</p>}
+                                            {errors.ElectionType && <p>{errors.EndingDateTime.message}</p>}
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +156,7 @@ const Polling_Stations = () => {
                                     <option>Provincial Council Election</option>
                                     <option>Local Government Election</option>
                                 </select>
-                                {errors.EndingDateTime && <p>{errors.EndingDateTime.message}</p>}
+                                {errors.EndingDateTime && <p>{errors.ElectionType.message}</p>}
                                 <div className="flex gap-5">
                                     <label className="form-control w-full max-w-xs">
                                     </label>
