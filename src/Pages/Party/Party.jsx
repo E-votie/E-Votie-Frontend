@@ -12,8 +12,9 @@ import {PartyMemberSideBar} from '../../Components/PartyMemberSideBar';
 const candidates = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 const requestList = [
   {
-    name: "Namal Rajapaksha"
-
+    name: "Namal Rajapaksha",
+    requestStatus: "",
+    profilePicture: "",
   },
   {
     name: "Gotabaya Rajapaksha"

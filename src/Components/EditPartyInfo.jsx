@@ -120,10 +120,10 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                     <FormControl fullWidth variant="outlined" margin='normal'>
 
                         <Box>
-                            <Stack>
-                                <Stack direction="row" className="gap-4">
+                            <Stack spacing={2}>
+                                <Stack spacing={2} direction="row">
                                     {/* Party Name */}
-                                    <Box mb={3} className='w-5/6'>
+                                    <Box className='w-5/6'>
                                         <TextField
                                             variant="outlined"
                                             label="Party Name"
@@ -133,7 +133,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                         />
                                     </Box>
                                     {/* Abbreviation */}
-                                    <Box mb={3}>
+                                    <Box>
                                         <TextField
                                             variant="outlined"
                                             label="Abbreviation"
@@ -144,7 +144,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                     </Box>
                                 </Stack>
                                 {/* Party Leader*/}
-                                <Box mb={3} >
+                                <Box>
                                     <FormControl required className='w-full'> 
                                         <InputLabel id="leader-label">Leader</InputLabel>
                                         <Select
@@ -160,7 +160,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                     </FormControl>
                                 </Box>
                                 {/* Party Secretary */}
-                                <Box mb={3}>
+                                <Box>
                                     <FormControl required className='w-full'>
                                         <InputLabel id="secretary-label">Secretary</InputLabel>
                                         <Select
@@ -175,7 +175,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                         </Select>
                                     </FormControl>
                                 </Box>
-                                <Box mb={3}>
+                                <Box>
                                     <TextField
                                         labelId="founded-date-label"
                                         variant="outlined"
@@ -189,66 +189,64 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                         defaultValue={partyInfo.foundedYear}
                                     />
                                 </Box>
-                            </ Stack>
-
-                            {/* Seats */}
-                            <Stack direction="row" className="flex gap-4">
-                                <Box mb={3}>
-                                    <TextField
-                                        variant="outlined"
-                                        label="District Basis Seats"
-                                        fullWidth
-                                        type="number"
-                                        defaultValue={partyInfo.districtBasisSeats}
+                                {/* Seats */}
+                                <Stack spacing={2} direction="row">
+                                    <Box >
+                                        <TextField
+                                            variant="outlined"
+                                            label="District Basis Seats"
+                                            fullWidth
+                                            type="number"
+                                            defaultValue={partyInfo.districtBasisSeats}
+                                        />
+                                    </Box>
+                                    <Box >
+                                        <TextField
+                                            variant="outlined"
+                                            label="National Basis Seats"
+                                            fullWidth
+                                            type="number"
+                                            defaultValue={partyInfo.nationalBasisSeats}
+                                        />
+                                    </Box>
+                                    <Box >
+                                        <TextField
+                                            variant="outlined"
+                                            label="Total Seats"
+                                            fullWidth
+                                            type="number"
+                                            defaultValue={partyInfo.totalSeats}
+                                        />
+                                    </Box>
+                                </Stack>
+                                {/* Party Symbol */}
+                                <Box>
+                                    <input
+                                        accept="image/*"
+                                        id="partySymbolInput"
+                                        type="file"
+                                        style={{ display: "none" }}
+                                        onChange={handleFileChange}
+                                        {...register("partySymbol")}
                                     />
-                                </Box>
-                                <Box mb={3}>
-                                    <TextField
+                                    <label htmlFor="partySymbolInput">
+                                        <Button
+                                        component="span"
+                                        role={undefined}
                                         variant="outlined"
-                                        label="National Basis Seats"
-                                        fullWidth
-                                        type="number"
-                                        defaultValue={partyInfo.nationalBasisSeats}
-                                    />
-                                </Box>
-                                <Box mb={3}>
-                                    <TextField
-                                        variant="outlined"
-                                        label="Total Seats"
-                                        fullWidth
-                                        type="number"
-                                        defaultValue={partyInfo.totalSeats}
-                                    />
+                                        tabIndex={-1}
+                                        startIcon={<CloudUploadIcon />}
+                                        >
+                                        Upload Party Symbol
+                                        </Button>
+                                    </label>
+                                    {uploadedFileName && (
+                                        <div>
+                                        <p>Uploaded File: {uploadedFileName}</p>
+                                        </div>
+                                    )}
                                 </Box>
                             </Stack>
-
-                            {/* Party Symbol */}
-                            <Box>
-                                <input
-                                    accept="image/*"
-                                    id="partySymbolInput"
-                                    type="file"
-                                    style={{ display: "none" }}
-                                    onChange={handleFileChange}
-                                    {...register("partySymbol")}
-                                />
-                                <label htmlFor="partySymbolInput">
-                                    <Button
-                                    component="span"
-                                    role={undefined}
-                                    variant="outlined"
-                                    tabIndex={-1}
-                                    startIcon={<CloudUploadIcon />}
-                                    >
-                                    Upload Party Symbol
-                                    </Button>
-                                </label>
-                                {uploadedFileName && (
-                                    <div>
-                                    <p>Uploaded File: {uploadedFileName}</p>
-                                    </div>
-                                )}
-                            </Box>
                         </Box>
 
                         <Box my={2} />
@@ -257,8 +255,9 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
 
                         <Box>
                             {/* Headquarters Address */}
-                            <Stack >
-                                <Box mb={3}>
+                            <Stack spacing={2}>
+                                {/* address line 1 */}
+                                <Box>
                                     <TextField
                                         variant='outlined'
                                         id="addressLine1"
@@ -268,7 +267,8 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                         {...register("addressLine1")}
                                     />
                                 </Box>
-                                <Box mb={3}>
+                                {/* address line 2 */}
+                                <Box>
                                     <TextField
                                         variant='outlined'
                                         id="addressLine2"
@@ -278,57 +278,53 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                         {...register("addressLine2")}
                                     />
                                 </Box>
-                            </ Stack>
-
-                            <Stack direction="row" className='gap-4'>
-                                <Box mb={3} className="w-1/2">
-                                    <FormControl fullWidth required>
-                                        <Stack>
-                                            <InputLabel id="born-label">City</InputLabel>
-                                            <Select
-                                                labelId="born-label"
-                                                label="City"
-                                                id="city"
-                                                variant="outlined"
-                                                className='w-full'
-                                                required                                            {...register("city")}
-                                                {...register("city")}
-                                            >
-                                                {cities.map((city, index) => (
-                                                <MenuItem key={index} value={city}>
-                                                    {city}
-                                                </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </Stack>
-                                    </FormControl>
-                                </Box>
-                                <Box mb={3}>
+                                <Stack spacing={2} direction="row">
+                                    {/* City */}
+                                    <Box className="w-1/2">
+                                        <FormControl fullWidth required>
+                                                <InputLabel id="born-label">City</InputLabel>
+                                                <Select
+                                                    labelId="born-label"
+                                                    label="City"
+                                                    id="city"
+                                                    variant="outlined"
+                                                    className='w-full'
+                                                    required                                            {...register("city")}
+                                                    {...register("city")}
+                                                >
+                                                    {cities.map((city, index) => (
+                                                    <MenuItem key={index} value={city}>
+                                                        {city}
+                                                    </MenuItem>
+                                                    ))}
+                                                </Select>
+                                        </FormControl>
+                                    </Box>
+                                    {/* Postal Code */}
+                                    <Box>
+                                        <TextField
+                                            variant='outlined'
+                                            id="postalCode"
+                                            label="Postal Code"
+                                            className='w-full'
+                                            required
+                                            {...register("postalCode")}
+                                        />
+                                    </Box>
+                                </Stack>
+                                {/* Contact Number */}
+                                <Box>
                                     <TextField
                                         variant='outlined'
-                                        id="postalCode"
-                                        label="Postal Code"
+                                        id="contactNumber"
+                                        label="Contact Number"
                                         className='w-full'
                                         required
-                                        {...register("postalCode")}
+                                        {...register("contactNumber")}
                                     />
                                 </Box>
-                            </Stack>
-
-                            <Box mb={3}>
-                                <TextField
-                                    variant='outlined'
-                                    id="contactNumber"
-                                    label="Contact Number"
-                                    className='w-full'
-                                    required
-                                    {...register("contactNumber")}
-                                />
-                            </Box>
-
-                            <Stack>
                                 {/* Party WebSite */}
-                                <Box mb={3}>
+                                <Box>
                                     <TextField
                                         id="partyWebsite"
                                         variant='outlined'

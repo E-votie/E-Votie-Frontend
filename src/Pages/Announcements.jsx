@@ -2,6 +2,7 @@ import React from 'react'
 import {AnnouncementCard} from '../Components/AnnouncementCard';
 import { PublishAnnouncementModal } from '../Components/PublishAnnouncementModal';
 import Button from '@mui/material/Button';
+import CreateIcon from '@mui/icons-material/Create';
 
 const announcements = [
     {
@@ -108,7 +109,14 @@ export const Announcements = () => {
                 </div>
                 {/* Publish new announcement */}
                 <div className=''>
-                    <Button variant="contained" onClick={openPublishAnnouncementModal} className='bg-pink-500'>Craft New Announcement</Button>
+                    <Button
+                        variant="contained"
+                        onClick={openPublishAnnouncementModal}
+                        startIcon={<CreateIcon />}
+                        sx={{ backgroundColor: '#1976d2', color: '#fff', '&:hover': { backgroundColor: '#115293' } }}
+                        >
+                        Craft New Announcement
+                    </Button>                
                 </div>
             </div>
             {/* Announcements */}

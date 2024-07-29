@@ -9,6 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -65,7 +66,14 @@ export const PartyList = () => {
           </div>
           {/* Publish new announcement */}
           <div className=''>
-              <Button variant="outlined" onClick={openPartyRegistration} className='bg-pink-500'>Register New Party</Button>
+            <Button
+              variant="outlined"
+              onClick={openPartyRegistration}
+              startIcon={<GroupAddIcon />}
+              sx={{ backgroundColor: '#1976d2', color: '#fff', '&:hover': { backgroundColor: '#115293' } }}
+            >
+              Register New Party
+            </Button>
           </div>
         </div>
         <div className='flex gap-12'>
