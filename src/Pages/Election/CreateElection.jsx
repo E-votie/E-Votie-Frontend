@@ -76,19 +76,28 @@ export const CreateElection = () => {
                                         type="datetime-local"
                                         placeholder="Type here"
                                         className="input input-bordered input-primary w-full max-w-xs"/>
-                                    {errors.ElectionType && <p>{errors.ElectionType.message}</p>}
+                                    {errors.ElectionType && <p>{errors.EndingDateTime.message}</p>}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                        <p className="font-sans text-2l">Election Type</p>
-                        <select className="select select-primary w-full max-w-xs">
-                            <option disabled selected>Election Type</option>
-                            <option>Presidential Election</option>
-                            <option>Parliamentary Election</option>
-                            <option>Provincial Council Election</option>
-                            <option>Local Government Election</option>
-                        </select>
-                        {errors.EndingDateTime && <p>{errors.EndingDateTime.message}</p>}
+                        <div className="space-y-3">
+                            <p className="font-sans text-2l">Election Type</p>
+                            <select className="select select-primary w-full max-w-xs">
+                                <option disabled selected>Election Type</option>
+                                <option>Presidential Election</option>
+                                <option>Parliamentary Election</option>
+                                <option>Provincial Council Election</option>
+                                <option>Local Government Election</option>
+                            </select>
+                            {errors.EndingDateTime && <p>{errors.ElectionType.message}</p>}
+                        </div>
+                        <div className="space-y-3">
+                            <p className="font-sans text-2l">Election Title</p>
+                            <input className="input input-bordered input-primary w-full max-w-xs" placeholder="Enter Election Title"/>
+
+                            {errors.EndingDateTime && <p>{errors.ElectionType.message}</p>}
+                        </div>
+
                         <div className="flex gap-5">
                             <label className="form-control w-full max-w-xs">
                             </label>
