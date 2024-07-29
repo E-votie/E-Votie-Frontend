@@ -6,7 +6,6 @@ import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Stack, Button } from '@mui/material';
@@ -15,6 +14,7 @@ import SendIcon from '@mui/icons-material/Send';
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { InquiryCard } from '../../Components/InquiryCard';
+import { SubmitInquiry } from '../../Components/SubmitInquiry';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 32,
@@ -119,6 +119,7 @@ const inquiries = [
 export const Manifesto = ({ overallProgress, items }) => {
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
+    const [openSubmitInquiryModal, setOpenSubmitInquiryModal] = React.useState(false);
   
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -128,7 +129,14 @@ export const Manifesto = ({ overallProgress, items }) => {
       setValue(index);
     };
 
-  
+    const handleOpenSubmitInquiryModal = () => {
+        setOpenSubmitInquiryModal(true);
+    };
+
+    const handleCloseSubmitInquiryModal = () => {
+        setOpenSubmitInquiryModal(false);
+    };
+
   
     return (
         <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6">
@@ -179,12 +187,17 @@ export const Manifesto = ({ overallProgress, items }) => {
                                 Add New Promise
                             </Button>
                             <Button
+                                onClick={handleOpenSubmitInquiryModal}
                                 variant="contained"
                                 startIcon={<SendIcon />}
                                 sx={{ backgroundColor: '#4caf50', color: '#fff', '&:hover': { backgroundColor: '#388e3c' } }}
                             >
                                 Submit Inquiry
                             </Button>
+                            {/* submit inquiry modal */}
+                            {
+                                openSubmitInquiryModal && <SubmitInquiry open={openSubmitInquiryModal} handleClose={handleCloseSubmitInquiryModal}/>
+                            }
                             <Button
                                 variant="contained"
                                 startIcon={<UpdateIcon />}

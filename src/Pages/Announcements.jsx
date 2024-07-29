@@ -90,12 +90,25 @@ const announcements = [
 ];
 
 export const Announcements = () => {
-
     const [open, setOpen] = React.useState(false);
+    const [value, setValue] = React.useState(0);
+    const [openPublishAnnouncementModal, setOpenPublishAnnouncementModal] = React.useState(false);
+  
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+  
+    const handleChangeIndex = (index) => {
+      setValue(index);
+    };
 
-    const openPublishAnnouncementModal = () => {
-        setOpen(true);
-    }
+    const handleOpenPublishAnnouncementModal = () => {
+        setOpenPublishAnnouncementModal(true);
+    };
+
+    const handleClosePublishAnnouncementModal = () => {
+        setOpenPublishAnnouncementModal(false);
+    };
 
 
   return (
@@ -111,7 +124,7 @@ export const Announcements = () => {
                 <div className=''>
                     <Button
                         variant="contained"
-                        onClick={openPublishAnnouncementModal}
+                        onClick={handleOpenPublishAnnouncementModal}
                         startIcon={<CreateIcon />}
                         sx={{ backgroundColor: '#1976d2', color: '#fff', '&:hover': { backgroundColor: '#115293' } }}
                         >
@@ -126,7 +139,9 @@ export const Announcements = () => {
                 }
             </div>
             {/* Publish Announcement Modal */}
-            <PublishAnnouncementModal open={open}/>
+            {
+                openPublishAnnouncementModal && <PublishAnnouncementModal open={openPublishAnnouncementModal} handleClose={handleClosePublishAnnouncementModal}/>
+            }
         </div>
     </div>
   )

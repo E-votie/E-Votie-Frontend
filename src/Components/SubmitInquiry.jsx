@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Button,
     Box,
@@ -13,9 +13,24 @@ import {
     Stack,
     Divider
 } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Import Quill's CSS
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -26,17 +41,37 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
     '& .MuiPaper-root': {
         width: '80%',
-        maxWidth: '480px',
+        maxWidth: '600px',
     },
 }));
 
+const customStyle = `
+    .custom-quill .ql-editor {
+        font-size: 1rem; /* Adjust this value to match the body1 font size */
+        line-height: 1.5;
+    }
+`;
+
 export const SubmitInquiry = ({ open, handleClose }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { control, handleSubmit, register } = useForm();
+    const [attachments, setAttachments] = useState([]);
 
     const onSubmit = (data) => {
         // Handle form submission here
-        console.log(data);
+        console.log(data, attachments);
         handleClose();
+    };
+
+    const handleFileChange = (event) => {
+        console.log("handleFileChange called");
+        try {
+            const files = Array.from(event.target.files);
+            console.log("Files selected:", files);
+            setAttachments(files);
+            console.log("Attachments updated:", files);
+        } catch (error) {
+            console.error("Error in handleFileChange:", error);
+        }
     };
 
     return (
@@ -62,32 +97,95 @@ export const SubmitInquiry = ({ open, handleClose }) => {
             </IconButton>
             <DialogContent dividers>
                 <FormControl fullWidth variant="outlined" margin='normal'>
-                    <Typography variant="h6" gutterBottom>
-                        Inquiry Details
-                    </Typography>
-                    <Stack spacing={2}>
-                        <TextField
-                            variant="outlined"
-                            label="Inquiry Subject"
-                            fullWidth
-                            {...register("inquirySubject")}
-                            defaultValue="Inquiry about Course Registration"
-                        />
-                        <TextField
-                            variant="outlined"
-                            label="Inquiry Description"
-                            fullWidth
-                            multiline
-                            rows={4}
-                            {...register("inquiryDescription")}
-                            defaultValue="I have missed the course registration deadline. Can I still register for the courses?"
-                        />
+                    <Stack spacing={3}>
+                        <Box>
+                            <Typography variant="body1" gutterBottom>
+                            Subject
+                            </Typography>
+                            <TextField
+                                variant="outlined"
+                                fullWidth
+                            />
+                        </Box>
+                        <Box>
+                            <Typography variant="body1" gutterBottom>
+                            Description
+                            </Typography>
+                            <Controller
+                                name="inquiryDescription"
+                                control={control}
+                                render={({ field }) => (
+                                    <ReactQuill
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        modules={modules}
+                                        formats={formats}
+                                        style={{ height: 200, marginBottom: '2rem' }}
+                                        className="custom-quill"
+                                    />
+                                )}
+                            />
+                        </Box>
+
+                        <Box>                        
+                            <Typography variant="body1" gutterBottom>
+                            Attachments
+                            </Typography>
+                            <Button
+                                component="label"
+                                variant="contained"
+                                startIcon={<CloudUploadIcon />}
+                            >
+                                Upload file(s)
+                                <VisuallyHiddenInput 
+                                    type="file" 
+                                    multiple 
+                                    onChange={(e) => {
+                                        console.log("File input change event triggered");
+                                        handleFileChange(e);
+                                    }}                                    
+                                    accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" 
+                                    {...register("attachments")}
+                                />
+                            </Button>
+                            {attachments.length > 0 && (
+                                <Box mt={2}>
+                                    <Typography variant="body2">Attachments:</Typography>
+                                    <ul>
+                                        {attachments.map((file, index) => (
+                                            <li key={index}>{file.name}</li>
+                                        ))}
+                                    </ul>
+                                </Box>
+                            )}
+                        </Box>
                     </Stack>
                 </FormControl>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" onClick={handleSubmit(onSubmit)}>Submit</Button>
+                <Button  onClick={handleSubmit(onSubmit)}>Submit</Button>
             </DialogActions>
+            <style>
+                {customStyle}
+            </style>
         </BootstrapDialog>
     );
 };
+
+// React Quill modules and formats
+const modules = {
+    toolbar: [
+        [{ 'header': '1' }, { 'header': '2' }],
+        ['bold', 'italic', 'underline'],
+        ['link'],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        ['clean']
+    ],
+};
+
+const formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline',
+    'list', 'bullet', 'indent',
+    'link', 'image'
+];

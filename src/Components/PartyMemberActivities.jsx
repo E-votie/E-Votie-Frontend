@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import Divider from '@mui/material/Divider';
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination } from '@mui/material';
+import { MoreOverMenu } from './MoreOverMenu';
+import IconButton from '@mui/material/IconButton';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import Tooltip from '@mui/material/Tooltip';
+
+const options = ["Edit", "Delete"];
 
 export const PartyMemberActivities = ({ activities }) => {
     const [page, setPage] = useState(0);
@@ -17,9 +23,16 @@ export const PartyMemberActivities = ({ activities }) => {
 
     return (
         <div className="pb-2 mb-8">
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-                Activities in Parliament
-            </Typography>
+            <div className='flex justify-between items-center'>
+                <Typography variant="h6" color="textSecondary" gutterBottom>
+                    Activities in Parliament
+                </Typography>
+                <Tooltip title="Add New Activity" arrow>
+                    <IconButton aria-label="create" size='large' color='primary'>
+                        <AddCircleIcon fontSize="200px"/>
+                    </IconButton>
+                </Tooltip>
+            </div>
             <Divider />
 
             <div className="p-4">
@@ -32,6 +45,7 @@ export const PartyMemberActivities = ({ activities }) => {
                                 <TableCell><Typography variant="body1" sx={{ fontWeight: 'bold' }}>Method of contribution</Typography></TableCell>
                                 <TableCell><Typography variant="body1" sx={{ fontWeight: 'bold' }}>Topic</Typography></TableCell>
                                 <TableCell><Typography variant="body1" sx={{ fontWeight: 'bold' }}>Page number</Typography></TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -42,6 +56,7 @@ export const PartyMemberActivities = ({ activities }) => {
                                     <TableCell><Typography variant="body1">{activity.method}</Typography></TableCell>
                                     <TableCell><Typography variant="body1">{activity.topic}</Typography></TableCell>
                                     <TableCell><Typography variant="body1">Page {activity.page}</Typography></TableCell>
+                                    <TableCell><div className="float-right"><MoreOverMenu options={options} /></div></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
