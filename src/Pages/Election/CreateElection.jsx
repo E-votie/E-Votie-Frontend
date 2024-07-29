@@ -14,12 +14,11 @@ const MySwal = withReactContent(Swal)
 export const CreateElection = () => {
 
     const schema = object({
-        Address: yup.string().required("Can not be empty"),
-        ChiefOccupantNIC: yup.string("Invalid NIC").required("Can not be empty").length(12, "NIC must be 12 characters long"),
-        // NICFront: yup.mixed().required("A file is required").test("fileSize", "File size is too large", value => value && value[0].size <= FILE_SIZE).test("fileFormat", "Unsupported file format", value => value && SUPPORTED_FORMATS.includes(value[0].type)),
-        // NICBack: yup.mixed().required("A file is required").test("fileSize", "File size is too large", value => value && value[0].size <= FILE_SIZE).test("fileFormat", "Unsupported file format", value => value && SUPPORTED_FORMATS.includes(value[0].type)),
-        // Face: yup.mixed().required("A file is required").test("fileSize", "File size is too large", value => value && value[0].size <= FILE_SIZE).test("fileFormat", "Unsupported file format", value => value && SUPPORTED_FORMATS.includes(value[0].type)),
-        // Relationship: yup.string().required("Can not be empty").matches(/^\D*$/, "Invalid Relationship"),
+        StartingDateTime: yup.string().required("Cannot be empty"),
+        EndingDateTime: yup.string().required("Cannot be empty"),
+        ElectionType: yup.string().required("Cannot be empty"),
+        // ChiefOccupantNIC: yup.string("Invalid NIC").required("Can not be empty").length(12, "NIC must be 12 characters long"),
+        ElectionDetails: yup.string().required("Cannot be empty"),
     })
 
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -68,6 +67,7 @@ export const CreateElection = () => {
                                         type="datetime-local"
                                         placeholder="Type here"
                                         className="input input-bordered input-primary w-full max-w-xs"/>
+                                    {errors.StartingDateTime && <p>{errors.StartingDateTime.message}</p>}
                                 </div>
                                 <span className="text-lg font-bold self-end mb-2">-</span>
                                 <div className="flex flex-col">
@@ -76,6 +76,7 @@ export const CreateElection = () => {
                                         type="datetime-local"
                                         placeholder="Type here"
                                         className="input input-bordered input-primary w-full max-w-xs"/>
+                                    {errors.ElectionType && <p>{errors.ElectionType.message}</p>}
                             </div>
                         </div>
                     </div>
@@ -87,74 +88,25 @@ export const CreateElection = () => {
                             <option>Provincial Council Election</option>
                             <option>Local Government Election</option>
                         </select>
+                        {errors.EndingDateTime && <p>{errors.EndingDateTime.message}</p>}
                         <div className="flex gap-5">
                             <label className="form-control w-full max-w-xs">
-                                {/*<div className="label">*/}
-                                {/*<span className="label-text">NIC Front</span>*/}
-                                {/*</div>*/}
-                                {/*<input type="file"*/}
-                                {/*       className="file-input file-input-bordered w-full max-w-xs" {...register("NICFront")}/>*/}
                             </label>
-                            {/*{errors.NICFront &&*/}
-                            {/*    <p className="text-red-500 text-xs italic ml-5">{errors.NICFront.message}</p>}*/}
                             <label className="form-control w-full max-w-xs">
-                                {/*<div className="label">*/}
-                                {/*    <span className="label-text">NIC Back</span>*/}
-                                {/*</div>*/}
-                                {/*<input type="file"*/}
-                                {/*       className="file-input file-input-bordered w-full max-w-xs" {...register("NICBack")}/>*/}
                             </label>
-                            {/*{errors.NICBack &&*/}
-                            {/*    <p className="text-red-500 text-xs italic ml-5">{errors.NICBack.message}</p>}*/}
                             <label className="form-control w-full max-w-xs">
-                                {/*<div className="label">*/}
-                                {/*    <span className="label-text">Current facial photo for verification</span>*/}
-                                {/*</div>*/}
-                                {/*<input type="file"*/}
-                                {/*       className="file-input file-input-bordered w-full max-w-xs" {...register("Face")}/>*/}
                             </label>
-                            {/*{errors.Face &&*/}
-                            {/*    <p className="text-red-500 text-xs italic ml-5">{errors.Face.message}</p>}*/}
                         </div>
                     </div>
                     <div className="space-y-3">
                         <p className="font-sans text-2l">Election Details</p>
                         <label className="form-control">
                             <textarea className="textarea textarea-bordered h-24 textarea-primary"
-                                      placeholder="Election Details" {...register("Address")}></textarea>
+                                      placeholder="Election Details" {...register("ElectionDetails")}></textarea>
+                            {errors.ElectionDetails && <p>{errors.ElectionDetails.message}</p>}
                         </label>
                     </div>
                     <div className="space-y-3">
-                        {/*<p className="font-sans text-2l">Electoral District</p>*/}
-                        {/*<label className="input input-bordered flex items-center gap-2 input-primary">*/}
-                        {/*    /!*<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"*!/*/}
-                        {/*    /!*     className="h-5 w-5">*!/*/}
-                        {/*    /!*    <path*!/*/}
-                        {/*    /!*        d="M19 2H5C3.34 2 2 3.34 2 5v14c0 1.66 1.34 3 3 3h14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3zM5 4h14c.55 0 1 .45 1 1v2H4V5c0-.55.45-1 1-1zm14 16H5c-.55 0-1-.45-1-1V9h16v10c0 .55-.45 1-1 1z"/>*!/*/}
-                        {/*    /!*    <path*!/*/}
-                        {/*    /!*        d="M6 10h4c.55 0 1 .45 1 1s-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1zm0 4h4c.55 0 1 .45 1 1s-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1zm6-4h4c.55 0 1 .45 1 1s-.45 1-1 1h-4c-.55 0-1-.45-1-1s.45-1 1-1zm0 4h4c.55 0 1 .45 1 1s-.45 1-1 1h-4c-.55 0-1-.45-1-1s.45-1 1-1z"/>*!/*/}
-                        {/*    /!*</svg>*!/*/}
-                        {/*    <input type="text" className="grow"*/}
-                        {/*           placeholder="Enter Electoral District" {...register("ChiefOccupantNIC")}/>*/}
-                        {/*</label>*/}
-                        {/*/!*{errors.ChiefOccupantNIC &&*!/*/}
-                        {/*/!*    <p className="text-red-500 text-xs italic ml-5">{errors.ChiefOccupantNIC.message}</p>}*!/*/}
-
-                        {/*<p className="font-sans text-2l">Polling Division</p>*/}
-
-                        {/*<label className="input input-bordered flex items-center gap-2 input-primary">*/}
-                        {/*    /!*<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"*!/*/}
-                        {/*    /!*     className="h-5 w-5">*!/*/}
-                        {/*    /!*    <path*!/*/}
-                        {/*    /!*        d="M19 2H5C3.34 2 2 3.34 2 5v14c0 1.66 1.34 3 3 3h14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3zM5 4h14c.55 0 1 .45 1 1v2H4V5c0-.55.45-1 1-1zm14 16H5c-.55 0-1-.45-1-1V9h16v10c0 .55-.45 1-1 1z"/>*!/*/}
-                        {/*    /!*    <path*!/*/}
-                        {/*    /!*        d="M6 10h4c.55 0 1 .45 1 1s-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1zm0 4h4c.55 0 1 .45 1 1s-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1zm6-4h4c.55 0 1 .45 1 1s-.45 1-1 1h-4c-.55 0-1-.45-1-1s.45-1 1-1zm0 4h4c.55 0 1 .45 1 1s-.45 1-1 1h-4c-.55 0-1-.45-1-1s.45-1 1-1z"/>*!/*/}
-                        {/*    /!*</svg>*!/*/}
-                        {/*    <input type="text" className="grow"*/}
-                        {/*           placeholder="Enter Polling Division " {...register("Relationship")}/>*/}
-                        {/*</label>*/}
-                        {/*{errors.Relationship &&*/}
-                        {/*    <p className="text-red-500 text-xs italic ml-5">{errors.Relationship.message}</p>}*/}
                         <div className="card-actions justify-end">
                             <button className="btn btn-outline btn-primary">Next</button>
                         </div>
