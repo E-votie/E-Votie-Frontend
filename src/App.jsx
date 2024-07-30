@@ -32,6 +32,7 @@ import {Create_Announcements} from "./Pages/Election/Create_Announcements.jsx";
 
 import "./App.css";
 import Polling_Stations from "./Pages/Election/Polling_Stations.jsx";
+import ApprovePartyMembers from "./Pages/Election/ApprovePartyMembers.jsx";
 
 
 // Create a QueryClient instance
@@ -60,6 +61,7 @@ function App() {
                             <Route path="/party/member/manifesto" element={<Manifesto />} />
                             <Route path="/election/list" element={<ElectionList />} />
                             <Route path="/election" element={<Election />} />
+                            <Route path="/Approve" element={<ApprovePartyMembers />} />
 
                             <Route
                                 path="/GN"
