@@ -81,7 +81,7 @@ export const FormReview = () => {
         mutation.mutate(data, {
             onSuccess: (response) => {
                 MySwal.fire({
-                    title: <p>Please check email and phone</p>,
+                    title: <p>Successfully Updated</p>,
                     icon: 'success',
                     showConfirmButton: true,
                     confirmButtonText: 'OK',
@@ -111,7 +111,7 @@ export const FormReview = () => {
         });
     }
 
-    return (<div>
+    return (<div className="card card-side bg-base-100 shadow-xl gap-10 px-4 py-14">
         {loading ? (<div>Loading...</div>) : (
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
             <div className="space-y-3">
@@ -211,7 +211,7 @@ export const FormReview = () => {
                     </label>
                 </div>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-3 pt-5">
                 <p className="font-sans text-2xl">Location Details</p>
                 <label className="form-control">
                     <div className="label">
@@ -259,7 +259,7 @@ export const FormReview = () => {
                     {/*<MapComponent></MapComponent>*/}
                 </div>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-3 pt-5">
                 <p className="font-sans text-2xl">Chief Occupant Details</p>
                 <div className="flex gap-5">
                     <label className="form-control w-full max-w-xs">
