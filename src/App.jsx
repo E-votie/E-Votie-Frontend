@@ -11,7 +11,6 @@ import {Announcements} from "./Pages/Announcements";
 import {Inquiries} from "./Pages/Party/Inquiries";
 import {VoterRegistration_2} from "./Pages/VoterRegistration/VoterRegistration_2.jsx";
 import {EmailVerification} from "./Pages/VoterRegistration/EmailVerification.jsx";
-
 import { Manifesto } from "./Pages/Party/Manifesto";
 import {PartyMember} from "./Pages/Party/PartyMember";
 import ErrorBoundary from "./Components/ErrorBoundary.jsx";
@@ -31,6 +30,11 @@ import {Create_Announcements} from "./Pages/Election/Create_Announcements.jsx";
 
 
 import "./App.css";
+import {VoterDetails} from "./Pages/Voter/VoterDetails.jsx";
+import {FingerprintReg} from "./Pages/VerificationOfficer/FingerprintReg.jsx";
+import {ElectionRegistration} from "./Pages/Voter/ElectionRegistration.jsx";
+import {ElectionRegistrationForm} from "./Pages/Voter/ElectionRegistrationForm.jsx";
+import {ReportView} from "./Pages/ReportGeneration/ReportView.jsx";
 import Polling_Stations from "./Pages/Election/Polling_Stations.jsx";
 import ApprovePartyMembers from "./Pages/Election/ApprovePartyMembers.jsx";
 
@@ -52,6 +56,7 @@ function App() {
                             <Route path="/VoterRegistration" element={<QueryClientProvider client={queryClient}> <VoterRegistration_1/> </QueryClientProvider>} />
                             <Route path="/VoterRegistration/:ApplicationID" element={<QueryClientProvider client={queryClient}> <VoterRegistration_2/> </QueryClientProvider>} />
                             <Route path="/verify/:Hash" element={<QueryClientProvider client={queryClient}> <EmailVerification /> </QueryClientProvider>} />
+                            <Route path="/home" element={<Home />} />
                             <Route path="/announcements" element={<Announcements />} />
                             <Route path="/inquiries" element={<Inquiries />} />
                             <Route path="/party/:partyId" element={<Party />} />
@@ -61,8 +66,8 @@ function App() {
                             <Route path="/party/member/manifesto" element={<Manifesto />} />
                             <Route path="/election/list" element={<ElectionList />} />
                             <Route path="/election" element={<Election />} />
+                            <Route path="/reports/View" element={<ReportView />} />
                             <Route path="/Approve" element={<ApprovePartyMembers />} />
-
                             <Route
                                 path="/GN"
                                 element={
@@ -90,7 +95,15 @@ function App() {
                                     />
                                 }
                             />
-
+                            <Route
+                                path="/verification_officer"
+                                element={
+                                    <ProtectedRoute
+                                        element={VerificationHome}
+                                        role="VerificationOfficer"
+                                    />
+                                }
+                            />
                             <Route
                                 path="/verification_officer/voter_applications"
                                 element={
@@ -106,6 +119,42 @@ function App() {
                                     <ProtectedRoute
                                         element={FormReviewVerificationOfficer}
                                         role="VerificationOfficer"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/voter/profile"
+                                element={
+                                    <ProtectedRoute
+                                        element={VoterDetails}
+                                        role="Voter"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/verification_officer/fingerprint_scan"
+                                element={
+                                    <ProtectedRoute
+                                        element={FingerprintReg}
+                                        role="VerificationOfficer"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/voter/election_registration"
+                                element={
+                                    <ProtectedRoute
+                                        element={ElectionRegistration}
+                                        role="Voter"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/voter/election_registration/:ElectionID"
+                                element={
+                                    <ProtectedRoute
+                                        element={ElectionRegistrationForm}
+                                        role="Voter"
                                     />
                                 }
                             />

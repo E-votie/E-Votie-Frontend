@@ -6,10 +6,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export const DeleteModal = ({open, handleClose, message, action, termId}) => {
+export const DeleteModal = ({open, handleClose, message, action, termId, topicId, userId}) => {
 
-    if(action === 'delete term'){
-        console.log("Term is deleted");
+    switch (action) {
+        case "delete term":
+            console.log("Term is deleted");
+        case "delete topic":
+            console.log("Topic is deleted");
     }
 
     return (

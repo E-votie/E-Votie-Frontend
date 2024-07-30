@@ -9,6 +9,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Typography from '@mui/material/Typography';
+import PageviewIcon from '@mui/icons-material/Pageview';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -25,11 +30,12 @@ const rows = [
 // Importing images
 import unpImage from '../../assets/unp.png';
 import slppImage from '../../assets/slpp.jpg';
+import { Box, Divider } from '@mui/material';
 
-const parties = [
+const partyList = [
   {
     id: "1",
-    name: "United National Party",
+    partyName: "United National Party",
     abbreviation: "(UNP)",
     leader: "Mr. Ranil Wickremesinghe",
     secretary: "Mr. Akila Viraj Kariyawasam",
@@ -38,7 +44,7 @@ const parties = [
   },
   {
     id: "2",
-    name: "Sri Lanka Podujana Peramuna",
+    partyName: "Sri Lanka Podujana Peramuna",
     abbreviation: "(SLPP)",
     leader: "Mr. Mahinda Rajapaksha",
     secretary: "Mr. Sagara Kariyawasam",
@@ -49,6 +55,20 @@ const parties = [
 
 export const PartyList = () => {
   const navigate = useNavigate();
+  const [parties, setParties] = useState([]);
+
+  useEffect(() => {
+    const fetchParties = async () => {
+      try {
+        const response = await axios.get('http://localhost:5003/api/party'); // Replace with your API endpoint
+        setParties(response.data);
+      } catch (error) {
+        console.error('Error fetching parties:', error);
+      }
+    };
+
+    fetchParties();
+  }, []);
 
   const openPartyRegistration = () => {
     navigate('/party/registration');
@@ -65,11 +85,19 @@ export const PartyList = () => {
           </div>
           {/* Publish new announcement */}
           <div className=''>
-              <Button variant="outlined" onClick={openPartyRegistration} className='bg-pink-500'>Register New Party</Button>
+            <Button
+              variant="outlined"
+              onClick={openPartyRegistration}
+              startIcon={<GroupAddIcon />}
+              sx={{ backgroundColor: '#1976d2', color: '#fff', '&:hover': { backgroundColor: '#115293' } }}
+            >
+              Register New Party
+            </Button>
           </div>
         </div>
         <div className='flex gap-12'>
-          <div className='leftContainer'>
+          <div className='w-3/5 leftContainer'>
+            {/* search bar */}
             <label className="input input-bordered flex items-center gap-2 mb-6 h-8">
               <input type="text" className="grow input-xs" placeholder="Search" />
               <svg
@@ -83,10 +111,26 @@ export const PartyList = () => {
                   clipRule="evenodd" />
               </svg>
             </label>
-            <div className="flex flex-wrap gap-2">
-              {parties.map((party, index) => (
-                <PartyCard key={index} party={party} />
+            {/* list of registered parties */}
+            <div className="flex flex-wrap gap-4">
+              {partyList.map((party, index) => (
+                <PartyCard key={index} party={party} state="verified" />
               ))}
+            </div>
+            <Box my={6} />
+            {/* list of pending verification parties */}
+            <div>
+              <Typography variant="h6" color="textSecondary" gutterBottom>
+                Pending Approval
+              </Typography>
+              <Divider />
+
+              <Box my={2} />
+              <div className="flex flex-wrap gap-4">
+                {parties.map((party, index) => (
+                  <PartyCard key={index} party={party} state="pending verification" />
+                ))}
+              </div>
             </div>
           </div>
           <div className='rightContainer w-2/5'>
@@ -99,15 +143,15 @@ export const PartyList = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {partyList.map((party) => (
                     <TableRow
-                      key={row.name}
+                      key={party.name}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {party.partyName}
                       </TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
+                      <TableCell align="right">{party.noOfMPs}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

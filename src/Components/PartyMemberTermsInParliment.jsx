@@ -3,9 +3,6 @@ import Divider from '@mui/material/Divider';
 import { Box, Typography, LinearProgress, Avatar } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import { CardActionArea } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -13,6 +10,7 @@ import { DeleteModal } from './DeleteModal';
 import { MoreOverMenu } from './MoreOverMenu';
 import { EditPartyMemberTerm } from './EditPartyMemberTerm';
 import Tooltip from '@mui/material/Tooltip';
+import { AddNewPartyMemberTerm } from './AddNewPartyMemberTerm';
 
 const options = [
   'Edit',
@@ -109,50 +107,21 @@ export const PartyMemberTermsInParliment = ({terms}) => {
 
     return (
         <div className="pb-2 mb-8">
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-                Terms in parliament
-            </Typography>     
-
+            <div className="flex justify-between items-center">
+                <Typography variant="h6" color="textSecondary" gutterBottom>
+                    Terms in parliament
+                </Typography>  
+                <Tooltip title="Add New Term" arrow>
+                    <IconButton aria-label="create" size='large' color='primary' onClick={handleOpenCreateNewTerm}>
+                        <AddCircleIcon fontSize="200px"/>
+                    </IconButton>
+                </Tooltip>
+            </div>
             <Divider />
 
             {/* Set of Terms */}
             <div className='p-4'>
                 <Box spacing={2}>
-                    {/* Create New Term */}
-                    <Card className='w-full h-full border-2 border-dashed border-gray-500 mb-8' onClick={handleOpenCreateNewTerm}>
-                        <CardActionArea>
-                            <CardMedia>
-                            <div className="flex flex-col items-center">
-                                <Tooltip title="Add New Term" arrow>
-                                    <IconButton aria-label="create" size='large' color='primary'>
-                                        <AddCircleIcon fontSize="200px"/>
-                                    </IconButton>
-                                </Tooltip>
-                            </div>
-                            </CardMedia>
-                        </CardActionArea>
-                    </Card>
-
-                    {/* Create New Term Modal */}
-                    {open &&     
-                        <div>
-                            <Modal
-                                open={openCreateModal}
-                                onClose={handleCloseCloseCreateNewTerm}
-                                aria-labelledby="parent-modal-title"
-                                aria-describedby="parent-modal-description"
-                            >
-                                <Box sx={{ ...style, width: 400 }}>
-                                    <h2 id="parent-modal-title">Text in a modal</h2>
-                                    <p id="parent-modal-description">
-                                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                                    </p>
-                                    <ChildModal />
-                                </Box>
-                            </Modal>
-                        </div>
-                    }
-
                     {/* Set of Past Terms */}
                     {terms.map((term, index) => (
                         <div key={index} className="my-2 flex flex-grow justify-between items-center bg-gray-100 p-2 ">
@@ -181,7 +150,11 @@ export const PartyMemberTermsInParliment = ({terms}) => {
                             </div>
                         </div>                        
                     ))}
-
+                    
+                    {/* Add New Term Modal */}
+                    {
+                        openCreateModal && <AddNewPartyMemberTerm open={openCreateModal} handleClose={handleCloseCloseCreateNewTerm} />
+                    }
                     {/* Edit Modal */}
                     {
                         openEditModal && <EditPartyMemberTerm open={openEditModal} handleClose={handleCloseEditTermModal} startDate={selectedStartDate} endDate={selectedEndDate} party={selectedParty}/>

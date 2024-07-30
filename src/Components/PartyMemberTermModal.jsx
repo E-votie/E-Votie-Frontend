@@ -57,7 +57,7 @@ export default function NestedModal() {
   };
 
   return (
-    <div>
+    <div className="pb-2 mb-8">
       <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}

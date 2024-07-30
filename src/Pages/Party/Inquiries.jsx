@@ -50,7 +50,7 @@ export const Inquiries = () => {
     <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6">
         <div className='announcementContainer'>
             {/* Header */}
-            <div className='header mt-8 mb-4 flex justify-between items-center'>
+            <div className='header my-8 flex justify-between items-center'>
                 {/* Topic */}
                 <div className="topic text-3xl">
                     Inquiries

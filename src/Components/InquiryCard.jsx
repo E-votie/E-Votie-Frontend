@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
+import { Paper } from '@mui/material';
 
 export const InquiryCard = ({ title, author, date, content, replyContent, onReply }) => {
     const [reply, setReply] = useState('');
@@ -17,7 +18,7 @@ export const InquiryCard = ({ title, author, date, content, replyContent, onRepl
     };
 
     return (
-        <div className="bg-white shadow-md rounded-lg p-6 mb-4">
+        <Paper elevation={3} className="p-4 mb-4">
             <div className="flex items-center mb-4">
                 <div className="bg-gray-300 rounded-full h-10 w-10 flex items-center justify-center text-xl font-bold text-gray-700">
                     {author.charAt(0)}
@@ -56,7 +57,7 @@ export const InquiryCard = ({ title, author, date, content, replyContent, onRepl
                     </Stack>
                 </div>
             </div>
-        </div>
+        </Paper>
     );
 };
 

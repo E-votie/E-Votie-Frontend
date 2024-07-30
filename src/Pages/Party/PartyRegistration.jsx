@@ -16,7 +16,7 @@ export const PartyRegistration = () => {
                 </div>   
                 {/* Application form and instructions */}
                 <div className="flex lg:flex-row sm:flex-col gap-12">      
-                    <div className="instructions w-1/2 flex-col grow ">
+                    <div className="instructions w-3/4 flex-col grow ">
                         <Stack >
                             <div className="topic text-xl mb-4 font-bold ">
                                 Calling for applications

@@ -7,7 +7,7 @@ const actions = [
         "action": "Voter Applications",
         "icon": "application",
         "description": "Pending applications for verification.",
-        "link": "/verification_officer/voter_applications"
+        "link": "/verification_officer/voter_applications",
     },
     // {
     //     "action": "Candidates",
