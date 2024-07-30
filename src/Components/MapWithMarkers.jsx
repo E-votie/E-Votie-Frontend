@@ -1,46 +1,82 @@
-// // DraggableMarkerMap.jsx
-// import React, { useState } from 'react';
-// import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
-//
-// const mapContainerStyle = {
-//     width: '100vw',
-//     height: '100vh',
-// };
-//
-// const center = {
-//     lat: 37.7749,
-//     lng: -122.4194, // San Francisco coordinates
-// };
-//
-// const MapWithMarkers = () => {
-//     const { isLoaded, loadError } = useLoadScript({
-//         googleMapsApiKey: 'AIzaSyCyn3Iymp1NpFUBho-3HfzzMrnJSLKaqgA', // Replace with your API key
-//     });
-//
-//     const [markerPosition, setMarkerPosition] = useState(center);
-//
-//     const handleMarkerDragEnd = (event) => {
-//         const newLat = event.latLng.lat();
-//         const newLng = event.latLng.lng();
-//         setMarkerPosition({ lat: newLat, lng: newLng });
-//     };
-//
-//     if (loadError) return <div>Error loading maps</div>;
-//     if (!isLoaded) return <div>Loading Maps</div>;
-//
-//     return (
-//         <GoogleMap
-//             mapContainerStyle={mapContainerStyle}
-//             zoom={10}
-//             center={center}
-//         >
-//             <Marker
-//                 position={markerPosition}
-//                 draggable={true}
-//                 onDragEnd={handleMarkerDragEnd}
-//             />
-//         </GoogleMap>
-//     );
-// };
-//
-// export default DraggableMarkerMap;
+import React, { useEffect, useState } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+
+const MapWithMarkers = ({ onLocationSelect }) => {
+    const mapStyles = {
+        height: "500px",
+        width: "500px",
+        maxWidth: "800px",
+        margin: "20px auto"
+    };
+
+    const [center, setCenter] = useState({ lat: 0, lng: 0 });
+    const [markerPosition, setMarkerPosition] = useState(null);
+
+    useEffect(() => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setCenter({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    });
+                },
+                (error) => {
+                    console.error("Error getting location:", error);
+                    setCenter({ lat: 0, lng: 0 }); // Default fallback
+                }
+            );
+        } else {
+            console.log("Geolocation is not available");
+            setCenter({ lat: 0, lng: 0 }); // Default fallback
+        }
+    }, []);
+
+    const onMapClick = (e) => {
+        const newPosition = {
+            lat: e.latLng.lat(),
+            lng: e.latLng.lng()
+        };
+        setMarkerPosition(newPosition);
+        onLocationSelect(newPosition.lat, newPosition.lng);
+    };
+
+    const onMarkerDragEnd = (e) => {
+        const newPosition = {
+            lat: e.latLng.lat(),
+            lng: e.latLng.lng()
+        };
+        setMarkerPosition(newPosition);
+        onLocationSelect(newPosition.lat, newPosition.lng);
+    };
+
+    return (
+        <div>
+            <LoadScript googleMapsApiKey="AIzaSyCyn3Iymp1NpFUBho-3HfzzMrnJSLKaqgA">
+                <GoogleMap
+                    mapContainerStyle={mapStyles}
+                    zoom={13}
+                    center={center}
+                    onClick={onMapClick}
+                >
+                    {markerPosition && (
+                        <Marker
+                            position={markerPosition}
+                            draggable={true}
+                            onDragEnd={onMarkerDragEnd}
+                        />
+                    )}
+                </GoogleMap>
+            </LoadScript>
+            {markerPosition && (
+                <div style={{textAlign: 'center', marginTop: '20px'}}>
+                    {/*<h3>Selected Location:</h3>*/}
+                    {/*<p>Latitude: {markerPosition.lat.toFixed(6)}</p>*/}
+                    {/*<p>Longitude: {markerPosition.lng.toFixed(6)}</p>*/}
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default MapWithMarkers;
