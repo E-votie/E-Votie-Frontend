@@ -22,7 +22,7 @@ const actions = [
     "action": "Election Registration",
     "icon": "candidate",
     "description": "eligible voter register for an election to vote",
-    "link": "ElectionRegistration",
+    "link": "/voter/election_registration",
     "Roll": ["Voter"]
   },
   {

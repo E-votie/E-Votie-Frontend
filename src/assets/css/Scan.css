@@ -3,15 +3,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-height: 300px;
+    max-height: 200px; /* Further reduced from 250px */
 }
+
 .scan .fingerprint {
     position: relative;
-    width: 300px;
-    height: 380px;
+    width: 150px; /* Reduced from 200px to 150px */
+    height: 190px; /* Reduced from 253px to 190px (maintaining aspect ratio) */
     background: url(https://raw.githubusercontent.com/lasithadilshan/fingerprintanimation.github.io/main/fingerPrint_01.png);
-    background-size: 300px;
+    background-size: 150px; /* Reduced from 200px to 150px */
 }
+
 .scan .fingerprint::before {
     content: '';
     position: absolute;
@@ -20,7 +22,7 @@
     width: 100%;
     height: 100%;
     background: url(https://raw.githubusercontent.com/lasithadilshan/fingerprintanimation.github.io/main/fingerPrint_02.png);
-    background-size: 300px;
+    background-size: 150px; /* Reduced from 200px to 150px */
     animation: animate 4s ease-in-out infinite;
 }
 @keyframes animate {
@@ -32,16 +34,17 @@
         height: 100%;
     }
 }
+
 .scan .fingerprint::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 8px;
+    height: 6px; /* Reduced from 8px for better proportion */
     background: #3fefef;
-    border-radius: 8px;
-    filter: drop-shadow(0 0 20px #3fefef) drop-shadow(0 0 60px #3fefef);
+    border-radius: 6px; /* Adjusted to match new height */
+    filter: drop-shadow(0 0 15px #3fefef) drop-shadow(0 0 45px #3fefef); /* Reduced shadow size */
     animation: animate_line 4s ease-in-out infinite;
 }
 @keyframes animate_line {
@@ -55,7 +58,7 @@
 }
 .scan h3 {
     text-transform: uppercase;
-    font-size: 2em;
+    font-size: 13px;
     letter-spacing: 2px;
     margin-top: 20px;
     color: #3fefef;

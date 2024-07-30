@@ -1,0 +1,14 @@
+{
+    "Chart_Type": "BarChart",
+    "x-axiz": "",
+    "y-axiz": "",
+    "Title": "",
+    "data" : [
+        {
+            "bar_oder": 1,
+            "bar_name": "",
+            "color": "",
+            "data": 15
+        }
+    ]
+}
