@@ -8,6 +8,9 @@ const initialMembers = [
     { id: 1, name: "John Doe", party: "Party A", status: "Pending" },
     { id: 2, name: "Jane Smith", party: "Party B", status: "Pending" },
     { id: 3, name: "Jim Brown", party: "Party C", status: "Pending" },
+    { id: 4, name: "Jill White", party: "Party D", status: "Pending" },
+    { id: 5, name: "Jack Black", party: "Party E", status: "Pending" },
+
 ];
 
 const ApprovePartyMembers = () => {
