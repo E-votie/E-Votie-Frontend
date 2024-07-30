@@ -10,7 +10,7 @@ const initialMembers = [
     { id: 3, name: "Jim Brown", party: "Party C", status: "Pending" },
     { id: 4, name: "Jill White", party: "Party D", status: "Pending" },
     { id: 5, name: "Jack Black", party: "Party E", status: "Pending" },
-
+    { id: 6, name: "Jenny Green", party: "Party F", status: "Pending" },
 ];
 
 const ApprovePartyMembers = () => {
