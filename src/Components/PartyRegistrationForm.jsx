@@ -122,16 +122,16 @@ export const PartyRegistrationForm = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="flex-initial space-y-3 mb-4 w-full shadow-md rounded-lg p-2">
                 {/* Party name and abbreviation */}
                 <Stack direction="row" spacing={2} className="w-full">
-                    <Box>
+                    <Box className="w-2/3">
                         <TextField
                             id="partyName"
                             label="Party Name"
-                            className="w-2/3"
+                            className="w-full"
                             required
                             {...register("partyName")}
                         />
                     </Box>
-                    <Box>
+                    <Box className="w-1/3">
                         <TextField
                             id="abbreviation"
                             label="Abbreviation"
@@ -142,14 +142,13 @@ export const PartyRegistrationForm = () => {
                 </Stack>
 
                 {/* Leader and Secretary */}
-                <Stack direction="row" className="flex" spacing={2}>
+                <Stack direction="row" className="flex w-full" spacing={2}>
                     {/* Founded Date */}
-                    <Box>
+                    <Box className="w-1/2">
                         <TextField
                             id="foundedDate"
                             label="Founded Date"
                             type="date"
-                            className="w-1/3"
                             required
                             InputLabelProps={{
                                 shrink: true,
@@ -160,7 +159,7 @@ export const PartyRegistrationForm = () => {
 
                     {/* Party Leader */}
                     <Box className="w-full" >
-                        <FormControl required error={!!errors.leader}>
+                        <FormControl required error={!!errors.leader} className="w-full">
                             <InputLabel id="leader-label">Leader</InputLabel>
                             <Select
                                 labelId="leader-label"
