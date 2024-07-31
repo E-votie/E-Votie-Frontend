@@ -88,7 +88,8 @@ export const CreateElection = () => {
                                 <option>Presidential Election</option>
                                 <option>Parliamentary Election</option>
                                 <option>Provincial Council Election</option>
-                                <option>Local Government Election</option>
+                                <option>Local Authorities Election</option>
+                                <option>Referendum</option>
                             </select>
                             {errors.EndingDateTime && <p>{errors.ElectionType.message}</p>}
                         </div>
