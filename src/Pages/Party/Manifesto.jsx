@@ -15,18 +15,24 @@ import UpdateIcon from '@mui/icons-material/Update';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { InquiryCard } from '../../Components/InquiryCard';
 import { SubmitInquiry } from '../../Components/SubmitInquiry';
+import { LinearWithValueLabel } from '../../Components/LinearValueWithLabel';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { MoreOverMenu } from '../../Components/MoreOverMenu';
+import { AddNewPromise } from '../../Components/AddNewPromise';
+
+const options = ["Add New Promise", "Submit Inquiry", "Update Manifesto", "Delete Manifesto"];
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 32,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
+    height: 20,
     borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
-  },
-}));
+    [`&.${LinearProgress.colorPrimary}`]: {
+      backgroundColor: theme.palette.grey[300],
+    },
+    [`& .${LinearProgress.bar}`]: {
+      borderRadius: 5,
+      backgroundColor: '#4caf50', // A nice green color
+    },
+  }));
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -63,20 +69,49 @@ function a11yProps(index) {
 
 const promises = [
     {
-        date: 'Jan 09',
-        title: 'Parliament to meet for the first time',
-        description: 'Parliament to meet for the first time after common opposition candidate Maithripala Sirisena is elected president on 8th January 2015',
-        progress: 100,
-        score: '0.0 / 0.0'
+        date: 'Jan 09, 2024',
+        title: 'Increase Healthcare Funding',
+        description: 'The government will increase funding for healthcare by 20% to improve public health services, enhance the quality of care, and reduce waiting times for treatments.',
+        progress: 40,
+        score: '2.0 / 5.0'
     },
     {
-        date: 'Jan 10',
-        title: 'Other initiative',
-        description: 'Description of other initiative',
-        progress: 0,
-        score: '0.0 / 0.0'
+        date: 'Feb 15, 2024',
+        title: 'Implement Green Energy Initiatives',
+        description: 'Introduction of new policies to support renewable energy projects, including solar and wind, with the goal of generating 50% of the country’s energy from green sources by 2030.',
+        progress: 15,
+        score: '1.0 / 5.0'
+    },
+    {
+        date: 'Mar 22, 2024',
+        title: 'Education System Overhaul',
+        description: 'A comprehensive reform of the education system aimed at improving curriculum standards, increasing teacher salaries, and providing more resources to underfunded schools.',
+        progress: 25,
+        score: '1.5 / 5.0'
+    },
+    {
+        date: 'Apr 10, 2024',
+        title: 'Affordable Housing Development',
+        description: 'Launch of a new initiative to build 10,000 affordable housing units in urban and rural areas to address the housing shortage and provide more affordable living options.',
+        progress: 10,
+        score: '0.5 / 5.0'
+    },
+    {
+        date: 'May 05, 2024',
+        title: 'Public Transportation Expansion',
+        description: 'Expansion of public transportation networks to include more routes and services, with the aim of reducing traffic congestion and providing better mobility options for residents.',
+        progress: 30,
+        score: '1.5 / 5.0'
+    },
+    {
+        date: 'Jun 20, 2024',
+        title: 'Digital Infrastructure Enhancement',
+        description: 'Upgrading digital infrastructure to enhance internet connectivity across the country, with a focus on rural areas and underserved communities, to support economic growth and education.',
+        progress: 20,
+        score: '1.0 / 5.0'
     }
 ];
+
 
 const inquiries = [
     {
@@ -120,7 +155,8 @@ export const Manifesto = ({ overallProgress, items }) => {
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
     const [openSubmitInquiryModal, setOpenSubmitInquiryModal] = React.useState(false);
-  
+    const [openAddNewPromiseModal, setOpenAddNewPromiseModal] = React.useState(false);
+
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
@@ -137,13 +173,21 @@ export const Manifesto = ({ overallProgress, items }) => {
         setOpenSubmitInquiryModal(false);
     };
 
+    const handleOpenAddNewPromiseModal = () => {
+        setOpenAddNewPromiseModal(true);
+    };
+
+    const handleCloseAddNewPromiseModal = () => {
+        setOpenAddNewPromiseModal(false);
+    };
+
   
     return (
         <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6">
             <div maxWidth="md" className="mt-4">
                 {/* header */}
                 <Paper elevation={2} className="p-6 mb-4">
-                    <div className='flex justify-between items-center'>
+                    <div className='flex justify-between '>
                         <div className='flex gap-12'>
                             {/* Avatar */}
                             <img src="../../src/assets/mr.jpg" alt="Profile" className='w-48 h-48 object-cover' />
@@ -151,8 +195,8 @@ export const Manifesto = ({ overallProgress, items }) => {
                                 {/* Tracking Progress */}
                                 <div className='flex flex-col gap-1'>
                                     <Typography variant="h5" gutterBottom>Manifesto: 100 days and beyond</Typography>
-                                    <Typography variant="body1" color="textSecondary" gutterBottom>{`Overall Progress: ${overallProgress}%`}</Typography>
-                                    <BorderLinearProgress variant="determinate" value={50} />
+                                    <Typography variant="body1" color="textSecondary" gutterBottom>{`Overall Progress: ${50}%`}</Typography>
+                                    <BorderLinearProgress variant="determinate" value={50} color="secondary" className='bg-[#4caf50]'/>
                                 </div>
                                 {/* Status */}
                                 <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
@@ -178,8 +222,9 @@ export const Manifesto = ({ overallProgress, items }) => {
                             </div>
                         </div>
                         {/* functions */}
-                        <Stack direction="column" spacing={2} >
-                            <Button
+                        <Stack direction="column">
+                            <MoreOverMenu options={options} onSubmitNewInquiry={handleOpenSubmitInquiryModal} onAddNewPromise={handleOpenAddNewPromiseModal} sx={{fontSize:"40px"}} className="text-black"/>
+                            {/* <Button
                                 variant="contained"
                                 startIcon={<AddIcon />}
                                 sx={{ backgroundColor: '#1976d2', color: '#fff', '&:hover': { backgroundColor: '#115293' } }}
@@ -193,12 +238,16 @@ export const Manifesto = ({ overallProgress, items }) => {
                                 sx={{ backgroundColor: '#4caf50', color: '#fff', '&:hover': { backgroundColor: '#388e3c' } }}
                             >
                                 Submit Inquiry
-                            </Button>
+                            </Button> */}
+                            {/* add new promise modal */}
+                            {
+                                openAddNewPromiseModal && <AddNewPromise open={openAddNewPromiseModal} handleClose={handleCloseAddNewPromiseModal}/>
+                            }
                             {/* submit inquiry modal */}
                             {
                                 openSubmitInquiryModal && <SubmitInquiry open={openSubmitInquiryModal} handleClose={handleCloseSubmitInquiryModal}/>
                             }
-                            <Button
+                            {/* <Button
                                 variant="contained"
                                 startIcon={<UpdateIcon />}
                                 sx={{ backgroundColor: '#ff9800', color: '#fff', '&:hover': { backgroundColor: '#f57c00' } }}
@@ -211,7 +260,7 @@ export const Manifesto = ({ overallProgress, items }) => {
                                 sx={{ backgroundColor: '#f44336', color: '#fff', '&:hover': { backgroundColor: '#d32f2f' } }}
                             >
                                 Delete
-                            </Button>
+                            </Button> */}
                         </Stack>
                     </div>
                 </Paper>

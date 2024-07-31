@@ -164,7 +164,7 @@ export const Party = () => {
               </Box>
               <Divider />
               <Box my={2} />
-
+                if(keyclock.hasRole)
               {/* search bar */}
               <label className="input input-bordered flex items-center gap-2 mb-3 h-8">
                 <input type="text" className="grow input-xs" placeholder="Search" />

@@ -14,17 +14,29 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import { AddNewPartyMemberWithNic } from './AddNewPartyMemberWithNic';
 
 export const PartyMemberSideBar = ({ requestList }) => {
   const [state, setState] = React.useState({
     right: false,
   });
+  const [openAddPolitician, setOpenAddPolitician] = React.useState(false);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setState({ ...state, [anchor]: open });
+  };
+
+  const handleOpenAddPolitician = () => {
+    setOpenAddPolitician(true);
+  };
+
+  const handleCloseAddPolitician = () => {
+    setOpenAddPolitician(false);
   };
 
   return (
@@ -42,9 +54,21 @@ export const PartyMemberSideBar = ({ requestList }) => {
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
-            PaperProps={{ style: { width: 350 } }} // Fixed width
+            PaperProps={{ style: { width: 350 } }}
           >
             <Box sx={{height: '100%', overflowY: 'auto' }}>
+              {/* Add New Politician Button */}
+              <Box sx={{ p: 2 }}>
+                <Button
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  fullWidth
+                  onClick={handleOpenAddPolitician}
+                >
+                  Add New Politician
+                </Button>
+              </Box>
+              <Divider />
 
               {/* Received Requests */}
               <Accordion>
@@ -60,7 +84,6 @@ export const PartyMemberSideBar = ({ requestList }) => {
                       <PartyMemberRequestCard key={index} politician={politician} requestState="received request" />
                   ))}
                 </div>
-
               </Accordion>
               <Divider />
 
@@ -97,9 +120,11 @@ export const PartyMemberSideBar = ({ requestList }) => {
                 </div>
               </Accordion>
               <Divider />
-              
             </Box>
           </Drawer>
+
+          {/* Add New Politician Modal */}
+          <AddNewPartyMemberWithNic open={openAddPolitician} handleClose={handleCloseAddPolitician} />
         </React.Fragment>
       ))}
     </div>

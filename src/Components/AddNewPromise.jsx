@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Button,
     Box,
@@ -11,11 +11,30 @@ import {
     IconButton,
     DialogTitle,
     Stack,
-    Divider
+    Divider,
+    Select,
+    MenuItem,
+    InputLabel,
+    FormHelperText
 } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Import Quill's CSS
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -26,17 +45,42 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
     '& .MuiPaper-root': {
         width: '80%',
-        maxWidth: '480px',
+        maxWidth: '600px',
     },
 }));
 
+const customStyle = `
+    .custom-quill .ql-editor {
+        font-size: 1rem; /* Adjust this value to match the body1 font size */
+        line-height: 1.5;
+    }
+`;
+
 export const AddNewPromise = ({ open, handleClose }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { control, handleSubmit, register } = useForm();
+    const [attachments, setAttachments] = useState([]);
+    const [promise, setPromise] = useState('');
 
     const onSubmit = (data) => {
         // Handle form submission here
-        console.log(data);
+        console.log(data, attachments);
         handleClose();
+    };
+
+    const handleFileChange = (event) => {
+        console.log("handleFileChange called");
+        try {
+            const files = Array.from(event.target.files);
+            console.log("Files selected:", files);
+            setAttachments(files);
+            console.log("Attachments updated:", files);
+        } catch (error) {
+            console.error("Error in handleFileChange:", error);
+        }
+    };
+
+    const handlePromiseChange = (event) => {
+        setPromise(event.target.value);
     };
 
     return (
@@ -61,33 +105,117 @@ export const AddNewPromise = ({ open, handleClose }) => {
                 <CloseIcon />
             </IconButton>
             <DialogContent dividers>
-                <FormControl fullWidth variant="outlined" margin='normal'>
-                    <Typography variant="h6" gutterBottom>
-                        Promise Details
-                    </Typography>
-                    <Stack spacing={2}>
-                        <TextField
-                            variant="outlined"
-                            label="Topic"
-                            fullWidth
-                            {...register("topic")}
-                            defaultValue="Jan 09"
-                        />
-                        <TextField
-                            variant="outlined"
-                            label="Promise Description"
-                            fullWidth
-                            multiline
-                            rows={4}
-                            {...register("promiseDescription")}
-                            defaultValue="Parliament to meet for the first time after common opposition candidate Maithripala Sirisena is elected president on 8th January 2015"
-                        />
+                <FormControl fullWidth variant="outlined">
+                    <Stack spacing={3}>
+                        <Box>
+                            <Typography variant="body1" >
+                                Topic
+                            </Typography>
+                            <TextField
+                                variant="outlined"
+                                fullWidth
+                            />
+                        </Box>
+                        <Box mb={3}>
+                            <Typography variant="body1">
+                                Description
+                            </Typography>
+                            <Controller
+                                name="inquiryDescription"
+                                control={control}
+                                render={({ field }) => (
+                                    <ReactQuill
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        modules={modules}
+                                        formats={formats}
+                                        style={{ height: 200, marginBottom: '2rem' }}
+                                        className="custom-quill"
+                                    />
+                                )}
+                            />
+                        </Box>
+                        <Box>
+                            <Typography variant="body1" gutterBottom>
+                                Current State
+                            </Typography>
+                            <FormControl fullWidth>
+                                {/* <InputLabel id="promise-select-label">Select Promise</InputLabel> */}
+                                <Select
+                                    labelId="promise-select-label"
+                                    value={promise}
+                                    onChange={handlePromiseChange}
+                                >
+                                    {/* <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem> */}
+                                    <MenuItem value={10}>Pledge Completed</MenuItem>
+                                    <MenuItem value={20}>Partially Completed</MenuItem>
+                                    <MenuItem value={30}>Not Done</MenuItem>
+                                    <MenuItem value={40}>Pending</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                        <Box>
+                            <Typography variant="body1">
+                                Attachments
+                            </Typography>
+                            <Button
+                                component="label"
+                                variant="outlined"
+                                startIcon={<CloudUploadIcon />}
+                                sx={{ mt: 1 }}
+                            >
+                                Upload file(s)
+                                <VisuallyHiddenInput 
+                                    type="file" 
+                                    multiple 
+                                    onChange={(e) => {
+                                        console.log("File input change event triggered");
+                                        handleFileChange(e);
+                                    }}                                    
+                                    accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" 
+                                    {...register("attachments")}
+                                />
+                            </Button>
+                            {attachments.length > 0 && (
+                                <Box mt={2}>
+                                    <Typography variant="body2">Attachments:</Typography>
+                                    <ul>
+                                        {attachments.map((file, index) => (
+                                            <li key={index}>{file.name}</li>
+                                        ))}
+                                    </ul>
+                                </Box>
+                            )}
+                        </Box>
                     </Stack>
                 </FormControl>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" onClick={handleSubmit(onSubmit)}>Add Promise</Button>
+                <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
             </DialogActions>
+            <style>
+                {customStyle}
+            </style>
         </BootstrapDialog>
     );
 };
+
+// React Quill modules and formats
+const modules = {
+    toolbar: [
+        [{ 'header': '1' }, { 'header': '2' }],
+        ['bold', 'italic', 'underline'],
+        ['link'],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        ['clean']
+    ],
+};
+
+const formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline',
+    'list', 'bullet', 'indent',
+    'link', 'image'
+];
