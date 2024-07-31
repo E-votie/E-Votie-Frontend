@@ -141,14 +141,14 @@ export const VoterRegistration_1 = () => {
     }
 
     return (
-        <div className="card card-side bg-base-100 shadow-xl gap-10 px-4">
+        <div className="card card-side bg-base-100 shadow-xl gap-10 px-4 py-16">
             <figure>
                 <ul className="steps steps-vertical ml-28 hidden md:block">
                     <li className="step step-primary">Registration of Email and Mobile</li>
                     <li className="step">Personal Details</li>
                     <li className="step">Location Details</li>
                     <li className="step">Chief Occupant Details</li>
-                    <li className="step">Conformation</li>
+                    <li className="step">Confirmation</li>
                 </ul>
             </figure>
             <div className="divider lg:divider-horizontal"></div>

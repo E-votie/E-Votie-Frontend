@@ -2,6 +2,9 @@ import React, {useEffect, useState} from 'react';
 import Carousel from '../Components/Carousel';
 import ActionCard from '../Components/ActionCard';
 import {useNavigate} from "react-router-dom";
+import KeycloakService from "../services/KeycloakService.jsx";
+import {authGet} from "../Auth/authFetch.jsx";
+import keycloakService from "../services/KeycloakService.jsx";
 
 const actions = [
   {
@@ -51,7 +54,7 @@ const actions = [
     "icon": "party",
     "description": "Details about the political parties.",
     "link": "/party/list",
-    "Roll": ["Anonymous", "Voter"]
+    "Roll": ["Anonymous", "Voter", "partyMember"]
   },
   {
     "action": "Candidates",
@@ -100,6 +103,7 @@ export const Home = () => {
 
   const [language, setLanguage] = useState('en');
   const [fade, setFade] = useState(true);
+  const [Status, setStatus] = useState("")
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -117,12 +121,36 @@ export const Home = () => {
     return () => clearInterval(interval); 
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if(keycloakService.isLoggedIn() && KeycloakService.hasRole("Voter")) {
+        try {
+          setLoading(true);
+          const data = await authGet(`/voter/status`);
+          setStatus(data.Status);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          setLoading(false);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6 rounded-3xl">
+    <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6 rounded-3xl py-14">
       <div className="h-1/5 flex-grow flex flex-col justify-center items-center text-3xl text-center">
         <h1 className={`transition-opacity duration-500 ${fade ? 'opacity-100' : 'opacity-0'}`}>
           {messages[language]}
         </h1>
+        {(KeycloakService.hasRole("Voter") && Status !== "Completed")  &&
+            <div className="my-5">
+              <h3 className="font-bold text-red-500">Your fingerprint is not registered go to a designated office and get registered</h3>
+        </div>
+        }
       </div>
       <div className="h-2/5 flex-grow flex flex-wrap gap-4 justify-center items-center ">
         {actions.map((action, index) => (

@@ -51,8 +51,10 @@ export const PartyRegistrationForm = () => {
           
 
         try {
-            console.log(testData);
-            const response = await axios.post('http://localhost:5003/api/party', data);
+            console.log(data);
+            const response = await axios.post('http://localhost:5003/api/party', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
             console.log(response.data);
             if (response.status === 200 || response.status === 201) {
                 MySwal.fire({

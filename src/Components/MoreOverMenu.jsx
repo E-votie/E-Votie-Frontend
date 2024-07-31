@@ -8,6 +8,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import AddIcon from '@mui/icons-material/Add';
+import SendIcon from '@mui/icons-material/Send';
+import UpdateIcon from '@mui/icons-material/Update';
 
 const options = [
   'Edit',
@@ -24,6 +27,14 @@ const getIcon = (option) => {
         return <PeopleAltIcon sx={{fontSize: 20}}/>;
       case "Add New Party Member":
         return <PersonAddIcon sx={{fontSize: 20}}/>;
+        case "Add New Promise":
+          return <AddIcon sx={{fontSize: 20}}/>;
+      case "Submit Inquiry":
+          return <SendIcon sx={{fontSize: 20}}/>;
+      case "Update Manifesto":
+        return <UpdateIcon sx={{fontSize: 20}}/>;
+      case "Delete Manifesto":
+        return <DeleteIcon sx={{fontSize: 20}}/>;      
       default:
           return <AnnouncementIcon sx={{fontSize: 40}}/>; // Default icon
   }
@@ -31,7 +42,7 @@ const getIcon = (option) => {
 
 const ITEM_HEIGHT = 48;
 
-export const MoreOverMenu = ({ options, onEdit, onDelete }) => {
+export const MoreOverMenu = ({ options, onEdit, onDelete, onAddNewPromise, onSubmitNewInquiry }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -45,6 +56,10 @@ export const MoreOverMenu = ({ options, onEdit, onDelete }) => {
       onEdit();
     } else if (option === 'Delete') {
       onDelete();
+    } else if (option === 'Add New Promise') {
+      onAddNewPromise();
+    } else if (option === 'Submit Inquiry') {
+      onSubmitNewInquiry();
     }
   };
 

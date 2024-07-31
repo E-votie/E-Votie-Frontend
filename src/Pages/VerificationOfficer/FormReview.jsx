@@ -10,8 +10,21 @@ import {authGet, authPost} from '../../Auth/authFetch.jsx';
 import {signing} from "../../services/Signing.jsx";
 import {PhotoProvider, PhotoView} from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
+import InteractiveList from "../../Components/List.jsx";
 
 const MySwal = withReactContent(Swal)
+
+const POLICE = [
+    { primary: "First Item", secondary: "Description of first item" },
+    { primary: "Second Item", secondary: "Description of second item" },
+    { primary: "Third Item", secondary: "Description of third item" },
+];
+
+const HEALTH = [
+    { primary: "First Item", secondary: "Description of first item" },
+    { primary: "Second Item", secondary: "Description of second item" },
+    { primary: "Third Item", secondary: "Description of third item" },
+];
 
 export const FormReviewVerificationOfficer = () => {
 
@@ -317,7 +330,14 @@ export const FormReviewVerificationOfficer = () => {
                                 <div className="label">
                                     <span className="label-text">Name</span>
                                 </div>
-                                <input type="text" placeholder="Type here" value={responseData.ChiefOccupantNIC}
+                                <input type="text" placeholder="Type here" value={responseData.Name}
+                                       className="input input-bordered w-full max-w-xs input-primary" readOnly/>
+                            </label>
+                            <label className="form-control w-full max-w-xs">
+                                <div className="label">
+                                    <span className="label-text">GramaNiladhari Division</span>
+                                </div>
+                                <input type="text" placeholder="Type here" value={responseData.GramaNiladhariDivision}
                                        className="input input-bordered w-full max-w-xs input-primary" readOnly/>
                             </label>
                         </div>
@@ -326,34 +346,14 @@ export const FormReviewVerificationOfficer = () => {
                         <input type="radio" name="my-accordion-2"/>
                         <div className="collapse-title text-xl font-medium">Police</div>
                         <div className="collapse-content">
-                            <label className="form-control w-full max-w-xs">
-                                <div className="label">
-                                    <span className="label-text">PastCrimes</span>
-                                </div>
-                                <input type="text" placeholder="Type here" value={responseData.ChiefOccupantNIC}
-                                       className="input input-bordered w-full max-w-xs input-primary" readOnly/>
-                            </label>
-                            <label className="form-control w-full max-w-xs">
-                                <div className="label">
-                                    <span className="label-text">Name</span>
-                                </div>
-                                <input type="text" placeholder="Type here" value={responseData.ChiefOccupantNIC}
-                                       className="input input-bordered w-full max-w-xs input-primary" readOnly/>
-                            </label>
-                            <label className="form-control w-full max-w-xs">
-                                <div className="label">
-                                    <span className="label-text">NIC</span>
-                                </div>
-                                <input type="text" placeholder="Type here" value={responseData.ChiefOccupantNIC}
-                                       className="input input-bordered w-full max-w-xs input-primary" readOnly/>
-                            </label>
+                            <InteractiveList items={POLICE}></InteractiveList>
                         </div>
                     </div>
                     <div className="collapse collapse-arrow bg-base-200 mt-2">
                         <input type="radio" name="my-accordion-2"/>
                         <div className="collapse-title text-xl font-medium">Ministry of health</div>
                         <div className="collapse-content">
-
+                            <InteractiveList items={<HEALTH></HEALTH>}></InteractiveList>
                         </div>
                     </div>
                 </div>

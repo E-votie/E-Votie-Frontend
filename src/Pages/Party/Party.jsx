@@ -9,7 +9,39 @@ import Tooltip from '@mui/material/Tooltip';
 import { EditPartyInfo } from '../../Components/EditPartyInfo';
 import {PartyMemberSideBar} from '../../Components/PartyMemberSideBar';
 
-const candidates = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+const candidates = [
+  {
+    name: 'Mahinda Rajapaksa',
+    profilePicture: '/src/assets/mr.jpg',
+    description: 'Former President and Prime Minister of Sri Lanka, serving as a Member of Parliament for Kurunegala District.'
+  },
+  {
+    name: 'Gotabaya Rajapaksa',
+    profilePicture: '/src/assets/gr.jpg',
+    description: 'Former President of Sri Lanka, previously served as the Minister of Defence and Urban Development.'
+  },
+  {
+    name: 'Basil Rajapaksa',
+    profilePicture: '/src/assets/br.jpg',
+    description: 'Founder and National Organizer of the SLPP, serving as a Member of Parliament for Gampaha District.'
+  },
+  {
+    name: 'Namal Rajapaksa',
+    profilePicture: '/src/assets/nr.jpg',
+    description: 'Minister of Youth and Sports, serving as a Member of Parliament for Hambantota District.'
+  },
+  {
+    name: 'Chamal Rajapaksa',
+    profilePicture: '/src/assets/cr.jpg',
+    description: 'Former Speaker of the Parliament of Sri Lanka, serving as a Member of Parliament for Hambantota District.'
+  },
+  {
+    name: 'Dinesh Gunawardena',
+    profilePicture: '/src/assets/dr.jpg',
+    description: 'Current Prime Minister of Sri Lanka, serving as a Member of Parliament for Colombo District.'
+  }
+];
+
 const requestList = [
   {
     name: "Namal Rajapaksha",
@@ -164,7 +196,6 @@ export const Party = () => {
               </Box>
               <Divider />
               <Box my={2} />
-
               {/* search bar */}
               <label className="input input-bordered flex items-center gap-2 mb-3 h-8">
                 <input type="text" className="grow input-xs" placeholder="Search" />
@@ -183,7 +214,7 @@ export const Party = () => {
               {/* Politician List */}
               <div className="flex flex-col gap-2">
                 {candidates.map((candidate, index) => (
-                  <Politician key={index} />
+                  <Politician key={index} politician={candidate}/>
                 ))}
               </div>
 

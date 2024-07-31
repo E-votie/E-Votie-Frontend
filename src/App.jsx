@@ -35,6 +35,7 @@ import {FingerprintReg} from "./Pages/VerificationOfficer/FingerprintReg.jsx";
 import {ElectionRegistration} from "./Pages/Voter/ElectionRegistration.jsx";
 import {ElectionRegistrationForm} from "./Pages/Voter/ElectionRegistrationForm.jsx";
 import {ReportView} from "./Pages/ReportGeneration/ReportView.jsx";
+import { PartyApplication } from "./Pages/Party/PartyApplication";
 import Polling_Stations from "./Pages/Election/Polling_Stations.jsx";
 import ApprovePartyMembers from "./Pages/Election/ApprovePartyMembers.jsx";
 
@@ -62,6 +63,7 @@ function App() {
                             <Route path="/party/:partyId" element={<Party />} />
                             <Route path="/party/list" element={<PartyList />} />
                             <Route path="/party/registration" element={<PartyRegistration />} />
+                            <Route path="/party/registration/application" element={<PartyApplication />} />
                             <Route path="/party/member" element={<PartyMember />} />
                             <Route path="/party/member/manifesto" element={<Manifesto />} />
                             <Route path="/election/list" element={<ElectionList />} />
