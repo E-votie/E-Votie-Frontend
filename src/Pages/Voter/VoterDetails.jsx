@@ -7,6 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import {QRCode} from 'react-qrcode-logo';
 import StickyHeadTable from "../../Components/HistoryTableVoter.jsx";
+import Swal from "sweetalert2";
 
 
 function StatsComponent() {
@@ -18,15 +19,46 @@ StatsComponent.propTypes = {
 };
 export const VoterDetails = () => {
 
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+
     const [loading, setLoading] = useState(true);
     const [responseData, setResponseData] = useState(null);
     const [profile_image, setProfileImage] = useState(null);
     const [qrCode, setQrCode] = useState("Hello");
+    const [isEditing, setIsEditing] = useState(false);
+    const [editableData, setEditableData] = useState({});
+    const [editedFields, setEditedFields] = useState({});
 
     const [alignment, setAlignment] = React.useState('Info');
 
     const handleChange = (event, newAlignment) => {
         setAlignment(newAlignment);
+    };
+
+    const handleInputChange = (field, value) => {
+        setEditedFields(prev => ({...prev, [field]: true}));
+        setEditableData(prev => ({...prev, [field]: value}));
+    };
+
+    const renderFileInputs = () => {
+        return Object.keys(editedFields).map(field => (
+            <div key={field} className="form-control w-full max-w-xs">
+                <label className="label">
+                    <span className="label-text">Upload document for {field}</span>
+                </label>
+                <input type="file" className="file-input file-input-bordered w-full max-w-xs" />
+            </div>
+        ));
     };
 
     useEffect(() => {
@@ -48,6 +80,28 @@ export const VoterDetails = () => {
 
         fetchData();
     }, []);
+
+    const handleUpdateInfo = async () => {
+        try {
+            const response = await authGet('/voter/update_info', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(editableData),
+            });
+            if (response.ok) {
+                setResponseData(editableData);
+                setIsEditing(false);
+                // You might want to show a success message here
+            } else {
+                // Handle error
+                console.error('Failed to update info');
+            }
+        } catch (error) {
+            console.error('Error updating info:', error);
+        }
+    };
 
     return (<div>
             {loading ? (<div>Loading...</div>) : (
@@ -129,8 +183,9 @@ export const VoterDetails = () => {
                                         <div className="label">
                                             <span className="label-text">Name</span>
                                         </div>
-                                        <input type="text" placeholder="Type here" value={responseData.Name}
-                                               className="input input-bordered w-full max-w-xs input-primary" readOnly/>
+                                        <input type="text" placeholder="Type here" value={isEditing ? editableData.Name : responseData.Name}
+                                               onChange={(e) => handleInputChange(Name, e.target.value)}
+                                               className="input input-bordered w-full max-w-xs input-primary" readOnly={!isEditing}/>
                                     </label>
                                     <label className="form-control w-full max-w-xs">
                                         <div className="label">
@@ -145,15 +200,17 @@ export const VoterDetails = () => {
                                         <div className="label">
                                             <span className="label-text">Gender</span>
                                         </div>
-                                        <input type="text" placeholder="Type here" value={responseData.Gender}
-                                               className="input input-bordered w-full max-w-xs input-primary" readOnly/>
+                                        <input type="text" placeholder="Type here" value={isEditing ? editableData.Gender : responseData.Gender}
+                                               onChange={(e) => handleInputChange(Gender, e.target.value)}
+                                               className="input input-bordered w-full max-w-xs input-primary" readOnly={!isEditing}/>
                                     </label>
                                     <label className="form-control w-full max-w-xs">
                                         <div className="label">
                                             <span className="label-text">Civil Status</span>
                                         </div>
-                                        <input type="text" placeholder="Type here" value={responseData.CivilStatus}
-                                               className="input input-bordered w-full max-w-xs input-primary" readOnly/>
+                                        <input type="text" placeholder="Type here" value={isEditing ? editableData.CivilStatus : responseData.CivilStatus}
+                                               onChange={(e) => handleInputChange("CivilStatus", e.target.value)}
+                                               className="input input-bordered w-full max-w-xs input-primary" readOnly={!isEditing}/>
                                     </label>
                                 </div>
                             </div>
@@ -164,43 +221,49 @@ export const VoterDetails = () => {
                                         <span className="label-text">Address</span>
                                     </div>
                                     <textarea className="textarea textarea-bordered h-24 textarea-primary"
-                                              placeholder="Address" value={responseData.Address} readOnly></textarea>
+                                              placeholder="Address" value={isEditing ? editableData.Address : responseData.Address}
+                                              onChange={(e) => handleInputChange("Address", e.target.value)} readOnly={!isEditing}></textarea>
                                 </label>
                                 <div className="flex flex-col lg:flex-row w-full gap-5">
                                     <label className="form-control w-full max-w-xs">
                                         <div className="label">
                                             <span className="label-text">Admin District</span>
                                         </div>
-                                        <input type="text" placeholder="Type here" value={responseData.AdminDistrict}
-                                               className="input input-bordered w-full max-w-xs input-primary" readOnly/>
+                                        <input type="text" placeholder="Type here" value={isEditing ? editableData.AdminDistrict : responseData.AdminDistrict}
+                                               onChange={(e) => handleInputChange(AdminDistrict, e.target.value)}
+                                               className="input input-bordered w-full max-w-xs input-primary" readOnly={!isEditing}/>
                                     </label>
                                     <label className="form-control w-full max-w-xs">
                                         <div className="label">
                                             <span className="label-text">Election District</span>
                                         </div>
-                                        <input type="text" placeholder="Type here" value={responseData.ElectionDistrict}
-                                               className="input input-bordered w-full max-w-xs input-primary" readOnly/>
+                                        <input type="text" placeholder="Type here" value={isEditing ? editableData.ElectionDistrict : responseData.ElectionDistrict}
+                                               onChange={(e) => handleInputChange(ElectionDistrict, e.target.value)}
+                                               className="input input-bordered w-full max-w-xs input-primary" readOnly={!isEditing}/>
                                     </label>
                                     <label className="form-control w-full max-w-xs">
                                         <div className="label">
                                             <span className="label-text">Polling Division</span>
                                         </div>
-                                        <input type="text" placeholder="Type here" value={responseData.PollingDivision}
-                                               className="input input-bordered w-full max-w-xs input-primary" readOnly/>
+                                        <input type="text" placeholder="Type here" value={isEditing ? editableData.PollingDivision : responseData.PollingDivision}
+                                               onChange={(e) => handleInputChange(PollingDivision, e.target.value)}
+                                               className="input input-bordered w-full max-w-xs input-primary" readOnly={!isEditing}/>
                                     </label>
                                     <label className="form-control w-full max-w-xs">
                                         <div className="label">
                                             <span className="label-text">GN Division</span>
                                         </div>
-                                        <input type="text" placeholder="Type here" value={responseData.GNDivision}
-                                               className="input input-bordered w-full max-w-xs input-primary" readOnly/>
+                                        <input type="text" placeholder="Type here" value={isEditing ? editableData.GNDivision : responseData.GNDivision}
+                                               onChange={(e) => handleInputChange(GNDivision, e.target.value)}
+                                               className="input input-bordered w-full max-w-xs input-primary" readOnly={!isEditing}/>
                                     </label>
                                     <label className="form-control w-full max-w-xs">
                                         <div className="label">
                                             <span className="label-text">HouseNo</span>
                                         </div>
-                                        <input type="text" placeholder="Type here" value={responseData.HouseNo}
-                                               className="input input-bordered w-full max-w-xs input-primary" readOnly/>
+                                        <input type="text" placeholder="Type here" value={isEditing ? editableData.HouseNo : responseData.HouseNo}
+                                               onChange={(e) => handleInputChange(HouseNo, e.target.value)}
+                                               className="input input-bordered w-full max-w-xs input-primary" readOnly={!isEditing}/>
                                     </label>
                                 </div>
                             </div>
@@ -211,28 +274,46 @@ export const VoterDetails = () => {
                                         <div className="label">
                                             <span className="label-text">NIC</span>
                                         </div>
-                                        <input type="text" placeholder="Type here" value={responseData.ChiefOccupantNIC}
-                                               className="input input-bordered w-full max-w-xs input-primary" readOnly/>
+                                        <input type="text" placeholder="Type here" value={isEditing ? editableData.ChiefOccupantNIC : responseData.ChiefOccupantNIC}
+                                               onChange={(e) => setEditableData({...editableData, ChiefOccupantNIC: e.target.value})}
+                                               className="input input-bordered w-full max-w-xs input-primary" readOnly={!isEditing}/>
                                     </label>
                                     <label className="form-control w-full max-w-xs">
                                         <div className="label">
                                             <span className="label-text">Relationship</span>
                                         </div>
                                         <input type="text" placeholder="Type here"
-                                               value={responseData.RelationshipToTheChiefOccupant}
-                                               className="input input-bordered w-full max-w-xs input-primary" readOnly/>
+                                               value={isEditing ? editableData.RelationshipToTheChiefOccupant : responseData.RelationshipToTheChiefOccupant}
+                                               onChange={(e) => setEditableData({...editableData, RelationshipToTheChiefOccupant: e.target.value})}
+                                               className="input input-bordered w-full max-w-xs input-primary" readOnly={!isEditing}/>
                                     </label>
                                     <div className="form-control justify-center mt-6">
                                         <label className="label cursor-pointer gap-5">
                                             <span className="label-text">Verified by Chief Occupant</span>
                                             <input type="checkbox" defaultChecked className="checkbox checkbox-primary"
-                                                   readOnly/>
+                                                   readOnly={!isEditing}/>
                                         </label>
                                     </div>
                                 </div>
                                 <div className="flex gap-5 justify-end">
                                     <div className="card-actions justify-end">
-                                        <button className="btn btn-outline btn-success">Apply for update info</button>
+                                        <button
+                                            className={`btn ${isEditing ? 'btn-primary' : 'btn-outline btn-success'}`}
+                                            onClick={() => {
+                                                if (isEditing) {
+                                                    handleUpdateInfo();
+                                                } else {
+                                                    Toast.fire({
+                                                        icon: "success",
+                                                        title: "Entered edit mode"
+                                                    });
+                                                    setEditableData(responseData);
+                                                    setIsEditing(true);
+                                                }
+                                            }}
+                                        >
+                                            {isEditing ? 'Apply for update info' : 'Edit Info'}
+                                        </button>
                                     </div>
                                 </div>
                             </div>

@@ -46,6 +46,14 @@ export const VoterRegistration_2 = () => {
     });
 
     const onSubmit = async (data) => {
+        MySwal.fire({
+            title: 'Please wait.....',
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            willOpen: () => {
+                MySwal.showLoading();
+            },
+        });
         const NICFront = new FormData();
         const NICFrontFileName = responseData.applicationID+"_NICFront.jpg";
         console.log(data.NICFront[0])
@@ -91,6 +99,7 @@ export const VoterRegistration_2 = () => {
         delete data.Face;
         mutation.mutate(data, {
             onSuccess: (response) => {
+                MySwal.close();
                 MySwal.fire({
                     title: <p>Application Successfully Submitted. Check the your email for reference number</p>,
                     icon: 'success',
@@ -119,14 +128,14 @@ export const VoterRegistration_2 = () => {
 
     }
 
-    return (<div className="card card-side bg-base-100 shadow-xl gap-10 px-4">
+    return (<div className="card card-side bg-base-100 shadow-xl gap-10 px-4 py-14">
             <figure>
                 <ul className="steps steps-vertical ml-28 md:block">
-                    <li className="step step-primary">Registration of Email and Mobile</li>
+                    <li className="step step-primary">Verify of Email and Mobile</li>
                     <li className="step step-primary">Personal Details</li>
                     <li className="step">Location Details</li>
                     <li className="step">Chief Occupant Details</li>
-                    <li className="step">Conformation</li>
+                    <li className="step">Confirmation</li>
                 </ul>
             </figure>
             <div className="divider lg:divider-horizontal"></div>

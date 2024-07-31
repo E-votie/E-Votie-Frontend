@@ -27,7 +27,6 @@ import {Election_Home} from "./Pages/Election/Election_Home.jsx";
 import {Election_Announcements} from "./Pages/Election/Election_Announcements.jsx";
 import {CreateElection} from "./Pages/Election/CreateElection.jsx";
 import {Create_Announcements} from "./Pages/Election/Create_Announcements.jsx";
-// import {Poling_Stations} from "./Pages/Election/Poling_Stations.jsx";
 
 
 import "./App.css";
@@ -37,6 +36,8 @@ import {ElectionRegistration} from "./Pages/Voter/ElectionRegistration.jsx";
 import {ElectionRegistrationForm} from "./Pages/Voter/ElectionRegistrationForm.jsx";
 import {ReportView} from "./Pages/ReportGeneration/ReportView.jsx";
 import { PartyApplication } from "./Pages/Party/PartyApplication";
+import Polling_Stations from "./Pages/Election/Polling_Stations.jsx";
+import ApprovePartyMembers from "./Pages/Election/ApprovePartyMembers.jsx";
 
 
 // Create a QueryClient instance
@@ -68,6 +69,7 @@ function App() {
                             <Route path="/election/list" element={<ElectionList />} />
                             <Route path="/election" element={<Election />} />
                             <Route path="/reports/View" element={<ReportView />} />
+                            <Route path="/Approve" element={<ApprovePartyMembers />} />
                             <Route
                                 path="/GN"
                                 element={
@@ -162,7 +164,8 @@ function App() {
                             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
                             <Route path="/Election/Home" element={<Election_Home />} />
                             <Route path="/Election/Announcements" element={<Election_Announcements />} />
-                            {/*<Route path="/Election/Poling_Stations" element={<Poling_Stations />} />*/}
+                            <Route path="/Election/Create_Announcements" element={<Create_Announcements />} />
+                            <Route path="/Election/Polling_Stations" element={<Polling_Stations />} />
 
                         </Route>
                     </Routes>
