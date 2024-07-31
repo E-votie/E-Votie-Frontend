@@ -61,7 +61,7 @@ const actions = [
     "icon": "party",
     "description": "Details about the political parties.",
     "link": "/party/list",
-    "Roll": ["Anonymous", "Voter"]
+    "Roll": ["Anonymous", "Voter", "partyMember"]
   },
   {
     "action": "Candidates",

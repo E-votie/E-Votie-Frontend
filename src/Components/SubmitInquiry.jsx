@@ -11,7 +11,11 @@ import {
     IconButton,
     DialogTitle,
     Stack,
-    Divider
+    Divider,
+    Select,
+    MenuItem,
+    InputLabel,
+    FormHelperText
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloseIcon from '@mui/icons-material/Close';
@@ -55,6 +59,7 @@ const customStyle = `
 export const SubmitInquiry = ({ open, handleClose }) => {
     const { control, handleSubmit, register } = useForm();
     const [attachments, setAttachments] = useState([]);
+    const [promise, setPromise] = useState('');
 
     const onSubmit = (data) => {
         // Handle form submission here
@@ -72,6 +77,10 @@ export const SubmitInquiry = ({ open, handleClose }) => {
         } catch (error) {
             console.error("Error in handleFileChange:", error);
         }
+    };
+
+    const handlePromiseChange = (event) => {
+        setPromise(event.target.value);
     };
 
     return (
@@ -96,20 +105,20 @@ export const SubmitInquiry = ({ open, handleClose }) => {
                 <CloseIcon />
             </IconButton>
             <DialogContent dividers>
-                <FormControl fullWidth variant="outlined" margin='normal'>
+                <FormControl fullWidth variant="outlined">
                     <Stack spacing={3}>
                         <Box>
-                            <Typography variant="body1" gutterBottom>
-                            Subject
+                            <Typography variant="body1" >
+                                Subject
                             </Typography>
                             <TextField
                                 variant="outlined"
                                 fullWidth
                             />
                         </Box>
-                        <Box>
-                            <Typography variant="body1" gutterBottom>
-                            Description
+                        <Box mb={3}>
+                            <Typography variant="body1">
+                                Description
                             </Typography>
                             <Controller
                                 name="inquiryDescription"
@@ -126,14 +135,35 @@ export const SubmitInquiry = ({ open, handleClose }) => {
                                 )}
                             />
                         </Box>
-                        <Box>                        
+                        <Box>
                             <Typography variant="body1" gutterBottom>
-                            Attachments
+                                Promise
+                            </Typography>
+                            <FormControl fullWidth>
+                                {/* <InputLabel id="promise-select-label">Select Promise</InputLabel> */}
+                                <Select
+                                    labelId="promise-select-label"
+                                    value={promise}
+                                    onChange={handlePromiseChange}
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Promise 1</MenuItem>
+                                    <MenuItem value={20}>Promise 2</MenuItem>
+                                    <MenuItem value={30}>Promise 3</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                        <Box>
+                            <Typography variant="body1">
+                                Attachments
                             </Typography>
                             <Button
                                 component="label"
-                                variant="contained"
+                                variant="outlined"
                                 startIcon={<CloudUploadIcon />}
+                                sx={{ mt: 1 }}
                             >
                                 Upload file(s)
                                 <VisuallyHiddenInput 
@@ -162,7 +192,7 @@ export const SubmitInquiry = ({ open, handleClose }) => {
                 </FormControl>
             </DialogContent>
             <DialogActions>
-                <Button  onClick={handleSubmit(onSubmit)}>Submit</Button>
+                <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
             </DialogActions>
             <style>
                 {customStyle}

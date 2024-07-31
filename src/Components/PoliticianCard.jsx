@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import {Navigate, useNavigate} from "react-router-dom";
 
-export const Politician = () => {
+export const Politician = ({politician}) => {
 
   const navigate = useNavigate();
 
@@ -38,16 +38,16 @@ export const Politician = () => {
       <CardActionArea>
         <div className='flex'> 
             <img
-            src="..\src\assets\mr.jpg"
+            src={politician.profilePicture}
             alt="green iguana"
             className='w-[120px] h-[120px] object-cover p-2'
             />
             <CardContent>
             <Typography gutterBottom variant="body1" component="div">
-                Mahinda Rajapaksha
+                {politician.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Mahinda Rajapaksa, Sri Lankan politician who served as president of Sri Lanka from 2005 to 2015 and as prime minister from 2019 to 2022.
+              {politician.description}
             </Typography>
             </CardContent>
         </div>
