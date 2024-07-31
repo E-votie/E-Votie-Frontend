@@ -47,6 +47,19 @@ function FingerprintScanner({ ApplicationID }) {
             console.log(content);
             if (content === 'SCAN_COMPLETE') {
                 setScanningStatus(prev => ({ ...prev, [sourceDevice]: false }));
+                MySwal.fire({
+                    title: <p>Please check email and phone</p>,
+                    icon: 'Fingerprint Successfully created',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    didOpen: () => {
+                        // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/');
+                    }
+                })
             }else{
                 setScanningMassage(content)
             }

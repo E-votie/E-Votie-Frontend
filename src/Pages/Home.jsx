@@ -30,7 +30,7 @@ const actions = [
   },
   {
     "action": "Voter Applications",
-    "icon": "application",
+    "icon": "candidate",
     "description": "Pending applications for verification.",
     "link": "/verification_officer/voter_applications",
     "Roll": ["VerificationOfficer"],
@@ -41,6 +41,13 @@ const actions = [
     "description": "Pending applications for verification.",
     "link": "/GN/voter_applications",
     "Roll": ["GramaNiladhari"],
+  },
+  {
+    "action": "Party Applications",
+    "icon": "application",
+    "description": "Pending applications for verification.",
+    "link": "/verification_officer/voter_applications",
+    "Roll": ["VerificationOfficer"],
   },
   {
     "action": "Fingerprint Scan",

@@ -82,6 +82,19 @@ export const FingerprintReg = (props) => {
                 const errorMessage = error.message;
                 const statusMatch = errorMessage.match(/status: (\d+)/);
                 const status = statusMatch ? parseInt(statusMatch[1]) : null;
+                if(status === 400) {
+                    console.log("------>>>>>>>>>>>>>")
+                    Swal.fire({
+                        title: `<p>NIC is not registered</p>`,
+                        icon: 'error',
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Additional actions if needed
+                        }
+                    });
+                }
                 if (status === 401) { // Unauthorized error
                     window.location.href = "/";
                 } else {
