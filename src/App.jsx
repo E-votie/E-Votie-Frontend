@@ -38,6 +38,7 @@ import {ReportView} from "./Pages/ReportGeneration/ReportView.jsx";
 import { PartyApplication } from "./Pages/Party/PartyApplication";
 import Polling_Stations from "./Pages/Election/Polling_Stations.jsx";
 import ApprovePartyMembers from "./Pages/Election/ApprovePartyMembers.jsx";
+import { SelectNominations } from "./Components/selectNominations";
 
 
 // Create a QueryClient instance
@@ -166,7 +167,7 @@ function App() {
                             <Route path="/Election/Announcements" element={<Election_Announcements />} />
                             <Route path="/Election/Create_Announcements" element={<Create_Announcements />} />
                             <Route path="/Election/Polling_Stations" element={<Polling_Stations />} />
-
+                            <Route path="/election/nominations" element={<SelectNominations />} />
                         </Route>
                     </Routes>
                 </Router>

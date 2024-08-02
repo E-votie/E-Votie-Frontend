@@ -207,3 +207,199 @@ export const VoterRegistration_1 = () => {
         </div>
     );
 }
+
+// import React from 'react';
+// import { useForm } from "react-hook-form";
+// import { yupResolver } from '@hookform/resolvers/yup';
+// import * as yup from "yup";
+// import { useMutation } from 'react-query';
+// import axios from 'axios';
+// import Swal from 'sweetalert2'
+// import withReactContent from 'sweetalert2-react-content'
+// import { useNavigate } from 'react-router-dom';
+// import { PopUpChat } from '../../Components/PopUpChat';
+// import { motion } from 'framer-motion';
+// import { FaIdCard, FaEnvelope, FaPhone } from 'react-icons/fa';
+
+// const MySwal = withReactContent(Swal)
+
+// const messages = [
+//     {
+//       sentByUser: false,
+//       avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+//       alt: "User avatar",
+//       name: "Obi-Wan Kenobi",
+//       time: "12:45",
+//       text: "You were the Chosen One!",
+//       status: "Delivered"
+//     },
+//     {
+//       sentByUser: true,
+//       avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+//       alt: "User avatar",
+//       name: "Anakin",
+//       time: "12:46",
+//       text: "I hate you!",
+//       status: "Seen at 12:46"
+//     },
+//     {
+//       sentByUser: false,
+//       avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+//       alt: "User avatar",
+//       name: "Obi-Wan Kenobi",
+//       time: "12:45",
+//       text: "You were the Chosen One!",
+//       status: "Delivered"
+//     },
+//     {
+//       sentByUser: true,
+//       avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+//       alt: "User avatar",
+//       name: "Anakin",
+//       time: "12:46",
+//       text: "I hate you!",
+//       status: "Seen at 12:46"
+//     },
+//     {
+//       sentByUser: false,
+//       avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+//       alt: "User avatar",
+//       name: "Obi-Wan Kenobi",
+//       time: "12:45",
+//       text: "You were the Chosen One!",
+//       status: "Delivered"
+//     },
+//     {
+//       sentByUser: true,
+//       avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+//       alt: "User avatar",
+//       name: "Anakin",
+//       time: "12:46",
+//       text: "I hate you!",
+//       status: "Seen at 12:46"
+//     },
+//     {
+//       sentByUser: false,
+//       avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+//       alt: "User avatar",
+//       name: "Obi-Wan Kenobi",
+//       time: "12:45",
+//       text: "You were the Chosen One!You were the Chosen One!You were the Chosen One!You were the Chosen One!You were the Chosen One!You were the Chosen One!",
+//       status: "Delivered"
+//     },
+//     {
+//       sentByUser: true,
+//       avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+//       alt: "User avatar",
+//       name: "Anakin",
+//       time: "12:46",
+//       text: "I hate you!",
+//       status: "Seen at 12:46"
+//     }
+//   ];
+
+// export const VoterRegistration_1 = () => {
+//     const navigate = useNavigate();
+
+//     const schema = yup.object({
+//         NIC: yup.string().required("NIC is required").length(12, "NIC must be 12 characters long"),
+//         Email: yup.string().required("Email is required").email("Invalid email format"),
+//         Contact: yup.string().required("Phone number is required").matches(/^\d{3}-\d{7}$/, "Phone number must be in the format 071-1234567")
+//     });
+
+//     const { register, handleSubmit, formState: { errors } } = useForm({
+//         resolver: yupResolver(schema)
+//     });
+
+//     const mutation = useMutation((data) => {
+//         return axios.post('http://localhost:8081/voter-registration/voter', data);
+//     });
+
+//     const onSubmit = (data) => {
+//         mutation.mutate(data, {
+//             onSuccess: (response) => {
+//                 MySwal.fire({
+//                     title: 'Success!',
+//                     text: 'Please check your email and phone for verification',
+//                     icon: 'success',
+//                     confirmButtonText: 'OK'
+//                 }).then((result) => {
+//                     if (result.isConfirmed) {
+//                         navigate('/');
+//                     }
+//                 });
+//             },
+//             onError: (error) => {
+//                 MySwal.fire({
+//                     title: 'Error!',
+//                     text: error.response?.data || 'An error occurred',
+//                     icon: 'error',
+//                     confirmButtonText: 'OK'
+//                 });
+//             }
+//         });
+//     };
+
+//     const inputVariants = {
+//         focus: { scale: 1.05, transition: { type: 'spring', stiffness: 300 } },
+//         blur: { scale: 1, transition: { type: 'spring', stiffness: 300 } }
+//     };
+
+//     return (
+//         <motion.div 
+//             initial={{ opacity: 0, y: 50 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.5 }}
+//             className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center p-4"
+//         >
+//             <div className="card bg-white shadow-2xl rounded-3xl overflow-hidden max-w-4xl w-full">
+//                 <div className="flex flex-col md:flex-row">
+//                     <div className="bg-gradient-to-br from-blue-500 to-purple-600 text-white p-8 md:w-1/3">
+//                         <h2 className="text-3xl font-bold mb-6">Voter Registration</h2>
+//                         <ul className="steps steps-vertical">
+//                             <li className="step step-primary">Registration of Email and Mobile</li>
+//                             <li className="step">Personal Details</li>
+//                             <li className="step">Location Details</li>
+//                             <li className="step">Chief Occupant Details</li>
+//                             <li className="step">Confirmation</li>
+//                         </ul>
+//                     </div>
+//                     <div className="p-8 md:w-2/3">
+//                         <h3 className="text-2xl font-semibold mb-6">Contact Details</h3>
+//                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+//                             <motion.div variants={inputVariants} whileFocus="focus" whileBlur="blur">
+//                                 <label className="input input-bordered flex items-center gap-2 input-primary w-full">
+//                                     <FaIdCard className="text-gray-400" />
+//                                     <input type="text" className="grow" placeholder="NIC" {...register("NIC")} />
+//                                 </label>
+//                                 {errors.NIC && <p className="text-red-500 text-xs italic mt-1">{errors.NIC.message}</p>}
+//                             </motion.div>
+//                             <motion.div variants={inputVariants} whileFocus="focus" whileBlur="blur">
+//                                 <label className="input input-bordered flex items-center gap-2 input-primary w-full">
+//                                     <FaEnvelope className="text-gray-400" />
+//                                     <input type="text" className="grow" placeholder="Email" {...register("Email")} />
+//                                 </label>
+//                                 {errors.Email && <p className="text-red-500 text-xs italic mt-1">{errors.Email.message}</p>}
+//                             </motion.div>
+//                             <motion.div variants={inputVariants} whileFocus="focus" whileBlur="blur">
+//                                 <label className="input input-bordered flex items-center gap-2 input-primary w-full">
+//                                     <FaPhone className="text-gray-400" />
+//                                     <input type="text" className="grow" placeholder="Phone (07*-*******)" {...register("Contact")} />
+//                                 </label>
+//                                 {errors.Contact && <p className="text-red-500 text-xs italic mt-1">{errors.Contact.message}</p>}
+//                             </motion.div>
+//                             <motion.div 
+//                                 className="card-actions justify-end"
+//                                 whileHover={{ scale: 1.05 }}
+//                                 whileTap={{ scale: 0.95 }}
+//                             >
+//                                 <button className="btn btn-primary w-full md:w-auto">Verify</button>
+//                             </motion.div>
+//                         </form>
+//                     </div>
+//                 </div>
+//             </div>
+//             <PopUpChat messages={messages} />
+//         </motion.div>
+//     );
+// };
