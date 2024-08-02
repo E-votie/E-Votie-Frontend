@@ -168,6 +168,9 @@ function App() {
                             <Route path="/Election/Create_Announcements" element={<Create_Announcements />} />
                             <Route path="/Election/Polling_Stations" element={<Polling_Stations />} />
                             <Route path="/election/nominations" element={<SelectNominations />} />
+                            <Route path="/voter/registration/1" element={<VoterRegistration_1 />} />
+                            <Route path="/voter/registration/2" element={<VoterRegistration_2 />} />
+
                         </Route>
                     </Routes>
                 </Router>

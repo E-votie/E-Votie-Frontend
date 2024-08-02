@@ -72,7 +72,7 @@ const ActionCard = ({ icon, action, description, link, role }) => {
         whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
         whileTap={{ scale: 0.95 }}
         >                    
-            <div className="text-4xl mb-4 text-blue-500">
+            <div className="text-4xl mb-4 text-pink-500" sx={{color: "rgb(236 72 153)"}}>
                 {getIcon(icon)}
             </div>
             {/* <Icon className="text-4xl mb-4 text-blue-500" /> */}
