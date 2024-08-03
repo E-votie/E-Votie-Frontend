@@ -19,6 +19,8 @@ import { LinearWithValueLabel } from '../../Components/LinearValueWithLabel';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { MoreOverMenu } from '../../Components/MoreOverMenu';
 import { AddNewPromise } from '../../Components/AddNewPromise';
+import {  Chip, IconButton, Tooltip } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const options = ["Add New Promise", "Submit Inquiry", "Update Manifesto", "Delete Manifesto"];
 
@@ -33,6 +35,30 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
       backgroundColor: '#4caf50', // A nice green color
     },
   }));
+
+  const StyledLinearProgress = styled(LinearProgress)(({ theme }) => ({
+    height: 10,
+    borderRadius: 5,
+    [`&.MuiLinearProgress-colorPrimary`]: {
+      backgroundColor: theme.palette.grey[200],
+    },
+    [`& .MuiLinearProgress-bar`]: {
+      borderRadius: 5,
+      backgroundColor: theme.palette.success.main,
+    },
+  }));
+  
+  const StatusChip = ({ color, label }) => (
+    <Chip
+      size="small"
+      label={label}
+      sx={{
+        backgroundColor: color,
+        color: 'white',
+        '& .MuiChip-label': { fontWeight: 'bold' },
+      }}
+    />
+  );
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -181,88 +207,61 @@ export const Manifesto = ({ overallProgress, items }) => {
         setOpenAddNewPromiseModal(false);
     };
 
-  
+    const onMoreClick = () => {};
+    
     return (
         <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6">
             <div maxWidth="md" className="mt-4">
                 {/* header */}
-                <Paper elevation={2} className="p-6 mb-4">
-                    <div className='flex justify-between '>
-                        <div className='flex gap-12'>
-                            {/* Avatar */}
-                            <img src="../../src/assets/mr.jpg" alt="Profile" className='w-48 h-48 object-cover' />
-                            <div className='flex flex-col gap-4'>
-                                {/* Tracking Progress */}
-                                <div className='flex flex-col gap-1'>
-                                    <Typography variant="h5" gutterBottom>Manifesto: 100 days and beyond</Typography>
-                                    <Typography variant="body1" color="textSecondary" gutterBottom>{`Overall Progress: ${50}%`}</Typography>
-                                    <BorderLinearProgress variant="determinate" value={50} color="secondary" className='bg-[#4caf50]'/>
-                                </div>
-                                {/* Status */}
-                                <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
-                                    <Box display="flex" alignItems="center">
-                                        <Box display="flex" alignItems="center" mr={2}>
-                                            <Box bgcolor="green" width={16} height={16} borderRadius="50%" />
-                                            <Typography variant="body2" color="textSecondary" ml={1}>Pledge Completed</Typography>
-                                        </Box>
-                                        <Box display="flex" alignItems="center" mr={2}>
-                                            <Box bgcolor="yellow" width={16} height={16} borderRadius="50%" />
-                                            <Typography variant="body2" color="textSecondary" ml={1}>Partially Completed</Typography>
-                                        </Box>
-                                        <Box display="flex" alignItems="center" mr={2}>
-                                            <Box bgcolor="red" width={16} height={16} borderRadius="50%" />
-                                            <Typography variant="body2" color="textSecondary" ml={1}>Not Done</Typography>
-                                        </Box>
-                                        <Box display="flex" alignItems="center">
-                                            <Box bgcolor="gray" width={16} height={16} borderRadius="50%" />
-                                            <Typography variant="body2" color="textSecondary" ml={1}>Pending</Typography>
-                                        </Box>
-                                    </Box>
+                <Paper elevation={3} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
+                    <Box display="flex" justifyContent="space-between" alignItems="flex-start">
+                        <Box display="flex" gap={4}>
+                            <Avatar
+                                src="../../src/assets/mr.jpg"
+                                alt="Profile"
+                                sx={{ width: 120, height: 120, borderRadius: 2 }}
+                            />
+                            <Box>
+                                <Typography variant="h4" gutterBottom fontWeight="bold">
+                                Manifesto: 100 days and beyond
+                                </Typography>
+                                <Box display="flex" alignItems="center" mb={2}>
+                                <Typography variant="body1" color="text.secondary" mr={2}>
+                                    Overall Progress:
+                                </Typography>
+                                <Typography variant="h6" fontWeight="bold" color="success.main">
+                                    {`${overallProgress}%`}
+                                </Typography>
                                 </Box>
-                            </div>
-                        </div>
-                        {/* functions */}
-                        <Stack direction="column">
-                            <MoreOverMenu options={options} onSubmitNewInquiry={handleOpenSubmitInquiryModal} onAddNewPromise={handleOpenAddNewPromiseModal} sx={{fontSize:"40px"}} className="text-black"/>
-                            {/* <Button
-                                variant="contained"
-                                startIcon={<AddIcon />}
-                                sx={{ backgroundColor: '#1976d2', color: '#fff', '&:hover': { backgroundColor: '#115293' } }}
-                            >
-                                Add New Promise
-                            </Button>
-                            <Button
-                                onClick={handleOpenSubmitInquiryModal}
-                                variant="contained"
-                                startIcon={<SendIcon />}
-                                sx={{ backgroundColor: '#4caf50', color: '#fff', '&:hover': { backgroundColor: '#388e3c' } }}
-                            >
-                                Submit Inquiry
-                            </Button> */}
-                            {/* add new promise modal */}
-                            {
-                                openAddNewPromiseModal && <AddNewPromise open={openAddNewPromiseModal} handleClose={handleCloseAddNewPromiseModal}/>
-                            }
-                            {/* submit inquiry modal */}
-                            {
-                                openSubmitInquiryModal && <SubmitInquiry open={openSubmitInquiryModal} handleClose={handleCloseSubmitInquiryModal}/>
-                            }
-                            {/* <Button
-                                variant="contained"
-                                startIcon={<UpdateIcon />}
-                                sx={{ backgroundColor: '#ff9800', color: '#fff', '&:hover': { backgroundColor: '#f57c00' } }}
-                            >
-                                Update
-                            </Button>
-                            <Button
-                                variant="contained"
-                                startIcon={<DeleteIcon />}
-                                sx={{ backgroundColor: '#f44336', color: '#fff', '&:hover': { backgroundColor: '#d32f2f' } }}
-                            >
-                                Delete
-                            </Button> */}
-                        </Stack>
-                    </div>
+                                <StyledLinearProgress variant="determinate" value={overallProgress} sx={{ mb: 3, width: '100%' }} />
+                                <Box display="flex" gap={1} flexWrap="wrap">
+                                <StatusChip color="#4caf50" label="Completed" />
+                                <StatusChip color="#ffc107" label="Partial" />
+                                <StatusChip color="#f44336" label="Not Done" />
+                                <StatusChip color="#9e9e9e" label="Pending" />
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box>
+                            <Tooltip title="Bookmark">
+                                <IconButton>
+                                <BookmarkIcon />
+                                </IconButton>
+                            </Tooltip>
+                            {/* functions */}
+                            <Stack direction="column">
+                                <MoreOverMenu options={options} onSubmitNewInquiry={handleOpenSubmitInquiryModal} onAddNewPromise={handleOpenAddNewPromiseModal} sx={{fontSize:"40px"}} className="text-black"/>
+                                {/* add new promise modal */}
+                                {
+                                    openAddNewPromiseModal && <AddNewPromise open={openAddNewPromiseModal} handleClose={handleCloseAddNewPromiseModal}/>
+                                }
+                                {/* submit inquiry modal */}
+                                {
+                                    openSubmitInquiryModal && <SubmitInquiry open={openSubmitInquiryModal} handleClose={handleCloseSubmitInquiryModal}/>
+                                }
+                            </Stack>
+                        </Box>
+                    </Box>
                 </Paper>
                 {/* tabs */}
                 <Box sx={{ bgcolor: 'background.paper' }}>

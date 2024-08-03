@@ -159,9 +159,9 @@ export const VoterRegistration_2 = () => {
             <div className="">
                 <ul className="steps steps-horizontal w-full">
                     <li className="step step-primary">Registration of Email and Mobile</li>
-                    <li className="step step-primary">Personal</li>
-                    <li className="step">Location</li>
-                    <li className="step">Chief Occupant</li>
+                    <li className="step step-primary">Personal Details</li>
+                    <li className="step">Location Details</li>
+                    <li className="step">Chief Occupant Details</li>
                     <li className="step">Confirmation</li>
                 </ul>
             </div>
