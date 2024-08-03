@@ -5,19 +5,19 @@ import {Box, Stack} from "@mui/material";
 
 export const PartyRegistration = () => {
     return (
-        <div className="min-h-[600px] flex bg-base-100 shadow-2xl px-4 pb-4 gap-6">
+        <div className="min-h-[600px] flex bg-base-100 shadow-md rounded-xl px-4 pb-4 gap-6">
             <div className="registerPartyContainer w-full">
                 {/* Header */}
                 <div className='header my-8 flex justify-between items-center'>
                     {/* Topic */}
-                    <div className="topic text-3xl">
+                    <div className="text-3xl font-semibold text-gray-900">
                         Party Registration
                     </div>
                 </div>   
                 {/* Application form and instructions */}
                 <div className="flex lg:flex-row sm:flex-col gap-12">      
                     <div className="instructions w-3/4 flex-col grow ">
-                        <Stack >
+                        <Stack  className="bg-base-100 rounded-md p-2">
                             <div className="topic text-xl mb-4 font-bold ">
                                 Calling for applications
                             </div> 
@@ -39,8 +39,8 @@ export const PartyRegistration = () => {
                             </Box>
                         </Stack>
                         <Box my={4} />
-                        <Stack>
-                            <div className="topic text-xl mb-4 font-bold">
+                        <Stack  className="bg-base-100 rounded-md p-2">
+                            <div className="topic text-xl mb-4 font-bold" >
                                 What are the documents to be submitted with the applications?
                             </div> 
 
@@ -65,11 +65,10 @@ export const PartyRegistration = () => {
 
                     </div>
                     {/* Party Registration Application */}
-                    <div className="applicationForm w-1/2">
+                    <div className="applicationForm w-1/2 bg-base-100 rounded-md p-2"> 
                         <div className="topic text-xl mb-4 font-bold ">
                             Application
                         </div> 
-                        <Divider />
                         <PartyRegistrationForm />
                     </div>
                 </div>

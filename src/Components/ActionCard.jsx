@@ -60,28 +60,28 @@ const shouldShowCard = (roles) => {
     }, [roles, keycloakService.isLoggedIn()]); // Dependencies array
 };
 
-const ActionCard = ({icon, action, description, link, role}) => {
-    const navigate = useNavigate();
-    //Add navigate links in the home page not hear
-    return (
-        shouldShowCard(role) && (
-            <Card sx={{ width: 218 }} onClick={() => navigate(link)}>
-                <CardActionArea>
-                    <div className="flex justify-center items-center my-2">
-                        {getIcon(icon)}
-                    </div>
-                    <CardContent>
-                        <Typography gutterBottom variant="h6" component="div" className="flex justify-center items-center">
-                            {action}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {description}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        )
-    );
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
+const ActionCard = ({ icon, action, description, link, role }) => {
+  return (
+    shouldShowCard(role) && 
+    <Link to={link}>
+        <motion.div
+        className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between items-center"
+        whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
+        whileTap={{ scale: 0.95 }}
+        >                    
+            <div className="text-4xl mb-4 text-pink-500" sx={{color: "rgb(236 72 153)"}}>
+                {getIcon(icon)}
+            </div>
+            {/* <Icon className="text-4xl mb-4 text-blue-500" /> */}
+            <h3 className="text-xl font-semibold mb-2 text-gray-800">{action}</h3>
+            <p className="text-gray-600">{description}</p>
+        </motion.div>
+    </Link>
+  );
 };
 
 export default ActionCard;
+

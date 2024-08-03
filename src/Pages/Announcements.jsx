@@ -112,10 +112,10 @@ export const Announcements = () => {
 
 
   return (
-    <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6">
+    <div className="min-h-[600px] flex flex-col bg-base-100 shadow-md rounded-xl px-4 pb-4 gap-6">
         <div className='announcementContainer'>
             {/* Header */}
-            <div className='header my-8 flex justify-between items-center'>
+            <div className='header my-8 flex justify-between items-center text-3xl font-semibold text-gray-900'>
                 {/* Topic */}
                 <div className="topic text-3xl">
                     Site Announcements
@@ -126,7 +126,14 @@ export const Announcements = () => {
                         variant="contained"
                         onClick={handleOpenPublishAnnouncementModal}
                         startIcon={<CreateIcon />}
-                        sx={{ backgroundColor: '#1976d2', color: '#fff', '&:hover': { backgroundColor: '#115293' } }}
+                        sx={{
+                            backgroundColor: 'rgb(236 72 153)', // Original pink color
+                            color: '#fff',
+                            '&:hover': { 
+                                backgroundColor: 'rgb(220 57 138)' // Slightly darker pink color for hover
+                            }
+                        }}
+                        // sx={{ backgroundColor: '#1976d2', color: '#fff', '&:hover': { backgroundColor: '#115293' } }}
                         >
                         Craft New Announcement
                     </Button>                
