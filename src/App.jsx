@@ -18,7 +18,7 @@ import {FormReview} from "./Pages/GramaNiladhari/FormReview.jsx";
 import {GnHome} from "./Pages/GramaNiladhari/GnHome.jsx";
 import {VoterApplications} from "./Pages/GramaNiladhari/VoterApplications.jsx";
 import ProtectedRoute from "./services/ProtectedRoute.jsx";
-import {ElectionList} from "./Pages/Party/ElectionList";
+import {ElectionList} from "./Pages/Election/ElectionList.jsx";
 import {Election} from "./Pages/Party/Election";
 import {VerificationHome} from "./Pages/VerificationOfficer/VerificationHome.jsx";
 import {VoterApplicationsVerificationOfficer} from "./Pages/VerificationOfficer/VoterApplications.jsx";
@@ -38,6 +38,8 @@ import {ReportView} from "./Pages/ReportGeneration/ReportView.jsx";
 import { PartyApplication } from "./Pages/Party/PartyApplication";
 import Polling_Stations from "./Pages/Election/Polling_Stations.jsx";
 import ApprovePartyMembers from "./Pages/Election/ApprovePartyMembers.jsx";
+import {VotingPage} from "./Pages/VotingUI/VotingPage.jsx";
+import {VotingPageStart} from "./Pages/VotingUI/StartPage.jsx";
 
 
 // Create a QueryClient instance
@@ -70,6 +72,8 @@ function App() {
                             <Route path="/election" element={<Election />} />
                             <Route path="/reports/View" element={<ReportView />} />
                             <Route path="/Approve" element={<ApprovePartyMembers />} />
+                            <Route path="/voting_page" element={<VotingPage />} />
+                            <Route path="/voting_page/start" element={<VotingPageStart />} />
                             <Route
                                 path="/GN"
                                 element={
@@ -162,11 +166,9 @@ function App() {
                             />
                             <Route path="/Election/Create" element={<CreateElection />} />
                             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
-                            <Route path="/Election/Home" element={<Election_Home />} />
                             <Route path="/Election/Announcements" element={<Election_Announcements />} />
                             <Route path="/Election/Create_Announcements" element={<Create_Announcements />} />
                             <Route path="/Election/Polling_Stations" element={<Polling_Stations />} />
-
                         </Route>
                     </Routes>
                 </Router>

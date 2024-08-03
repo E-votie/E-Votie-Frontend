@@ -27,7 +27,7 @@ export const CreateElection = () => {
     })
 
     const mutation = useMutation((data) => {
-        return axios.post('http://localhost:8081/Election/Create', data);
+        return axios.post('http://localhost:8081/election/create', data);
     });
 
     const onSubmit = async (data) => {
@@ -59,7 +59,7 @@ export const CreateElection = () => {
             <div className="card-body md:px-2">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                     <div className="space-y-3">
-                        <p className="font-sans text-2xl">New Election</p>
+                        <p className="font-sans text-2xl">Create New Election</p>
                         <div className="space-y-3">
                             <div className="flex gap-6">
                                 <div className="flex flex-col">
@@ -81,6 +81,7 @@ export const CreateElection = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className="flex flex-row gap-14">
                         <div className="space-y-3">
                             <p className="font-sans text-2l">Election Type</p>
                             <select className="select select-primary w-full max-w-xs">
@@ -98,7 +99,7 @@ export const CreateElection = () => {
 
                             {errors.EndingDateTime && <p>{errors.ElectionTitle.message}</p>}
                         </div>
-
+                        </div>
                         <div className="flex gap-5">
                             <label className="form-control w-full max-w-xs">
                             </label>
@@ -118,7 +119,7 @@ export const CreateElection = () => {
                     </div>
                     <div className="space-y-3">
                         <div className="card-actions justify-end">
-                            <button className="btn btn-outline btn-primary">Next</button>
+                            <button className="btn btn-outline btn-primary">Create</button>
                         </div>
                     </div>
                 </form>
