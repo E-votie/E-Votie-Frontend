@@ -4,7 +4,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 const MapWithMarkers = ({ onLocationSelect }) => {
     const mapStyles = {
         height: "500px",
-        width: "500px",
+        width: "650px",
         maxWidth: "800px",
         margin: "20px auto"
     };
