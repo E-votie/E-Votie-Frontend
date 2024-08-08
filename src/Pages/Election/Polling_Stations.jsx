@@ -24,21 +24,28 @@ const electionDistrict = ['Colombo', 'Kandy', 'Galle'];
 
 const Polling_Stations = () => {
     const [coordinates, setCoordinates] = useState('No coordinates selected');
-    const { pollingStations, setPollingStations, addElectionDistrict, newDistrict, setNewDistrict} = useContext(PollingStationsContext);
+    const { pollingStations, setPollingStations, addElectionDistrict, newDistrict, setNewDistrict } = useContext(PollingStationsContext);
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
 
     useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'auto'; // Restore scrolling when the component unmounts
+        };
+    }, []);
+
+    useEffect(() => {
         console.log('Coordinates updated:', coordinates);
     }, [coordinates]);
 
     const handleAddDistrict = () => {
-        // if (newDistrict.trim() !== '') {
-        //     addElectionDistrict(newDistrict);
-        //     setNewDistrict('');
-        // }
+        if (newDistrict.trim() !== '') {
+            addElectionDistrict(newDistrict);
+            setNewDistrict('');
+        }
     };
 
     const mutation = useMutation((data) => {
@@ -97,7 +104,7 @@ const Polling_Stations = () => {
                 {/* Map Card */}
                 <div className="card bg-base-100 shadow-lg max-h-[600px]" style={mapContainerStyle}>
                     <div className="card-body">
-                        <h3 className="font-sans text-2xl font-semibold mb-0.">Polling Map</h3>
+                        <h3 className="font-sans text-2xl font-semibold mb-0">Polling Map</h3>
                         <MapWithMarkers onLocationSelect={(lat, lng) => handleLocationSelect(lat, lng, pollingStations.length - 1)} />
                     </div>
                 </div>
