@@ -80,25 +80,51 @@ export const CreateElection = () => {
                                     {errors.ElectionType && <p>{errors.EndingDateTime.message}</p>}
                                 </div>
                             </div>
-                        </div>
-                        <div className="space-y-3">
-                            <p className="font-sans text-2l">Election Type</p>
-                            <select className="select select-primary w-full max-w-xs">
-                                <option disabled selected>Election Type</option>
-                                <option>Presidential Election</option>
-                                <option>Parliamentary Election</option>
-                                <option>Provincial Council Election</option>
-                                <option>Local Authorities Election</option>
-                                <option>Referendum</option>
-                            </select>
-                            {errors.EndingDateTime && <p>{errors.ElectionType.message}</p>}
-                        </div>
-                        <div className="space-y-3">
-                            <p className="font-sans text-2l">Election Title</p>
-                            <input className="input input-bordered input-primary w-full max-w-xs" placeholder="Enter Election Title"/>
 
-                            {errors.EndingDateTime && <p>{errors.ElectionTitle.message}</p>}
+                            <div className="flex gap-6">
+                                <div className="flex flex-col">
+
+                                    <label className="mb-1 font-sans text-l">Election Title</label>
+                                    <input className="input input-bordered input-primary w-full max-w-xs"
+                                           placeholder="Enter Election Title"/>
+
+                                    {errors.EndingDateTime && <p>{errors.ElectionTitle.message}</p>}
+                                </div>
+                                <span className="text-lg font-bold self-end mb-2"></span>
+                                <div className="flex flex-col">
+                                    <label className="mb-1 font-sans text-l">Election Type</label>
+                                    <select className="select select-primary w-full max-w-xs">
+                                        <option disabled selected>Election Type</option>
+                                        <option>Presidential Election</option>
+                                        <option>Parliamentary Election</option>
+                                        <option>Provincial Council Election</option>
+                                        <option>Local Authorities Election</option>
+                                        <option>Referendum</option>
+                                    </select>
+                                    {errors.EndingDateTime && <p>{errors.ElectionType.message}</p>}
+                                </div>
+                            </div>
+
                         </div>
+                        {/*<div className="space-y-3">*/}
+                        {/*    <p className="font-sans text-2l">Election Type</p>*/}
+                        {/*    <select className="select select-primary w-full max-w-xs">*/}
+                        {/*        <option disabled selected>Election Type</option>*/}
+                        {/*        <option>Presidential Election</option>*/}
+                        {/*        <option>Parliamentary Election</option>*/}
+                        {/*        <option>Provincial Council Election</option>*/}
+                        {/*        <option>Local Authorities Election</option>*/}
+                        {/*        <option>Referendum</option>*/}
+                        {/*    </select>*/}
+                        {/*    {errors.EndingDateTime && <p>{errors.ElectionType.message}</p>}*/}
+                        {/*</div>*/}
+                        {/*<div className="space-y-3">*/}
+                        {/*    <p className="font-sans text-2l">Election Title</p>*/}
+                        {/*    <input className="input input-bordered input-primary w-full max-w-xs"*/}
+                        {/*           placeholder="Enter Election Title"/>*/}
+
+                        {/*    {errors.EndingDateTime && <p>{errors.ElectionTitle.message}</p>}*/}
+                        {/*</div>*/}
 
                         <div className="flex gap-5">
                             <label className="form-control w-full max-w-xs">
@@ -119,7 +145,7 @@ export const CreateElection = () => {
                     </div>
                     <div className="space-y-3">
                         <div className="card-actions justify-end">
-                            <button className="btn btn-outline btn-primary">Next</button>
+                            <button className="btn btn-outline btn-primary">Create</button>
                         </div>
                     </div>
                 </form>

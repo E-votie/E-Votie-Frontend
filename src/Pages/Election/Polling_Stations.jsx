@@ -8,6 +8,8 @@ import { useMutation } from 'react-query';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import Accordion from '../../Components/Accordion';
+
 
 const MySwal = withReactContent(Swal);
 
@@ -16,6 +18,13 @@ const schema = object({
     EndingDateTime: yup.string().required("Cannot be empty"),
     ElectionType: yup.string().required("Cannot be empty"),
 });
+
+const electionDistrict = [
+    'Colombo',
+    'Kandy',
+    'Galle',
+
+];
 
 const Polling_Stations = () => {
     const [coordinates, setCoordinates] = useState('No coordinates selected');
@@ -36,11 +45,10 @@ const Polling_Stations = () => {
         mutation.mutate(data, {
             onSuccess: (response) => {
                 MySwal.fire({
-                    title: <p>Please check Date_of_Birth and phone</p>,
+                    title: <p>Election created successfully!</p>,
                     icon: 'success',
                     showConfirmButton: true,
                     confirmButtonText: 'OK',
-                    didOpen: () => { },
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // navigate('/Home');
@@ -49,14 +57,12 @@ const Polling_Stations = () => {
             },
             onError: (error) => {
                 console.error('Error submitting data:', error);
-                // Handle error (e.g., show error message)
             }
         });
     }
 
     const handleLocationSelect = (lat, lng, index) => {
         const coords = `${lat}, ${lng}`;
-        console.log("New coordinates:", coords);
         setCoordinates(coords);
         setPollingStations(prevStations => {
             const updatedStations = [...prevStations];
@@ -100,6 +106,11 @@ const Polling_Stations = () => {
         });
     };
 
+    const handleCSVUpload = (event) => {
+        const file = event.target.files[0];
+        console.log("CSV file uploaded:", file);
+    };
+
     const containerStyle = {
         display: 'flex',
         justifyContent: 'space-between',
@@ -116,6 +127,10 @@ const Polling_Stations = () => {
         minWidth: '500px',
     };
 
+    const inputGroupStyle = {
+        marginBottom: '20px',
+    };
+
     return (
         <div style={containerStyle}>
             <div style={mapContainerStyle}>
@@ -124,69 +139,62 @@ const Polling_Stations = () => {
             <div style={formContainerStyle}>
                 <div className="card card-side bg-base-100 shadow-xl gap-10 px-4">
                     <div className="card-body md:px-2">
-                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-                            <div className="space-y-3">
-                                <p className="font-sans text-2xl">New Election</p>
-                                <div className="space-y-3">
-                                    <div className="flex gap-6">
-                                        <div className="flex flex-col">
-                                            <label className="mb-1 font-sans text-l">Starting Date and Time</label>
-                                            <input
-                                                type="datetime-local"
-                                                placeholder="Type here"
-                                                className="input input-bordered input-primary w-full max-w-xs" />
-                                            {errors.StartingDateTime && <p>{errors.StartingDateTime.message}</p>}
-                                        </div>
-                                        <span className="text-lg font-bold self-end mb-2">-</span>
-                                        <div className="flex flex-col">
-                                            <label className="mb-1 font-sans text-l">Ending Date and Time</label>
-                                            <input
-                                                type="datetime-local"
-                                                placeholder="Type here"
-                                                className="input input-bordered input-primary w-full max-w-xs" />
-                                            {errors.ElectionType && <p>{errors.EndingDateTime.message}</p>}
-                                        </div>
+                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                            <div className="space-y-4">
+                                <h2 className="font-sans text-3xl font-semibold">Create New Election</h2>
+
+                                {/* Electoral District Dropdown with + Button */}
+                                <div className="space-y-4">
+                                    <label className="font-sans text-lg">Electoral District</label>
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <select className="select select-primary flex-grow" {...register("ElectionType")}>
+                                            <option disabled selected>Select Electoral District</option>
+                                            {electionDistrict.map((name) => (
+                                                <option key={name} value={name}>{name}</option>
+                                            ))}
+                                        </select>
+                                        <button type="button" className="btn btn-outline btn-primary" onClick={() => alert("Add District functionality here")}>
+                                            +
+                                        </button>
                                     </div>
+                                    {errors.ElectionType &&
+                                        <p className="text-red-600 text-sm mt-1">{errors.ElectionType.message}</p>}
                                 </div>
-                                <p className="font-sans text-2l">Election Type</p>
-                                <select className="select select-primary w-full max-w-xs">
-                                    <option disabled selected>Election Type</option>
-                                    <option>Presidential Election</option>
-                                    <option>Parliamentary Election</option>
-                                    <option>Provincial Council Election</option>
-                                    <option>Local Government Election</option>
-                                </select>
-                                {errors.EndingDateTime && <p>{errors.ElectionType.message}</p>}
-                                <div className="flex gap-5">
-                                    <label className="form-control w-full max-w-xs">
-                                    </label>
-                                    <label className="form-control w-full max-w-xs">
-                                    </label>
-                                    <label className="form-control w-full max-w-xs">
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="space-y-3">
-                                <p className="font-sans text-2l">Polling Station Names and Coordinates</p>
-                                {pollingStations.map((station, index) => (
-                                    <div key={index} className="flex items-center gap-2 mb-2">
-                                        <label className="form-control flex-grow">
+                                <Accordion></Accordion>
+                                {/* Polling Stations */}
+                                <div className="space-y-4">
+                                    <h3 className="font-sans text-2xl font-semibold">Polling Stations</h3>
+
+                                    {/* Polling Station List */}
+                                    {pollingStations.map((station, index) => (
+                                        <div key={index} className="flex items-center gap-3 mb-3">
                                             <input
-                                                className="input input-bordered input-primary w-full"
-                                                placeholder="Enter Polling Station Name"
+                                                className="input input-bordered input-primary flex-grow"
+                                                placeholder="Polling Station Name"
                                                 value={station.name}
                                                 onChange={(e) => handlePollingStationNameChange(index, e.target.value)}
                                             />
-                                        </label>
-                                        <span className="text-sm text-gray-600 font-semibold">{station.coordinates}</span>
-                                        <button type="button" className="btn btn-outline btn-primary" onClick={addPollingStation}>+</button>
-                                        <button type="button" className="btn btn-outline btn-danger" onClick={() => deletePollingStation(index)}>-</button>
+                                            <span className="text-sm text-gray-600 font-semibold">{station.coordinates}</span>
+                                            <button type="button" className="btn btn-outline btn-primary" onClick={addPollingStation}>+</button>
+                                            <button type="button" className="btn btn-outline btn-danger" onClick={() => deletePollingStation(index)}>-</button>
+                                        </div>
+                                    ))}
+
+                                    {/* CSV Upload Button */}
+                                    <div className="flex flex-col">
+                                        <label className="font-sans text-lg mb-2">Upload Polling Stations CSV</label>
+                                        <input
+                                            type="file"
+                                            accept=".csv"
+                                            className="input input-bordered input-primary"
+                                            onChange={handleCSVUpload}
+                                        />
                                     </div>
-                                ))}
-                            </div>
-                            <div className="space-y-3">
-                                <div className="card-actions justify-end">
-                                    <button className="btn btn-outline btn-primary">Next</button>
+                                </div>
+
+                                {/* Form Actions */}
+                                <div className="card-actions justify-end mt-6">
+                                    <button type="submit" className="btn btn-primary">Next</button>
                                 </div>
                             </div>
                         </form>
