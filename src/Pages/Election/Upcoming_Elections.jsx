@@ -4,16 +4,16 @@ import { Typography, Box } from "@mui/material"; // Adjust the import path as ne
 
 export default function UpcomingElections() {
     const [rows, setRows] = React.useState([
-        { name: 'Election 1', type: 'Presidential', startDate: '2024-10-01', endDate: '2024-10-15' },
-        { name: 'Election 2', type: 'Congressional', startDate: '2024-11-01', endDate: '2024-11-15' },
-        { name: 'Election 0', type: 'Local', startDate: '2024-12-01', endDate: '2024-12-15' },
+        { name: 'Presidential Elections 2024', type: 'Presidential', startDate: '2024-10-01', endDate: '2024-10-15' },
+        { name: 'Parliamentary Elections 2025', type: 'Congressional', startDate: '2025-11-01', endDate: '2025-11-15' },
+        { name: 'Local Council Elections 2025', type: 'Local', startDate: '2025-12-01', endDate: '2025-11-15' },
     ]);
 
-    React.useEffect(() => {
-        // Add a new row programmatically after component mounts
-        const newRow = { name: 'Election 4', type: 'State', startDate: '2024-01-01', endDate: '2024-01-15' };
-        setRows((prevRows) => [...prevRows, newRow]);
-    }, []);
+    // React.useEffect(() => {
+    //     // Add a new row programmatically after component mounts
+    //     const newRow = { name: 'Election 4', type: 'State', startDate: '2024-01-01', endDate: '2024-01-15' };
+    //     setRows((prevRows) => [...prevRows, newRow]);
+    // }, []);
 
     return (
         <div>
