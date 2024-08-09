@@ -16,6 +16,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Slide from '@mui/material/Slide';
+import Box from '@mui/material/Box';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -57,22 +58,20 @@ export default function ElectionTable({ rows, columns }) {
                         </TableHead>
                         <TableBody>
                             {rows.map((row, rowIndex) => (
-                                <TableRow
-                                    key={rowIndex}
-                                    onClick={() => handleClickOpen(row.description)}
-                                    sx={{
-                                        cursor: 'pointer',
-                                        '&:hover': {
-                                            backgroundColor: '#f5f5f5',
-                                        },
-                                    }}
-                                >
-                                    {Object.values(row).map((value, cellIndex) => (
+                                <TableRow key={rowIndex}>
+                                    {columns.map((column, colIndex) => (
                                         <TableCell
-                                            key={cellIndex}
-                                            align={cellIndex === 0 ? 'left' : 'right'}
+                                            key={colIndex}
+                                            align={colIndex === 0 ? 'left' : 'right'}
+                                            onClick={() => {
+                                                // Open the modal only if the column is the description column
+                                                if (column === 'Description') {
+                                                    handleClickOpen(row[column]);
+                                                }
+                                            }}
+                                            sx={column === 'Description' ? { cursor: 'pointer' } : {}}
                                         >
-                                            {value}
+                                            {row[column]}
                                         </TableCell>
                                     ))}
                                 </TableRow>
@@ -80,6 +79,25 @@ export default function ElectionTable({ rows, columns }) {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        mt: 2, // Adds margin-top to space out the button from the table
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                            borderRadius: '20px',
+                            textTransform: 'none',
+                            padding: '8px 24px',
+                        }}
+                    >
+                        Next
+                    </Button>
+                </Box>
             </CardContent>
             <Dialog
                 open={open}

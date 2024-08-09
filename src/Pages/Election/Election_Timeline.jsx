@@ -1,13 +1,13 @@
 import * as React from 'react';
-import ElectionTable from '../../Components/ElectionTable.jsx';
+import ElectionTable from '../../Components/ElectionTable.jsx'; // Adjust the import path as needed
 import { Typography, Box } from "@mui/material"; // Adjust the import path as needed
 
 export default function ElectionTimeline() {
     const columns = ["Name", "Start Date", "End Date", "Description"];
     const rows = [
-        { name: 'Election 1', startDate: '2024-10-01', endDate: '2024-10-15', description: 'Presidential election' },
-        { name: 'Election 2', startDate: '2024-11-01', endDate: '2024-11-15', description: 'Congressional election' },
-        { name: 'Election 3', startDate: '2024-12-01', endDate: '2024-12-15', description: 'Local election' },
+        { Name: 'Election 1', 'Start Date': '2024-10-01', 'End Date': '2024-10-15', Description: 'Presidential election' },
+        { Name: 'Election 2', 'Start Date': '2024-11-01', 'End Date': '2024-11-15', Description: 'Congressional election' },
+        { Name: 'Election 3', 'Start Date': '2024-12-01', 'End Date': '2024-12-15', Description: 'Local election' },
     ];
 
     return (
@@ -19,9 +19,9 @@ export default function ElectionTimeline() {
                     mb: 2 // Adds margin-bottom to space out the heading from the table
                 }}
             >
-                <Typography variant="h3" component="h1" gutterBottom>
-                    Election Timeline
-                </Typography>
+                {/*<Typography variant="h3" component="h1" gutterBottom>*/}
+                {/*    Election Timeline*/}
+                {/*</Typography>*/}
             </Box>
             <ElectionTable rows={rows} columns={columns} />
         </div>

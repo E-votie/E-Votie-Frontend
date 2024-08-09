@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ElectionTable from '../../Components/ElectionTable.jsx';
+import ElectionTable from '../../Components/ElectionTable1.jsx';
 import { Typography, Box } from "@mui/material"; // Adjust the import path as needed
 
 export default function UpcomingElections() {
