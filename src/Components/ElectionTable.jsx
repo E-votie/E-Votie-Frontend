@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,63 +9,123 @@ import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import Slide from '@mui/material/Slide';
 
-// Styled TableCell for improved header appearance
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    fontWeight: 'bold',
-    backgroundColor: theme.palette.grey[50], // Use a neutral or custom color
-    color: theme.palette.text.primary, // Ensure text color is readable
-}));
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
-// Styled TableRow for improved row appearance
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-    },
-    '&:nth-of-type(even)': {
-        backgroundColor: theme.palette.background.default,
-    },
-    '&:hover': {
-        backgroundColor: theme.palette.action.selected,
-    },
-}));
+export default function ElectionTable({ rows, columns }) {
+    const [open, setOpen] = useState(false);
+    const [selectedDescription, setSelectedDescription] = useState('');
 
-export default function ElectionTable({ rows }) {
+    const handleClickOpen = (description) => {
+        setSelectedDescription(description);
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return (
         <Card sx={{ minWidth: 650, boxShadow: 3 }}>
             <CardContent>
                 <Typography variant="h5" component="div" gutterBottom>
-                    Upcoming Elections
+                    Election Information
                 </Typography>
                 <TableContainer component={Paper} sx={{ boxShadow: 2 }}>
                     <Table aria-label="election table">
                         <TableHead>
                             <TableRow>
-                                <StyledTableCell>Name</StyledTableCell>
-                                <StyledTableCell align="right">Type</StyledTableCell>
-                                <StyledTableCell align="right">Start Date</StyledTableCell>
-                                <StyledTableCell align="right">End Date</StyledTableCell>
+                                {columns.map((column, index) => (
+                                    <TableCell
+                                        key={index}
+                                        align={index === 0 ? 'left' : 'right'}
+                                        sx={{ fontWeight: 'bold', backgroundColor: '#f5f5f5' }}
+                                    >
+                                        {column}
+                                    </TableCell>
+                                ))}
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => (
-                                <StyledTableRow
-                                    key={row.name}
-                                    sx={{ cursor: 'pointer' }}
+                            {rows.map((row, rowIndex) => (
+                                <TableRow
+                                    key={rowIndex}
+                                    onClick={() => handleClickOpen(row.description)}
+                                    sx={{
+                                        cursor: 'pointer',
+                                        '&:hover': {
+                                            backgroundColor: '#f5f5f5',
+                                        },
+                                    }}
                                 >
-                                    <TableCell component="th" scope="row">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell align="right">{row.type}</TableCell>
-                                    <TableCell align="right">{row.startDate}</TableCell>
-                                    <TableCell align="right">{row.endDate}</TableCell>
-                                </StyledTableRow>
+                                    {Object.values(row).map((value, cellIndex) => (
+                                        <TableCell
+                                            key={cellIndex}
+                                            align={cellIndex === 0 ? 'left' : 'right'}
+                                        >
+                                            {value}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
             </CardContent>
+            <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                maxWidth="sm"
+                fullWidth
+                sx={{
+                    '& .MuiDialog-paper': {
+                        borderRadius: '12px',
+                        padding: '20px',
+                    },
+                }}
+            >
+                <DialogTitle
+                    id="alert-dialog-title"
+                    sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}
+                >
+                    Election Description
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText
+                        id="alert-dialog-description"
+                        sx={{ fontSize: '1rem', color: '#555' }}
+                    >
+                        {selectedDescription}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        onClick={handleClose}
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                            borderRadius: '20px',
+                            textTransform: 'none',
+                            padding: '8px 24px',
+                        }}
+                    >
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Card>
     );
 }
