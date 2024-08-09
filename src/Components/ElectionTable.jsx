@@ -9,25 +9,8 @@ import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router-dom';
 
-function createData(name, type, startDate, endDate) {
-    return { name, type, startDate, endDate };
-}
-
-const rows = [
-    createData('Election 1', 'Presidential', '2024-10-01', '2024-10-15'),
-    createData('Election 2', 'Congressional', '2024-11-01', '2024-11-15'),
-    createData('Election 3', 'Local', '2024-12-01', '2024-12-15'),
-];
-
-export default function ElectionTable() {
-    const navigate = useNavigate();
-
-    const handleRowClick = (row) => {
-        navigate(`/elections/${row.name}`);
-    };
-
+export default function ElectionTable({ rows }) {
     return (
         <Card sx={{ minWidth: 650 }}>
             <CardContent>
@@ -48,11 +31,10 @@ export default function ElectionTable() {
                             {rows.map((row) => (
                                 <TableRow
                                     key={row.name}
-                                    onClick={() => handleRowClick(row)}
                                     sx={{
                                         cursor: 'pointer',
                                         '&:hover': {
-                                            backgroundColor: '#f5f5f5' // Light gray background on hover
+                                            backgroundColor: '#f5f5f5'
                                         }
                                     }}
                                 >
@@ -71,4 +53,3 @@ export default function ElectionTable() {
         </Card>
     );
 }
-//test
