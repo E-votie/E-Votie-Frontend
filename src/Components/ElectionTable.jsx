@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
 function createData(name, type, startDate, endDate) {
     return { name, type, startDate, endDate };
@@ -21,6 +22,12 @@ const rows = [
 ];
 
 export default function ElectionTable() {
+    const navigate = useNavigate();
+
+    const handleRowClick = (row) => {
+        navigate(`/elections/${row.name}`);
+    };
+
     return (
         <Card sx={{ minWidth: 650 }}>
             <CardContent>
@@ -39,7 +46,16 @@ export default function ElectionTable() {
                         </TableHead>
                         <TableBody>
                             {rows.map((row) => (
-                                <TableRow key={row.name}>
+                                <TableRow
+                                    key={row.name}
+                                    onClick={() => handleRowClick(row)}
+                                    sx={{
+                                        cursor: 'pointer',
+                                        '&:hover': {
+                                            backgroundColor: '#f5f5f5' // Light gray background on hover
+                                        }
+                                    }}
+                                >
                                     <TableCell component="th" scope="row">
                                         {row.name}
                                     </TableCell>
