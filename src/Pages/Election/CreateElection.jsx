@@ -60,40 +60,38 @@ export const CreateElection = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                     <div className="space-y-3">
                         <p className="font-sans text-2xl">New Election</p>
-                        <div className="space-y-3">
+                        <div className="space-y-6">
                             <div className="flex gap-6">
-                                <div className="flex flex-col">
+                                <div className="flex flex-col w-64">
                                     <label className="mb-1 font-sans text-l">Starting Date and Time</label>
                                     <input
                                         type="datetime-local"
                                         placeholder="Type here"
-                                        className="input input-bordered input-primary w-full max-w-xs"/>
+                                        className="input input-bordered input-primary w-full"/>
                                     {errors.StartingDateTime && <p>{errors.StartingDateTime.message}</p>}
                                 </div>
                                 <span className="text-lg font-bold self-end mb-2">-</span>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col w-64">
                                     <label className="mb-1 font-sans text-l">Ending Date and Time</label>
                                     <input
                                         type="datetime-local"
                                         placeholder="Type here"
-                                        className="input input-bordered input-primary w-full max-w-xs"/>
+                                        className="input input-bordered input-primary w-full"/>
                                     {errors.ElectionType && <p>{errors.EndingDateTime.message}</p>}
                                 </div>
                             </div>
 
-                            <div className="flex gap-6">
-                                <div className="flex flex-col">
-
+                            <div className="flex">
+                                <div className="flex flex-col w-64">
                                     <label className="mb-1 font-sans text-l">Election Title</label>
-                                    <input className="input input-bordered input-primary w-full max-w-xs"
-                                           placeholder="Enter Election Title"/>
-
+                                    <input
+                                        className="input input-bordered input-primary w-full"
+                                        placeholder="Enter Election Title"/>
                                     {errors.EndingDateTime && <p>{errors.ElectionTitle.message}</p>}
                                 </div>
-                                <span className="text-lg font-bold self-end mb-2"></span>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col w-64 ml-auto">
                                     <label className="mb-1 font-sans text-l">Election Type</label>
-                                    <select className="select select-primary w-full max-w-xs">
+                                    <select className="select select-primary w-full">
                                         <option disabled selected>Election Type</option>
                                         <option>Presidential Election</option>
                                         <option>Parliamentary Election</option>
@@ -104,7 +102,6 @@ export const CreateElection = () => {
                                     {errors.EndingDateTime && <p>{errors.ElectionType.message}</p>}
                                 </div>
                             </div>
-
                         </div>
                         {/*<div className="space-y-3">*/}
                         {/*    <p className="font-sans text-2l">Election Type</p>*/}
