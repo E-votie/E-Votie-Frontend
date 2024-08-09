@@ -39,6 +39,7 @@ import { PartyApplication } from "./Pages/Party/PartyApplication";
 import Polling_Stations from "./Pages/Election/Polling_Stations.jsx";
 import ApprovePartyMembers from "./Pages/Election/ApprovePartyMembers.jsx";
 import {PollingStationsProvider} from "./Pages/Election/PollingStationsContext.jsx";
+import UpcomingElections from "./Pages/Election/Upcoming_Elections.jsx";
 
 
 // Create a QueryClient instance
@@ -170,7 +171,7 @@ function App() {
                                 <PollingStationsProvider>
                                 <Polling_Stations />
                             </PollingStationsProvider>} />
-
+                            <Route path="/Election/Upcoming_Elections" element={<UpcomingElections />} />
                         </Route>
                     </Routes>
                 </Router>
