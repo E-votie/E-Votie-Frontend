@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FormControl, InputLabel, Select, MenuItem, TextField, Stack, Box, Button } from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem, TextField, Stack, Box, Button, Paper } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import axios from 'axios';
@@ -52,9 +52,7 @@ export const PartyRegistrationForm = () => {
 
         try {
             console.log(data);
-            const response = await axios.post('http://localhost:5003/api/party', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
+            const response = await axios.post('http://localhost:5003/api/party', data)
             console.log(response.data);
             if (response.status === 200 || response.status === 201) {
                 MySwal.fire({
@@ -120,262 +118,275 @@ export const PartyRegistrationForm = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex-initial space-y-3 mb-4 w-full shadow-md rounded-lg p-2">
-                {/* Party name and abbreviation */}
-                <Stack direction="row" spacing={2} className="w-full">
-                    <Box className="w-2/3">
-                        <TextField
-                            id="partyName"
-                            label="Party Name"
-                            className="w-full"
-                            required
-                            {...register("partyName")}
-                        />
-                    </Box>
-                    <Box className="w-1/3">
-                        <TextField
-                            id="abbreviation"
-                            label="Abbreviation"
-                            required
-                            {...register("abbreviation")}
-                        />
-                    </Box>
-                </Stack>
+        <div >
+            <Paper elevation={3} className="p-4">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex-initial space-y-3 mb-4 w-full">
+                    {/* Party name and abbreviation */}
+                    <Stack direction="row" spacing={2} className="w-full">
+                        <Box className="w-2/3">
+                            <TextField
+                                id="partyName"
+                                label="Party Name"
+                                className="w-full"
+                                required
+                                {...register("partyName")}
+                            />
+                        </Box>
+                        <Box className="w-1/3">
+                            <TextField
+                                id="abbreviation"
+                                label="Abbreviation"
+                                required
+                                {...register("abbreviation")}
+                            />
+                        </Box>
+                    </Stack>
 
-                {/* Leader and Secretary */}
-                <Stack direction="row" className="flex w-full" spacing={2}>
-                    {/* Founded Date */}
-                    <Box className="w-1/2">
-                        <TextField
-                            id="foundedDate"
-                            label="Founded Date"
-                            type="date"
-                            required
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            {...register("foundedDate")}
-                        />
-                    </Box>
+                    {/* Leader and Secretary */}
+                    <Stack direction="row" className="flex w-full" spacing={2}>
+                        {/* Founded Date */}
+                        <Box className="w-1/2">
+                            <TextField
+                                id="foundedDate"
+                                label="Founded Date"
+                                type="date"
+                                required
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                {...register("foundedDate")}
+                            />
+                        </Box>
 
-                    {/* Party Leader */}
-                    <Box className="w-full" >
-                        <FormControl required error={!!errors.leader} className="w-full">
-                            <InputLabel id="leader-label">Leader</InputLabel>
-                            <Select
-                                labelId="leader-label"
-                                id="leader"
-                                value={selectedLeader}
-                                label="Leader"
-                                onChange={handleLeaderChange}
+                        {/* Party Leader */}
+                        <Box className="w-full" >
+                            <FormControl required error={!!errors.leader} className="w-full">
+                                <InputLabel id="leader-label">Leader</InputLabel>
+                                <Select
+                                    labelId="leader-label"
+                                    id="leader"
+                                    value={selectedLeader}
+                                    label="Leader"
+                                    onChange={handleLeaderChange}
+                                >
+                                    {politicians.map((politician) => (
+                                        <MenuItem key={politician} value={politician}>
+                                            {politician}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </Stack>
+
+                    {/* Headquarters Address */}
+                    <Stack spacing={2}>
+                        <TextField
+                            id="addressLine1"
+                            label="Address Line 1"
+                            required
+                            {...register("addressLine1")}
+                        />
+                        <TextField
+                            id="addressLine2"
+                            label="Address Line 2"
+                            required
+                            {...register("addressLine2")}
+                        />
+                    </Stack>
+                    <Stack direction="row" spacing={2}>
+                        <TextField
+                            id="city"
+                            label="City"
+                            required
+                            {...register("city")}
+                        />
+                        <TextField
+                            id="postalCode"
+                            label="Postal Code"
+                            required
+                            {...register("postalCode")}
+                        />
+                        <TextField
+                            id="contactNumber"
+                            label="Contact Number"
+                            required
+                            {...register("contactNumber")}
+                        />
+                    </Stack>
+
+                    <Stack spacing={2}>
+                        {/* Party Symbol */}
+                        <input
+                            accept="image/*"
+                            id="partySymbolInput"
+                            type="file"
+                            style={{ display: "none" }}
+                            onChange={(e) => handleFileChange(e, "partySymbol")}
+                        />
+                        <label htmlFor="partySymbolInput">
+                            <Button
+                                component="span"
+                                role={undefined}
+                                variant="outlined"
+                                tabIndex={-1}
+                                startIcon={<CloudUploadIcon />}
                             >
-                                {politicians.map((politician) => (
-                                    <MenuItem key={politician} value={politician}>
-                                        {politician}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Box>
-                </Stack>
+                                Upload Party Symbol
+                            </Button>
+                        </label>
+                        {uploadedFileNames.partySymbol && (
+                            <div>
+                                <p>Uploaded File: {uploadedFileNames.partySymbol}</p>
+                            </div>
+                        )}
 
-                {/* Headquarters Address */}
-                <Stack spacing={2}>
-                    <TextField
-                        id="addressLine1"
-                        label="Address Line 1"
-                        required
-                        {...register("addressLine1")}
-                    />
-                    <TextField
-                        id="addressLine2"
-                        label="Address Line 2"
-                        required
-                        {...register("addressLine2")}
-                    />
-                </Stack>
-                <Stack direction="row" spacing={2}>
-                    <TextField
-                        id="city"
-                        label="City"
-                        required
-                        {...register("city")}
-                    />
-                    <TextField
-                        id="postalCode"
-                        label="Postal Code"
-                        required
-                        {...register("postalCode")}
-                    />
-                    <TextField
-                        id="contactNumber"
-                        label="Contact Number"
-                        required
-                        {...register("contactNumber")}
-                    />
-                </Stack>
+                        {/* Constitution of the Party */}
+                        <input
+                            accept="application/pdf"
+                            id="partyConstitutionInput"
+                            type="file"
+                            style={{ display: "none" }}
+                            onChange={(e) => handleFileChange(e, "partyConstitution")}
+                        />
+                        <label htmlFor="partyConstitutionInput">
+                            <Button
+                                component="span"
+                                role={undefined}
+                                variant="outlined"
+                                tabIndex={-1}
+                                startIcon={<CloudUploadIcon />}
+                            >
+                                Constitution of the Party
+                            </Button>
+                        </label>
+                        {uploadedFileNames.partyConstitution && (
+                            <div>
+                                <p>Uploaded File: {uploadedFileNames.partyConstitution}</p>
+                            </div>
+                        )}
 
-                <Stack spacing={2}>
-                    {/* Party Symbol */}
-                    <input
-                        accept="image/*"
-                        id="partySymbolInput"
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={(e) => handleFileChange(e, "partySymbol")}
-                    />
-                    <label htmlFor="partySymbolInput">
-                        <Button
-                            component="span"
-                            role={undefined}
-                            variant="outlined"
-                            tabIndex={-1}
-                            startIcon={<CloudUploadIcon />}
+                        {/* List of Office-Bearers of the Party */}
+                        <input
+                            accept="application/pdf"
+                            id="officeBearersInput"
+                            type="file"
+                            style={{ display: "none" }}
+                            onChange={(e) => handleFileChange(e, "officeBearers")}
+                        />
+                        <label htmlFor="officeBearersInput">
+                            <Button
+                                component="span"
+                                role={undefined}
+                                variant="outlined"
+                                tabIndex={-1}
+                                startIcon={<CloudUploadIcon />}
+                            >
+                                List of Office-Bearers 
+                            </Button>
+                        </label>
+                        {uploadedFileNames.officeBearers && (
+                            <div>
+                                <p>Uploaded File: {uploadedFileNames.officeBearers}</p>
+                            </div>
+                        )}
+
+                        {/* Statements of Audited Accounts */}
+                        <input
+                            accept="application/pdf"
+                            id="auditedAccountsInput"
+                            type="file"
+                            style={{ display: "none" }}
+                            onChange={(e) => handleFileChange(e, "auditedAccounts")}
+                        />
+                        <label htmlFor="auditedAccountsInput">
+                            <Button
+                                component="span"
+                                role={undefined}
+                                variant="outlined"
+                                tabIndex={-1}
+                                startIcon={<CloudUploadIcon />}
+                            >
+                                Statements of Audited Accounts
+                            </Button>
+                        </label>
+                        {uploadedFileNames.auditedAccounts && (
+                            <div>
+                                <p>Uploaded File: {uploadedFileNames.auditedAccounts}</p>
+                            </div>
+                        )}
+
+                        {/* Current Policy Declaration */}
+                        <input
+                            accept="application/pdf"
+                            id="policyDeclarationInput"
+                            type="file"
+                            style={{ display: "none" }}
+                            onChange={(e) => handleFileChange(e, "policyDeclaration")}
+                        />
+                        <label htmlFor="policyDeclarationInput">
+                            <Button
+                                component="span"
+                                role={undefined}
+                                variant="outlined"
+                                tabIndex={-1}
+                                startIcon={<CloudUploadIcon />}
+                            >
+                                Current Policy Declaration of the Party
+                            </Button>
+                        </label>
+                        {uploadedFileNames.policyDeclaration && (
+                            <div>
+                                <p>Uploaded File: {uploadedFileNames.policyDeclaration}</p>
+                            </div>
+                        )}
+
+                        {/* Any Other Documents */}
+                        <input
+                            accept="application/pdf"
+                            id="otherDocumentsInput"
+                            type="file"
+                            style={{ display: "none" }}
+                            onChange={(e) => handleFileChange(e, "otherDocuments")}
+                        />
+                        <label htmlFor="otherDocumentsInput">
+                            <Button
+                                component="span"
+                                role={undefined}
+                                variant="outlined"
+                                tabIndex={-1}
+                                startIcon={<CloudUploadIcon />}
+                            >
+                                Any Other Documents
+                            </Button>
+                        </label>
+                        {uploadedFileNames.otherDocuments && (
+                            <div>
+                                <p>Uploaded File: {uploadedFileNames.otherDocuments}</p>
+                            </div>
+                        )}
+                    </Stack>
+
+                    {/* Submit button */}
+                    <div className="card-actions justify-end">
+                        <Button                                     
+                        sx={{
+                            marginTop: 4,
+                            backgroundColor: '#1976d2',
+                            color: '#fff',
+                            '&:hover': { backgroundColor: '#115293' }
+                        }}
+                        type="submit" 
+                        variant="contained" 
+                        color="primary"
                         >
-                            Upload Party Symbol
+                            Submit Application
                         </Button>
-                    </label>
-                    {uploadedFileNames.partySymbol && (
-                        <div>
-                            <p>Uploaded File: {uploadedFileNames.partySymbol}</p>
-                        </div>
-                    )}
+                    </div>
 
-                    {/* Constitution of the Party */}
-                    <input
-                        accept="application/pdf"
-                        id="partyConstitutionInput"
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={(e) => handleFileChange(e, "partyConstitution")}
-                    />
-                    <label htmlFor="partyConstitutionInput">
-                        <Button
-                            component="span"
-                            role={undefined}
-                            variant="outlined"
-                            tabIndex={-1}
-                            startIcon={<CloudUploadIcon />}
-                        >
-                            Constitution of the Party
-                        </Button>
-                    </label>
-                    {uploadedFileNames.partyConstitution && (
-                        <div>
-                            <p>Uploaded File: {uploadedFileNames.partyConstitution}</p>
-                        </div>
-                    )}
+                </form>
+            </Paper>
 
-                    {/* List of Office-Bearers of the Party */}
-                    <input
-                        accept="application/pdf"
-                        id="officeBearersInput"
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={(e) => handleFileChange(e, "officeBearers")}
-                    />
-                    <label htmlFor="officeBearersInput">
-                        <Button
-                            component="span"
-                            role={undefined}
-                            variant="outlined"
-                            tabIndex={-1}
-                            startIcon={<CloudUploadIcon />}
-                        >
-                            List of Office-Bearers 
-                        </Button>
-                    </label>
-                    {uploadedFileNames.officeBearers && (
-                        <div>
-                            <p>Uploaded File: {uploadedFileNames.officeBearers}</p>
-                        </div>
-                    )}
-
-                    {/* Statements of Audited Accounts */}
-                    <input
-                        accept="application/pdf"
-                        id="auditedAccountsInput"
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={(e) => handleFileChange(e, "auditedAccounts")}
-                    />
-                    <label htmlFor="auditedAccountsInput">
-                        <Button
-                            component="span"
-                            role={undefined}
-                            variant="outlined"
-                            tabIndex={-1}
-                            startIcon={<CloudUploadIcon />}
-                        >
-                            Statements of Audited Accounts
-                        </Button>
-                    </label>
-                    {uploadedFileNames.auditedAccounts && (
-                        <div>
-                            <p>Uploaded File: {uploadedFileNames.auditedAccounts}</p>
-                        </div>
-                    )}
-
-                    {/* Current Policy Declaration */}
-                    <input
-                        accept="application/pdf"
-                        id="policyDeclarationInput"
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={(e) => handleFileChange(e, "policyDeclaration")}
-                    />
-                    <label htmlFor="policyDeclarationInput">
-                        <Button
-                            component="span"
-                            role={undefined}
-                            variant="outlined"
-                            tabIndex={-1}
-                            startIcon={<CloudUploadIcon />}
-                        >
-                            Current Policy Declaration of the Party
-                        </Button>
-                    </label>
-                    {uploadedFileNames.policyDeclaration && (
-                        <div>
-                            <p>Uploaded File: {uploadedFileNames.policyDeclaration}</p>
-                        </div>
-                    )}
-
-                    {/* Any Other Documents */}
-                    <input
-                        accept="application/pdf"
-                        id="otherDocumentsInput"
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={(e) => handleFileChange(e, "otherDocuments")}
-                    />
-                    <label htmlFor="otherDocumentsInput">
-                        <Button
-                            component="span"
-                            role={undefined}
-                            variant="outlined"
-                            tabIndex={-1}
-                            startIcon={<CloudUploadIcon />}
-                        >
-                            Any Other Documents
-                        </Button>
-                    </label>
-                    {uploadedFileNames.otherDocuments && (
-                        <div>
-                            <p>Uploaded File: {uploadedFileNames.otherDocuments}</p>
-                        </div>
-                    )}
-                </Stack>
-
-                {/* Submit button */}
-                <div className="card-actions justify-end">
-                    <Button type="submit" variant="contained" color="primary">
-                        Submit Application
-                    </Button>
-                </div>
-
-            </form>
         </div>
     );
 }

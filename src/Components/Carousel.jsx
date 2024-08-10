@@ -28,7 +28,7 @@ function Carousel() {
   };
 
   return (
-    <div className="relative w-3/5 h-52 overflow-hidden">
+    <div className="relative w-4/5 h-64 overflow-hidden">
       {slides.map((slide, index) => (
         <div
           key={index}

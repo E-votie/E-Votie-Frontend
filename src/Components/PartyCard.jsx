@@ -132,8 +132,8 @@ const PartyCard = ({ party, state }) => {
   };
 
   return (
-    <StyledCard>
-      <CardActionArea className="flex-grow" onClick={openParty}>
+    <StyledCard className='w-full' sx={{width: "100%"}}>
+      <CardActionArea className="flex-grow w-full" onClick={openParty}>
         <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
           {state != "pending verification" && <CardMedia
             component="img"
