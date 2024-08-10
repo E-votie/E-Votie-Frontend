@@ -1,45 +1,25 @@
 import React, { useState } from 'react';
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 
-export default function Additional_Materials() {
+export default function ElectionMaterials() {
     const [materials, setMaterials] = useState([]);
-    const [formData, setFormData] = useState({
-        name: '',
-        description: '',
-        files: null,
-    });
 
-    const handleChange = (e) => {
-        const { name, value, files } = e.target;
-        setFormData({
-            ...formData,
-            [name]: files ? files[0] : value
-        });
-    };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const name = formData.get('name');
+        const description = formData.get('description');
+        const dateAdded = new Date().toLocaleDateString();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newMaterial = {
-            name: formData.name,
-            description: formData.description,
-            date: new Date().toLocaleDateString(),
-        };
-        setMaterials([...materials, newMaterial]);
-        setFormData({ name: '', description: '', files: null });
+        setMaterials([...materials, { name, description, dateAdded }]);
+        event.target.reset(); // Clear the form
     };
 
     return (
         <div className="card card-side bg-base-100 shadow-xl gap-10 px-4">
             <div className="card-body">
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="space-y-4">
                         <p className="font-sans text-3xl font-semibold">Add Election Material</p>
                         <div className="space-y-4">
@@ -50,8 +30,6 @@ export default function Additional_Materials() {
                                     placeholder="Enter Name"
                                     className="input input-bordered input-primary w-full"
                                     name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
                                 />
                             </div>
                             <div className="flex flex-col">
@@ -60,20 +38,14 @@ export default function Additional_Materials() {
                                     className="textarea textarea-bordered h-32 textarea-primary w-full"
                                     placeholder="Enter Description"
                                     name="description"
-                                    value={formData.description}
-                                    onChange={handleChange}
                                 ></textarea>
                             </div>
                             <Box className="flex flex-col gap-4 xl:w-1/3 lg:w-full md:w-full sm:w-full">
                                 <label className="form-control w-full">
                                     <Typography variant="body1" className="label-text" gutterBottom>Upload Files</Typography>
-                                    <input
-                                        type="file"
-                                        className="file-input file-input-bordered w-full"
-                                        name="files"
-                                        onChange={handleChange}
-                                    />
+                                    <input type="file" className="file-input file-input-bordered w-full" name="file" />
                                 </label>
+                                <p className="text-red-500 text-xs italic ml-5"></p>
                             </Box>
                         </div>
                     </div>
@@ -82,26 +54,30 @@ export default function Additional_Materials() {
                     </div>
                 </form>
 
-                <TableContainer component={Paper} sx={{ marginTop: 4 }}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Description</TableCell>
-                                <TableCell>Date Added</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {materials.map((material, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{material.name}</TableCell>
-                                    <TableCell>{material.description}</TableCell>
-                                    <TableCell>{material.date}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <div className="mt-6">
+                    {materials.length > 0 && (
+                        <div className="overflow-x-auto">
+                            <table className="table table-striped w-full">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Date Added</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {materials.map((material, index) => (
+                                    <tr key={index}>
+                                        <td>{material.name}</td>
+                                        <td>{material.description}</td>
+                                        <td>{material.dateAdded}</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

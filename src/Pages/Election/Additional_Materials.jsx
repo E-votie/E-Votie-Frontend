@@ -79,7 +79,13 @@ export default function Additional_Materials() {
                             </div>
                         </div>
                         <div className="card-actions justify-end">
-                            <button type="submit" className="btn btn-outline btn-primary">Done</button>
+                            <button
+                                type="submit"
+                                className="btn btn-outline btn-primary"
+                                disabled={!formData.files}
+                            >
+                                Add
+                            </button>
                         </div>
                     </form>
                 </div>
