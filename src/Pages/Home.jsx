@@ -38,6 +38,13 @@ const actions = [
     "roles": ["VerificationOfficer"],
   },
   {
+    "action": "Candidate Applications",
+    "icon": "application",
+    "description": "Pending applications for verification.",
+    "link": "/verification_officer/candidate_applications",
+    "roles": ["VerificationOfficer"],
+  },
+  {
     "action": "Voter Applications",
     "icon": "application",
     "description": "Pending applications for verification.",

@@ -39,6 +39,7 @@ import { PartyApplication } from "./Pages/Party/PartyApplication";
 import Polling_Stations from "./Pages/Election/Polling_Stations.jsx";
 import ApprovePartyMembers from "./Pages/Election/ApprovePartyMembers.jsx";
 import { SelectNominations } from "./Components/selectNominations";
+import { CandidateApplicationsVerificationOfficer } from "./Pages/VerificationOfficer/CandidateApplications.jsx";
 
 
 // Create a QueryClient instance
@@ -170,6 +171,7 @@ function App() {
                             <Route path="/election/nominations" element={<SelectNominations />} />
                             <Route path="/voter/registration/1" element={<VoterRegistration_1 />} />
                             <Route path="/voter/registration/2" element={<VoterRegistration_2 />} />
+                            <Route path="/verification_officer/candidate_applications" element={<CandidateApplicationsVerificationOfficer />} />
 
                         </Route>
                     </Routes>
