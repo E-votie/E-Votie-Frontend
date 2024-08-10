@@ -32,6 +32,7 @@ const ApprovePartyMembers = () => {
     };
 
     return (
+        <div className="card card-side bg-base-100 shadow-xl gap-10 px-4">
         <div className="container mx-auto p-4">
             <h2 className="text-2xl font-bold mb-4">Approve Party Members</h2>
             <div className="overflow-x-auto">
@@ -95,6 +96,7 @@ const ApprovePartyMembers = () => {
                 </table>
             </div>
         </div>
+    </div>
     );
 };
 
