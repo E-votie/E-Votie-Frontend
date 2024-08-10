@@ -10,13 +10,6 @@ export default function UpcomingElections() {
         { id: 'end date', label: 'End Date', minWidth: 170 },
         // { id: 'nic', label: 'NIC', minWidth: 170 }
     ]
-
-    const rows = [
-        { name: 'Election 1', type: 'Presidential', 'start date': '2024-10-01', 'end date': '2024-10-15' },
-        { name: 'Election 2', type: 'Congressional', 'start date': '2024-11-01', 'end date': '2024-11-15' },
-        { name: 'Election 3', type: 'Local', 'start date': '2024-12-01', 'end date': '2024-12-15' },
-    ];
-
     const title = "Upcoming Elections"
 
     return (

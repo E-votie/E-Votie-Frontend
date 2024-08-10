@@ -43,6 +43,7 @@ import { SelectNominations } from "./Components/selectNominations";
 import {PollingStationsProvider} from "./Pages/Election/PollingStationsContext.jsx";
 import UpcomingElections from "./Pages/Election/Upcoming_Elections.jsx";
 import ElectionTimeline from "./Pages/Election/Election_Timeline.jsx";
+import Additional_Materials from "./Pages/Election/Additional_Materials.jsx";
 
 
 // Create a QueryClient instance
@@ -181,6 +182,7 @@ function App() {
                             </PollingStationsProvider>} />
                             <Route path="/Election/Upcoming_Elections" element={<UpcomingElections />} />
                             <Route path="/Election/Election_Timeline" element={<ElectionTimeline />} />
+                            <Route path="/Election/Additional_Materials" element={<Additional_Materials />} />
                         </Route>
                     </Routes>
                 </Router>
