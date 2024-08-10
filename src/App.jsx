@@ -38,8 +38,12 @@ import {ReportView} from "./Pages/ReportGeneration/ReportView.jsx";
 import { PartyApplication } from "./Pages/Party/PartyApplication";
 import Polling_Stations from "./Pages/Election/Polling_Stations.jsx";
 import ApprovePartyMembers from "./Pages/Election/ApprovePartyMembers.jsx";
+
 import { SelectNominations } from "./Components/selectNominations";
 import { CandidateApplicationsVerificationOfficer } from "./Pages/VerificationOfficer/CandidateApplications.jsx";
+import {PollingStationsProvider} from "./Pages/Election/PollingStationsContext.jsx";
+import UpcomingElections from "./Pages/Election/Upcoming_Elections.jsx";
+import ElectionTimeline from "./Pages/Election/Election_Timeline.jsx";
 
 
 // Create a QueryClient instance
@@ -173,6 +177,12 @@ function App() {
                             <Route path="/voter/registration/2" element={<VoterRegistration_2 />} />
                             <Route path="/verification_officer/candidate_applications" element={<CandidateApplicationsVerificationOfficer />} />
 
+                            <Route path="/Election/Polling_Stations" element={
+                                <PollingStationsProvider>
+                                <Polling_Stations />
+                            </PollingStationsProvider>} />
+                            <Route path="/Election/Upcoming_Elections" element={<UpcomingElections />} />
+                            <Route path="/Election/Election_Timeline" element={<ElectionTimeline />} />
                         </Route>
                     </Routes>
                 </Router>
