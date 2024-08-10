@@ -92,20 +92,20 @@ export default function Additional_Materials() {
             </div>
 
             <TableContainer component={Paper} sx={{ marginTop: 4 }}>
-                <Table>
+                <Table aria-label="materials table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell>Date Added</TableCell>
+                            <TableCell sx={{ border: '1px solid #ddd', fontWeight: 'bold', backgroundColor: '#f5f5f5' }}>Name</TableCell>
+                            <TableCell sx={{ border: '1px solid #ddd', fontWeight: 'bold', backgroundColor: '#f5f5f5' }}>Description</TableCell>
+                            <TableCell sx={{ border: '1px solid #ddd', fontWeight: 'bold', backgroundColor: '#f5f5f5' }}>Date Added</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {materials.map((material, index) => (
                             <TableRow key={index}>
-                                <TableCell>{material.name}</TableCell>
-                                <TableCell>{material.description}</TableCell>
-                                <TableCell>{material.date}</TableCell>
+                                <TableCell sx={{ border: '1px solid #ddd' }}>{material.name}</TableCell>
+                                <TableCell sx={{ border: '1px solid #ddd' }}>{material.description}</TableCell>
+                                <TableCell sx={{ border: '1px solid #ddd' }}>{material.date}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
