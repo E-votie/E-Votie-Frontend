@@ -10,11 +10,13 @@ const voter_application = [
     { id: 'nic', label: 'NIC', minWidth: 170 }
 ]
 
+const title = "Upcoming Election"
+
 export const VoterApplicationsVerificationOfficer = () => {
 
     return (
         <DataProvider link={"/verification_officer/get_voter_applications"} tableData={voter_application}>
-            <ColumnGroupingTable link={"/verification_officer/form_review/"} />
+            <ColumnGroupingTable link={"/verification_officer/form_review/"} title={title} />
         </DataProvider>
     );
 };
