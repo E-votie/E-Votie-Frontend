@@ -4,14 +4,8 @@ import {authGet} from '../Auth/authFetch.jsx';
 
 const DataContext = createContext();
 
-export const DataProvider = ({ children, link }) => {
-    const [columns, setColumns] = useState([
-        { id: 'applicationID', label: 'Application ID', minWidth: 170 },
-        { id: 'name', label: 'Name', minWidth: 100 },
-        { id: 'address', label: 'Address', minWidth: 170 },
-        { id: 'houseNo', label: 'House No', minWidth: 170 },
-        { id: 'nic', label: 'NIC', minWidth: 170 }
-    ]);
+export const DataProvider = ({ children, link, tableData }) => {
+    const [columns, setColumns] = useState(tableData);
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
