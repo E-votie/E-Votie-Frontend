@@ -46,6 +46,8 @@ import UpcomingElections from "./Pages/Election/Upcoming_Elections.jsx";
 import ElectionTimeline from "./Pages/Election/Election_Timeline.jsx";
 import {VotingPage} from "./Pages/VotingUI/VotingPage.jsx";
 import {VotingPageStart} from "./Pages/VotingUI/StartPage.jsx";
+import {VotingView} from "./Pages/VoterVerification_UI/VoterView.jsx";
+import {ResultView} from "./Pages/ReportGeneration/ResultView.jsx";
 
 
 // Create a QueryClient instance
@@ -175,6 +177,8 @@ function App() {
                             <Route path="/Election/Announcements" element={<Election_Announcements />} />
                             <Route path="/Election/Create_Announcements" element={<Create_Announcements />} />
                             <Route path="/Election/Polling_Stations" element={<Polling_Stations />} />
+                            <Route path="/election/voting_view" element={<VotingView/>} />
+                            <Route path="/election/result" element={<ResultView/>}/>
                             <Route path="/election/nominations" element={<SelectNominations />} />
                             <Route path="/voter/registration/1" element={<VoterRegistration_1 />} />
                             <Route path="/voter/registration/2" element={<VoterRegistration_2 />} />

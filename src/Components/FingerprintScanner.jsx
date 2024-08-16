@@ -53,7 +53,7 @@ function FingerprintScanner({ ApplicationID }) {
             if (content === 'SCAN_COMPLETE') {
                 setScanningStatus(prev => ({ ...prev, [sourceDevice]: false }));
                 MySwal.fire({
-                    title: <p>Please check email and phone</p>,
+                    title: "Fingerprint successfully registered",
                     icon: 'success',
                     showConfirmButton: true,
                     confirmButtonText: 'OK',

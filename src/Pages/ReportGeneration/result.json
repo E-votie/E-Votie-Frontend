@@ -1,0 +1,751 @@
+[
+  {
+    "district": "Kalutara District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "59.49%",
+        "votes": 482920
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "35.01%",
+        "votes": 284213
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "3.41%",
+        "votes": 27681
+      },
+      {
+        "party": "NPP",
+        "candidate": "Mahesh Senanayake",
+        "percentage": "0.40%",
+        "votes": 3213
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.69%",
+        "votes": 13736
+      }
+    ]
+  },
+  {
+    "district": "Galle District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "64.26%",
+        "votes": 466148
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "29.97%",
+        "votes": 217401
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "3.72%",
+        "votes": 27006
+      },
+      {
+        "party": "NPP",
+        "candidate": "Mahesh Senanayake",
+        "percentage": "0.35%",
+        "votes": 2542
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.69%",
+        "votes": 12261
+      }
+    ]
+  },
+  {
+    "district": "Matara District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "67.25%",
+        "votes": 374481
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "26.76%",
+        "votes": 149026
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "4.21%",
+        "votes": 23439
+      },
+      {
+        "party": "NPP",
+        "candidate": "Mahesh Senanayake",
+        "percentage": "0.26%",
+        "votes": 1436
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.52%",
+        "votes": 8486
+      }
+    ]
+  },
+  {
+    "district": "Digamadulla District",
+    "results": [
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "63.09%",
+        "votes": 259673
+      },
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "32.82%",
+        "votes": 135058
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "1.81%",
+        "votes": 7460
+      },
+      {
+        "party": "IND11",
+        "candidate": "M. L. A. M. Hizbullah",
+        "percentage": "0.54%",
+        "votes": 2214
+      },
+      {
+        "party": "OTHER",
+        "percentage": "2.19%",
+        "votes": 9015
+      }
+    ]
+  },
+  {
+    "district": "Puttalam District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "50.83%",
+        "votes": 230760
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "43.91%",
+        "votes": 199356
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "2.84%",
+        "votes": 12912
+      },
+      {
+        "party": "NPP",
+        "candidate": "Mahesh Senanayake",
+        "percentage": "0.49%",
+        "votes": 2204
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.93%",
+        "votes": 8744
+      }
+    ]
+  },
+  {
+    "district": "Anuradhapura District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "58.97%",
+        "votes": 342223
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "34.87%",
+        "votes": 202348
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "3.94%",
+        "votes": 22879
+      },
+      {
+        "party": "DUNF",
+        "candidate": "Ariyawansha Dissanayake",
+        "percentage": "0.28%",
+        "votes": 1635
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.98%",
+        "votes": 11474
+      }
+    ]
+  },
+  {
+    "district": "Kegalle District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "55.66%",
+        "votes": 320484
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "39.60%",
+        "votes": 228032
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "2.61%",
+        "votes": 15043
+      },
+      {
+        "party": "NPP",
+        "candidate": "Mahesh Senanayake",
+        "percentage": "0.30%",
+        "votes": 1711
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.83%",
+        "votes": 10561
+      }
+    ]
+  },
+  {
+    "district": "Gampaha District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "59.28%",
+        "votes": 855870
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "34.26%",
+        "votes": 494671
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "4.28%",
+        "votes": 61760
+      },
+      {
+        "party": "NPP",
+        "candidate": "Mahesh Senanayake",
+        "percentage": "0.78%",
+        "votes": 11272
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.40%",
+        "votes": 20227
+      }
+    ]
+  },
+  {
+    "district": "Colombo District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "53.19%",
+        "votes": 727713
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "40.92%",
+        "votes": 559921
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "3.93%",
+        "votes": 53803
+      },
+      {
+        "party": "NPP",
+        "candidate": "Mahesh Senanayake",
+        "percentage": "0.76%",
+        "votes": 10335
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.20%",
+        "votes": 16405
+      }
+    ]
+  },
+  {
+    "district": "Badulla District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "49.29%",
+        "votes": 276211
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "44.92%",
+        "votes": 251706
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "2.64%",
+        "votes": 14806
+      },
+      {
+        "party": "DUNF",
+        "candidate": "Ariyawansha Dissanayake",
+        "percentage": "0.30%",
+        "votes": 1702
+      },
+      {
+        "party": "OTHER",
+        "percentage": "2.87%",
+        "votes": 16067
+      }
+    ]
+  },
+  {
+    "district": "Ratnapura District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "59.93%",
+        "votes": 448044
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "35.38%",
+        "votes": 264503
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "2.53%",
+        "votes": 18887
+      },
+      {
+        "party": "SPSL",
+        "candidate": "Ajantha Perera",
+        "percentage": "0.22%",
+        "votes": 1662
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.97%",
+        "votes": 14720
+      }
+    ]
+  },
+  {
+    "district": "Batticaloa District",
+    "results": [
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "78.70%",
+        "votes": 238649
+      },
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "12.68%",
+        "votes": 38460
+      },
+      {
+        "party": "IND11",
+        "candidate": "M. L. A. M. Hizbullah",
+        "percentage": "4.36%",
+        "votes": 13228
+      },
+      {
+        "party": "DUNF",
+        "candidate": "Ariyawansha Dissanayake",
+        "percentage": "0.78%",
+        "votes": 2363
+      },
+      {
+        "party": "OTHER",
+        "percentage": "7.76%",
+        "votes": 23537
+      }
+    ]
+  },
+  {
+    "district": "Hambantota District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "66.17%",
+        "votes": 278804
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "25.85%",
+        "votes": 108906
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "6.24%",
+        "votes": 26295
+      },
+      {
+        "party": "SPSL",
+        "candidate": "Ajantha Perera",
+        "percentage": "0.20%",
+        "votes": 845
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.58%",
+        "votes": 6643
+      }
+    ]
+  },
+  {
+    "district": "Moneragala District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "65.34%",
+        "votes": 208814
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "28.95%",
+        "votes": 92539
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "3.52%",
+        "votes": 11235
+      },
+      {
+        "party": "SPSL",
+        "candidate": "Ajantha Perera",
+        "percentage": "0.29%",
+        "votes": 917
+      },
+      {
+        "party": "OTHER",
+        "percentage": "2.01%",
+        "votes": 6429
+      }
+    ]
+  },
+  {
+    "district": "Kurunegala District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "57.90%",
+        "votes": 652278
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "37.01%",
+        "votes": 416961
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "3.21%",
+        "votes": 36178
+      },
+      {
+        "party": "NPP",
+        "candidate": "Mahesh Senanayake",
+        "percentage": "0.29%",
+        "votes": 3296
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.59%",
+        "votes": 17897
+      }
+    ]
+  },
+  {
+    "district": "Jaffna District",
+    "results": [
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "83.86%",
+        "votes": 312722
+      },
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "6.24%",
+        "votes": 23261
+      },
+      {
+        "party": "IND10",
+        "candidate": "M. K. Shivajilingam",
+        "percentage": "1.84%",
+        "votes": 6845
+      },
+      {
+        "party": "DUNF",
+        "candidate": "Ariyawansha Dissanayake",
+        "percentage": "1.82%",
+        "votes": 6790
+      },
+      {
+        "party": "OTHER",
+        "percentage": "9.34%",
+        "votes": 34825
+      }
+    ]
+  },
+  {
+    "district": "Matale District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "55.37%",
+        "votes": 187821
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "39.59%",
+        "votes": 134291
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "2.62%",
+        "votes": 8890
+      },
+      {
+        "party": "NPP",
+        "candidate": "Mahesh Senanayake",
+        "percentage": "0.27%",
+        "votes": 899
+      },
+      {
+        "party": "OTHER",
+        "percentage": "2.16%",
+        "votes": 7320
+      }
+    ]
+  },
+  {
+    "district": "Mahanuwara District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "50.43%",
+        "votes": 471502
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "44.64%",
+        "votes": 417355
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "2.52%",
+        "votes": 23539
+      },
+      {
+        "party": "NPP",
+        "candidate": "Mahesh Senanayake",
+        "percentage": "0.39%",
+        "votes": 3619
+      },
+      {
+        "party": "OTHER",
+        "percentage": "2.02%",
+        "votes": 18860
+      }
+    ]
+  },
+  {
+  "district": "NuwaraEliya District",
+  "results": [
+  {
+    "party": "NDF",
+    "candidate": "Sajith Premadasa",
+    "percentage": "58.28%",
+    "votes": 277913
+  },
+  {
+    "party": "SLPP",
+    "candidate": "Gotabaya Rajapaksa",
+    "percentage": "36.87%",
+    "votes": 175823
+  },
+  {
+    "party": "NMPP",
+    "candidate": "Anura Kumara Dissanayaka",
+    "percentage": "1.24%",
+    "votes": 5891
+  },
+  {
+    "party": "DUNF",
+    "candidate": "Ariyawansha Dissanayake",
+    "percentage": "0.45%",
+    "votes": 2130
+  },
+  {
+    "party": "OTHER",
+    "percentage": "3.46%",
+    "votes": 16498
+  }
+]
+  },
+  {
+    "district": "Vanni District",
+    "results": [
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "82.12%",
+        "votes": 174739
+      },
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "12.27%",
+        "votes": 26105
+      },
+      {
+        "party": "DUNF",
+        "candidate": "Ariyawansha Dissanayake",
+        "percentage": "1.20%",
+        "votes": 2546
+      },
+      {
+        "party": "IND10",
+        "candidate": "M. K. Shivajilingam",
+        "percentage": "0.61%",
+        "votes": 1295
+      },
+      {
+        "party": "OTHER",
+        "percentage": "4.96%",
+        "votes": 10562
+      }
+    ]
+  },
+  {
+    "district": "Polonnaruwa District",
+    "results": [
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "53.01%",
+        "votes": 147340
+      },
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "40.47%",
+        "votes": 112473
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "4.42%",
+        "votes": 12284
+      },
+      {
+        "party": "NPP",
+        "candidate": "Mahesh Senanayake",
+        "percentage": "0.29%",
+        "votes": 802
+      },
+      {
+        "party": "OTHER",
+        "percentage": "1.81%",
+        "votes": 5025
+      }
+    ]
+  },
+  {
+    "district": "Trincomalee District",
+    "results": [
+      {
+        "party": "NDF",
+        "candidate": "Sajith Premadasa",
+        "percentage": "61.66%",
+        "votes": 139542
+      },
+      {
+        "party": "SLPP",
+        "candidate": "Gotabaya Rajapaksa",
+        "percentage": "32.80%",
+        "votes": 74213
+      },
+      {
+        "party": "NMPP",
+        "candidate": "Anura Kumara Dissanayaka",
+        "percentage": "2.34%",
+        "votes": 5302
+      },
+      {
+        "party": "DUNF",
+        "candidate": "Ariyawansha Dissanayake",
+        "percentage": "0.55%",
+        "votes": 1239
+      },
+      {
+        "party": "OTHER",
+        "percentage": "2.65%",
+        "votes": 5991
+      }
+    ]
+  }
+]
+

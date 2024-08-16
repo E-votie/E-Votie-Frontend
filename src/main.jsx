@@ -5,6 +5,7 @@ import App from './App.jsx';
 import './index.css';
 import { AuthProvider } from "./Auth/AuthProvider.jsx";
 import KeycloakService from "./services/KeycloakService.jsx";
+import 'leaflet/dist/leaflet.css';
 
 console.log("Initializing Keycloak in index.jsx...");
 KeycloakService.initKeycloak(() => {

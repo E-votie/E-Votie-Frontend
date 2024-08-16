@@ -1,0 +1,44 @@
+{
+  "candidates": [
+    {
+      "name": "Gotabaya Rajapaksa",
+      "image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+      "color": "#b41f24"
+    },
+    {
+      "name": "Sajith Premadasa",
+      "image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+      "color": "#0e723a"
+    },
+    {
+      "name": "Anura Kumara Dissanayaka",
+      "image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+      "color": "#8c0154"
+    },
+    {
+      "name": "Mahesh Senanayake",
+      "image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+      "color": "#83c341"
+    },
+    {
+      "name": "Ariyawansha Dissanayake",
+      "image": "http://election.adaderana.lk/presidential-election-2019/elec_images/1989806458icon-party-dunf.png",
+      "color": "#d5d5d5"
+    },
+    {
+      "name": "Ajantha Perera",
+      "image": "http://election.adaderana.lk/presidential-election-2019/elec_images/673314712icon-party-spsl.png",
+      "color": "#d5d5d5"
+    },
+    {
+      "name": "M. K. Shivajilingam",
+      "image": "http://election.adaderana.lk/presidential-election-2019/elec_images/576171466icon-party-ind-10.png",
+      "color": "#d5d5d5"
+    },
+    {
+      "name": "M. L. A. M. Hizbullah",
+      "image": "http://election.adaderana.lk/presidential-election-2019/elec_images/1121365961icon-party-ind-11.png",
+      "color": "#d5d5d5"
+    }
+  ]
+}

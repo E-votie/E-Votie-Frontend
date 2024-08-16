@@ -64,7 +64,7 @@ export const FingerprintReg = (props) => {
                                 window.location.href = "/";
                             } else {
                                 Swal.fire({
-                                    title: `<p>${error.response.data}</p>`,
+                                    title: `${error.response.data}`,
                                     icon: 'error',
                                     showConfirmButton: true,
                                     confirmButtonText: 'OK',
@@ -85,7 +85,7 @@ export const FingerprintReg = (props) => {
                 if(status === 400) {
                     console.log("------>>>>>>>>>>>>>")
                     Swal.fire({
-                        title: `<p>NIC is not registered</p>`,
+                        title: "NIC is not registered",
                         icon: 'error',
                         showConfirmButton: true,
                         confirmButtonText: 'OK',
