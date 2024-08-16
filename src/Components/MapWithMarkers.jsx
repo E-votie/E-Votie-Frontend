@@ -4,7 +4,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 const MapWithMarkers = ({ onLocationSelect }) => {
     const mapStyles = {
         height: "500px",
-        width: "500px",
+        width: "650px",
         maxWidth: "800px",
         margin: "20px auto"
     };
@@ -80,3 +80,19 @@ const MapWithMarkers = ({ onLocationSelect }) => {
 };
 
 export default MapWithMarkers;
+
+
+// // App.jsx
+// import React from 'react';
+// import MapWithMarkers from 'MapWithMarkers';
+//
+// const App = () => {
+//     return (
+//         <div>
+//             <h1>Google Maps with Draggable Marker</h1>
+//             <MapWithMarkers />
+//         </div>
+//     );
+// };
+//
+// export default App;
