@@ -2209,7 +2209,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Colombo',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Colombo District</span>"	                        
+            content: "<span class=\"tooltip-title\">Colombo GeoData</span>"
         }
     },
 
@@ -2223,7 +2223,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Gampaha',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Gampaha District</span>"	                        
+            content: "<span class=\"tooltip-title\">Gampaha GeoData</span>"
         }
     },
 
@@ -2237,7 +2237,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Kalutara',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Kalutara District</span>"	                        
+            content: "<span class=\"tooltip-title\">Kalutara GeoData</span>"
         }
     },
 
@@ -2251,7 +2251,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Mahanuwara',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Mahanuwara District</span>"	                        
+            content: "<span class=\"tooltip-title\">Mahanuwara GeoData</span>"
         }
     },
 
@@ -2265,7 +2265,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Matale',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Matale District</span>"	                        
+            content: "<span class=\"tooltip-title\">Matale GeoData</span>"
         }
     },
 
@@ -2279,7 +2279,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=NuwaraEliya',
         tooltip: {
-            content: "<span class=\"tooltip-title\">NuwaraEliya District</span>"	                        
+            content: "<span class=\"tooltip-title\">NuwaraEliya GeoData</span>"
         }
     },
 
@@ -2293,7 +2293,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Galle',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Galle District</span>"	                        
+            content: "<span class=\"tooltip-title\">Galle GeoData</span>"
         }
     },
 
@@ -2307,7 +2307,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Matara',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Matara District</span>"	                        
+            content: "<span class=\"tooltip-title\">Matara GeoData</span>"
         }
     },
 
@@ -2321,7 +2321,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Hambantota',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Hambantota District</span>"	                        
+            content: "<span class=\"tooltip-title\">Hambantota GeoData</span>"
         }
     },
 
@@ -2335,7 +2335,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Jaffna',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Jaffna District</span>"	                        
+            content: "<span class=\"tooltip-title\">Jaffna GeoData</span>"
         }
     },
 
@@ -2349,7 +2349,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Vanni',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Vanni District</span>"	                        
+            content: "<span class=\"tooltip-title\">Vanni GeoData</span>"
         }
     },
 
@@ -2363,7 +2363,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Batticaloa',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Batticaloa District</span>"	                        
+            content: "<span class=\"tooltip-title\">Batticaloa GeoData</span>"
         }
     },
 
@@ -2377,7 +2377,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Digamadulla',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Digamadulla District</span>"	                        
+            content: "<span class=\"tooltip-title\">Digamadulla GeoData</span>"
         }
     },
 
@@ -2391,7 +2391,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Trincomalee',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Trincomalee District</span>"	                        
+            content: "<span class=\"tooltip-title\">Trincomalee GeoData</span>"
         }
     },
 
@@ -2405,7 +2405,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Kurunegala',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Kurunegala District</span>"	                        
+            content: "<span class=\"tooltip-title\">Kurunegala GeoData</span>"
         }
     },
 
@@ -2419,7 +2419,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Puttalam',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Puttalam District</span>"	                        
+            content: "<span class=\"tooltip-title\">Puttalam GeoData</span>"
         }
     },
 
@@ -2433,7 +2433,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Anuradhapura',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Anuradhapura District</span>"	                        
+            content: "<span class=\"tooltip-title\">Anuradhapura GeoData</span>"
         }
     },
 
@@ -2447,7 +2447,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Polonnaruwa',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Polonnaruwa District</span>"	                        
+            content: "<span class=\"tooltip-title\">Polonnaruwa GeoData</span>"
         }
     },
 
@@ -2461,7 +2461,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Badulla',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Badulla District</span>"	                        
+            content: "<span class=\"tooltip-title\">Badulla GeoData</span>"
         }
     },
 
@@ -2475,7 +2475,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Moneragala',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Moneragala District</span>"	                        
+            content: "<span class=\"tooltip-title\">Moneragala GeoData</span>"
         }
     },
 
@@ -2489,7 +2489,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Ratnapura',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Ratnapura District</span>"	                        
+            content: "<span class=\"tooltip-title\">Ratnapura GeoData</span>"
         }
     },
 
@@ -2503,7 +2503,7 @@ var districtMapAreas = {
         },
                         value: 'district_result.php?dist_id=Kegalle',
         tooltip: {
-            content: "<span class=\"tooltip-title\">Kegalle District</span>"	                        
+            content: "<span class=\"tooltip-title\">Kegalle GeoData</span>"
         }
     },
 

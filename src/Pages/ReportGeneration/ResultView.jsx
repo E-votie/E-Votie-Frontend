@@ -60,14 +60,14 @@ export const ResultView = () => {
     const navigate = useNavigate();
 
     const handleSelect = (districtID) => {
-        navigate(`/election/result/${districtID}`);
+        navigate(`Election/Result/${districtID}`);
     };
     return (<div className="min-h-screen flex flex-col bg-base-100 p-6 gap-4 rounded-xl">
             <div className="flex lg:flex-row gap-4 md:flex-col">
                 <div
                     className="flex flex-col md:flex-row w-1/2 md:w-full bg-base-100 shadow-lg p-6 gap-6 border border-gray-200 h-fit">
                     <div className="w-full">
-                        <SriLankaMap/>
+                        <SriLankaMap sriLankaGeoJSON={'District_geo'} zoom={7}/>
                     </div>
                     <div className="w-full">
                         <PieChart data={allIslandResults}/>

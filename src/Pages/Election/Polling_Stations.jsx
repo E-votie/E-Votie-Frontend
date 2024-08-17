@@ -116,7 +116,7 @@ const Polling_Stations = () => {
                             <div className="space-y-4">
                                 <h2 className="font-sans text-3xl font-semibold">Create New Election</h2>
 
-                                {/* Electoral District Dropdown with + Button */}
+                                {/* Electoral GeoData Dropdown with + Button */}
                                 <div className="space-y-4">
                                     <label className="font-sans text-lg">Electoral District</label>
                                     <div className="flex items-center gap-3 mb-3">

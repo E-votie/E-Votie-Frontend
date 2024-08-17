@@ -1,10 +1,34 @@
-import React from 'react';
-import { MapContainer, GeoJSON } from 'react-leaflet';
+import React, { useEffect, useState } from 'react';
+import { MapContainer, GeoJSON, useMap } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
-import sriLankaGeoJSON from './../../public/District_geo.json';
+import L from 'leaflet';
 
-const SriLankaMap = () => {
+const SriLankaMap = ({ sriLankaGeoJSON, zoom = 7 }) => {
     const navigate = useNavigate();
+    const [geoJsonData, setGeoJsonData] = useState(null);
+
+    function MapController({ geoJsonData }) {
+        const map = useMap();
+
+        useEffect(() => {
+            if (geoJsonData) {
+                const bounds = L.geoJSON(geoJsonData).getBounds();
+                map.fitBounds(bounds);
+            }
+        }, [geoJsonData, map]);
+
+        return null;
+    }
+
+    useEffect(() => {
+        import(`./../../public/GeoData/${sriLankaGeoJSON}.json`)
+            .then((module) => {
+                setGeoJsonData(module.default);
+            })
+            .catch((error) => {
+                console.error("Error loading the GeoJSON file:", error);
+            });
+    }, [sriLankaGeoJSON]);
 
     const districtColors = {
         'Ampara': '#0e723a', 'Anuradhapura': '#b41f24', 'Badulla': '#b41f24',
@@ -29,21 +53,21 @@ const SriLankaMap = () => {
 
             const originalStyle = {
                 fillColor: getColor(feature.properties.ADM2_EN),
-                fillOpacity: 0.7
+                fillOpacity: 0.9
             };
 
             layer.on({
                 mouseover: (e) => {
                     e.target.setStyle({
                         fillColor: 'gray',
-                        fillOpacity: 0.7
+                        fillOpacity: 0.4
                     });
                 },
                 mouseout: (e) => {
                     e.target.setStyle(originalStyle);
                 },
                 click: () => {
-                    navigate(`/district/${feature.properties.ADM2_EN}`);
+                    navigate(`district/${feature.properties.ADM2_EN}`);
                 }
             });
         }
@@ -62,14 +86,17 @@ const SriLankaMap = () => {
     return (
         <MapContainer
             center={[7.8731, 80.7718]}
-            zoom={7.3}
+            zoom={zoom}
             style={{ height: "450px", width: "100%", background: 'transparent' }}
         >
-            <GeoJSON
-                data={sriLankaGeoJSON}
-                onEachFeature={onEachFeature}
-                style={style}
-            />
+            <MapController geoJsonData={geoJsonData} />
+            {geoJsonData && (
+                <GeoJSON
+                    data={geoJsonData}
+                    onEachFeature={onEachFeature}
+                    style={style}
+                />
+            )}
         </MapContainer>
     );
 };
