@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 
 function not(a, b) {
     return a.filter((value) => b.indexOf(value) === -1);
@@ -82,14 +83,14 @@ export default function TransferList() {
     };
 
     const customTable = (title, items) => (
-        <Card sx={{ width: 400, height: 300, overflow: 'auto', p: 2 }}>
+        <Card sx={{ width: '100%', height: 400, overflow: 'auto' }}>
             <CardHeader
                 sx={{ px: 2, py: 1 }}
                 title={title}
                 subheader={`${numberOfChecked(items)}/${items.length} selected`}
             />
             <Divider />
-            <TableContainer component={Paper} sx={{ maxHeight: 250 }}>
+            <TableContainer component={Paper} sx={{ maxHeight: 350 }}>
                 <Table stickyHeader aria-label={title}>
                     <TableHead>
                         <TableRow>
@@ -145,33 +146,39 @@ export default function TransferList() {
     );
 
     return (
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
-            <Grid item>{customTable('Applied Candidates', left)}</Grid>
-            <Grid item>
-                <Grid container direction="column" alignItems="center">
-                    <Button
-                        sx={{ my: 0.5 }}
-                        variant="outlined"
-                        size="small"
-                        onClick={handleCheckedRight}
-                        disabled={leftChecked.length === 0}
-                        aria-label="move selected right"
-                    >
-                        &gt;
-                    </Button>
-                    <Button
-                        sx={{ my: 0.5 }}
-                        variant="outlined"
-                        size="small"
-                        onClick={handleCheckedLeft}
-                        disabled={rightChecked.length === 0}
-                        aria-label="move selected left"
-                    >
-                        &lt;
-                    </Button>
+        <Box sx={{ width: '100%', my: 2 }}>
+            <Grid container spacing={2} justifyContent="center" alignItems="center">
+                <Grid item xs={12} md={5}>
+                    {customTable('Applied Candidates', left)}
+                </Grid>
+                <Grid item xs={12} md={2}>
+                    <Grid container direction="column" alignItems="center">
+                        <Button
+                            sx={{ my: 0.5 }}
+                            variant="contained"
+                            size="large"
+                            onClick={handleCheckedRight}
+                            disabled={leftChecked.length === 0}
+                            aria-label="move selected right"
+                        >
+                            &gt;
+                        </Button>
+                        <Button
+                            sx={{ my: 0.5 }}
+                            variant="contained"
+                            size="large"
+                            onClick={handleCheckedLeft}
+                            disabled={rightChecked.length === 0}
+                            aria-label="move selected left"
+                        >
+                            &lt;
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Grid item xs={12} md={5}>
+                    {customTable('Running Candidates', right)}
                 </Grid>
             </Grid>
-            <Grid item>{customTable('Running Candidates', right)}</Grid>
-        </Grid>
+        </Box>
     );
 }
