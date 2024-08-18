@@ -9,6 +9,7 @@ export default function Additional_Materials() {
         description: '',
         files: null,
     });
+    const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -16,10 +17,22 @@ export default function Additional_Materials() {
             ...formData,
             [name]: files ? files[0] : value
         });
+        setErrors({ ...errors, [name]: '' }); // Clear error when user starts typing
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const newErrors = {};
+        if (!formData.name) newErrors.name = "Name is required.";
+        if (!formData.description) newErrors.description = "Description is required.";
+        if (!formData.files) newErrors.files = "File upload is required.";
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         const newMaterial = {
             name: formData.name,
             description: formData.description,
@@ -48,6 +61,7 @@ export default function Additional_Materials() {
                                     value={formData.name}
                                     onChange={handleChange}
                                 />
+                                {errors.name && <Typography color="error" variant="body2">{errors.name}</Typography>}
                             </Box>
                             <Box className="flex flex-col">
                                 <Typography variant="body1" gutterBottom>Description</Typography>
@@ -58,6 +72,7 @@ export default function Additional_Materials() {
                                     value={formData.description}
                                     onChange={handleChange}
                                 ></textarea>
+                                {errors.description && <Typography color="error" variant="body2">{errors.description}</Typography>}
                             </Box>
                             <Box className="flex flex-col">
                                 <Typography variant="body1" gutterBottom>Upload Files</Typography>
@@ -67,6 +82,7 @@ export default function Additional_Materials() {
                                     name="files"
                                     onChange={handleChange}
                                 />
+                                {errors.files && <Typography color="error" variant="body2">{errors.files}</Typography>}
                             </Box>
                         </Box>
                         <Box className="flex justify-end mt-4">
