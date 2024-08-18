@@ -48,6 +48,11 @@ export default function Additional_Materials() {
         }
     };
 
+    const handleRemove = (index) => {
+        const updatedMaterials = materials.filter((_, i) => i !== index);
+        setMaterials(updatedMaterials);
+    };
+
     return (
         <Box sx={{ maxWidth: 900, mx: 'auto', mt: 4 }}>
             <Card>
@@ -116,13 +121,14 @@ export default function Additional_Materials() {
                             Submit
                         </button>
                     </Box>
-                    <TableContainer component={Paper} sx={{marginTop: 2}}>
+                    <TableContainer component={Paper} sx={{ marginTop: 2 }}>
                         <Table>
                             <TableHead>
                                 <TableRow>
                                     <TableCell sx={{ border: '1px solid #ddd' }}>Name</TableCell>
                                     <TableCell sx={{ border: '1px solid #ddd' }}>Description</TableCell>
                                     <TableCell sx={{ border: '1px solid #ddd' }}>Date Added</TableCell>
+                                    <TableCell sx={{ border: '1px solid #ddd' }}>Actions</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -131,6 +137,14 @@ export default function Additional_Materials() {
                                         <TableCell sx={{ border: '1px solid #ddd' }}>{material.name}</TableCell>
                                         <TableCell sx={{ border: '1px solid #ddd' }}>{material.description}</TableCell>
                                         <TableCell sx={{ border: '1px solid #ddd' }}>{material.date}</TableCell>
+                                        <TableCell sx={{ border: '1px solid #ddd' }}>
+                                            <button
+                                                className="btn btn-outline btn-primary"
+                                                onClick={() => handleRemove(index)}
+                                            >
+                                                Remove
+                                            </button>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
