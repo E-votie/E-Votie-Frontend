@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Box from "@mui/material/Box";
-import { Typography, Button, Card, CardContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Typography, Card, CardContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
 export default function Additional_Materials() {
     const [materials, setMaterials] = useState([]);
@@ -10,6 +10,7 @@ export default function Additional_Materials() {
         files: null,
     });
     const [errors, setErrors] = useState({});
+    const fileInputRef = useRef(null);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -40,6 +41,11 @@ export default function Additional_Materials() {
         };
         setMaterials([...materials, newMaterial]);
         setFormData({ name: '', description: '', files: null });
+
+        // Clear the file input field
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
     };
 
     return (
@@ -81,6 +87,7 @@ export default function Additional_Materials() {
                                     className="file-input file-input-bordered w-full"
                                     name="files"
                                     onChange={handleChange}
+                                    ref={fileInputRef} // Assign the ref here
                                 />
                                 {errors.files && <Typography color="error" variant="body2">{errors.files}</Typography>}
                             </Box>
