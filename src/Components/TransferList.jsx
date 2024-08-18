@@ -14,9 +14,11 @@ import TableRow from '@mui/material/TableRow';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 
+// Utility functions
 function not(a, b) {
     return a.filter((value) => b.indexOf(value) === -1);
 }
@@ -60,6 +62,19 @@ export default function TransferList() {
         setChecked(newChecked);
     };
 
+    const handleApprove = (id) => () => {
+        if (!checked.includes(id)) {
+            setChecked([...checked, id]);
+        }
+    };
+
+    const handleRemove = (id) => () => {
+        const itemToRemove = right.find(item => item.id === id);
+        setRight(right.filter(item => item.id !== id));
+        setLeft([...left, itemToRemove]);
+        setChecked(checked.filter(checkedId => checkedId !== id));
+    };
+
     const numberOfChecked = (items) => intersection(checked, items.map(item => item.id)).length;
 
     const handleToggleAll = (items) => () => {
@@ -82,10 +97,10 @@ export default function TransferList() {
         setChecked(not(checked, rightChecked));
     };
 
-    const customTable = (title, items) => (
-        <Card sx={{ width: '100%', height: 400, overflow: 'auto' }}>
+    const customTable = (title, items, isRight) => (
+        <Card sx={{ width: '100%', height: 400, overflow: 'auto', boxShadow: 3 }}>
             <CardHeader
-                sx={{ px: 2, py: 1 }}
+                sx={{ px: 2, py: 1, backgroundColor: '#f5f5f5' }}
                 title={title}
                 subheader={`${numberOfChecked(items)}/${items.length} selected`}
             />
@@ -107,15 +122,15 @@ export default function TransferList() {
                                     }}
                                 />
                             </TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Party</TableCell>
-                            <TableCell>View</TableCell>
-                            <TableCell>Approve</TableCell>
+                            <TableCell><strong>Name</strong></TableCell>
+                            <TableCell><strong>Party</strong></TableCell>
+                            <TableCell><strong>View</strong></TableCell>
+                            <TableCell><strong>{isRight ? 'Remove' : 'Approve'}</strong></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {items.map((item) => (
-                            <TableRow key={item.id}>
+                            <TableRow key={item.id} sx={{ '&:nth-of-type(even)': { backgroundColor: '#f9f9f9' } }}>
                                 <TableCell padding="checkbox">
                                     <Checkbox
                                         checked={checked.indexOf(item.id) !== -1}
@@ -133,9 +148,21 @@ export default function TransferList() {
                                     </IconButton>
                                 </TableCell>
                                 <TableCell>
-                                    <IconButton aria-label="approve">
-                                        <CheckIcon />
-                                    </IconButton>
+                                    {isRight ? (
+                                        <IconButton
+                                            aria-label="remove"
+                                            onClick={handleRemove(item.id)}
+                                        >
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    ) : (
+                                        <IconButton
+                                            aria-label="approve"
+                                            onClick={handleApprove(item.id)}
+                                        >
+                                            <CheckIcon />
+                                        </IconButton>
+                                    )}
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -149,7 +176,7 @@ export default function TransferList() {
         <Box sx={{ width: '100%', my: 2 }}>
             <Grid container spacing={2} justifyContent="center" alignItems="center">
                 <Grid item xs={12} md={5}>
-                    {customTable('Applied Candidates', left)}
+                    {customTable('Applied Candidates', left, false)}
                 </Grid>
                 <Grid item xs={12} md={2}>
                     <Grid container direction="column" alignItems="center">
@@ -176,7 +203,7 @@ export default function TransferList() {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} md={5}>
-                    {customTable('Running Candidates', right)}
+                    {customTable('Running Candidates', right, true)}
                 </Grid>
             </Grid>
         </Box>
