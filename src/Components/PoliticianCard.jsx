@@ -1,57 +1,67 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import {Navigate, useNavigate} from "react-router-dom";
+import React from 'react';
+import { Card, CardActionArea, CardContent, Typography, Box, Avatar, Chip, useTheme } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+import { styled } from '@mui/system';
 
-export const Politician = ({politician}) => {
+const StyledCard = styled(Card)(({ theme }) => ({
+  display: 'flex',
+  width: '50%',
+  backgroundColor: "#fff",
+  margin: theme.spacing(2),
+  overflow: 'visible',
+  transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+  '&:hover': {
+    transform: 'scale(1.03)',
+    boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+  },
+}));
 
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  width: 120,
+  height: 120,
+  border: `4px solid ${theme.palette.background.paper || '#fff'}`, // Fallback to white if undefined
+  marginTop: -30,
+  marginLeft: theme.spacing(2),
+  boxShadow: '0 4px 10px rgba(0,0,0,0.15)',
+}));
+
+export const Politician = ({ politician }) => {
   const navigate = useNavigate();
+  const theme = useTheme(); // Access the theme
 
-  // const navigator = (action) => {
-  //     if(action === "Party Details"){
-  //         navigate(`/party/list`);
-  //     }else if(action === "Candidates"){
-
-  //     }else if(action === "Elections"){
-  //         navigate(`/election/list`);
-  //     }else if(action === "Inquiries"){
-  //         navigate(`/inquiries`);
-  //     }else if(action === "Announcements"){
-  //         navigate(`/announcements`);
-  //     }else if(action === "Voter Registration"){
-  //         navigate(`/VoterRegistration`);
-  //     }else{
-  //         console.log("Invalid navigation");
-  //     }
-  //     console.log(action);
-  // };
-
-  const navigator = () => {
+  const handleClick = () => {
     navigate('/party/member');
-  }
+  };
 
   return (
-    <Card className='w-full ' onClick={navigator}>
+    <StyledCard onClick={handleClick}>
       <CardActionArea>
-        <div className='flex'> 
-            <img
-            src={politician.profilePicture}
-            alt="green iguana"
-            className='w-[120px] h-[120px] object-cover p-2'
-            />
-            <CardContent>
-            <Typography gutterBottom variant="body1" component="div">
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          {/* <Box sx={{ height: 80, bgcolor: 'primary.main' }} /> */}
+          <CardContent sx={{ display: 'flex', alignItems: "center", justifyContent: "space-between", pt: 4 }}>
+            <StyledAvatar src={politician.profilePicture} alt={politician.name} />
+            <Box sx={{ ml: 3, flex: 1 }}>
+              <Typography variant="h5" component="div" gutterBottom>
                 {politician.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {politician.description}
-            </Typography>
-            </CardContent>
-        </div>
+              </Typography>
+              <Typography variant="body2" color="text.secondary" paragraph>
+                {politician.description}
+              </Typography>
+              <Chip 
+                label={politician.party} 
+                color="primary" 
+                size="small" 
+                sx={{ mr: 1 }}
+              />
+              <Chip 
+                label={politician.position} 
+                color="secondary" 
+                size="small" 
+              />
+            </Box>
+          </CardContent>
+        </Box>
       </CardActionArea>
-    </Card>
+    </StyledCard>
   );
-}
+};
