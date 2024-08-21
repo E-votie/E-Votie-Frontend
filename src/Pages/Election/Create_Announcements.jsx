@@ -154,12 +154,12 @@ export const Create_Announcements = () => {
                     {/*    <div className="flex flex-col lg:flex-row w-full">*/}
                     {/*        /!*<select {...register("AdminDistrict")}*!/*/}
                     {/*        /!*        className="select select-primary w-full max-w-xs lg:w-fit">*!/*/}
-                    {/*        /!*    <option disabled selected>Admin District</option>*!/*/}
+                    {/*        /!*    <option disabled selected>Admin GeoData</option>*!/*/}
                     {/*        /!*    <option>Colombo</option>*!/*/}
                     {/*        /!*</select>*!/*/}
                     {/*        /!*<select {...register("ElectionDistrict")}*!/*/}
                     {/*        /!*        className="select select-primary w-full max-w-xs lg:w-fit lg:ml-3">*!/*/}
-                    {/*        /!*    <option disabled selected>Election District</option>*!/*/}
+                    {/*        /!*    <option disabled selected>Election GeoData</option>*!/*/}
                     {/*        /!*    <option>Colombo</option>*!/*/}
                     {/*        /!*</select>*!/*/}
                     {/*        /!*<select {...register("PollingDivision")}*!/*/}

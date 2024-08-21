@@ -18,7 +18,7 @@ import {FormReview} from "./Pages/GramaNiladhari/FormReview.jsx";
 import {GnHome} from "./Pages/GramaNiladhari/GnHome.jsx";
 import {VoterApplications} from "./Pages/GramaNiladhari/VoterApplications.jsx";
 import ProtectedRoute from "./services/ProtectedRoute.jsx";
-import {ElectionList} from "./Pages/Party/ElectionList";
+import {ElectionList} from "./Pages/Election/ElectionList.jsx";
 import {Election} from "./Pages/Party/Election";
 import {VerificationHome} from "./Pages/VerificationOfficer/VerificationHome.jsx";
 import {VoterApplicationsVerificationOfficer} from "./Pages/VerificationOfficer/VoterApplications.jsx";
@@ -38,7 +38,17 @@ import {ReportView} from "./Pages/ReportGeneration/ReportView.jsx";
 import { PartyApplication } from "./Pages/Party/PartyApplication";
 import Polling_Stations from "./Pages/Election/Polling_Stations.jsx";
 import ApprovePartyMembers from "./Pages/Election/ApprovePartyMembers.jsx";
+
 import { SelectNominations } from "./Components/selectNominations";
+import { CandidateApplicationsVerificationOfficer } from "./Pages/VerificationOfficer/CandidateApplications.jsx";
+import {PollingStationsProvider} from "./Pages/Election/PollingStationsContext.jsx";
+import UpcomingElections from "./Pages/Election/Upcoming_Elections.jsx";
+import ElectionTimeline from "./Pages/Election/Election_Timeline.jsx";
+import {VotingPage} from "./Pages/VotingUI/VotingPage.jsx";
+import {VotingPageStart} from "./Pages/VotingUI/StartPage.jsx";
+import {VotingView} from "./Pages/VoterVerification_UI/VoterView.jsx";
+import {ResultView} from "./Pages/ReportGeneration/ResultView.jsx";
+import {DistrictResultView} from "./Pages/ReportGeneration/DistrictResult.jsx";
 
 
 // Create a QueryClient instance
@@ -71,6 +81,8 @@ function App() {
                             <Route path="/election" element={<Election />} />
                             <Route path="/reports/View" element={<ReportView />} />
                             <Route path="/Approve" element={<ApprovePartyMembers />} />
+                            <Route path="/voting_page" element={<VotingPage />} />
+                            <Route path="/voting_page/start" element={<VotingPageStart />} />
                             <Route
                                 path="/GN"
                                 element={
@@ -163,14 +175,23 @@ function App() {
                             />
                             <Route path="/Election/Create" element={<CreateElection />} />
                             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
-                            <Route path="/Election/Home" element={<Election_Home />} />
                             <Route path="/Election/Announcements" element={<Election_Announcements />} />
                             <Route path="/Election/Create_Announcements" element={<Create_Announcements />} />
                             <Route path="/Election/Polling_Stations" element={<Polling_Stations />} />
+                            <Route path="/election/voting_view" element={<VotingView/>} />
+                            <Route path="/election/result" element={<ResultView/>}/>
                             <Route path="/election/nominations" element={<SelectNominations />} />
                             <Route path="/voter/registration/1" element={<VoterRegistration_1 />} />
                             <Route path="/voter/registration/2" element={<VoterRegistration_2 />} />
+                            <Route path="/verification_officer/candidate_applications" element={<CandidateApplicationsVerificationOfficer />} />
 
+                            <Route path="/Election/Polling_Stations" element={
+                                <PollingStationsProvider>
+                                <Polling_Stations />
+                            </PollingStationsProvider>} />
+                            <Route path="/Election/Upcoming_Elections" element={<UpcomingElections />} />
+                            <Route path="/Election/Election_Timeline" element={<ElectionTimeline />} />
+                            <Route path="/election/result/district/:District" element={<DistrictResultView/>}/>
                         </Route>
                     </Routes>
                 </Router>

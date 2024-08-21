@@ -15,9 +15,9 @@ const announcements = [
 
                 <p>03) Year : Select the year you want to get details under.</p>
 
-                <p>04) District : Keep the same as the “ all ”> selected by default. If that is difficult to find, choose the registered administrative district and try again.</p>
+                <p>04) District : Keep the same as the “ all ” selected by default. If that is difficult to find, choose the registered administrative district and try again.</p>
 
-               <p>05) “Im Not A Robot” Mark the Oba ☑ on the box signs in front of> and verify it.</p>
+               <p>05) “Im Not A Robot” Mark the Oba ☑ on the box signs in front of and verify it.</p>
 
                <p> 06) “ Print ” Button Oba Get your registration statement.</p>
 

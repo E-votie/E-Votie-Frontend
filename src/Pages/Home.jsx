@@ -32,9 +32,16 @@ const actions = [
   },
   {
     "action": "Voter Applications",
-    "icon": "application",
+    "icon": "candidate",
     "description": "Pending applications for verification.",
     "link": "/verification_officer/voter_applications",
+    "roles": ["VerificationOfficer"],
+  },
+  {
+    "action": "Candidate Applications",
+    "icon": "application",
+    "description": "Pending applications for verification.",
+    "link": "/verification_officer/candidate_applications",
     "roles": ["VerificationOfficer"],
   },
   {
@@ -43,6 +50,13 @@ const actions = [
     "description": "Pending applications for verification.",
     "link": "/GN/voter_applications",
     "roles": ["GramaNiladhari"],
+  },
+  {
+    "action": "Party Applications",
+    "icon": "application",
+    "description": "Pending applications for verification.",
+    "link": "/verification_officer/voter_applications",
+    "roles": ["VerificationOfficer"],
   },
   {
     "action": "Fingerprint Scan",
@@ -83,6 +97,13 @@ const actions = [
     "icon": "announcement",
     "description": "Latest announcements and updates.",
     "link":"/announcements",
+    "roles": ["Anonymous", "Voter", "GramaNiladhari", "VerificationOfficer"]
+  },
+  {
+    "action": "Election Result",
+    "icon": "announcement",
+    "description": "Latest announcements and updates.",
+    "link":"/election/result",
     "roles": ["Anonymous", "Voter", "GramaNiladhari", "VerificationOfficer"]
   },
 ];
@@ -192,7 +213,7 @@ export const Home = () => {
         </div>
 
         <div className="p-8">
-          <h2 className="text-3xl font-semibold mb-6 text-gray-800">Quick Actions</h2>
+          {/*<h2 className="text-3xl font-semibold mb-6 text-gray-800">Quick Actions</h2>*/}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {actions.map((action, index) => (
               shouldShowCard(action.roles) && (

@@ -15,6 +15,7 @@ const theme = createTheme({
     // Other theme settings
   },
 });
+import 'leaflet/dist/leaflet.css';
 
 console.log("Initializing Keycloak in index.jsx...");
 KeycloakService.initKeycloak(() => {

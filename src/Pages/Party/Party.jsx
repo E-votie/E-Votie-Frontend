@@ -15,7 +15,7 @@ const candidates = [
   {
     name: 'Mahinda Rajapaksa',
     profilePicture: '/src/assets/mr.jpg',
-    description: 'Former President and Prime Minister of Sri Lanka, serving as a Member of Parliament for Kurunegala District.'
+    description: 'Former President and Prime Minister of Sri Lanka, serving as a Member of Parliament for Kurunegala GeoData.'
   },
   {
     name: 'Gotabaya Rajapaksa',
@@ -25,22 +25,22 @@ const candidates = [
   {
     name: 'Basil Rajapaksa',
     profilePicture: '/src/assets/br.jpg',
-    description: 'Founder and National Organizer of the SLPP, serving as a Member of Parliament for Gampaha District.'
+    description: 'Founder and National Organizer of the SLPP, serving as a Member of Parliament for Gampaha GeoData.'
   },
   {
     name: 'Namal Rajapaksa',
     profilePicture: '/src/assets/nr.jpg',
-    description: 'Minister of Youth and Sports, serving as a Member of Parliament for Hambantota District.'
+    description: 'Minister of Youth and Sports, serving as a Member of Parliament for Hambantota GeoData.'
   },
   {
     name: 'Chamal Rajapaksa',
     profilePicture: '/src/assets/cr.jpg',
-    description: 'Former Speaker of the Parliament of Sri Lanka, serving as a Member of Parliament for Hambantota District.'
+    description: 'Former Speaker of the Parliament of Sri Lanka, serving as a Member of Parliament for Hambantota GeoData.'
   },
   {
     name: 'Dinesh Gunawardena',
     profilePicture: '/src/assets/dr.jpg',
-    description: 'Current Prime Minister of Sri Lanka, serving as a Member of Parliament for Colombo District.'
+    description: 'Current Prime Minister of Sri Lanka, serving as a Member of Parliament for Colombo GeoData.'
   }
 ];
 
