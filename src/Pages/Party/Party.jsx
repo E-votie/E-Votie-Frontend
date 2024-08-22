@@ -213,7 +213,7 @@ export const Party = () => {
               </label>
 
               {/* Politician List */}
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-wrap justify-between gap-2">
                 {candidates.map((candidate, index) => (
                   <Politician key={index} politician={candidate}/>
                 ))}
