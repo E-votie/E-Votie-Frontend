@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './../assets/css/Scan.css'
+import MySwal from "sweetalert2";
+import {useNavigate} from "react-router-dom";
 
 function FingerprintScanner({ ApplicationID }) {
+
+    const navigate = useNavigate();
+
     console.log(ApplicationID)
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
@@ -47,6 +52,19 @@ function FingerprintScanner({ ApplicationID }) {
             console.log(content);
             if (content === 'SCAN_COMPLETE') {
                 setScanningStatus(prev => ({ ...prev, [sourceDevice]: false }));
+                MySwal.fire({
+                    title: "Fingerprint successfully registered",
+                    icon: 'success',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    didOpen: () => {
+                        // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/');
+                    }
+                })
             }else{
                 setScanningMassage(content)
             }

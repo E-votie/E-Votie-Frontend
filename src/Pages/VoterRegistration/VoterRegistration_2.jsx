@@ -403,7 +403,8 @@ export const VoterRegistration_2 = () => {
                             </Stack>
 
                             <div className="card-actions justify-end">
-                                <Button 
+                                <Button
+                                    type="submit"
                                     variant="contained"
                                     sx={{
                                         marginTop: 4,

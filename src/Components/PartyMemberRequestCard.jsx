@@ -16,21 +16,21 @@ export const PartyMemberRequestCard = ({politician, requestState}) => {
             </CardContent>
             <CardActions  sx={{padding: 0 }}>
                 {
-                    requestState === 'received request' &&
+                    requestState === 'Received Request' &&
                     <div className='flex gap-1'>
                         <Button variant="contained" color="primary" sx={{height: 25 }}><Typography sx={{fontSize: 12 }}>Confirm</Typography></Button>
                         <Button variant="outlined" color="secondary" sx={{height: 25 }}><Typography sx={{fontSize: 12 }}>Delete</Typography></Button>
                     </div>
                 }
                 {
-                    requestState === 'sent request' &&
+                    requestState === 'Sent Request' &&
                     <div className='flex gap-1'>
                         <Button variant="contained" color="primary" sx={{height: 25 }} disabled><Typography sx={{fontSize: 12 }} >Pending</Typography></Button>
                         <Button variant="outlined" color="secondary" sx={{height: 25 }}><Typography sx={{fontSize: 12 }}>Delete</Typography></Button>
                     </div>
                 }
                 {
-                    requestState === 'new politician' &&
+                    requestState === 'New Politician' &&
                     <Button
                         variant="contained"
                         color="primary"

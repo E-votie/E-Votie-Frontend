@@ -8,12 +8,14 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import Tooltip from '@mui/material/Tooltip';
 import { EditPartyInfo } from '../../Components/EditPartyInfo';
 import {PartyMemberSideBar} from '../../Components/PartyMemberSideBar';
+import { styled } from '@mui/system';
+import { Card, CardContent, Avatar, InputAdornment, TextField } from '@mui/material';
 
 const candidates = [
   {
     name: 'Mahinda Rajapaksa',
     profilePicture: '/src/assets/mr.jpg',
-    description: 'Former President and Prime Minister of Sri Lanka, serving as a Member of Parliament for Kurunegala District.'
+    description: 'Former President and Prime Minister of Sri Lanka, serving as a Member of Parliament for Kurunegala GeoData.'
   },
   {
     name: 'Gotabaya Rajapaksa',
@@ -23,22 +25,22 @@ const candidates = [
   {
     name: 'Basil Rajapaksa',
     profilePicture: '/src/assets/br.jpg',
-    description: 'Founder and National Organizer of the SLPP, serving as a Member of Parliament for Gampaha District.'
+    description: 'Founder and National Organizer of the SLPP, serving as a Member of Parliament for Gampaha GeoData.'
   },
   {
     name: 'Namal Rajapaksa',
     profilePicture: '/src/assets/nr.jpg',
-    description: 'Minister of Youth and Sports, serving as a Member of Parliament for Hambantota District.'
+    description: 'Minister of Youth and Sports, serving as a Member of Parliament for Hambantota GeoData.'
   },
   {
     name: 'Chamal Rajapaksa',
     profilePicture: '/src/assets/cr.jpg',
-    description: 'Former Speaker of the Parliament of Sri Lanka, serving as a Member of Parliament for Hambantota District.'
+    description: 'Former Speaker of the Parliament of Sri Lanka, serving as a Member of Parliament for Hambantota GeoData.'
   },
   {
     name: 'Dinesh Gunawardena',
     profilePicture: '/src/assets/dr.jpg',
-    description: 'Current Prime Minister of Sri Lanka, serving as a Member of Parliament for Colombo District.'
+    description: 'Current Prime Minister of Sri Lanka, serving as a Member of Parliament for Colombo GeoData.'
   }
 ];
 
@@ -86,6 +88,32 @@ const party = {
   website: "http://www.slpp.lk",
 };
 
+const CoverImage = styled('div')({
+  height: 300,
+  backgroundImage: 'url("../src/assets/politician-bg.png")',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  position: 'relative',
+});
+
+const PartyLogo = styled(Avatar)({
+  width: 150,
+  height: 150,
+  border: '4px solid #fff',
+  position: 'absolute',
+  bottom: -75,
+  left: '50%',
+  transform: 'translateX(-50%)',
+});
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  margin: theme.spacing(2),
+  boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
+  '&:hover': {
+    boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
+  },
+}));
+
 export const Party = () => {
   const [openEditPartyInfoModal, setOpenEditPartyInfoModal] = React.useState(false);
 
@@ -99,43 +127,16 @@ export const Party = () => {
 
   return (
     <div className="min-h-[600px] flex flex-col bg-gray-100 shadow-2xl pb-4 rounded-lg">
+      <CoverImage>
+        <PartyLogo src="../src/assets/slpp.jpg" alt="Party Logo" />
+      </CoverImage>
 
-      {/* Cover Image */}
-      <div className="relative">
-
-        <img
-          src="..\src\assets\politician-bg.png"
-          alt="Cover"
-          className="w-full h-64 object-cover"
-        />
-
-        {/* Party Symbol */}
-        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-white border-4 border-gray-300 rounded-full overflow-hidden">
-          <img
-            src="..\src\assets\slpp.jpg"
-            alt="Party Symbol"
-            className="w-full h-full object-cover"
-          />
-
-        </div>
-
-      </div>
-
-      {/* Party Info */}
-      <div className="mt-16 text-center">
-
-        {/* Party Name */}
-        <h1 className="text-4xl font-bold">Sri Lanka Podujana Peramuna (SLPP)</h1>
-
-        {/* Party Information */}
-        <p className="mt-2 text-gray-600">
-          <span className="mr-4">📍 Location</span>
-          <span className="mr-4">📞 0712777639, 0112518565</span>
-          <span>📧 info@slpp.org</span>
-          <span className="ml-4">🌐 slpp.org</span>
-        </p>
-
-      </div>
+      <Box sx={{ mt: 10, textAlign: 'center' }}>
+        <div className="text-4xl font-bold">Sri Lanka Podujana Peramuna (SLPP)</div>
+        <Typography variant="subtitle1" color="text.secondary">
+          📍 Location | 📞 0712777639, 0112518565 | 📧 info@slpp.org | 🌐 slpp.org
+        </Typography>
+      </Box>
 
       {/* Summary Section */}
       <div className="mt-8 flex justify-center">
@@ -151,12 +152,12 @@ export const Party = () => {
               <p className="text-gray-600">No. of MPs in Parliament</p>
             </div>
           </div>
-          <Divider />
+          {/* <Divider /> */}
 
-          <div className="flex lg:flex-row-reverse sm:flex-col xs:flex-col-reverse gap-12 py-4 mt-4">
+          <div className="py-4 mt-4">
 
             {/* Party Information */}
-            <div className="partyDetailsContainer lg:w-3/5 sm:w-full">
+            <div className="partyDetailsContainer lg:w-full sm:w-full">
               <Box className="flex justify-between">
                 <Typography variant="h6" color="textSecondary" gutterBottom>
                   Party Info
@@ -228,3 +229,207 @@ export const Party = () => {
   );
 };
 
+
+// import React, { useState } from 'react';
+// import { Politician } from '../../Components/PoliticianCard';
+// import { PartyDetails } from '../../Components/PartyDetails';
+// import { EditPartyInfo } from '../../Components/EditPartyInfo';
+// import { PartyMemberSideBar } from '../../Components/PartyMemberSideBar';
+// import { Box, Typography, IconButton, Tooltip, Divider, Card, CardContent, Avatar, InputAdornment, TextField } from '@mui/material';
+// import EditNoteIcon from '@mui/icons-material/EditNote';
+// import SearchIcon from '@mui/icons-material/Search';
+// import { styled } from '@mui/system';
+
+// const candidates = [
+//   {
+//     name: 'Mahinda Rajapaksa',
+//     profilePicture: '/src/assets/mr.jpg',
+//     description: 'Former President and Prime Minister of Sri Lanka, serving as a Member of Parliament for Kurunegala District.'
+//   },
+//   {
+//     name: 'Gotabaya Rajapaksa',
+//     profilePicture: '/src/assets/gr.jpg',
+//     description: 'Former President of Sri Lanka, previously served as the Minister of Defence and Urban Development.'
+//   },
+//   {
+//     name: 'Basil Rajapaksa',
+//     profilePicture: '/src/assets/br.jpg',
+//     description: 'Founder and National Organizer of the SLPP, serving as a Member of Parliament for Gampaha District.'
+//   },
+//   {
+//     name: 'Namal Rajapaksa',
+//     profilePicture: '/src/assets/nr.jpg',
+//     description: 'Minister of Youth and Sports, serving as a Member of Parliament for Hambantota District.'
+//   },
+//   {
+//     name: 'Chamal Rajapaksa',
+//     profilePicture: '/src/assets/cr.jpg',
+//     description: 'Former Speaker of the Parliament of Sri Lanka, serving as a Member of Parliament for Hambantota District.'
+//   },
+//   {
+//     name: 'Dinesh Gunawardena',
+//     profilePicture: '/src/assets/dr.jpg',
+//     description: 'Current Prime Minister of Sri Lanka, serving as a Member of Parliament for Colombo District.'
+//   }
+// ];
+
+// const requestList = [
+//   {
+//     name: "Namal Rajapaksha",
+//     requestStatus: "",
+//     profilePicture: "",
+//   },
+//   {
+//     name: "Gotabaya Rajapaksha"
+
+//   },
+//   {
+//     name: "Basil Rajapaksha"
+
+//   },
+//   {
+//     name: "Yoshitha Rajapaksha"
+
+//   },
+//   {
+//     name: "Chamal Rajapaksha"
+
+//   },
+// ];
+
+// const party = {
+//   partyName: "Sri Lanka Podujana Peramuna",
+//   abbreviation: "SLPP",
+//   logo: "https://pbs.twimg.com/profile_images/1042605472249864192/P8mqmZXX_400x400.jpg",
+//   leader: "Mahinda Rajapaksa",
+//   secretary: "Sagara Kariyawasam",
+//   foundedYear: 2016,
+//   headquarters: {
+//     address: "No. 1316, Podujana Peramuna, Jayanthipura, Nelum Mawatha, Battaramulla 10120, Sri Lanka",
+//     contactNumber: "+94112866010",
+//   },
+//   colors: ["Red", "Blue", "Green"],
+//   seatsInParliament: {
+//     districtBasisSeats: 128,
+//     nationalBasisSeats: 17,
+//     totalSeats: 145,
+//   },
+//   website: "http://www.slpp.lk",
+// };
+
+// const CoverImage = styled('div')({
+//   height: 300,
+//   backgroundImage: 'url("../src/assets/politician-bg.png")',
+//   backgroundSize: 'cover',
+//   backgroundPosition: 'center',
+//   position: 'relative',
+// });
+
+// const PartyLogo = styled(Avatar)({
+//   width: 150,
+//   height: 150,
+//   border: '4px solid #fff',
+//   position: 'absolute',
+//   bottom: -75,
+//   left: '50%',
+//   transform: 'translateX(-50%)',
+// });
+
+// const StyledCard = styled(Card)(({ theme }) => ({
+//   margin: theme.spacing(2),
+//   boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
+//   '&:hover': {
+//     boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
+//   },
+// }));
+
+// export const Party = () => {
+//   const [openEditPartyInfoModal, setOpenEditPartyInfoModal] = useState(false);
+//   const [searchTerm, setSearchTerm] = useState('');
+
+//   const handleOpenEditPartyInfoModal = () => setOpenEditPartyInfoModal(true);
+//   const handleCloseEditPartyInfoModal = () => setOpenEditPartyInfoModal(false);
+
+//   const filteredCandidates = candidates.filter(candidate =>
+//     candidate.name.toLowerCase().includes(searchTerm.toLowerCase())
+//   );
+
+//   return (
+//     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 4 }}>
+//       <CoverImage>
+//         <PartyLogo src="../src/assets/slpp.jpg" alt="Party Logo" />
+//       </CoverImage>
+
+//       <Box sx={{ mt: 10, textAlign: 'center' }}>
+//         <Typography variant="h3" gutterBottom>Sri Lanka Podujana Peramuna (SLPP)</Typography>
+//         <Typography variant="subtitle1" color="text.secondary">
+//           📍 Location | 📞 0712777639, 0112518565 | 📧 info@slpp.org | 🌐 slpp.org
+//         </Typography>
+//       </Box>
+
+//       <StyledCard>
+//         <CardContent>
+//           <Box display="flex" justifyContent="space-around" mb={4}>
+//             <Box textAlign="center">
+//               <Typography variant="h4" color="primary">17122</Typography>
+//               <Typography variant="body2" color="text.secondary">Individual MP Contributions</Typography>
+//             </Box>
+//             <Box textAlign="center">
+//               <Typography variant="h4" color="primary">152</Typography>
+//               <Typography variant="body2" color="text.secondary">MPs in Parliament</Typography>
+//             </Box>
+//           </Box>
+
+//           <Divider />
+
+//           <Box display="flex" flexDirection={{ xs: 'column', lg: 'row' }} gap={4} mt={4}>
+//             <Box flex={2}>
+//               <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+//                 <Typography variant="h6" color="text.secondary">Politicians</Typography>
+//                 <PartyMemberSideBar requestList={requestList} />
+//               </Box>
+//               <TextField
+//                 fullWidth
+//                 variant="outlined"
+//                 placeholder="Search politicians"
+//                 value={searchTerm}
+//                 onChange={(e) => setSearchTerm(e.target.value)}
+//                 InputProps={{
+//                   startAdornment: (
+//                     <InputAdornment position="start">
+//                       <SearchIcon />
+//                     </InputAdornment>
+//                   ),
+//                 }}
+//                 sx={{ mb: 2 }}
+//               />
+//               <Box display="flex" flexDirection="column" gap={2}>
+//                 {filteredCandidates.map((candidate, index) => (
+//                   <Politician key={index} politician={candidate} />
+//                 ))}
+//               </Box>
+//             </Box>
+
+//             <Box flex={1}>
+//               <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+//                 <Typography variant="h6" color="text.secondary">Party Info</Typography>
+//                 <Tooltip title="Update Party Info" arrow>
+//                   <IconButton onClick={handleOpenEditPartyInfoModal} color="primary">
+//                     <EditNoteIcon />
+//                   </IconButton>
+//                 </Tooltip>
+//               </Box>
+//               <PartyDetails party={party} />
+//             </Box>
+//           </Box>
+//         </CardContent>
+//       </StyledCard>
+
+//       <EditPartyInfo
+//         open={openEditPartyInfoModal}
+//         handleClose={handleCloseEditPartyInfoModal}
+//         partyInfo={party}
+//       />
+//     </Box>
+//   );
+// };

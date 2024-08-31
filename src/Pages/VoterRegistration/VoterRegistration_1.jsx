@@ -217,7 +217,8 @@ export const VoterRegistration_1 = () => {
                             >
                                 Verify and Continue
                             </Button> */}
-                            <Button 
+                            <Button
+                                type="submit"
                                 variant="contained"
                                 sx={{
                                     marginTop: 4,
