@@ -1,6 +1,7 @@
 import { Divider, Paper } from "@mui/material";
 import { List, ListItem, ListItemText, Typography } from '@mui/material';
 import {PartyRegistrationForm} from '../../Components/PartyRegistrationForm';
+import { PartyRegistrationApplicationDrawer } from "../../Components/PartyRegistrationApplicationDrawer";
 import {Box, Stack} from "@mui/material";
 
 export const PartyRegistration = () => {
@@ -12,6 +13,7 @@ export const PartyRegistration = () => {
                     {/* Topic */}
                     <div className="text-3xl font-semibold text-gray-900">
                         Party Registration
+                        <PartyRegistrationApplicationDrawer />
                     </div>
                 </div>   
                 {/* Application form and instructions */}
@@ -65,12 +67,12 @@ export const PartyRegistration = () => {
 
                     </div>
                     {/* Party Registration Application */}
-                    <div className="applicationForm w-1/2 bg-base-100 rounded-md p-2"> 
+                    {/* <div className="applicationForm w-1/2 bg-base-100 rounded-md p-2"> 
                         <div className="topic text-xl mb-4 font-bold ">
                             Application
                         </div> 
                         <PartyRegistrationForm />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

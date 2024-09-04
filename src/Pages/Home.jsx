@@ -21,7 +21,7 @@ const actions = [
     "icon": "candidate",
     "description": "View your personal details and history hear",
     "link": "/voter/profile",
-    "roles": ["Voter"]
+    "roles": ["Voter", "PartySecretary"]
   },
   {
     "action": "Election Registration",
@@ -70,7 +70,7 @@ const actions = [
     "icon": "party",
     "description": "Details about the political parties.",
     "link": "/party/list",
-    "roles": ["Anonymous", "Voter", "partyMember"]
+    "roles": ["ALL", "Anonymous", "Voter", "partyMember", "Party Secretary"]
   },
   {
     "action": "Candidates",
@@ -83,28 +83,28 @@ const actions = [
     "icon": "election",
     "description": "General information about the elections.",
     "link": "/election/list",
-    "roles": ["Anonymous", "Voter"]
+    "roles": ["Anonymous", "Voter", "PartySecretary"]
   },
   {
     "action": "Inquiries",
     "icon": "inquiry",
     "description": "Submit your inquiries and complaints here.",
     "link": "/inquiries",
-    "roles": ["Anonymous", "Voter"]
+    "roles": ["Anonymous", "Voter", "PartySecretary"]
   },
   {
     "action": "Announcements",
     "icon": "announcement",
     "description": "Latest announcements and updates.",
     "link":"/announcements",
-    "roles": ["Anonymous", "Voter", "GramaNiladhari", "VerificationOfficer"]
+    "roles": ["Anonymous", "Voter", "GramaNiladhari", "VerificationOfficer", "PartySecretary"]
   },
   {
     "action": "Election Result",
     "icon": "announcement",
     "description": "Latest announcements and updates.",
     "link":"/election/result",
-    "roles": ["Anonymous", "Voter", "GramaNiladhari", "VerificationOfficer"]
+    "roles": ["ALL", "Anonymous", "Voter", "GramaNiladhari", "VerificationOfficer"]
   },
 ];
 

@@ -130,18 +130,15 @@ export const Party = () => {
       <CoverImage>
         <PartyLogo src="../src/assets/slpp.jpg" alt="Party Logo" />
       </CoverImage>
-
       <Box sx={{ mt: 10, textAlign: 'center' }}>
         <div className="text-4xl font-bold">Sri Lanka Podujana Peramuna (SLPP)</div>
         <Typography variant="subtitle1" color="text.secondary">
           📍 Location | 📞 0712777639, 0112518565 | 📧 info@slpp.org | 🌐 slpp.org
         </Typography>
       </Box>
-
       {/* Summary Section */}
       <div className="mt-8 flex justify-center">
         <div className="bg-white rounded-lg py-8 px-4 w-[90%]">
-
           <div className="flex justify-around mb-8">
             <div className="text-center">
               <p className="text-3xl font-bold text-yellow-600">17122</p>
@@ -153,9 +150,7 @@ export const Party = () => {
             </div>
           </div>
           {/* <Divider /> */}
-
           <div className="py-4 mt-4">
-
             {/* Party Information */}
             <div className="partyDetailsContainer lg:w-full sm:w-full">
               <Box className="flex justify-between">
@@ -170,7 +165,6 @@ export const Party = () => {
               </Box>
               <Divider />
               <Box my={2} />
-
               {/* Edit Party Info Modal */}
               {openEditPartyInfoModal && (
                 <EditPartyInfo
@@ -179,15 +173,12 @@ export const Party = () => {
                   partyInfo={party}
                 />
               )}
-
               <div className="partyInfo">
                 <PartyDetails party={party} />
               </div>
             </div>
-
             {/* Set of Politicians */}
             <div className="politicianContainer">
-
               <Box className="flex justify-between">
                 <Typography variant="h6" color="textSecondary" gutterBottom>
                   Politicians
@@ -218,11 +209,8 @@ export const Party = () => {
                   <Politician key={index} politician={candidate}/>
                 ))}
               </div>
-
             </div>
-
           </div>
-
         </div>
       </div>
     </div>

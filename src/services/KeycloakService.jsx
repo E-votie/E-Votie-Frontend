@@ -28,7 +28,13 @@ class KeycloakService {
     }
 
     isLoggedIn() {
-        return this.authenticated;
+        console.log("islogged")
+        console.log(this.authenticated);
+        if(this.authenticated){
+            return true;
+        }else{
+            return false;
+        };
     }
 
     doLogin() {
