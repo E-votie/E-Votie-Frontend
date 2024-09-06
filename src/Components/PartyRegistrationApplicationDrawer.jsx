@@ -7,7 +7,7 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -15,14 +15,18 @@ import KeycloakService from "../services/KeycloakService";
 const MySwal = withReactContent(Swal)
 
 export const PartyRegistrationApplicationDrawer = () => {
+  
   const [state, setState] = React.useState({right: false,});
   const [isLeaderVerified, setIsLeaderVerified] = useState(false); 
   const [isLoading, setIsLoading] = useState(false); 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true); 
   const [token, setToken] = useState(KeycloakService.getToken());
+  const [leaderName, setLeaderName] = useState("");
+
   const { register, handleSubmit, formState: { errors }, setValue, getValues } = useForm();
   const navigate = useNavigate();
 
+  //drawer
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -30,6 +34,7 @@ export const PartyRegistrationApplicationDrawer = () => {
     setState({ ...state, right: open });
   };
 
+  //validate leader nic
   const validateLeaderNic = async (e) => {
     const updatedToken = KeycloakService.getToken();
     const nic = e.target.value;
@@ -41,7 +46,8 @@ export const PartyRegistrationApplicationDrawer = () => {
               Authorization: `Bearer ${updatedToken}`
           }
         });
-        console.log(response);
+        setLeaderName(response.data.Name);
+        console.log(response.data);
         if ([200, 201].includes(response.status)) {
             setIsLeaderVerified(true);
             setIsSubmitDisabled(false);
@@ -58,6 +64,7 @@ export const PartyRegistrationApplicationDrawer = () => {
     }
   };
 
+  //form submission handling
   const onSubmit = (data) => {
 
   }
@@ -69,58 +76,79 @@ export const PartyRegistrationApplicationDrawer = () => {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box>
-          <Typography variant="h6" color="textSecondary" gutterBottom>
-            Party Information
-          </Typography>
-          <Divider />
-          <TextField
-            fullWidth
-            label="Party Name"
-            variant="outlined"
-            margin="normal"
-          />
-          <TextField
-            fullWidth
-            label="Party Leader"
-            variant="outlined"
-            margin="normal"
-          />
-          <TextField
-            fullWidth
-            label="Established Date"
-            variant="outlined"
-            margin="normal"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          {/* Leader NIC */}
-          <TextField
-            fullWidth
-            label="Leader NIC"
-            variant="outlined"
-            {...register("leaderNic", { required: true })}
-            error={!!errors.leaderNic}
-            helperText={errors.leaderNic && 'Leader NIC is required'}
-            onBlur={validateLeaderNic} 
-          />
-          {isLoading && <Typography>Verifying leader NIC...</Typography>} 
-          {!isLoading && isLeaderVerified && <Typography className='text-green-400'>Leader identified successfully!</Typography>}
-          {!isLoading && !isLeaderVerified && <Typography className='text-error'>Leader identification failed!</Typography>}
+          <Stack>
+            <Typography variant="h6" color="textSecondary" gutterBottom>
+              Party Information
+            </Typography>
+            <Divider />
+            
+            <TextField
+              fullWidth
+              label="Party Name"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              label="Abbreviation"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              label="Party Leader"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              label="Established Date"
+              variant="outlined"
+              type="date"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+            <Stack row>
+              {/* Leader NIC */}
+              <TextField
+                fullWidth
+                label="Leader NIC"
+                variant="outlined"
+                {...register("leaderNic", { required: true })}
+                error={!!errors.leaderNic}
+                helperText={errors.leaderNic && 'Leader NIC is required'}
+                onBlur={validateLeaderNic} 
+              />
+              {isLoading && <Typography>Verifying leader NIC...</Typography>} 
+              {!isLoading && isLeaderVerified && <Typography className='text-green-400'>Leader identified successfully!</Typography>}
+              {!isLoading && !isLeaderVerified && <Typography className='text-error'>Leader identification failed!</Typography>}
+              {/* Leader Name */}
+              <TextField
+                fullWidth
+                label="Leader Name"
+                variant='outlined'
+                {...register("leaderName", { required:true })}
+                disabled={true}
+                value={leaderName}
+              />
+            </Stack>
+
+          </Stack>
         </Box>
+
         <Box>
-          <Typography variant="h6" color="textSecondary" gutterBottom>
-            Documents
-          </Typography>
-          <Divider />
-          <TextField
-            fullWidth
-            label="Party Symbol"
-            variant="outlined"
-            margin="normal"
-          />
+          <Stack>
+            <Typography variant="h6" color="textSecondary" gutterBottom>
+              Documents
+            </Typography>
+            <Divider />
+            <TextField
+              fullWidth
+              label="Party Symbol"
+              variant="outlined"
+              margin="normal"
+            />
+          </Stack>
         </Box>
+
         <Divider sx={{ marginY: 2 }} />
         <Button variant="contained" color="primary" disabled={isSubmitDisabled} fullWidth>
           Submit
