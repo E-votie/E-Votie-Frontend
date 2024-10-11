@@ -4,7 +4,7 @@ import {authGet} from '../Auth/authFetch.jsx';
 
 const DataContext = createContext();
 
-export const DataProvider = ({ children, link, tableData }) => {
+export const DataProvider = ({ children, link, tableData}) => {
     const [columns, setColumns] = useState(tableData);
     const [rows, setRows] = useState([]);
 
@@ -12,6 +12,7 @@ export const DataProvider = ({ children, link, tableData }) => {
         const fetchData = async () => {
             try {
                 const data = await authGet(link);
+                console.log(data);
                 setRows(data);
                 console.log(rows);
             } catch (error) {

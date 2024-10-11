@@ -12,7 +12,7 @@ import { useData } from '../services/TableDataContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-export default function ColumnGroupingTable({ link }) {
+export default function ColumnGroupingTable({ link, title, icon }) {
     const { columns, rows } = useData();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -37,7 +37,7 @@ export default function ColumnGroupingTable({ link }) {
         <div className="min-h-[600px] flex flex-col bg-base-100 shadow-2xl px-4 pb-4 gap-6 rounded-2xl">
             <div className="flex my-7 justify-center items-center bg-[#f8f8f8] h-[70px]">
                 <AccountCircleIcon/>
-                <h2 className="ml-5">Voter Registration Application Details</h2>
+                <h2 className="ml-5">{title}</h2>
             </div>
             <Paper sx={{width: '100%'}}>
                 <TableContainer sx={{maxHeight: 440}}>

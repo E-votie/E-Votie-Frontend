@@ -44,12 +44,13 @@ import { CandidateApplicationsVerificationOfficer } from "./Pages/VerificationOf
 import {PollingStationsProvider} from "./Pages/Election/PollingStationsContext.jsx";
 import UpcomingElections from "./Pages/Election/Upcoming_Elections.jsx";
 import ElectionTimeline from "./Pages/Election/Election_Timeline.jsx";
+import Additional_Materials from "./Pages/Election/Additional_Materials.jsx";
+import AddCandidates from "./Pages/Election/AddCandidates.jsx";
 import {VotingPage} from "./Pages/VotingUI/VotingPage.jsx";
 import {VotingPageStart} from "./Pages/VotingUI/StartPage.jsx";
 import {VotingView} from "./Pages/VoterVerification_UI/VoterView.jsx";
 import {ResultView} from "./Pages/ReportGeneration/ResultView.jsx";
 import {DistrictResultView} from "./Pages/ReportGeneration/DistrictResult.jsx";
-
 
 // Create a QueryClient instance
 const queryClient = new QueryClient();
@@ -191,6 +192,8 @@ function App() {
                             </PollingStationsProvider>} />
                             <Route path="/Election/Upcoming_Elections" element={<UpcomingElections />} />
                             <Route path="/Election/Election_Timeline" element={<ElectionTimeline />} />
+                            <Route path="/Election/Additional_Materials" element={<Additional_Materials />} />
+                            <Route path="/Election/AddCandidates" element={<AddCandidates />} />
                             <Route path="/election/result/district/:District" element={<DistrictResultView/>}/>
                         </Route>
                     </Routes>
