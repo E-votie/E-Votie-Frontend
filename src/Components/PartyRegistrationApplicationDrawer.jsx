@@ -239,18 +239,18 @@ export const PartyRegistrationApplicationDrawer = () => {
     </Box>
   );
 
-  return (
-    <div>
-      <Button variant="outlined" onClick={toggleDrawer(true)}>
-        Open Registration Form
-      </Button>
-      <Drawer
-        anchor="right"
-        open={state.right}
-        onClose={toggleDrawer(false)}
-      >
-        {form()}
-      </Drawer>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <Button variant="outlined" onClick={toggleDrawer(true)}>
+//         Open Registration Form
+//       </Button>
+//       <Drawer
+//         anchor="right"
+//         open={state.right}
+//         onClose={toggleDrawer(false)}
+//       >
+//         {form()}
+//       </Drawer>
+//     </div>
+//   );
+// }
