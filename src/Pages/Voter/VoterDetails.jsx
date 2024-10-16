@@ -70,7 +70,7 @@ export const VoterDetails = () => {
                 console.log(data.voter)
                 setResponseData(data.voter);
                 setProfileImage(data.profileImageUrl);
-                setQrCode(data.voter.NIC)
+                setQrCode(data.voter.voterID)
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);

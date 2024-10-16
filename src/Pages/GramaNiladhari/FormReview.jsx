@@ -280,7 +280,7 @@ export const FormReview = () => {
                     <div className="form-control justify-center mt-6">
                         <label className="label cursor-pointer gap-5">
                             <span className="label-text">Verified by Chief Occupant</span>
-                            <input type="checkbox" defaultChecked className="checkbox checkbox-primary" readOnly/>
+                            <input type="checkbox" defaultChecked className="checkbox checkbox-primary" disabled/>
                         </label>
                     </div>
                 </div>

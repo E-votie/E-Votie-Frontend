@@ -1,0 +1,22 @@
+[
+    {
+        "label": "Registration of Email and Mobile",
+        "description": "Please provide your email and mobile number to start the registration process."
+    },
+    {
+        "label": "Personal Details",
+        "description": "Enter your personal details, including name, date of birth, and address."
+    },
+    {
+        "label": "Location Details",
+        "description": "Provide the location details of your residence."
+    },
+    {
+        "label": "Chief Occupant Details",
+        "description": "Fill in the details of the chief occupant of the residence."
+    },
+    {
+        "label": "Confirmation",
+        "description": "Review all the provided information and confirm to complete the registration."
+    }
+]

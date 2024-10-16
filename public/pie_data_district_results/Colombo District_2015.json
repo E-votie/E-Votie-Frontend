@@ -1,0 +1,25 @@
+[
+  {
+    "party": "UPFA",
+    "Name": "Mahinda Rajapaksha",
+    "percentage": "43.4",
+    "count": 562614,
+    "color": "#0277bd",
+    "Image": "https://srilankaembassy.fr/sites/default/files/files/media/images/SL%20Embassy%20News/Mahinda-Rajapaksa-1.jpg"
+  },
+  {
+    "party": "NDF",
+    "Name": "Maithripala Sirisena",
+    "percentage": "55.93",
+    "count": 725073,
+    "color": "#fdd835",
+    "Image": "https://media.gov.lk/images/President_maithripala_Sirisena.jpg"
+  },
+  {
+    "party": "OTHER",
+    "percentage": "0.67",
+    "count": 8673,
+    "color": "#a5a5Aa",
+    "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png"
+  }
+]

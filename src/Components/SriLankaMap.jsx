@@ -3,7 +3,7 @@ import { MapContainer, GeoJSON, useMap } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 
-const SriLankaMap = ({ sriLankaGeoJSON, zoom = 7 }) => {
+const SriLankaMap = ({ sriLankaGeoJSON, zoom = 7, level = 'ADM2_EN', districtColors }) => {
     const navigate = useNavigate();
     const [geoJsonData, setGeoJsonData] = useState(null);
 
@@ -30,29 +30,17 @@ const SriLankaMap = ({ sriLankaGeoJSON, zoom = 7 }) => {
             });
     }, [sriLankaGeoJSON]);
 
-    const districtColors = {
-        'Ampara': '#0e723a', 'Anuradhapura': '#b41f24', 'Badulla': '#b41f24',
-        'Batticaloa': '#0e723a', 'Colombo': '#b41f24', 'Galle': '#b41f24',
-        'Gampaha': '#b41f24', 'Hambantota': '#b41f24', 'Jaffna': '#0e723a',
-        'Kalutara': '#b41f24', 'Kandy': '#b41f24', 'Kegalle': '#b41f24',
-        'Kilinochchi': '#0e723a', 'Kurunegala': '#b41f24', 'Mannar': '#0e723a',
-        'Matale': '#b41f24', 'Matara': '#b41f24', 'Monaragala': '#b41f24',
-        'Mullaitivu': '#0e723a', 'Nuwara Eliya': '#0e723a', 'Polonnaruwa': '#b41f24',
-        'Puttalam': '#b41f24', 'Ratnapura': '#b41f24', 'Trincomalee': '#b41f24',
-        'Vavuniya': '#0e723a'
-    };
-
     const getColor = (code) => districtColors[code] || '#CCCCCC';
 
     const onEachFeature = (feature, layer) => {
         if (feature.properties) {
             layer.bindPopup(`
-                <strong>District:</strong> ${feature.properties.ADM2_EN || 'Unknown'}<br>
-                <strong>Province:</strong> ${feature.properties.ADM1_EN}
+                <strong>District:</strong> ${feature.properties[level] || 'Unknown'}<br>
+                <strong>Province:</strong> ${feature.properties[level]}
             `);
 
             const originalStyle = {
-                fillColor: getColor(feature.properties.ADM2_EN),
+                fillColor: getColor(feature.properties[level]),
                 fillOpacity: 0.9
             };
 
@@ -67,7 +55,7 @@ const SriLankaMap = ({ sriLankaGeoJSON, zoom = 7 }) => {
                     e.target.setStyle(originalStyle);
                 },
                 click: () => {
-                    navigate(`district/${feature.properties.ADM2_EN}`);
+                    navigate(`district/${feature.properties[level]}`);
                 }
             });
         }
@@ -75,7 +63,7 @@ const SriLankaMap = ({ sriLankaGeoJSON, zoom = 7 }) => {
 
     const style = (feature) => {
         return {
-            fillColor: getColor(feature.properties.ADM2_EN),
+            fillColor: getColor(feature.properties[level]),
             weight: 1,
             opacity: 1,
             color: 'black',
