@@ -167,6 +167,7 @@ export const NewHome = () => {
                             Get Started
                         </Button>
                     </motion.div>
+                    <Link to={"/voter/postal_vote"}>
                     <motion.div
                         className="flex flex-col items-center justify-between p-6 bg-white rounded-lg shadow-md w-40 h-40"
                         whileHover={{scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)"}}
@@ -192,6 +193,8 @@ export const NewHome = () => {
                             Get Started
                         </Button>
                     </motion.div>
+                    </Link>
+                    <Link to={"/party/list"}>
                     <motion.div
                         className="flex flex-col items-center justify-between p-6 bg-white rounded-lg shadow-md w-40 h-40"
                         whileHover={{scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)"}}
@@ -217,6 +220,7 @@ export const NewHome = () => {
                             Get Started
                         </Button>
                     </motion.div>
+                    </Link>
                 </div>
             </div>
             <div className="flex items-center justify-between p-36 pl-52 pb-10 bg-white -mx-24 -mt-20">
