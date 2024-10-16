@@ -174,6 +174,15 @@ function App() {
                                 }
                             />
                             <Route
+                                path="/verification/Home"
+                                element={
+                                    <ProtectedRoute
+                                        element={VerificationHome}
+                                        role="VerificationOfficer"
+                                    />
+                                }
+                            />
+                            <Route
                                 path="/verification_officer/form_review/:ApplicationID"
                                 element={
                                     <ProtectedRoute

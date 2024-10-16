@@ -21,10 +21,13 @@ export const FormReview = () => {
     const [photoData, setPhotoData] = useState(null);
     const [nicFrontData, setNicFrontData] = useState(null);
     const [nicBackData, setNicBackData] = useState(null);
+    const [showPopup, setShowPopup] = useState(false); // State to control the popup
     const {ApplicationID} = useParams();
-
+    const closePopup = () => {
+        setShowPopup(false);
+    };
     const {
-        signMessage, connectWallet, setMessage, message, account
+        signMessage, connectWallet,PublicKeyVerify, setMessage, message, account, isPublicKeyMatch
 
     } = signing();
 
@@ -74,6 +77,11 @@ export const FormReview = () => {
     });
 
     const onSubmit = async (data) => {
+        console.log("isPublicKeyMatch", isPublicKeyMatch)
+        if(!isPublicKeyMatch){
+            setShowPopup(true);
+            return
+        }
         const signature = await signMessage();
         if (!signature) {
             return
@@ -294,5 +302,17 @@ export const FormReview = () => {
                 </div>
             </div>
         </form>)}
+        {showPopup && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="bg-white p-5 rounded shadow-lg">
+                    <h2 className="text-xl font-bold mb-4">Public Key Mismatch</h2>
+                    <p>Your connected wallet does not match the required public key.</p>
+                    <p>Please connect the correct wallet or contact support if you think this is a mistake.</p>
+                    <div className="mt-4 flex justify-end">
+                        <button className="btn btn-secondary" onClick={closePopup}>Cancel</button>
+                    </div>
+                </div>
+            </div>
+        )}
     </div>);
 }

@@ -2,123 +2,13 @@
 import {useState} from 'react';
 import {ethers} from 'ethers'
 import Swal from "sweetalert2";
+import keycloakService from "./KeycloakService.jsx";
+import ABI from './../../public/EmployeeKeyManagement.json'
 
-const ABI = [
-    {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "userId",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "internalType": "address",
-                "name": "walletAddress",
-                "type": "address"
-            }
-        ],
-        "name": "UserAdded",
-        "type": "event"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "_userId",
-                "type": "string"
-            },
-            {
-                "internalType": "address",
-                "name": "_walletAddress",
-                "type": "address"
-            }
-        ],
-        "name": "addUser",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_walletAddress",
-                "type": "address"
-            }
-        ],
-        "name": "getUserId",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "_userId",
-                "type": "string"
-            }
-        ],
-        "name": "getWalletAddress",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_walletAddress",
-                "type": "address"
-            }
-        ],
-        "name": "isWalletRegistered",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    }
-];
+const CONTRACT_ADDRESS = "0xf89afc48e5fa14377f8e27659e564633a947abe3";
+console.log(CONTRACT_ADDRESS)
+console.log('Contract ABI:', ABI);
 
-const CONTRACT_ADDRESS = "0x10a31dd7da68cdae58bbf067b1e96c828e661b03";
 
 export const signing = () => {
     const [account, setAccount] = useState('');
@@ -126,7 +16,7 @@ export const signing = () => {
     const [UserID, setUserID] = useState('');
     const [signature, setSignature] = useState('');
     const [verified, setVerified] = useState(false);
-    const [isRegistered, setIsRegistered] = useState(false);
+    const [isPublicKeyMatch, setIsPublicKeyMatch] = useState(false);
 
     const connectWallet = async () => {
         if (typeof window.ethereum !== 'undefined') {
@@ -138,7 +28,7 @@ export const signing = () => {
                 const address = await signer.getAddress();
                 console.log('Connected address:', address);
                 setAccount(address);
-                await checkWalletRegistration(address, provider);
+                await PublicKeyVerify(address);
             } catch (error) {
                 console.error('Error connecting to MetaMask:', error);
                 if (error.code === 4001) {
@@ -152,16 +42,25 @@ export const signing = () => {
         }
     };
 
-    const checkWalletRegistration = async (address, provider) => {
+    const PublicKeyVerify = async (account) => {
         try {
-            const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
-            const result = await contract.isWalletRegistered(address);
-            setIsRegistered(result);
-            console.log('Is wallet registered:', result);
+            const PublicKey = await getWalletAddress(keycloakService.getUserName());
+            console.log(account,PublicKey)
+            if(PublicKey === account){
+                console.log("--------------->>>>>>>>>>>>>>>")
+                setIsPublicKeyMatch(true)
+                return true;
+            }else{
+                setIsPublicKeyMatch(false)
+                return false;
+            }
         } catch (error) {
+            setIsPublicKeyMatch(false)
             console.error('Error checking wallet registration:', error);
         }
     };
+
+
 
     const signMessage = async () => {
         if (!account) {
@@ -230,11 +129,12 @@ export const signing = () => {
     };
 
     const getWalletAddress = async (userId) => {
+        console.log(userId)
         if (typeof window.ethereum !== 'undefined') {
             try {
                 const provider = new ethers.BrowserProvider(window.ethereum);
                 const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
-                const walletAddress = await contract.getWalletAddress(userId);
+                const walletAddress = await contract.getPublicKey(userId);
                 console.log('Wallet address for User ID', userId, ':', walletAddress);
                 return walletAddress;
             } catch (error) {
@@ -245,31 +145,12 @@ export const signing = () => {
         }
     };
 
-    const RegisterWalletAddress = async () => {
-        if (typeof window.ethereum !== 'undefined') {
-            try {
-                const provider = new ethers.BrowserProvider(window.ethereum);
-                const signer = await provider.getSigner();
-                const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
-                const tx = await contract.addUser(UserID, account);
-                await tx.wait();
-                console.log('User registered successfully');
-                await checkWalletRegistration(account, provider);
-            } catch (error) {
-                console.error('Error registering user:', error);
-            }
-        } else {
-            console.error('MetaMask is not installed');
-        }
-    };
-
     return {
         connectWallet,
-        checkWalletRegistration,
         signMessage,
         verifyMessage,
         getWalletAddress,
-        RegisterWalletAddress,
+        PublicKeyVerify,
         account,
         message,
         setMessage,
@@ -277,6 +158,6 @@ export const signing = () => {
         setUserID,
         signature,
         verified,
-        isRegistered,
+        isPublicKeyMatch,
     };
 };

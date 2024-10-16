@@ -15,6 +15,7 @@ import { motion } from 'framer-motion';
 import Card from "@mui/material/Card";
 import {Link, useNavigate} from 'react-router-dom';
 import KeycloakService from "../services/KeycloakService.jsx";
+import keycloakService from "../services/KeycloakService.jsx";
 
 
 export const NewHome = () => {
@@ -25,6 +26,9 @@ export const NewHome = () => {
     useEffect(() => {
         if (KeycloakService.hasRole("GramaNiladhari")) {
             navigate('/GN/Home');  // Use navigate instead of navigator
+        }
+        if(keycloakService.hasRole("VerificationOfficer")){
+            navigate("/verification/Home");
         }
         const handleScroll = () => {
             const element = document.getElementById('animatedDiv');
