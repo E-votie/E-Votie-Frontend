@@ -268,7 +268,7 @@ export const NewHome = () => {
                 className="bg-[#f6f9fe] p-32 px-64 flex flex-wrap flex-col gap-16 -mx-24"
             >
                 <div className="flex flex-wrap flex-row">
-                    <div className="relative max-w-sm mx-auto">
+                    <div className="relative w-[380px] h-[400px] mx-auto">
                         <Card className="p-6 text-center relative z-10">
                             <div className="my-14"> {/* Add margin to create space for the icon */}
                                 <Typography variant="h6" component="div" className="font-bold">
@@ -323,17 +323,6 @@ export const NewHome = () => {
                                         On-line Registration
                                     </Button>
                                     <Divider/>
-                                    <Button
-                                        className="block w-full text-black hover:font-bold"
-                                        variant="text"
-                                        sx={{
-                                            color: 'black',
-                                            '&:hover': {
-                                                fontWeight: 700,
-                                            },
-                                        }}>
-                                        More
-                                    </Button>
                                 </div>
                             </div>
                         </Card>
@@ -343,7 +332,7 @@ export const NewHome = () => {
                             <PersonOutlineOutlinedIcon className="text-white" style={{fontSize: 40}}/>
                         </div>
                     </div>
-                    <div className="relative max-w-sm mx-auto">
+                    <div className="relative w-[380px] h-[400px] mx-auto">
                         <Card className="p-6 text-center relative z-10">
                             <div className="my-14"> {/* Add margin to create space for the icon */}
                                 <Typography variant="h6" component="div" className="font-bold">
@@ -397,6 +386,16 @@ export const NewHome = () => {
                                         }}>
                                         More
                                     </Button>
+                                    <Button
+                                        className="block w-full text-black hover:font-bold"
+                                        variant="text"
+                                        sx={{
+                                            color: 'black',
+                                            '&:hover': {
+                                                fontWeight: 700,
+                                            },
+                                        }}>
+                                    </Button>
                                 </div>
                             </div>
                         </Card>
@@ -406,7 +405,7 @@ export const NewHome = () => {
                             <CoPresentIcon className="text-white" style={{fontSize: 40}}/>
                         </div>
                     </div>
-                    <div className="relative max-w-sm mx-auto">
+                    <div className="relative w-[380px] h-[400px] mx-auto">
                         <Card className="p-6 text-center relative z-10">
                             <div className="my-14"> {/* Add margin to create space for the icon */}
                                 <Typography variant="h6" component="div" className="font-bold">
@@ -422,7 +421,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Voter Registration Details
+                                        Voter Registration
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -461,17 +460,6 @@ export const NewHome = () => {
                                         On-line Registration
                                     </Button>
                                     <Divider/>
-                                    <Button
-                                        className="block w-full text-black hover:font-bold"
-                                        variant="text"
-                                        sx={{
-                                            color: 'black',
-                                            '&:hover': {
-                                                fontWeight: 700,
-                                            },
-                                        }}>
-                                        More
-                                    </Button>
                                 </div>
                             </div>
                         </Card>
@@ -483,7 +471,7 @@ export const NewHome = () => {
                     </div>
                 </div>
                 <div className="flex flex-wrap flex-row">
-                    <div className="relative max-w-sm mx-auto">
+                    <div className="relative w-[380px] h-[400px] mx-auto">
                         <Card className="p-6 text-center relative z-10">
                             <div className="my-14"> {/* Add margin to create space for the icon */}
                                 <Typography variant="h6" component="div" className="font-bold">
@@ -558,7 +546,7 @@ export const NewHome = () => {
                             <PersonOutlineOutlinedIcon className="text-white" style={{fontSize: 40}}/>
                         </div>
                     </div>
-                    <div className="relative max-w-sm mx-auto">
+                    <div className="relative w-[380px] h-[400px] max-w-sm mx-auto">
                         <Card className="p-6 text-center relative z-10">
                             <div className="my-14"> {/* Add margin to create space for the icon */}
                                 <Typography variant="h6" component="div" className="font-bold">
@@ -633,7 +621,7 @@ export const NewHome = () => {
                             <CoPresentIcon className="text-white" style={{fontSize: 40}}/>
                         </div>
                     </div>
-                    <div className="relative max-w-sm mx-auto">
+                    <div className="relative w-[380px] h-[400px] max-w-sm mx-auto">
                         <Card className="p-6 text-center relative z-10">
                             <div className="my-14"> {/* Add margin to create space for the icon */}
                                 <Typography variant="h6" component="div" className="font-bold">

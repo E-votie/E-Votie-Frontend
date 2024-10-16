@@ -57,6 +57,7 @@ import NewHome from "./Pages/Home_New.jsx";
 import StatementOfElectoralRegistrationForm from "./Pages/Voter/Statement_o_Electoral_Registration.jsx";
 import ElectionSlip from "./Pages/Voter/ElectionSlip.jsx";
 import CandidateNominationForm from "./Pages/Voter/Candidate/Candidate_Nomination.jsx";
+import PostalVoteForm from "./Pages/Voter/PostalVote.jsx";
 
 // Create a QueryClient instance
 const queryClient = new QueryClient();
@@ -113,6 +114,15 @@ function App() {
                                 element={
                                     <ProtectedRoute
                                         element={CandidateNominationForm}
+                                        role="Voter"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/voter/postal_vote"
+                                element={
+                                    <ProtectedRoute
+                                        element={PostalVoteForm}
                                         role="Voter"
                                     />
                                 }
