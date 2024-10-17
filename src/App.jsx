@@ -72,34 +72,16 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Layout />}>
                             <Route path="/" element={<NewHome />} />
-                            <Route path="/VoterRegistration" element={<VoterRegistration_1 />} />
+                            <Route path="/Special_home" element={<Home />} />
+                            <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
+                            <Route path="/election/result" element={<ResultView/>}/>
+                            {/*<Route path="/election/nominations" element={<SelectNominations />} />*/}
+
+                            {/*Voter Paths*/}
                             <Route path="/VoterRegistration" element={<QueryClientProvider client={queryClient}> <VoterRegistration_1/> </QueryClientProvider>} />
                             <Route path="/VoterRegistration/:ApplicationID" element={<QueryClientProvider client={queryClient}> <VoterRegistration_2/> </QueryClientProvider>} />
                             <Route path="/verify/:Hash" element={<QueryClientProvider client={queryClient}> <EmailVerification /> </QueryClientProvider>} />
-                            <Route path="/Special_home" element={<Home />} />
                             <Route path="/announcements" element={<Announcements />} />
-                            <Route path="/inquiries" element={<Inquiries />} />
-                            <Route path="/party/:partyId" element={<Party />} />
-                            <Route path="/party/list" element={<PartyList />} />
-                            <Route path="/party/registration" element={<PartyRegistration />} />
-                            <Route path="/party/registration/application" element={<PartyApplication />} />
-                            <Route path="/party/member" element={<PartyMember />} />
-                            <Route path="/party/member/manifesto" element={<Manifesto />} />
-                            <Route path="/election/list" element={<ElectionList />} />
-                            <Route path="/election" element={<Election />} />
-                            <Route path="/reports/View" element={<ReportView />} />
-                            <Route path="/Approve" element={<ApprovePartyMembers />} />
-                            <Route path="/voting_page" element={<VotingPage />} />
-                            <Route path="/voting_page/start" element={<VotingPageStart />} />
-                            <Route
-                                path="/GN"
-                                element={
-                                    <ProtectedRoute
-                                        element={GnHome}
-                                        role="GramaNiladhari"
-                                    />
-                                }
-                            />
                             <Route
                                 path="/StatementOfElectoralRegistration"
                                 element={
@@ -127,7 +109,93 @@ function App() {
                                     />
                                 }
                             />
+                            <Route
+                                path="/voter/profile"
+                                element={
+                                    <ProtectedRoute
+                                        element={VoterDetails}
+                                        role="Voter"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/voter/election_registration"
+                                element={
+                                    <ProtectedRoute
+                                        element={ElectionRegistration}
+                                        role="Voter"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/voter/election_slip/:NIC"
+                                element={
+                                    <ProtectedRoute
+                                        element={ElectionSlip}
+                                        role="Voter"
+                                    />
+                                }
+                            />
 
+                            {/*Party Paths*/}
+
+                            <Route path="/party/:partyId" element={<Party />} />
+                            <Route path="/party/list" element={<PartyList />} />
+                            <Route path="/party/registration" element={<PartyRegistration />} />
+                            <Route path="/party/registration/application" element={<PartyApplication />} />
+                            <Route path="/party/member" element={<PartyMember />} />
+                            <Route path="/party/member/manifesto" element={<Manifesto />} />
+
+                            {/*Election Paths*/}
+
+                            <Route path="/election/list" element={<ElectionList />} />
+                            <Route path="/election" element={<Election />} />
+                            <Route path="/reports/View" element={<ReportView />} />
+                            <Route path="/Approve" element={<ApprovePartyMembers />} />
+                            <Route path="/Election/Create" element={<CreateElection />} />
+                            <Route path="/Election/Announcements" element={<Election_Announcements />} />
+                            <Route path="/Election/Create_Announcements" element={<Create_Announcements />} />
+                            <Route path="/Election/Polling_Stations" element={<Polling_Stations />} />
+                            <Route path="/ElectionCommissionerHome" element={<ElectionCommissionerHome />} />
+                            <Route path="/Election/Polling_Stations" element={
+                                <PollingStationsProvider>
+                                    <Polling_Stations />
+                                </PollingStationsProvider>} />
+                            <Route path="/Election/Upcoming_Elections" element={<UpcomingElections />} />
+                            <Route path="/Election/Election_Timeline" element={<ElectionTimeline />} />
+                            <Route path="/Election/Additional_Materials" element={<Additional_Materials />} />
+                            <Route path="/Election/AddCandidates" element={<AddCandidates />} />
+                            <Route path="/election/result/district/:District" element={<DistrictResultView/>}/>
+                            <Route path="/ElectionDashBoard" element={<DashBoard />} />
+
+                            {/*Admin Paths*/}
+
+                            <Route
+                                path="/inquiries"
+                                element={
+                                    <ProtectedRoute
+                                        element={Inquiries}
+                                        role="Admin"
+                                    />
+                                }
+                            />
+
+                            {/*Voting Page Paths*/}
+
+                            <Route path="/voting_page" element={<VotingPage />} />
+                            <Route path="/voting_page/start" element={<VotingPageStart />} />
+
+                            {/*GN Paths*/}
+
+                            <Route
+                                path="/GN"
+                                element={
+                                    <ProtectedRoute
+                                        element={GnHome}
+                                        role="GramaNiladhari"
+                                    />
+                                }
+                            />
                             <Route
                                 path="/GN/voter_applications"
                                 element={
@@ -155,6 +223,9 @@ function App() {
                                     />
                                 }
                             />
+
+                            {/*Verification Officer Paths*/}
+
                             <Route
                                 path="/verification_officer"
                                 element={
@@ -191,15 +262,7 @@ function App() {
                                     />
                                 }
                             />
-                            <Route
-                                path="/voter/profile"
-                                element={
-                                    <ProtectedRoute
-                                        element={VoterDetails}
-                                        role="Voter"
-                                    />
-                                }
-                            />
+
                             <Route
                                 path="/verification_officer/fingerprint_scan"
                                 element={
@@ -209,55 +272,11 @@ function App() {
                                     />
                                 }
                             />
-                            <Route
-                                path="/voter/election_registration"
-                                element={
-                                    <ProtectedRoute
-                                        element={ElectionRegistration}
-                                        role="Voter"
-                                    />
-                                }
-                            />
-                            <Route
-                                path="/voter/election_registration/:ElectionID"
-                                element={
-                                    <ProtectedRoute
-                                        element={ElectionRegistrationForm}
-                                        role="Voter"
-                                    />
-                                }
-                            />
-                            <Route
-                                path="/voter/election_slip/:NIC"
-                                element={
-                                    <ProtectedRoute
-                                        element={ElectionSlip}
-                                        role="Voter"
-                                    />
-                                }
-                            />
-                            <Route path="/Election/Create" element={<CreateElection />} />
-                            <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
-                            <Route path="/Election/Announcements" element={<Election_Announcements />} />
-                            <Route path="/Election/Create_Announcements" element={<Create_Announcements />} />
-                            <Route path="/Election/Polling_Stations" element={<Polling_Stations />} />
-                            <Route path="/poling_station/voter_verification" element={<VotingView/>} />
-                            <Route path="/election/result" element={<ResultView/>}/>
-                            <Route path="/election/nominations" element={<SelectNominations />} />
-                            <Route path="/voter/registration/1" element={<VoterRegistration_1 />} />
-                            <Route path="/voter/registration/2" element={<VoterRegistration_2 />} />
                             <Route path="/verification_officer/candidate_applications" element={<CandidateApplicationsVerificationOfficer />} />
-                            <Route path="/ElectionCommissionerHome" element={<ElectionCommissionerHome />} />
-                            <Route path="/Election/Polling_Stations" element={
-                                <PollingStationsProvider>
-                                <Polling_Stations />
-                            </PollingStationsProvider>} />
-                            <Route path="/Election/Upcoming_Elections" element={<UpcomingElections />} />
-                            <Route path="/Election/Election_Timeline" element={<ElectionTimeline />} />
-                            <Route path="/Election/Additional_Materials" element={<Additional_Materials />} />
-                            <Route path="/Election/AddCandidates" element={<AddCandidates />} />
-                            <Route path="/election/result/district/:District" element={<DistrictResultView/>}/>
-                            <Route path="/ElectionDashBoard" element={<DashBoard />} />
+
+                            {/*Polling Stations Paths*/}
+
+                            <Route path="/poling_station/voter_verification" element={<VotingView/>} />
                         </Route>
                     </Routes>
                 </Router>

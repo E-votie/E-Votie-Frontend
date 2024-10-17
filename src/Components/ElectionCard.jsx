@@ -11,7 +11,7 @@ import {Link, useNavigate} from 'react-router-dom';
 const ElectionCard = ({image, Title, description, EnrollLink, TimeLine, Special}) => {
     const navigate = useNavigate();
     return (
-        <Card sx={{ maxWidth: 400 }}>
+        <Card sx={{ maxWidth: 500 }}>
             <CardActionArea>
                 <CardMedia
                     component="img"
@@ -32,11 +32,6 @@ const ElectionCard = ({image, Title, description, EnrollLink, TimeLine, Special}
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            {KeycloakService.isLoggedIn() && KeycloakService.hasRole("Voter") ? (<CardActions>
-                <Button size="small" color="primary" onClick={() => navigate(EnrollLink)}>
-                    Register for the Election
-                </Button>
-            </CardActions>) : (<div></div>)}
         </Card>
     );
 }

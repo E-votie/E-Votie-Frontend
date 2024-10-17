@@ -12,10 +12,13 @@ import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 import HowToVoteIcon from '@mui/icons-material/HowToVote';
 import { motion } from 'framer-motion';
+import EmojiPeopleOutlinedIcon from '@mui/icons-material/EmojiPeopleOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import Card from "@mui/material/Card";
 import {Link, useNavigate} from 'react-router-dom';
 import KeycloakService from "../services/KeycloakService.jsx";
 import keycloakService from "../services/KeycloakService.jsx";
+import Carousel from "../Components/Carousel.jsx";
 
 
 export const NewHome = () => {
@@ -28,6 +31,9 @@ export const NewHome = () => {
             navigate('/GN/Home');  // Use navigate instead of navigator
         }
         if(keycloakService.hasRole("VerificationOfficer")){
+            navigate("/verification/Home");
+        }
+        if(keycloakService.hasRole("ElectionCommissioner")){
             navigate("/verification/Home");
         }
         const handleScroll = () => {
@@ -146,6 +152,7 @@ export const NewHome = () => {
                             </Button>
                         </motion.div>
                     </Link>
+                    <Link to={"/voter/election_registration"}>
                     <motion.div
                         className="flex flex-col items-center justify-between p-6 bg-white rounded-lg shadow-md w-40 h-40"
                         whileHover={{scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)"}}
@@ -171,6 +178,7 @@ export const NewHome = () => {
                             Get Started
                         </Button>
                     </motion.div>
+                    </Link>
                     <Link to={"/voter/postal_vote"}>
                     <motion.div
                         className="flex flex-col items-center justify-between p-6 bg-white rounded-lg shadow-md w-40 h-40"
@@ -417,7 +425,7 @@ export const NewHome = () => {
                         <Card className="p-6 text-center relative z-10">
                             <div className="my-14"> {/* Add margin to create space for the icon */}
                                 <Typography variant="h6" component="div" className="font-bold">
-                                    FOR CITIZENS
+                                    FOR CANDIDATES
                                 </Typography>
                                 <div className="my-4">
                                     <Button
@@ -429,7 +437,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Voter Registration
+                                        Candidate Info
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -441,7 +449,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Electoral Registration Details - Draft
+                                        Independent candidate nominations
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -453,7 +461,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Statement of Electoral Registration
+                                        Candidate objections
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -465,16 +473,26 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        On-line Registration
+                                        More
                                     </Button>
-                                    <Divider/>
+                                    <Button
+                                        className="block w-full text-black hover:font-bold"
+                                        variant="text"
+                                        sx={{
+                                            color: 'black',
+                                            '&:hover': {
+                                                fontWeight: 700,
+                                            },
+                                        }}>
+
+                                    </Button>
                                 </div>
                             </div>
                         </Card>
 
                         <div
                             className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-pink-500 rounded-full p-4 z-20">
-                            <PersonOutlineOutlinedIcon className="text-white" style={{fontSize: 40}}/>
+                            <EmojiPeopleOutlinedIcon className="text-white" style={{fontSize: 40}}/>
                         </div>
                     </div>
                 </div>
@@ -483,7 +501,7 @@ export const NewHome = () => {
                         <Card className="p-6 text-center relative z-10">
                             <div className="my-14"> {/* Add margin to create space for the icon */}
                                 <Typography variant="h6" component="div" className="font-bold">
-                                    FOR CITIZENS
+                                    ELECTION DETAILS
                                 </Typography>
                                 <div className="my-4">
                                     <Button
@@ -495,7 +513,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Voter Registration Details
+                                        Upcoming Election
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -507,7 +525,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Electoral Registration Details - Draft
+                                        Past Elections
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -519,19 +537,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Statement of Electoral Registration
-                                    </Button>
-                                    <Divider/>
-                                    <Button
-                                        className="block w-full text-black hover:font-bold"
-                                        variant="text"
-                                        sx={{
-                                            color: 'black',
-                                            '&:hover': {
-                                                fontWeight: 700,
-                                            },
-                                        }}>
-                                        On-line Registration
+                                        Past election Results
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -545,20 +551,30 @@ export const NewHome = () => {
                                         }}>
                                         More
                                     </Button>
+                                    <Button
+                                        className="block w-full text-black hover:font-bold"
+                                        variant="text"
+                                        sx={{
+                                            color: 'black',
+                                            '&:hover': {
+                                                fontWeight: 700,
+                                            },
+                                        }}>
+                                    </Button>
                                 </div>
                             </div>
                         </Card>
 
                         <div
                             className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-pink-500 rounded-full p-4 z-20">
-                            <PersonOutlineOutlinedIcon className="text-white" style={{fontSize: 40}}/>
+                            <BallotIcon className="text-white" style={{fontSize: 40}}/>
                         </div>
                     </div>
                     <div className="relative w-[380px] h-[400px] max-w-sm mx-auto">
                         <Card className="p-6 text-center relative z-10">
                             <div className="my-14"> {/* Add margin to create space for the icon */}
                                 <Typography variant="h6" component="div" className="font-bold">
-                                    FOR GOV OFFICERS
+                                    FOR POLITICAL PARTIES
                                 </Typography>
                                 <div className="my-4">
                                     <Button
@@ -570,7 +586,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Voter Registration Details
+                                        Registered Political parties
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -582,7 +598,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Electoral Registration Details - Draft
+                                        Register new political party
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -594,19 +610,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Statement of Electoral Registration
-                                    </Button>
-                                    <Divider/>
-                                    <Button
-                                        className="block w-full text-black hover:font-bold"
-                                        variant="text"
-                                        sx={{
-                                            color: 'black',
-                                            '&:hover': {
-                                                fontWeight: 700,
-                                            },
-                                        }}>
-                                        On-line Registration
+                                        Political party portal
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -620,20 +624,30 @@ export const NewHome = () => {
                                         }}>
                                         More
                                     </Button>
+                                    <Button
+                                        className="block w-full text-black hover:font-bold"
+                                        variant="text"
+                                        sx={{
+                                            color: 'black',
+                                            '&:hover': {
+                                                fontWeight: 700,
+                                            },
+                                        }}>
+                                    </Button>
                                 </div>
                             </div>
                         </Card>
 
                         <div
                             className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-pink-500 rounded-full p-4 z-20">
-                            <CoPresentIcon className="text-white" style={{fontSize: 40}}/>
+                            <GroupOutlinedIcon className="text-white" style={{fontSize: 40}}/>
                         </div>
                     </div>
                     <div className="relative w-[380px] h-[400px] max-w-sm mx-auto">
                         <Card className="p-6 text-center relative z-10">
                             <div className="my-14"> {/* Add margin to create space for the icon */}
                                 <Typography variant="h6" component="div" className="font-bold">
-                                    FOR CITIZENS
+                                    HELP
                                 </Typography>
                                 <div className="my-4">
                                     <Button
@@ -645,7 +659,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Voter Registration Details
+                                        eServices Help
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -657,7 +671,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Electoral Registration Details - Draft
+                                        Contact Us
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -669,7 +683,7 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        Statement of Electoral Registration
+                                        Terms of Service
                                     </Button>
                                     <Divider/>
                                     <Button
@@ -681,9 +695,8 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        On-line Registration
+                                        Other
                                     </Button>
-                                    <Divider/>
                                     <Button
                                         className="block w-full text-black hover:font-bold"
                                         variant="text"
@@ -693,7 +706,6 @@ export const NewHome = () => {
                                                 fontWeight: 700,
                                             },
                                         }}>
-                                        More
                                     </Button>
                                 </div>
                             </div>
@@ -701,9 +713,15 @@ export const NewHome = () => {
 
                         <div
                             className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-pink-500 rounded-full p-4 z-20">
-                            <PersonOutlineOutlinedIcon className="text-white" style={{fontSize: 40}}/>
+                            <HelpOutlineOutlinedIcon className="text-white" style={{fontSize: 40}}/>
                         </div>
                     </div>
+                </div>
+                <div className="bg-gray-100 p-8 flex-grow justify-between">
+                    <h2 className="text-3xl font-semibold mb-6 text-gray-800">Latest Updates</h2>
+                    <center>
+                        <Carousel/>
+                    </center>
                 </div>
             </motion.div>
         </div>

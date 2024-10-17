@@ -47,7 +47,6 @@ export const signing = () => {
             const PublicKey = await getWalletAddress(keycloakService.getUserName());
             console.log(account,PublicKey)
             if(PublicKey === account){
-                console.log("--------------->>>>>>>>>>>>>>>")
                 setIsPublicKeyMatch(true)
                 return true;
             }else{

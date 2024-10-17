@@ -8,6 +8,8 @@ import CardContent from "@mui/material/CardContent";
 import {QRCode} from 'react-qrcode-logo';
 import StickyHeadTable from "../../Components/HistoryTableVoter.jsx";
 import Swal from "sweetalert2";
+import {motion} from "framer-motion";
+import CircularProgress from "@mui/material/CircularProgress";
 
 
 function StatsComponent() {
@@ -104,7 +106,17 @@ export const VoterDetails = () => {
     };
 
     return (<div>
-            {loading ? (<div>Loading...</div>) : (
+        {loading ? (
+            <div className="card flex bg-base-100 shadow-xl h-full p-5 justify-center items-center h-screen">
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 1 }}
+                    className="flex justify-center items-center"
+                >
+                    <CircularProgress color="secondary" />
+                </motion.div>
+            </div>
+        ) : (
                 <div className="card bg-base-100 shadow-xl h-full p-5 flex flex-col">
                     <div className="self-end mb-4">
                         <ToggleButtonGroup
