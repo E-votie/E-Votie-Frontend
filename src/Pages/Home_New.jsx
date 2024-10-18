@@ -34,7 +34,7 @@ export const NewHome = () => {
             navigate("/verification/Home");
         }
         if(keycloakService.hasRole("ElectionCommissioner")){
-            navigate("/verification/Home");
+            navigate("/election/home");
         }
         const handleScroll = () => {
             const element = document.getElementById('animatedDiv');

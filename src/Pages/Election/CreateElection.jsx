@@ -29,6 +29,7 @@ export const CreateElection = () => {
     });
 
     const onSubmit = async (data) => {
+        console.log("-------->>>>>>>>>>>")
         mutation.mutate(data, {
             onSuccess: (response) => {
                 MySwal.fire({
@@ -61,11 +62,12 @@ export const CreateElection = () => {
                                 <div className="flex flex-col">
                                     <label className="mb-2 font-sans text-lg">Starting Date and Time</label>
                                     <input
+                                        id="StartingDateTime"
                                         type="datetime-local"
-                                        placeholder="Select date and time"
                                         className="input input-bordered input-primary w-full"
                                         {...register("StartingDateTime")}
                                     />
+
                                     {errors.StartingDateTime &&
                                         <p className="text-red-500 text-sm mt-1">{errors.StartingDateTime.message}</p>}
                                 </div>
