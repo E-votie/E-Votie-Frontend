@@ -10,6 +10,8 @@ import {OTP} from "../../Components/OTP";
 import {Box} from "@mui/system";
 import React from "react";
 import withReactContent from "sweetalert2-react-content";
+import VerticalLinearStepper from "../../Components/VerticalLinearStepper.jsx";
+import steps from "./../../assets/Other/VoterRegistrationSteps.json"
 
 const MySwal = withReactContent(Swal)
 
@@ -63,18 +65,12 @@ export const EmailVerification = () => {
     };
 
     return (
-        <div className="card card-side bg-base-100 shadow-xl gap-10 px-4 py-10">
-            <figure>
-                <ul className="steps steps-vertical ml-28 hidden md:block">
-                    <li className="step step-primary">Registration of Email and Mobile</li>
-                    <li className="step">Personal Details</li>
-                    <li className="step">Location Details</li>
-                    <li className="step">Chief Occupant Details</li>
-                    <li className="step">Conformation</li>
-                </ul>
-            </figure>
+        <div className="card card-side bg-base-100 shadow-xl gap-10 px-4 py-24">
+            <div className="ml-32">
+                <VerticalLinearStepper steps={steps} ActiveStep={0}></VerticalLinearStepper>
+            </div>
             <div className="divider lg:divider-horizontal"></div>
-            <div className="card-body flex justify-center items-center">
+            <div className="card-body flex w-fit justify-center items-center">
                 <div className="flex-initial space-y-16 text-center">
                     <p className="font-sans text-2xl">Enter the OTP</p>
                     <Box
@@ -96,6 +92,7 @@ export const EmailVerification = () => {
                             <button type="submit" className="btn btn-outline btn-primary">Verify</button>
                         </div>
                     </form>
+                    <h6 className="text-red-600">You have reserved a OTP to your mobile please enter it</h6>
                 </div>
             </div>
         </div>

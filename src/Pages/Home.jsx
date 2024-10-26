@@ -24,6 +24,13 @@ const actions = [
     "roles": ["Voter", "PartySecretary"]
   },
   {
+    "action": "Verify Voter",
+    "icon": "candidate",
+    "description": "Verify voter details and history hear",
+    "link": "/poling_station/voter_verification",
+    "roles": ["pollingStation"]
+  },
+  {
     "action": "Election Registration",
     "icon": "candidate",
     "description": "eligible voter register for an election to vote",

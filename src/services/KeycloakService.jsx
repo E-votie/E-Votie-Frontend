@@ -88,6 +88,17 @@ class KeycloakService {
         return this.keycloak.token;
     }
 
+    getUserName() {
+        if (this.keycloak && this.keycloak.tokenParsed) {
+            // The exact claim name might vary depending on your Keycloak configuration
+            // Common claims are 'preferred_username', 'username', or 'sub'
+            return this.keycloak.tokenParsed.preferred_username
+                || this.keycloak.tokenParsed.username
+                || this.keycloak.tokenParsed.sub;
+        }
+        return null;
+    }
+
     // New method to handle redirection based on role
     redirectBasedOnRole() {
         console.log('Redirecting based on role')

@@ -68,7 +68,7 @@ const ActionCard = ({ icon, action, description, link, role }) => {
     shouldShowCard(role) && 
     <Link to={link}>
         <motion.div
-        className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between items-center"
+        className="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between items-center"
         whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
         whileTap={{ scale: 0.95 }}
         >                    

@@ -16,7 +16,7 @@ function FingerprintScanner({ ApplicationID }) {
 
     useEffect(() => {
         // Create WebSocket connection
-        const newSocket = new WebSocket(`ws://localhost:8081/fingerprint-websocket?id=${ApplicationID}`);
+        const newSocket = new WebSocket(`ws://localhost:8090/fingerprint-websocket?id=${ApplicationID}`);
 
         // Connection opened
         newSocket.onopen = (event) => {
@@ -85,8 +85,10 @@ function FingerprintScanner({ ApplicationID }) {
     };
 
     const sendCommand = (command) => {
+        console.log(ApplicationID ,"-------------->>>>>>>>>>>>>>>>>>>>>>>");
         if (socket && socket.readyState === WebSocket.OPEN) {
             const jsonMessage = {
+                ApplicationID: ApplicationID,
                 sourceDevice: ApplicationID,
                 targetDevice: deviceId,
                 message: command

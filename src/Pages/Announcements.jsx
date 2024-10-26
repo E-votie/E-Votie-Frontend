@@ -3,87 +3,81 @@ import {AnnouncementCard} from '../Components/AnnouncementCard';
 import { PublishAnnouncementModal } from '../Components/PublishAnnouncementModal';
 import Button from '@mui/material/Button';
 import CreateIcon from '@mui/icons-material/Create';
+import keycloakService from "../services/KeycloakService.jsx";
 
 const announcements = [
     {
-        title: '[Notice] Course Registration - REPEAT',
-        author: 'Lasanthi De Silva',
-        date: 'Friday, 5 July 2024, 2:39 PM',
+        title: '[Election] Presidential Election 2024 - Voter Registration',
+        author: 'Election Commission of Sri Lanka',
+        date: 'Monday, 28 October 2024, 9:00 AM',
         content: (
             <div>
-                <p>Dear Students,</p>
-                <p>Please be informed that based on the decision made during the coordinator meeting, it has been agreed to offer temporary access to the UGVLE for repeat courses for students who missed the repeat course registration deadline. These students will have temporary access to the UGVLE platform until course registration is available.</p>
-                <p>Such students are required to email their degree coordinator with a list of the <strong>courses they intend to repeat</strong>, including the <strong>Course Code, Course Name, Student Registration No, Student Index No,</strong> and <strong>Student Name.</strong></p>
-                <p><strong>[IMPORTANT]</strong> Please note that this temporary access is meant to prevent delays. Once course registrations are open, students must pay the relevant fees and complete their registration accordingly.</p>
-                <p>Coordinator/IS</p>
-            </div>
-        ),
-    },
-    {
-        title: '[Reminder] Semester Fee Payment Deadline',
-        author: 'John Doe',
-        date: 'Monday, 1 July 2024, 10:00 AM',
-        content: (
-            <div>
-                <p>Dear Students,</p>
-                <p>This is a reminder that the deadline for semester fee payments is approaching. Please ensure that you have completed your payment by the end of this week to avoid any late fees.</p>
-                <p>If you have any questions or concerns, please contact the finance office.</p>
-                <p>Thank you.</p>
-                <p>Finance Office</p>
-            </div>
-        ),
-    },
-    {
-        title: '[Update] New Library Hours',
-        author: 'Jane Smith',
-        date: 'Wednesday, 3 July 2024, 9:00 AM',
-        content: (
-            <div>
-                <p>Dear Students and Staff,</p>
-                <p>We are pleased to announce that the library will now be open for extended hours. The new hours are as follows:</p>
+                <p>Dear Citizens,</p>
+                <p>We are pleased to inform you that voter registration for the upcoming Presidential Election will begin on:</p>
                 <ul className="list-disc list-inside">
-                    <li>Monday to Friday: 8:00 AM - 10:00 PM</li>
-                    <li>Saturday: 9:00 AM - 6:00 PM</li>
-                    <li>Sunday: Closed</li>
+                    <li>Monday, 4 November 2024, and will continue until Friday, 15 November 2024.</li>
                 </ul>
-                <p>We hope these extended hours will provide more flexibility for your study and research needs.</p>
+                <p>Please ensure that you are registered to vote by visiting your local election office or registering online at the Election Commission website.</p>
+                <p>For more information on the process, contact your local election officer or call the Election Commission's helpline.</p>
+                <p>Thank you for your civic participation!</p>
                 <p>Best regards,</p>
-                <p>Library Staff</p>
+                <p>Election Commission of Sri Lanka</p>
             </div>
         ),
     },
     {
-        title: '[Alert] Maintenance Downtime',
-        author: 'Maintenance Team',
-        date: 'Thursday, 4 July 2024, 5:00 PM',
+        title: '[Announcement] Parliamentary Elections - Polling Schedule',
+        author: 'Election Commission of Sri Lanka',
+        date: 'Wednesday, 1 November 2024, 11:00 AM',
         content: (
             <div>
-                <p>Dear All,</p>
-                <p>Please be advised that there will be scheduled maintenance on the university's network infrastructure this weekend. The maintenance will occur on:</p>
+                <p>Dear Citizens,</p>
+                <p>The Election Commission is pleased to announce the official polling schedule for the upcoming Parliamentary Elections:</p>
                 <ul className="list-disc list-inside">
-                    <li>Saturday, 6 July 2024, from 12:00 AM to 4:00 AM</li>
+                    <li>Thursday, 14 November 2024, from 7:00 AM to 5:00 PM across all districts.</li>
                 </ul>
-                <p>During this time, access to the internet and internal university systems may be intermittent or unavailable. We apologize for any inconvenience this may cause and appreciate your understanding.</p>
-                <p>Thank you,</p>
-                <p>Maintenance Team</p>
-            </div>
-        ),
-    },
-    {
-        title: '[Event] Annual Sports Day',
-        author: 'Sports Committee',
-        date: 'Friday, 5 July 2024, 1:00 PM',
-        content: (
-            <div>
-                <p>Dear Students and Staff,</p>
-                <p>We are excited to announce that the Annual Sports Day will be held on:</p>
-                <ul className="list-disc list-inside">
-                    <li>Friday, 12 July 2024, from 8:00 AM to 5:00 PM</li>
-                </ul>
-                <p>Join us for a day of fun and competition! Please register for the events at the sports office by Wednesday, 10 July 2024.</p>
-                <p>We look forward to your participation!</p>
+                <p>Please remember to bring a valid form of identification (NIC or Passport) to the polling station. Your vote is your voice, so make sure you participate in shaping the future of Sri Lanka.</p>
+                <p>We look forward to a fair and transparent election process.</p>
                 <p>Best regards,</p>
-                <p>Sports Committee</p>
+                <p>Election Commission of Sri Lanka</p>
+            </div>
+        ),
+    },
+    {
+        title: '[Notice] Postal Vote Application Deadline - Provincial Council Elections',
+        author: 'Election Commission of Sri Lanka',
+        date: 'Friday, 8 November 2024, 10:00 AM',
+        content: (
+            <div>
+                <p>Dear Government Employees,</p>
+                <p>This is a reminder that the deadline to apply for postal votes for the upcoming Provincial Council Elections is:</p>
+                <ul className="list-disc list-inside">
+                    <li>Monday, 11 November 2024, by 4:00 PM.</li>
+                </ul>
+                <p>If you are eligible to apply for a postal vote and have not done so yet, please ensure your application is submitted before the deadline.</p>
+                <p>For more details on eligibility and the application process, please visit the Election Commission website or contact your department's election coordinator.</p>
+                <p>Thank you for your cooperation.</p>
+                <p>Best regards,</p>
+                <p>Election Commission of Sri Lanka</p>
+            </div>
+        ),
+    },
+    {
+        title: '[Reminder] National ID Requirement for Voting - Local Government Elections',
+        author: 'Election Commission of Sri Lanka',
+        date: 'Tuesday, 12 November 2024, 9:30 AM',
+        signature: "646sac498dc46s1d894c16sd1c6s8d41c6sd13c13sd51csd31c6sd8c1sd6c1s9dc6sc1s9d8c46sd1cs686d161sd1c1s61d8186s1dc16",
+        content: (
+            <div>
+                <p>Dear Voters,</p>
+                <p>The Election Commission would like to remind you that a valid National Identity Card (NIC) is mandatory to cast your vote in the upcoming Local Government Elections on:</p>
+                <ul className="list-disc list-inside">
+                    <li>Saturday, 23 November 2024, from 7:00 AM to 5:00 PM.</li>
+                </ul>
+                <p>If you do not have a valid NIC, please visit your nearest Grama Niladhari office to obtain one before the election date.</p>
+                <p>We urge all eligible voters to make the necessary arrangements and exercise their right to vote.</p>
+                <p>Best regards,</p>
+                <p>Election Commission of Sri Lanka</p>
             </div>
         ),
     },
@@ -121,23 +115,25 @@ export const Announcements = () => {
                     Site Announcements
                 </div>
                 {/* Publish new announcement */}
-                <div className=''>
-                    <Button
-                        variant="contained"
-                        onClick={handleOpenPublishAnnouncementModal}
-                        startIcon={<CreateIcon />}
-                        sx={{
-                            backgroundColor: 'rgb(236 72 153)', // Original pink color
-                            color: '#fff',
-                            '&:hover': { 
-                                backgroundColor: 'rgb(220 57 138)' // Slightly darker pink color for hover
-                            }
-                        }}
-                        // sx={{ backgroundColor: '#1976d2', color: '#fff', '&:hover': { backgroundColor: '#115293' } }}
+                {keycloakService.hasRole("ElectionCommissioner") && (
+                    <div className=''>
+                        <Button
+                            variant="contained"
+                            onClick={handleOpenPublishAnnouncementModal}
+                            startIcon={<CreateIcon />}
+                            sx={{
+                                backgroundColor: 'rgb(236 72 153)', // Original pink color
+                                color: '#fff',
+                                '&:hover': {
+                                    backgroundColor: 'rgb(220 57 138)' // Slightly darker pink color for hover
+                                }
+                            }}
                         >
-                        Craft New Announcement
-                    </Button>                
-                </div>
+                            Craft New Announcement
+                        </Button>
+                    </div>
+                )}
+
             </div>
             {/* Announcements */}
             <div className='announcements'>

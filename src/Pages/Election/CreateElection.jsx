@@ -29,6 +29,7 @@ export const CreateElection = () => {
     });
 
     const onSubmit = async (data) => {
+        console.log("-------->>>>>>>>>>>")
         mutation.mutate(data, {
             onSuccess: (response) => {
                 MySwal.fire({
@@ -61,12 +62,14 @@ export const CreateElection = () => {
                                 <div className="flex flex-col">
                                     <label className="mb-2 font-sans text-lg">Starting Date and Time</label>
                                     <input
+                                        id="StartingDateTime"
                                         type="datetime-local"
-                                        placeholder="Select date and time"
                                         className="input input-bordered input-primary w-full"
                                         {...register("StartingDateTime")}
                                     />
-                                    {errors.StartingDateTime && <p className="text-red-500 text-sm mt-1">{errors.StartingDateTime.message}</p>}
+
+                                    {errors.StartingDateTime &&
+                                        <p className="text-red-500 text-sm mt-1">{errors.StartingDateTime.message}</p>}
                                 </div>
                                 <div className="flex flex-col">
                                     <label className="mb-2 font-sans text-lg">Election Title</label>
@@ -75,7 +78,18 @@ export const CreateElection = () => {
                                         placeholder="Enter Election Title"
                                         {...register("ElectionTitle")}
                                     />
-                                    {errors.ElectionTitle && <p className="text-red-500 text-sm mt-1">{errors.ElectionTitle.message}</p>}
+                                    {errors.ElectionTitle &&
+                                        <p className="text-red-500 text-sm mt-1">{errors.ElectionTitle.message}</p>}
+                                </div>
+                                <div className="flex flex-col">
+                                    <label className="mb-2 font-sans text-lg">මැතිවරණය නම</label>
+                                    <input
+                                        className="input input-bordered input-primary w-full"
+                                        placeholder="Enter Election Title"
+                                        {...register("ElectionTitle")}
+                                    />
+                                    {errors.ElectionTitle &&
+                                        <p className="text-red-500 text-sm mt-1">{errors.ElectionTitle.message}</p>}
                                 </div>
                             </div>
                             <div className="w-1/2 space-y-4">
@@ -87,7 +101,8 @@ export const CreateElection = () => {
                                         className="input input-bordered input-primary w-full"
                                         {...register("EndingDateTime")}
                                     />
-                                    {errors.EndingDateTime && <p className="text-red-500 text-sm mt-1">{errors.EndingDateTime.message}</p>}
+                                    {errors.EndingDateTime &&
+                                        <p className="text-red-500 text-sm mt-1">{errors.EndingDateTime.message}</p>}
                                 </div>
                                 <div className="flex flex-col">
                                     <label className="mb-2 font-sans text-lg">Election Type</label>
@@ -102,20 +117,56 @@ export const CreateElection = () => {
                                         <option>Local Authorities Election</option>
                                         <option>Referendum</option>
                                     </select>
-                                    {errors.ElectionType && <p className="text-red-500 text-sm mt-1">{errors.ElectionType.message}</p>}
+                                    {errors.ElectionType &&
+                                        <p className="text-red-500 text-sm mt-1">{errors.ElectionType.message}</p>}
+                                </div>
+                                <div className="flex flex-col">
+                                    <label className="mb-2 font-sans text-lg">Election Title</label>
+                                    <input
+                                        className="input input-bordered input-primary w-full"
+                                        placeholder="Enter Election Title"
+                                        {...register("ElectionTitle")}
+                                    />
+                                    {errors.ElectionTitle &&
+                                        <p className="text-red-500 text-sm mt-1">{errors.ElectionTitle.message}</p>}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="space-y-4">
-                        <p className="font-sans text-2xl">Election Details</p>
+                        <p className="font-sans text-2xl">Election Description</p>
                         <label className="form-control">
                             <textarea
-                                className="textarea textarea-bordered h-32 textarea-primary w-full"
+                                className="textarea textarea-bordered h-20 textarea-primary w-full"
                                 placeholder="Enter Election Details"
                                 {...register("ElectionDetails")}
                             ></textarea>
-                            {errors.ElectionDetails && <p className="text-red-500 text-sm mt-1">{errors.ElectionDetails.message}</p>}
+                            {errors.ElectionDetails &&
+                                <p className="text-red-500 text-sm mt-1">{errors.ElectionDetails.message}</p>}
+                        </label>
+                    </div>
+                    <div className="space-y-4">
+                        <p className="font-sans text-2xl">Election Description</p>
+                        <label className="form-control">
+                            <textarea
+                                className="textarea textarea-bordered h-20 textarea-primary w-full"
+                                placeholder="Enter Election Details"
+                                {...register("ElectionDetails")}
+                            ></textarea>
+                            {errors.ElectionDetails &&
+                                <p className="text-red-500 text-sm mt-1">{errors.ElectionDetails.message}</p>}
+                        </label>
+                    </div>
+                    <div className="space-y-4">
+                        <p className="font-sans text-2xl">Election Description</p>
+                        <label className="form-control">
+                            <textarea
+                                className="textarea textarea-bordered h-20 textarea-primary w-full"
+                                placeholder="Enter Election Details"
+                                {...register("ElectionDetails")}
+                            ></textarea>
+                            {errors.ElectionDetails &&
+                                <p className="text-red-500 text-sm mt-1">{errors.ElectionDetails.message}</p>}
                         </label>
                     </div>
                     <div className="card-actions justify-end">

@@ -86,7 +86,7 @@ const Navbar = () => {
   };
 
   const navigator = () => {
-    navigate('/home');
+    navigate('/');
   };
 
   const menuId = 'primary-search-account-menu';
@@ -106,8 +106,8 @@ const Navbar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={() => {navigate("/voter/profile")}}>Profile</MenuItem>
+      <MenuItem onClick={() => {navigate("/voter/profile")}}>My account</MenuItem>
     </Menu>
   );
 

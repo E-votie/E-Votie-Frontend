@@ -12,38 +12,39 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ElectionResultSmallCards from "../../Components/ElectionResultSmallCards.jsx";
 import electionresult from "./result.json";
 import candidteInfo from "./candidateInfo.json"
+import districtColors from './districtColors.json'
 
 const allIslandResults = [{
     'Name': 'Gotabaya Rajapaksa',
-    'Party': 'SLPP',
+    'party': 'SLPP',
     'Image': 'http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png',
     'count': 6924255,
     'present': 52.25,
     'color': '#b41f24'
 }, {
     'Name': 'Sajith Premadasa',
-    'Party': 'NDF',
+    'party': 'NDF',
     'Image': 'http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png',
     'count': 5564239,
     'present': 41.99,
     'color': '#0e723a'
 }, {
     'Name': 'Anura Kumara Dissanayaka',
-    'Party': 'NMPP',
+    'party': 'NMPP',
     'Image': 'http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png',
     'count': 418553,
     'present': 3.16,
     'color': '#8c0154'
 }, {
     'Name': 'Mahesh Senanayake',
-    'Party': 'NPP',
+    'party': 'NPP',
     'Image': 'http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png',
     'count': 49655,
     'present': 0.37,
     'color': '#83c341'
 }, {
     'Name': 'Mahesh Senanayake',
-    'Party': 'OTHER',
+    'party': 'OTHER',
     'Image': 'http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png',
     'count': 295797,
     'present': 2.23,
@@ -62,12 +63,14 @@ export const ResultView = () => {
     const handleSelect = (districtID) => {
         navigate(`Election/Result/${districtID}`);
     };
+
+
     return (<div className="min-h-screen flex flex-col bg-base-100 p-6 gap-4 rounded-xl">
             <div className="flex lg:flex-row gap-4 md:flex-col">
                 <div
                     className="flex flex-col md:flex-row w-1/2 md:w-full bg-base-100 shadow-lg p-6 gap-6 border border-gray-200 h-fit">
                     <div className="w-full">
-                        <SriLankaMap sriLankaGeoJSON={'District_geo'} zoom={7}/>
+                        <SriLankaMap sriLankaGeoJSON={'District_geo'} zoom={7} level = 'ADM2_EN' districtColors={districtColors}/>
                     </div>
                     <div className="w-full">
                         <PieChart data={allIslandResults}/>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Divider, Stack, Typography} from "@mui/material";
 import {object} from "yup";
 import * as yup from "yup";
@@ -7,19 +7,21 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {useMutation} from "react-query";
 import axios from "axios";
 import MySwal from "sweetalert2";
-import {QrReader} from "react-qr-reader";
-import FingerprintScanner from "../../Components/FingerprintScanner.jsx";
 import {PhotoProvider, PhotoView} from "react-photo-view";
+import keycloakService from "../../services/KeycloakService.jsx";
+import {QrReader} from "react-qr-reader";
 const electionApiBaseUrl = import.meta.env.VITE_API_Election_BASE_URL;
 
 export const VotingView = () => {
 
-    const [data, setData] = useState('No result');
+    const [voterID, setVoterID] = useState(null);
     const [responseData, setResponseData] = useState(null);
     const [showFingerprintScanner, setShowFingerprintScanner] = useState(false);
+    const [sourceDevice, setSourceDevice] = useState(null);
+    const [socket, setSocket] = useState(null);
 
     const schema = object({
-        NIC: yup.string("Invalid NIC").required("Can not be empty").length(12, "NIC must be 12 characters long"),
+        voterID: yup.string("Invalid NIC").required("Can not be empty"),
     })
 
     const {register, handleSubmit, formState:{errors}} = useForm({
@@ -30,6 +32,82 @@ export const VotingView = () => {
         return axios.post(`${electionApiBaseUrl}/voting/voter_verify`, data);
     });
 
+    useEffect(() => {
+        let id = keycloakService.getUserName()
+        setSourceDevice(id)
+        // Create WebSocket connection
+        const newSocket = new WebSocket(`ws://localhost:8090/fingerprint-websocket?id=${id}`);
+
+        // Connection opened
+        newSocket.onopen = (event) => {
+            console.log('WebSocket is connected.');
+        };
+
+        // Listen for messages
+        newSocket.onmessage = (event) => {
+            console.log('Message from server:', event.data);
+            if (event.data instanceof Blob) {
+                // Handle binary data (template)
+                handleBinaryMessage(event.data);
+            } else {
+                // Handle text message
+                handleTextMessage(event.data);
+            }
+        };
+
+        // Save the socket in state
+        setSocket(newSocket);
+
+        // Clean up the socket on component unmount
+        return () => {
+            newSocket.close();
+        };
+    }, []);
+
+    const handleTextMessage = (message) => {
+        try {
+            const jsonMessage = JSON.parse(message);
+            const { sourceDevice, targetDevice, message: content } = jsonMessage;
+            setMessages(prevMessages => [...prevMessages, `${sourceDevice} to ${targetDevice}: ${content}`]);
+            console.log(content);
+            if (content === 'SCAN_COMPLETE') {
+                setScanningStatus(prev => ({ ...prev, [sourceDevice]: false }));
+                MySwal.fire({
+                    title: "Fingerprint successfully registered",
+                    icon: 'success',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    didOpen: () => {
+                        // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/');
+                    }
+                })
+            }else{
+                setScanningMassage(content)
+            }
+        } catch (error) {
+            console.error('Error parsing message:', error);
+        }
+    };
+
+    const sendCommand = (VoterID, command) => {
+        console.log("-------------->>>>>>>>>>>>>>>>>>>>>>>");
+        if (socket && socket.readyState === WebSocket.OPEN) {
+            const jsonMessage = {
+                VoterID: VoterID,
+                sourceDevice: sourceDevice,
+                targetDevice: "SENSOR_1",
+                message: command
+            };
+            socket.send(JSON.stringify(jsonMessage));
+        } else {
+            console.error('WebSocket is not open');
+        }
+    };
+
     const Verify = (data) => {
         MySwal.fire({
             title: 'Please wait.....',
@@ -39,31 +117,9 @@ export const VotingView = () => {
                 MySwal.showLoading();
             },
         });
-        mutation.mutate(data, {
-            onSuccess: (response) => {
-                setShowFingerprintScanner(true);
-                setResponseData(response)
-                MySwal.close();
-            },
-            onError: (error) => {
-                MySwal.fire({
-                    title: `<p>${error.response.data}</p>`,
-                    icon: 'error',
-                    showConfirmButton: true,
-                    confirmButtonText: 'OK',
-                    didOpen: () => {
-                        // `MySwal` is a subclass of `Swal` with all the same instance & static methods
-                    },
-                }).then((result) => {
-                    if (result.isConfirmed) {
-
-                    }
-                })
-            }
-        });
+        console.log(data.voterID);
+        sendCommand(data.voterID, "MATCH")
     }
-
-
 
     return (
         <div className="card lg:card-side bg-base-100 shadow-xl h-full">
@@ -79,19 +135,19 @@ export const VotingView = () => {
                                 <span className="label-text text-xl self-center ml-20 text-primary font-semibold">Enter the NIC to get the voter</span>
                             </div>
                             <div className="label">
-                                <span className="label-text">NIC</span>
+                                <span className="label-text">Voter ID</span>
                             </div>
                             <input type="text" placeholder="Enter the NIC hear"
-                                   className="input input-bordered w-full input-primary" {...register("NIC")}/>
+                                   className="input input-bordered w-full input-primary" {...register("voterID")}/>
                         </label>
                         <div className="card-actions justify-end mt-5">
-                            <button className="btn btn-primary">Verify</button>
+                            <button type={"submit"} className="btn btn-primary">Verify</button>
                         </div>
                     </form>
                     <QrReader
                         onResult={(result, error) => {
                             if (!!result) {
-                                setData(result?.text);
+                                setVoterID(result?.text);
                             }
 
                             if (!!error) {
@@ -99,6 +155,7 @@ export const VotingView = () => {
                             }
                         }}
                         style={{ width: '100%' }}
+                     constraints={{ facingMode: 'user' }}
                     />
                 </div>
 
@@ -178,11 +235,6 @@ export const VotingView = () => {
                         </div>
                     </form>
                 </div>
-                {showFingerprintScanner && (
-                    <div>
-                        <FingerprintScanner ApplicationID={responseData.applicationID}/>
-                    </div>
-                )}
             </Stack>
         </div>
     )

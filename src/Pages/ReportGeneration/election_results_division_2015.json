@@ -1,0 +1,4734 @@
+[
+  {
+    "division": "Agalawatta",
+    "district": "Kalutara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "61.36%",
+        "votes": 52400
+      },
+      {
+        "party": "NDF",
+        "percentage": "33.66%",
+        "votes": 28744
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.72%",
+        "votes": 2319
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.28%",
+        "votes": 243
+      }
+    ]
+  },
+  {
+    "division": "Akmeemana",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.58%",
+        "votes": 51418
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.82%",
+        "votes": 24117
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.63%",
+        "votes": 3745
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.42%",
+        "votes": 340
+      }
+    ]
+  },
+  {
+    "division": "Akuressa",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "66.81%",
+        "votes": 53478
+      },
+      {
+        "party": "NDF",
+        "percentage": "26.75%",
+        "votes": 21415
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.73%",
+        "votes": 3787
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.19%",
+        "votes": 149
+      }
+    ]
+  },
+  {
+    "division": "Ambalangoda",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "65.78%",
+        "votes": 41528
+      },
+      {
+        "party": "NDF",
+        "percentage": "28.19%",
+        "votes": 17793
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.93%",
+        "votes": 2480
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.37%",
+        "votes": 234
+      }
+    ]
+  },
+  {
+    "division": "Ampara",
+    "district": "Digamadulla",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "64.69%",
+        "votes": 89674
+      },
+      {
+        "party": "NDF",
+        "percentage": "30.47%",
+        "votes": 42241
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.87%",
+        "votes": 3984
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.32%",
+        "votes": 442
+      }
+    ]
+  },
+  {
+    "division": "Anamaduwa",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "64.07%",
+        "votes": 60963
+      },
+      {
+        "party": "NDF",
+        "percentage": "31.36%",
+        "votes": 29842
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.29%",
+        "votes": 2183
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.34%",
+        "votes": 326
+      }
+    ]
+  },
+  {
+    "division": "Anuradhapura-East",
+    "district": "Anuradhapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "60.71%",
+        "votes": 49708
+      },
+      {
+        "party": "NDF",
+        "percentage": "31.64%",
+        "votes": 25910
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.58%",
+        "votes": 4567
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.38%",
+        "votes": 309
+      }
+    ]
+  },
+  {
+    "division": "Anuradhapura-West",
+    "district": "Anuradhapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.35%",
+        "votes": 51091
+      },
+      {
+        "party": "NDF",
+        "percentage": "35.2%",
+        "votes": 30301
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.24%",
+        "votes": 2789
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.29%",
+        "votes": 251
+      }
+    ]
+  },
+  {
+    "division": "Aranayake",
+    "district": "Kegalle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "56.39%",
+        "votes": 24294
+      },
+      {
+        "party": "NDF",
+        "percentage": "39.63%",
+        "votes": 17075
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.75%",
+        "votes": 752
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.28%",
+        "votes": 120
+      }
+    ]
+  },
+  {
+    "division": "Attanagalla",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.98%",
+        "votes": 66850
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.89%",
+        "votes": 39548
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.26%",
+        "votes": 4829
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.44%",
+        "votes": 503
+      }
+    ]
+  },
+  {
+    "division": "Avissawella",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "60.85%",
+        "votes": 61755
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.03%",
+        "votes": 34532
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.14%",
+        "votes": 3184
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.36%",
+        "votes": 364
+      }
+    ]
+  },
+  {
+    "division": "Baddegama",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.56%",
+        "votes": 51698
+      },
+      {
+        "party": "NDF",
+        "percentage": "30.67%",
+        "votes": 24945
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.46%",
+        "votes": 2811
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.29%",
+        "votes": 238
+      }
+    ]
+  },
+  {
+    "division": "Badulla",
+    "district": "Badulla",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "50.49%",
+        "votes": 23029
+      },
+      {
+        "party": "NDF",
+        "percentage": "43.66%",
+        "votes": 19912
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.34%",
+        "votes": 1522
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.41%",
+        "votes": 188
+      }
+    ]
+  },
+  {
+    "division": "Balangoda",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "56.42%",
+        "votes": 53120
+      },
+      {
+        "party": "NDF",
+        "percentage": "38.69%",
+        "votes": 36421
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.29%",
+        "votes": 2160
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.27%",
+        "votes": 253
+      }
+    ]
+  },
+  {
+    "division": "Balapitiya",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "66.07%",
+        "votes": 28185
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.46%",
+        "votes": 12567
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.64%",
+        "votes": 1127
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.26%",
+        "votes": 112
+      }
+    ]
+  },
+  {
+    "division": "Bandaragama",
+    "district": "Kalutara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "62.17%",
+        "votes": 74879
+      },
+      {
+        "party": "NDF",
+        "percentage": "32.37%",
+        "votes": 38981
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.58%",
+        "votes": 4312
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.36%",
+        "votes": 432
+      }
+    ]
+  },
+  {
+    "division": "Bandarawela",
+    "district": "Badulla",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "48.79%",
+        "votes": 34528
+      },
+      {
+        "party": "NDF",
+        "percentage": "45.56%",
+        "votes": 32242
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.71%",
+        "votes": 1915
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.29%",
+        "votes": 207
+      }
+    ]
+  },
+  {
+    "division": "Batticaloa",
+    "district": "Batticaloa",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "78.13%",
+        "votes": 109449
+      },
+      {
+        "party": "SLPP",
+        "percentage": "8.99%",
+        "votes": 12594
+      },
+      {
+        "party": "IND10",
+        "percentage": "8.65%",
+        "votes": 12122
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.07%",
+        "votes": 1499
+      }
+    ]
+  },
+  {
+    "division": "Beliatta",
+    "district": "Hambantota",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "66.01%",
+        "votes": 42668
+      },
+      {
+        "party": "NDF",
+        "percentage": "26.34%",
+        "votes": 17029
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.87%",
+        "votes": 3793
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.25%",
+        "votes": 163
+      }
+    ]
+  },
+  {
+    "division": "Bentara-Elpitiya",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "66.7%",
+        "votes": 49734
+      },
+      {
+        "party": "NDF",
+        "percentage": "27.63%",
+        "votes": 20606
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.37%",
+        "votes": 2511
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.3%",
+        "votes": 222
+      }
+    ]
+  },
+  {
+    "division": "Beruwala",
+    "district": "Kalutara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "47.58%",
+        "votes": 48037
+      },
+      {
+        "party": "NDF",
+        "percentage": "47.2%",
+        "votes": 47654
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.14%",
+        "votes": 3172
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.26%",
+        "votes": 266
+      }
+    ]
+  },
+  {
+    "division": "Bibile",
+    "district": "Moneragala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.05%",
+        "votes": 44351
+      },
+      {
+        "party": "NDF",
+        "percentage": "31.15%",
+        "votes": 21914
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.22%",
+        "votes": 2264
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.32%",
+        "votes": 224
+      }
+    ]
+  },
+  {
+    "division": "Bingiriya",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "56.73%",
+        "votes": 42161
+      },
+      {
+        "party": "NDF",
+        "percentage": "39.35%",
+        "votes": 29247
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.04%",
+        "votes": 1514
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.28%",
+        "votes": 205
+      }
+    ]
+  },
+  {
+    "division": "Biyagama",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.13%",
+        "votes": 68145
+      },
+      {
+        "party": "NDF",
+        "percentage": "31.24%",
+        "votes": 33715
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.88%",
+        "votes": 4188
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.6%",
+        "votes": 646
+      }
+    ]
+  },
+  {
+    "division": "Borella",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "56.28%",
+        "votes": 27436
+      },
+      {
+        "party": "SLPP",
+        "percentage": "38.67%",
+        "votes": 18850
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.08%",
+        "votes": 1500
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.67%",
+        "votes": 329
+      }
+    ]
+  },
+  {
+    "division": "Bulathsinhala",
+    "district": "Kalutara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.51%",
+        "votes": 42021
+      },
+      {
+        "party": "NDF",
+        "percentage": "35.98%",
+        "votes": 25407
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.08%",
+        "votes": 1468
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.26%",
+        "votes": 187
+      }
+    ]
+  },
+  {
+    "division": "Chavakachcheri",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "84.75%",
+        "votes": 28007
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.37%",
+        "votes": 1775
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.99%",
+        "votes": 656
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.14%",
+        "votes": 377
+      }
+    ]
+  },
+  {
+    "division": "Chillaw",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "54.57%",
+        "votes": 51233
+      },
+      {
+        "party": "NDF",
+        "percentage": "39.96%",
+        "votes": 37512
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.17%",
+        "votes": 2977
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.45%",
+        "votes": 427
+      }
+    ]
+  },
+  {
+    "division": "Colombo-Central",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "80.33%",
+        "votes": 80076
+      },
+      {
+        "party": "SLPP",
+        "percentage": "16.39%",
+        "votes": 16341
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.53%",
+        "votes": 1528
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.21%",
+        "votes": 207
+      }
+    ]
+  },
+  {
+    "division": "Colombo-East",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "55.81%",
+        "votes": 28599
+      },
+      {
+        "party": "SLPP",
+        "percentage": "38.28%",
+        "votes": 19619
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.41%",
+        "votes": 1750
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.11%",
+        "votes": 571
+      }
+    ]
+  },
+  {
+    "division": "Colombo-North",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "72.94%",
+        "votes": 52983
+      },
+      {
+        "party": "SLPP",
+        "percentage": "23.38%",
+        "votes": 16986
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.49%",
+        "votes": 1084
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.27%",
+        "votes": 199
+      }
+    ]
+  },
+  {
+    "division": "Colombo-West",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "73.07%",
+        "votes": 21345
+      },
+      {
+        "party": "SLPP",
+        "percentage": "22.74%",
+        "votes": 6644
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.21%",
+        "votes": 647
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.81%",
+        "votes": 236
+      }
+    ]
+  },
+  {
+    "division": "Dambadeniya",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "60.3%",
+        "votes": 47006
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.69%",
+        "votes": 27041
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.22%",
+        "votes": 2506
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.32%",
+        "votes": 249
+      }
+    ]
+  },
+  {
+    "division": "Dambulla",
+    "district": "Matale",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "61.11%",
+        "votes": 68177
+      },
+      {
+        "party": "NDF",
+        "percentage": "33.81%",
+        "votes": 37717
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.89%",
+        "votes": 3221
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.28%",
+        "votes": 307
+      }
+    ]
+  },
+  {
+    "division": "Dedigama",
+    "district": "Kegalle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "56.84%",
+        "votes": 41632
+      },
+      {
+        "party": "NDF",
+        "percentage": "38.36%",
+        "votes": 28097
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.95%",
+        "votes": 2164
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.29%",
+        "votes": 213
+      }
+    ]
+  },
+  {
+    "division": "Dehiwala",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "53.74%",
+        "votes": 25004
+      },
+      {
+        "party": "SLPP",
+        "percentage": "41.1%",
+        "votes": 19122
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.18%",
+        "votes": 1480
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.89%",
+        "votes": 414
+      }
+    ]
+  },
+  {
+    "division": "Deniyaya",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "64.04%",
+        "votes": 54472
+      },
+      {
+        "party": "NDF",
+        "percentage": "30.29%",
+        "votes": 25763
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.28%",
+        "votes": 2786
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.25%",
+        "votes": 214
+      }
+    ]
+  },
+  {
+    "division": "Deraniyagala",
+    "district": "Kegalle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "54.3%",
+        "votes": 31392
+      },
+      {
+        "party": "NDF",
+        "percentage": "41.05%",
+        "votes": 23733
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.93%",
+        "votes": 1116
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.25%",
+        "votes": 143
+      }
+    ]
+  },
+  {
+    "division": "Devinuwara",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.32%",
+        "votes": 43556
+      },
+      {
+        "party": "NDF",
+        "percentage": "26.88%",
+        "votes": 17391
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.27%",
+        "votes": 2760
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.2%",
+        "votes": 131
+      }
+    ]
+  },
+  {
+    "division": "Divulapitiya",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.93%",
+        "votes": 55371
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.8%",
+        "votes": 32149
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.37%",
+        "votes": 3117
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.43%",
+        "votes": 399
+      }
+    ]
+  },
+  {
+    "division": "Dodangaslanda",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "56.21%",
+        "votes": 32074
+      },
+      {
+        "party": "NDF",
+        "percentage": "37.66%",
+        "votes": 21489
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.64%",
+        "votes": 2078
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.3%",
+        "votes": 173
+      }
+    ]
+  },
+  {
+    "division": "Dompe",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "66.92%",
+        "votes": 67754
+      },
+      {
+        "party": "NDF",
+        "percentage": "28.28%",
+        "votes": 28629
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.03%",
+        "votes": 3070
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.34%",
+        "votes": 341
+      }
+    ]
+  },
+  {
+    "division": "Eheliyagoda",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "61.11%",
+        "votes": 50993
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.58%",
+        "votes": 28855
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.33%",
+        "votes": 1946
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.24%",
+        "votes": 202
+      }
+    ]
+  },
+  {
+    "division": "Galagedara",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "56.76%",
+        "votes": 24829
+      },
+      {
+        "party": "NDF",
+        "percentage": "38.49%",
+        "votes": 16839
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.19%",
+        "votes": 959
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.31%",
+        "votes": 135
+      }
+    ]
+  },
+  {
+    "division": "Galgamuwa",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.17%",
+        "votes": 50185
+      },
+      {
+        "party": "NDF",
+        "percentage": "35.81%",
+        "votes": 30373
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.01%",
+        "votes": 2553
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.31%",
+        "votes": 260
+      }
+    ]
+  },
+  {
+    "division": "Galigamuwa",
+    "district": "Kegalle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.36%",
+        "votes": 32376
+      },
+      {
+        "party": "NDF",
+        "percentage": "36.91%",
+        "votes": 20475
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.53%",
+        "votes": 1405
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.31%",
+        "votes": 174
+      }
+    ]
+  },
+  {
+    "division": "Galle",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "46.89%",
+        "votes": 31248
+      },
+      {
+        "party": "SLPP",
+        "percentage": "46.68%",
+        "votes": 31108
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.57%",
+        "votes": 3044
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.64%",
+        "votes": 424
+      }
+    ]
+  },
+  {
+    "division": "Gampaha",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.31%",
+        "votes": 84507
+      },
+      {
+        "party": "NDF",
+        "percentage": "25.48%",
+        "votes": 31984
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.98%",
+        "votes": 6256
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.74%",
+        "votes": 932
+      }
+    ]
+  },
+  {
+    "division": "Gampola",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "52.95%",
+        "votes": 46531
+      },
+      {
+        "party": "SLPP",
+        "percentage": "42.84%",
+        "votes": 37648
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.67%",
+        "votes": 1469
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.28%",
+        "votes": 244
+      }
+    ]
+  },
+  {
+    "division": "Habaraduwa",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "69.4%",
+        "votes": 47659
+      },
+      {
+        "party": "NDF",
+        "percentage": "25.46%",
+        "votes": 17487
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.3%",
+        "votes": 2264
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.29%",
+        "votes": 197
+      }
+    ]
+  },
+  {
+    "division": "Hakmana",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "71.13%",
+        "votes": 55814
+      },
+      {
+        "party": "NDF",
+        "percentage": "23.38%",
+        "votes": 18346
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.5%",
+        "votes": 2750
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.26%",
+        "votes": 202
+      }
+    ]
+  },
+  {
+    "division": "Hali_Ela",
+    "district": "Badulla",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "48.68%",
+        "votes": 28502
+      },
+      {
+        "party": "SLPP",
+        "percentage": "45.24%",
+        "votes": 26485
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.36%",
+        "votes": 1379
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.34%",
+        "votes": 199
+      }
+    ]
+  },
+  {
+    "division": "Hanguranketha",
+    "district": "NuwaraEliya",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "52.5%",
+        "votes": 30999
+      },
+      {
+        "party": "NDF",
+        "percentage": "42.33%",
+        "votes": 24995
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.95%",
+        "votes": 1153
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.44%",
+        "votes": 261
+      }
+    ]
+  },
+  {
+    "division": "Haputale",
+    "district": "Badulla",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "54.29%",
+        "votes": 29641
+      },
+      {
+        "party": "SLPP",
+        "percentage": "40.28%",
+        "votes": 21993
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.87%",
+        "votes": 1023
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.4%",
+        "votes": 221
+      }
+    ]
+  },
+  {
+    "division": "Harispattuwa",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "48.53%",
+        "votes": 64298
+      },
+      {
+        "party": "NDF",
+        "percentage": "46.83%",
+        "votes": 62044
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.57%",
+        "votes": 3401
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.29%",
+        "votes": 383
+      }
+    ]
+  },
+  {
+    "division": "Hewaheta",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "48.8%",
+        "votes": 28166
+      },
+      {
+        "party": "SLPP",
+        "percentage": "47.24%",
+        "votes": 27263
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.37%",
+        "votes": 791
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.33%",
+        "votes": 190
+      }
+    ]
+  },
+  {
+    "division": "Hiniduma",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "62.66%",
+        "votes": 54299
+      },
+      {
+        "party": "NDF",
+        "percentage": "32.37%",
+        "votes": 28046
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.86%",
+        "votes": 2479
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.24%",
+        "votes": 209
+      }
+    ]
+  },
+  {
+    "division": "Hiriyala",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "57.44%",
+        "votes": 46443
+      },
+      {
+        "party": "NDF",
+        "percentage": "37.39%",
+        "votes": 30232
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.14%",
+        "votes": 2538
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.26%",
+        "votes": 209
+      }
+    ]
+  },
+  {
+    "division": "Homagama",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.84%",
+        "votes": 106102
+      },
+      {
+        "party": "NDF",
+        "percentage": "25.68%",
+        "votes": 40157
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.86%",
+        "votes": 7596
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.6%",
+        "votes": 946
+      }
+    ]
+  },
+  {
+    "division": "Horana",
+    "district": "Kalutara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "64.3%",
+        "votes": 69822
+      },
+      {
+        "party": "NDF",
+        "percentage": "30.36%",
+        "votes": 32967
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.25%",
+        "votes": 3532
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.38%",
+        "votes": 412
+      }
+    ]
+  },
+  {
+    "division": "Horowupotana",
+    "district": "Anuradhapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "54.42%",
+        "votes": 36698
+      },
+      {
+        "party": "NDF",
+        "percentage": "40.44%",
+        "votes": 27274
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.92%",
+        "votes": 1967
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.31%",
+        "votes": 206
+      }
+    ]
+  },
+  {
+    "division": "Ja-Ela",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.76%",
+        "votes": 71690
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.14%",
+        "votes": 41649
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.55%",
+        "votes": 5556
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.25%",
+        "votes": 1527
+      }
+    ]
+  },
+  {
+    "division": "Jaffna",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "85.51%",
+        "votes": 20792
+      },
+      {
+        "party": "SLPP",
+        "percentage": "6.65%",
+        "votes": 1617
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.92%",
+        "votes": 466
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.18%",
+        "votes": 288
+      }
+    ]
+  },
+  {
+    "division": "Kaduwela",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "65.35%",
+        "votes": 98807
+      },
+      {
+        "party": "NDF",
+        "percentage": "27.61%",
+        "votes": 41747
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.03%",
+        "votes": 7605
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.94%",
+        "votes": 1424
+      }
+    ]
+  },
+  {
+    "division": "Kalawana",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "61.86%",
+        "votes": 35399
+      },
+      {
+        "party": "NDF",
+        "percentage": "33.71%",
+        "votes": 19291
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.13%",
+        "votes": 1221
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.3%",
+        "votes": 173
+      }
+    ]
+  },
+  {
+    "division": "Kalawewa",
+    "district": "Anuradhapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "60.89%",
+        "votes": 63306
+      },
+      {
+        "party": "NDF",
+        "percentage": "32.91%",
+        "votes": 34215
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.87%",
+        "votes": 4023
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.32%",
+        "votes": 334
+      }
+    ]
+  },
+  {
+    "division": "Kalkudah",
+    "district": "Batticaloa",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "75.96%",
+        "votes": 65847
+      },
+      {
+        "party": "SLPP",
+        "percentage": "19.22%",
+        "votes": 16663
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.75%",
+        "votes": 652
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.75%",
+        "votes": 648
+      }
+    ]
+  },
+  {
+    "division": "Kalmunai",
+    "district": "Digamadulla",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "83.08%",
+        "votes": 47309
+      },
+      {
+        "party": "SLPP",
+        "percentage": "12.79%",
+        "votes": 7286
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.25%",
+        "votes": 709
+      },
+      {
+        "party": "IND10",
+        "percentage": "1.13%",
+        "votes": 644
+      }
+    ]
+  },
+  {
+    "division": "Kalutara",
+    "district": "Kalutara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.82%",
+        "votes": 59796
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.09%",
+        "votes": 34076
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.04%",
+        "votes": 4034
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.54%",
+        "votes": 542
+      }
+    ]
+  },
+  {
+    "division": "Kamburupitiya",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "71.53%",
+        "votes": 48140
+      },
+      {
+        "party": "NDF",
+        "percentage": "23.06%",
+        "votes": 15517
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.61%",
+        "votes": 2427
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.27%",
+        "votes": 185
+      }
+    ]
+  },
+  {
+    "division": "Kankesanturai",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "83.2%",
+        "votes": 23773
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.91%",
+        "votes": 1688
+      },
+      {
+        "party": "DUNF",
+        "percentage": "2.05%",
+        "votes": 586
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.66%",
+        "votes": 475
+      }
+    ]
+  },
+  {
+    "division": "Karandeniya",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "70.29%",
+        "votes": 42664
+      },
+      {
+        "party": "NDF",
+        "percentage": "23.79%",
+        "votes": 14437
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.62%",
+        "votes": 2199
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.29%",
+        "votes": 177
+      }
+    ]
+  },
+  {
+    "division": "Katana",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.1%",
+        "votes": 71565
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.95%",
+        "votes": 43053
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.34%",
+        "votes": 5343
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.12%",
+        "votes": 1375
+      }
+    ]
+  },
+  {
+    "division": "Katugampola",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.43%",
+        "votes": 47832
+      },
+      {
+        "party": "NDF",
+        "percentage": "36.08%",
+        "votes": 29041
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.84%",
+        "votes": 2284
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.25%",
+        "votes": 205
+      }
+    ]
+  },
+  {
+    "division": "Kayts",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "69.82%",
+        "votes": 11319
+      },
+      {
+        "party": "SLPP",
+        "percentage": "17.99%",
+        "votes": 2917
+      },
+      {
+        "party": "DUNF",
+        "percentage": "2.36%",
+        "votes": 382
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.38%",
+        "votes": 223
+      }
+    ]
+  },
+  {
+    "division": "Kegalle",
+    "district": "Kegalle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "61.52%",
+        "votes": 36109
+      },
+      {
+        "party": "NDF",
+        "percentage": "32.95%",
+        "votes": 19341
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.46%",
+        "votes": 2032
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.45%",
+        "votes": 263
+      }
+    ]
+  },
+  {
+    "division": "Kekirawa",
+    "district": "Anuradhapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "56.65%",
+        "votes": 39361
+      },
+      {
+        "party": "NDF",
+        "percentage": "38.19%",
+        "votes": 26538
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.78%",
+        "votes": 1929
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.32%",
+        "votes": 219
+      }
+    ]
+  },
+  {
+    "division": "Kelaniya",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "57.57%",
+        "votes": 43668
+      },
+      {
+        "party": "NDF",
+        "percentage": "36.28%",
+        "votes": 27521
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.13%",
+        "votes": 3134
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.78%",
+        "votes": 589
+      }
+    ]
+  },
+  {
+    "division": "Kesbewa",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.68%",
+        "votes": 99062
+      },
+      {
+        "party": "NDF",
+        "percentage": "25.57%",
+        "votes": 37430
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.02%",
+        "votes": 7343
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.8%",
+        "votes": 1172
+      }
+    ]
+  },
+  {
+    "division": "Kilinochchi",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "87.11%",
+        "votes": 55585
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.07%",
+        "votes": 3238
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.63%",
+        "votes": 1041
+      },
+      {
+        "party": "IND11",
+        "percentage": "0.82%",
+        "votes": 526
+      }
+    ]
+  },
+  {
+    "division": "Kolonna",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "68.05%",
+        "votes": 83520
+      },
+      {
+        "party": "NDF",
+        "percentage": "26.12%",
+        "votes": 32052
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.87%",
+        "votes": 4747
+      },
+      {
+        "party": "JSWP",
+        "percentage": "0.22%",
+        "votes": 274
+      }
+    ]
+  },
+  {
+    "division": "Kolonnawa",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "48.62%",
+        "votes": 53232
+      },
+      {
+        "party": "NDF",
+        "percentage": "46.08%",
+        "votes": 50456
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.6%",
+        "votes": 3940
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.48%",
+        "votes": 526
+      }
+    ]
+  },
+  {
+    "division": "Kopay",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "83.44%",
+        "votes": 30835
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.03%",
+        "votes": 1858
+      },
+      {
+        "party": "DUNF",
+        "percentage": "2.43%",
+        "votes": 897
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.25%",
+        "votes": 462
+      }
+    ]
+  },
+  {
+    "division": "Kotmale",
+    "district": "NuwaraEliya",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "54.7%",
+        "votes": 36901
+      },
+      {
+        "party": "SLPP",
+        "percentage": "40.87%",
+        "votes": 27572
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.57%",
+        "votes": 1057
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.31%",
+        "votes": 212
+      }
+    ]
+  },
+  {
+    "division": "Kotte",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "54.56%",
+        "votes": 31853
+      },
+      {
+        "party": "NDF",
+        "percentage": "38.76%",
+        "votes": 22628
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.18%",
+        "votes": 2439
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.5%",
+        "votes": 875
+      }
+    ]
+  },
+  {
+    "division": "Kuliyapitiya",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "53.11%",
+        "votes": 44701
+      },
+      {
+        "party": "NDF",
+        "percentage": "42.54%",
+        "votes": 35807
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.57%",
+        "votes": 2159
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.26%",
+        "votes": 216
+      }
+    ]
+  },
+  {
+    "division": "Kundasale",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "53.81%",
+        "votes": 43788
+      },
+      {
+        "party": "NDF",
+        "percentage": "40.92%",
+        "votes": 33293
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.12%",
+        "votes": 2539
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.42%",
+        "votes": 344
+      }
+    ]
+  },
+  {
+    "division": "Kurunegala",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "55.68%",
+        "votes": 41940
+      },
+      {
+        "party": "NDF",
+        "percentage": "38.53%",
+        "votes": 29021
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.02%",
+        "votes": 3030
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.57%",
+        "votes": 431
+      }
+    ]
+  },
+  {
+    "division": "Laggala",
+    "district": "Matale",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "60.23%",
+        "votes": 36363
+      },
+      {
+        "party": "NDF",
+        "percentage": "35.42%",
+        "votes": 21384
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.77%",
+        "votes": 1070
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.3%",
+        "votes": 179
+      }
+    ]
+  },
+  {
+    "division": "Mahanuwara",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "51.36%",
+        "votes": 16334
+      },
+      {
+        "party": "SLPP",
+        "percentage": "43.38%",
+        "votes": 13795
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.04%",
+        "votes": 966
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.89%",
+        "votes": 282
+      }
+    ]
+  },
+  {
+    "division": "Mahara",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "64.43%",
+        "votes": 83989
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.46%",
+        "votes": 38407
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.26%",
+        "votes": 5547
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.62%",
+        "votes": 804
+      }
+    ]
+  },
+  {
+    "division": "Maharagama",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "65.6%",
+        "votes": 71893
+      },
+      {
+        "party": "NDF",
+        "percentage": "27.09%",
+        "votes": 29688
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.31%",
+        "votes": 5820
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.06%",
+        "votes": 1165
+      }
+    ]
+  },
+  {
+    "division": "Mahiyangane",
+    "district": "Badulla",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "55.33%",
+        "votes": 46267
+      },
+      {
+        "party": "NDF",
+        "percentage": "38.68%",
+        "votes": 32345
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.03%",
+        "votes": 2534
+      },
+      {
+        "party": "JSWP",
+        "percentage": "0.33%",
+        "votes": 280
+      }
+    ]
+  },
+  {
+    "division": "Manipay",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "84.69%",
+        "votes": 31369
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.02%",
+        "votes": 1859
+      },
+      {
+        "party": "DUNF",
+        "percentage": "2.13%",
+        "votes": 790
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.44%",
+        "votes": 534
+      }
+    ]
+  },
+  {
+    "division": "Mannar",
+    "district": "Vanni",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "84.73%",
+        "votes": 53602
+      },
+      {
+        "party": "SLPP",
+        "percentage": "10.17%",
+        "votes": 6435
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.1%",
+        "votes": 695
+      },
+      {
+        "party": "IND11",
+        "percentage": "0.6%",
+        "votes": 378
+      }
+    ]
+  },
+  {
+    "division": "Matale",
+    "district": "Matale",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "48.01%",
+        "votes": 33251
+      },
+      {
+        "party": "SLPP",
+        "percentage": "46.9%",
+        "votes": 32486
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.74%",
+        "votes": 1895
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.32%",
+        "votes": 223
+      }
+    ]
+  },
+  {
+    "division": "Matara",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.66%",
+        "votes": 47203
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.33%",
+        "votes": 21747
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.51%",
+        "votes": 4084
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.5%",
+        "votes": 374
+      }
+    ]
+  },
+  {
+    "division": "Matugama",
+    "district": "Kalutara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "60.42%",
+        "votes": 55932
+      },
+      {
+        "party": "NDF",
+        "percentage": "33.98%",
+        "votes": 31451
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.27%",
+        "votes": 3028
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.28%",
+        "votes": 257
+      }
+    ]
+  },
+  {
+    "division": "Mawanella",
+    "district": "Kegalle",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "50.09%",
+        "votes": 37967
+      },
+      {
+        "party": "SLPP",
+        "percentage": "45.44%",
+        "votes": 34443
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.45%",
+        "votes": 1856
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.28%",
+        "votes": 211
+      }
+    ]
+  },
+  {
+    "division": "Mawathagama",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "55.14%",
+        "votes": 41961
+      },
+      {
+        "party": "NDF",
+        "percentage": "39.58%",
+        "votes": 30124
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.24%",
+        "votes": 2468
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.3%",
+        "votes": 232
+      }
+    ]
+  },
+  {
+    "division": "Medawachchiya",
+    "district": "Anuradhapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "60.4%",
+        "votes": 42287
+      },
+      {
+        "party": "NDF",
+        "percentage": "33.46%",
+        "votes": 23423
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.74%",
+        "votes": 2619
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.33%",
+        "votes": 231
+      }
+    ]
+  },
+  {
+    "division": "Medirigiriya",
+    "district": "Polonnaruwa",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "51.44%",
+        "votes": 34022
+      },
+      {
+        "party": "NDF",
+        "percentage": "42.82%",
+        "votes": 28324
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.13%",
+        "votes": 2734
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.21%",
+        "votes": 136
+      }
+    ]
+  },
+  {
+    "division": "Mihintale",
+    "district": "Anuradhapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "57.36%",
+        "votes": 30815
+      },
+      {
+        "party": "NDF",
+        "percentage": "35.96%",
+        "votes": 19320
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.18%",
+        "votes": 2245
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.35%",
+        "votes": 186
+      }
+    ]
+  },
+  {
+    "division": "Minneriya",
+    "district": "Polonnaruwa",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.65%",
+        "votes": 41151
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.31%",
+        "votes": 24076
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.66%",
+        "votes": 3271
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.3%",
+        "votes": 214
+      }
+    ]
+  },
+  {
+    "division": "Minuwangoda",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "61.03%",
+        "votes": 69978
+      },
+      {
+        "party": "NDF",
+        "percentage": "32.45%",
+        "votes": 37212
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.59%",
+        "votes": 5259
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.56%",
+        "votes": 646
+      }
+    ]
+  },
+  {
+    "division": "Mirigama",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.53%",
+        "votes": 61478
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.07%",
+        "votes": 35184
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.57%",
+        "votes": 4720
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.35%",
+        "votes": 365
+      }
+    ]
+  },
+  {
+    "division": "Moneragala",
+    "district": "Moneragala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.99%",
+        "votes": 59360
+      },
+      {
+        "party": "NDF",
+        "percentage": "30.93%",
+        "votes": 28688
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.74%",
+        "votes": 2537
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.3%",
+        "votes": 275
+      }
+    ]
+  },
+  {
+    "division": "Moratuwa",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "57.83%",
+        "votes": 57645
+      },
+      {
+        "party": "NDF",
+        "percentage": "36.5%",
+        "votes": 36390
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.55%",
+        "votes": 3534
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.91%",
+        "votes": 906
+      }
+    ]
+  },
+  {
+    "division": "Mulkirigala",
+    "district": "Hambantota",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.73%",
+        "votes": 58903
+      },
+      {
+        "party": "NDF",
+        "percentage": "25.68%",
+        "votes": 22329
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.82%",
+        "votes": 4192
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.23%",
+        "votes": 201
+      }
+    ]
+  },
+  {
+    "division": "Mullaitivu",
+    "district": "Vanni",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "86.19%",
+        "votes": 47594
+      },
+      {
+        "party": "SLPP",
+        "percentage": "7.7%",
+        "votes": 4252
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.63%",
+        "votes": 902
+      },
+      {
+        "party": "IND11",
+        "percentage": "0.45%",
+        "votes": 251
+      }
+    ]
+  },
+  {
+    "division": "Mutur",
+    "district": "Trincomalee",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "90.15%",
+        "votes": 74171
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.99%",
+        "votes": 4925
+      },
+      {
+        "party": "NMPP",
+        "percentage": "0.98%",
+        "votes": 809
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.61%",
+        "votes": 502
+      }
+    ]
+  },
+  {
+    "division": "Nallur",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "86.02%",
+        "votes": 27605
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.72%",
+        "votes": 1836
+      },
+      {
+        "party": "IND11",
+        "percentage": "2.05%",
+        "votes": 659
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.48%",
+        "votes": 475
+      }
+    ]
+  },
+  {
+    "division": "Nattandiya",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.02%",
+        "votes": 38832
+      },
+      {
+        "party": "NDF",
+        "percentage": "36.32%",
+        "votes": 24308
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.27%",
+        "votes": 2190
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.83%",
+        "votes": 555
+      }
+    ]
+  },
+  {
+    "division": "Nawalapitiya",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "49.51%",
+        "votes": 39887
+      },
+      {
+        "party": "SLPP",
+        "percentage": "45.22%",
+        "votes": 36436
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.16%",
+        "votes": 1740
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.35%",
+        "votes": 284
+      }
+    ]
+  },
+  {
+    "division": "Negombo",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "53.03%",
+        "votes": 44032
+      },
+      {
+        "party": "SLPP",
+        "percentage": "38.23%",
+        "votes": 31743
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.98%",
+        "votes": 4132
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.86%",
+        "votes": 1546
+      }
+    ]
+  },
+  {
+    "division": "NEliya-Maskeliya",
+    "district": "NuwaraEliya",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "66.37%",
+        "votes": 174413
+      },
+      {
+        "party": "SLPP",
+        "percentage": "28.73%",
+        "votes": 75499
+      },
+      {
+        "party": "NMPP",
+        "percentage": "0.86%",
+        "votes": 2256
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.51%",
+        "votes": 1348
+      }
+    ]
+  },
+  {
+    "division": "Nikaweratiya",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "56.5%",
+        "votes": 44354
+      },
+      {
+        "party": "NDF",
+        "percentage": "38.58%",
+        "votes": 30286
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.79%",
+        "votes": 2194
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.31%",
+        "votes": 247
+      }
+    ]
+  },
+  {
+    "division": "Nivitigala",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.35%",
+        "votes": 50806
+      },
+      {
+        "party": "NDF",
+        "percentage": "37.55%",
+        "votes": 32691
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.54%",
+        "votes": 1344
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.24%",
+        "votes": 211
+      }
+    ]
+  },
+  {
+    "division": "Padiruppu",
+    "district": "Batticaloa",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "83.05%",
+        "votes": 54132
+      },
+      {
+        "party": "SLPP",
+        "percentage": "12.19%",
+        "votes": 7948
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.18%",
+        "votes": 767
+      },
+      {
+        "party": "IND11",
+        "percentage": "0.37%",
+        "votes": 238
+      }
+    ]
+  },
+  {
+    "division": "Panadura",
+    "district": "Kalutara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.01%",
+        "votes": 57447
+      },
+      {
+        "party": "NDF",
+        "percentage": "36.11%",
+        "votes": 35761
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.94%",
+        "votes": 3904
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.66%",
+        "votes": 649
+      }
+    ]
+  },
+  {
+    "division": "Panduwasnuwara",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "57.01%",
+        "votes": 35508
+      },
+      {
+        "party": "NDF",
+        "percentage": "38.92%",
+        "votes": 24238
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.31%",
+        "votes": 1441
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.26%",
+        "votes": 161
+      }
+    ]
+  },
+  {
+    "division": "Passara",
+    "district": "Badulla",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "55.61%",
+        "votes": 28845
+      },
+      {
+        "party": "SLPP",
+        "percentage": "38.63%",
+        "votes": 20038
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.38%",
+        "votes": 714
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.44%",
+        "votes": 230
+      }
+    ]
+  },
+  {
+    "division": "Patha-Dumbara",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "50.2%",
+        "votes": 35848
+      },
+      {
+        "party": "SLPP",
+        "percentage": "44.89%",
+        "votes": 32057
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.02%",
+        "votes": 1439
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.3%",
+        "votes": 213
+      }
+    ]
+  },
+  {
+    "division": "Pelmadulla",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "54.33%",
+        "votes": 41469
+      },
+      {
+        "party": "NDF",
+        "percentage": "41.72%",
+        "votes": 31845
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.72%",
+        "votes": 1315
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.21%",
+        "votes": 160
+      }
+    ]
+  },
+  {
+    "division": "Point Pedro",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "82.31%",
+        "votes": 19931
+      },
+      {
+        "party": "SLPP",
+        "percentage": "7.63%",
+        "votes": 1848
+      },
+      {
+        "party": "IND11",
+        "percentage": "2.66%",
+        "votes": 644
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.78%",
+        "votes": 431
+      }
+    ]
+  },
+  {
+    "division": "Polgahawela",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "57.98%",
+        "votes": 36836
+      },
+      {
+        "party": "NDF",
+        "percentage": "36.92%",
+        "votes": 23458
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.28%",
+        "votes": 2085
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.34%",
+        "votes": 219
+      }
+    ]
+  },
+  {
+    "division": "Polonnaruwa",
+    "district": "Polonnaruwa",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "50.33%",
+        "votes": 62882
+      },
+      {
+        "party": "NDF",
+        "percentage": "43.41%",
+        "votes": 54238
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.04%",
+        "votes": 5045
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.27%",
+        "votes": 340
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Apura",
+    "district": "Anuradhapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "60.62%",
+        "votes": 28957
+      },
+      {
+        "party": "NDF",
+        "percentage": "32.17%",
+        "votes": 15367
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.74%",
+        "votes": 2740
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.52%",
+        "votes": 248
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Badulla",
+    "district": "Badulla",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "60.8%",
+        "votes": 21772
+      },
+      {
+        "party": "NDF",
+        "percentage": "32.2%",
+        "votes": 11532
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.71%",
+        "votes": 2046
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.63%",
+        "votes": 225
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Bcaloa",
+    "district": "Batticaloa",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "81.83%",
+        "votes": 9221
+      },
+      {
+        "party": "SLPP",
+        "percentage": "11.14%",
+        "votes": 1255
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.1%",
+        "votes": 349
+      },
+      {
+        "party": "IND10",
+        "percentage": "2.36%",
+        "votes": 266
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Col",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "65.88%",
+        "votes": 21717
+      },
+      {
+        "party": "NDF",
+        "percentage": "25.16%",
+        "votes": 8294
+      },
+      {
+        "party": "NMPP",
+        "percentage": "6.76%",
+        "votes": 2229
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.58%",
+        "votes": 522
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Dmadulla",
+    "district": "Digamadulla",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "47.67%",
+        "votes": 11261
+      },
+      {
+        "party": "SLPP",
+        "percentage": "45.85%",
+        "votes": 10831
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.8%",
+        "votes": 1134
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.62%",
+        "votes": 146
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Galle",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.49%",
+        "votes": 25099
+      },
+      {
+        "party": "NDF",
+        "percentage": "24.45%",
+        "votes": 9093
+      },
+      {
+        "party": "NMPP",
+        "percentage": "6.59%",
+        "votes": 2450
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.81%",
+        "votes": 301
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Gampaha",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "65.37%",
+        "votes": 30918
+      },
+      {
+        "party": "NDF",
+        "percentage": "25.64%",
+        "votes": 12125
+      },
+      {
+        "party": "NMPP",
+        "percentage": "6.73%",
+        "votes": 3181
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.48%",
+        "votes": 700
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Htota",
+    "district": "Hambantota",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "68.94%",
+        "votes": 12983
+      },
+      {
+        "party": "NDF",
+        "percentage": "20.96%",
+        "votes": 3947
+      },
+      {
+        "party": "NMPP",
+        "percentage": "9.19%",
+        "votes": 1731
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.36%",
+        "votes": 67
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Jaffna",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "84.69%",
+        "votes": 17961
+      },
+      {
+        "party": "SLPP",
+        "percentage": "7.37%",
+        "votes": 1563
+      },
+      {
+        "party": "IND11",
+        "percentage": "3.82%",
+        "votes": 810
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.13%",
+        "votes": 239
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Kalutara",
+    "district": "Kalutara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "66%",
+        "votes": 22586
+      },
+      {
+        "party": "NDF",
+        "percentage": "26.8%",
+        "votes": 9172
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.59%",
+        "votes": 1912
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.87%",
+        "votes": 297
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Kegalle",
+    "district": "Kegalle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "62.65%",
+        "votes": 19869
+      },
+      {
+        "party": "NDF",
+        "percentage": "31.12%",
+        "votes": 9868
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.72%",
+        "votes": 1497
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.8%",
+        "votes": 253
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Knegala",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "61.1%",
+        "votes": 45193
+      },
+      {
+        "party": "NDF",
+        "percentage": "31.68%",
+        "votes": 23432
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.95%",
+        "votes": 4400
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.63%",
+        "votes": 463
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Matale",
+    "district": "Matale",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "64.43%",
+        "votes": 13405
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.63%",
+        "votes": 6165
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.74%",
+        "votes": 987
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.54%",
+        "votes": 113
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Matara",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "70.23%",
+        "votes": 19379
+      },
+      {
+        "party": "NDF",
+        "percentage": "20.95%",
+        "votes": 5782
+      },
+      {
+        "party": "NMPP",
+        "percentage": "7.8%",
+        "votes": 2153
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.46%",
+        "votes": 127
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Mgala",
+    "district": "Moneragala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.42%",
+        "votes": 13754
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.42%",
+        "votes": 6380
+      },
+      {
+        "party": "NMPP",
+        "percentage": "6.18%",
+        "votes": 1340
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.36%",
+        "votes": 79
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Mnuwara",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.69%",
+        "votes": 34748
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.88%",
+        "votes": 16303
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.92%",
+        "votes": 2683
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.93%",
+        "votes": 507
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-NEliya",
+    "district": "NuwaraEliya",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "51.77%",
+        "votes": 9151
+      },
+      {
+        "party": "NDF",
+        "percentage": "43.54%",
+        "votes": 7696
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.61%",
+        "votes": 638
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.42%",
+        "votes": 75
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Pnaruwa",
+    "district": "Polonnaruwa",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "55.71%",
+        "votes": 9285
+      },
+      {
+        "party": "NDF",
+        "percentage": "35.01%",
+        "votes": 5835
+      },
+      {
+        "party": "NMPP",
+        "percentage": "7.4%",
+        "votes": 1234
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.86%",
+        "votes": 143
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Pulam",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "57.36%",
+        "votes": 7645
+      },
+      {
+        "party": "NDF",
+        "percentage": "35.15%",
+        "votes": 4685
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.73%",
+        "votes": 764
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.98%",
+        "votes": 130
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Rpura",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "65.72%",
+        "votes": 19061
+      },
+      {
+        "party": "NDF",
+        "percentage": "27.37%",
+        "votes": 7940
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.79%",
+        "votes": 1678
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.63%",
+        "votes": 183
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Trinco",
+    "district": "Trincomalee",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "56.79%",
+        "votes": 7871
+      },
+      {
+        "party": "SLPP",
+        "percentage": "36.72%",
+        "votes": 5089
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.4%",
+        "votes": 610
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.53%",
+        "votes": 74
+      }
+    ]
+  },
+  {
+    "division": "Postal-Votes-Vanni",
+    "district": "Vanni",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "79.3%",
+        "votes": 8402
+      },
+      {
+        "party": "SLPP",
+        "percentage": "16.07%",
+        "votes": 1703
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.39%",
+        "votes": 147
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.36%",
+        "votes": 144
+      }
+    ]
+  },
+  {
+    "division": "Potuvil",
+    "district": "Digamadulla",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "80.62%",
+        "votes": 100952
+      },
+      {
+        "party": "SLPP",
+        "percentage": "16.06%",
+        "votes": 20116
+      },
+      {
+        "party": "NMPP",
+        "percentage": "0.85%",
+        "votes": 1061
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.57%",
+        "votes": 716
+      }
+    ]
+  },
+  {
+    "division": "Puttalam",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "71.28%",
+        "votes": 76385
+      },
+      {
+        "party": "SLPP",
+        "percentage": "24.37%",
+        "votes": 26118
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.77%",
+        "votes": 1896
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.36%",
+        "votes": 390
+      }
+    ]
+  },
+  {
+    "division": "Rakwana",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "53.86%",
+        "votes": 48867
+      },
+      {
+        "party": "NDF",
+        "percentage": "41.89%",
+        "votes": 38008
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.92%",
+        "votes": 1743
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.24%",
+        "votes": 217
+      }
+    ]
+  },
+  {
+    "division": "Rambukkana",
+    "district": "Kegalle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.54%",
+        "votes": 31902
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.82%",
+        "votes": 18657
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.41%",
+        "votes": 1828
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.38%",
+        "votes": 202
+      }
+    ]
+  },
+  {
+    "division": "Ratgama",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.92%",
+        "votes": 42756
+      },
+      {
+        "party": "NDF",
+        "percentage": "27.11%",
+        "votes": 17062
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.01%",
+        "votes": 1896
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.28%",
+        "votes": 176
+      }
+    ]
+  },
+  {
+    "division": "Ratmalana",
+    "district": "Colombo",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "51.48%",
+        "votes": 28085
+      },
+      {
+        "party": "NDF",
+        "percentage": "42.45%",
+        "votes": 23156
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.89%",
+        "votes": 2124
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.92%",
+        "votes": 500
+      }
+    ]
+  },
+  {
+    "division": "Ratnapura",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "60.58%",
+        "votes": 64809
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.96%",
+        "votes": 37400
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.55%",
+        "votes": 2733
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.22%",
+        "votes": 237
+      }
+    ]
+  },
+  {
+    "division": "Rattota",
+    "district": "Matale",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "48.43%",
+        "votes": 37390
+      },
+      {
+        "party": "NDF",
+        "percentage": "46.34%",
+        "votes": 35774
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.22%",
+        "votes": 1717
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.3%",
+        "votes": 232
+      }
+    ]
+  },
+  {
+    "division": "Ruwanwella",
+    "district": "Kegalle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "56.71%",
+        "votes": 35714
+      },
+      {
+        "party": "NDF",
+        "percentage": "39.07%",
+        "votes": 24604
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.23%",
+        "votes": 1403
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.2%",
+        "votes": 125
+      }
+    ]
+  },
+  {
+    "division": "Sammanturai",
+    "district": "Digamadulla",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "86.22%",
+        "votes": 57910
+      },
+      {
+        "party": "SLPP",
+        "percentage": "10.65%",
+        "votes": 7151
+      },
+      {
+        "party": "NMPP",
+        "percentage": "0.85%",
+        "votes": 572
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.61%",
+        "votes": 410
+      }
+    ]
+  },
+  {
+    "division": "Senkadagala",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "53.07%",
+        "votes": 35242
+      },
+      {
+        "party": "NDF",
+        "percentage": "41.26%",
+        "votes": 27399
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.3%",
+        "votes": 2189
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.77%",
+        "votes": 509
+      }
+    ]
+  },
+  {
+    "division": "Seruwila",
+    "district": "Trincomalee",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "49.9%",
+        "votes": 31303
+      },
+      {
+        "party": "NDF",
+        "percentage": "44.96%",
+        "votes": 28205
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.55%",
+        "votes": 1598
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.31%",
+        "votes": 194
+      }
+    ]
+  },
+  {
+    "division": "Tangalle",
+    "district": "Hambantota",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "69.53%",
+        "votes": 72673
+      },
+      {
+        "party": "NDF",
+        "percentage": "21.18%",
+        "votes": 22141
+      },
+      {
+        "party": "NMPP",
+        "percentage": "7.49%",
+        "votes": 7830
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.22%",
+        "votes": 227
+      }
+    ]
+  },
+  {
+    "division": "Teldeniya",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "50.28%",
+        "votes": 20296
+      },
+      {
+        "party": "NDF",
+        "percentage": "45.18%",
+        "votes": 18238
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.69%",
+        "votes": 681
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.27%",
+        "votes": 109
+      }
+    ]
+  },
+  {
+    "division": "Tissamaharama",
+    "district": "Hambantota",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "62.55%",
+        "votes": 91577
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.68%",
+        "votes": 43460
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.98%",
+        "votes": 8749
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.2%",
+        "votes": 296
+      }
+    ]
+  },
+  {
+    "division": "Trincomalee",
+    "district": "Trincomalee",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "78.02%",
+        "votes": 56594
+      },
+      {
+        "party": "SLPP",
+        "percentage": "17.67%",
+        "votes": 12818
+      },
+      {
+        "party": "NMPP",
+        "percentage": "0.98%",
+        "votes": 713
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.6%",
+        "votes": 438
+      }
+    ]
+  },
+  {
+    "division": "Udu-Dumbara",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.11%",
+        "votes": 29334
+      },
+      {
+        "party": "NDF",
+        "percentage": "37.83%",
+        "votes": 19098
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.48%",
+        "votes": 748
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.28%",
+        "votes": 142
+      }
+    ]
+  },
+  {
+    "division": "Udunuwara",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "47.6%",
+        "votes": 33131
+      },
+      {
+        "party": "SLPP",
+        "percentage": "47.41%",
+        "votes": 33003
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.75%",
+        "votes": 1913
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.37%",
+        "votes": 261
+      }
+    ]
+  },
+  {
+    "division": "Udupiddy",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "81.74%",
+        "votes": 19307
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.65%",
+        "votes": 1334
+      },
+      {
+        "party": "IND11",
+        "percentage": "3.99%",
+        "votes": 942
+      },
+      {
+        "party": "DUNF",
+        "percentage": "2.24%",
+        "votes": 529
+      }
+    ]
+  },
+  {
+    "division": "Uva-Paranagama",
+    "district": "Badulla",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "51.23%",
+        "votes": 27028
+      },
+      {
+        "party": "NDF",
+        "percentage": "43.19%",
+        "votes": 22787
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.29%",
+        "votes": 1207
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.39%",
+        "votes": 208
+      }
+    ]
+  },
+  {
+    "division": "Vaddukkoddai",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "82.44%",
+        "votes": 26238
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.43%",
+        "votes": 1728
+      },
+      {
+        "party": "IND11",
+        "percentage": "2.28%",
+        "votes": 727
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.87%",
+        "votes": 594
+      }
+    ]
+  },
+  {
+    "division": "Vavuniya",
+    "district": "Vanni",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "77.83%",
+        "votes": 65141
+      },
+      {
+        "party": "SLPP",
+        "percentage": "16.39%",
+        "votes": 13715
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.08%",
+        "votes": 901
+      },
+      {
+        "party": "NMPP",
+        "percentage": "0.8%",
+        "votes": 667
+      }
+    ]
+  },
+  {
+    "division": "Walapane",
+    "district": "NuwaraEliya",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "48.51%",
+        "votes": 33908
+      },
+      {
+        "party": "SLPP",
+        "percentage": "46.65%",
+        "votes": 32602
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.13%",
+        "votes": 787
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.43%",
+        "votes": 299
+      }
+    ]
+  },
+  {
+    "division": "Wariyapola",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "62.91%",
+        "votes": 40261
+      },
+      {
+        "party": "NDF",
+        "percentage": "32.17%",
+        "votes": 20591
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.1%",
+        "votes": 1984
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.26%",
+        "votes": 167
+      }
+    ]
+  },
+  {
+    "division": "Wattala",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "47.72%",
+        "votes": 49463
+      },
+      {
+        "party": "SLPP",
+        "percentage": "46.51%",
+        "votes": 48214
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.31%",
+        "votes": 3428
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.87%",
+        "votes": 899
+      }
+    ]
+  },
+  {
+    "division": "Weligama",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "65.93%",
+        "votes": 52439
+      },
+      {
+        "party": "NDF",
+        "percentage": "29%",
+        "votes": 23065
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.38%",
+        "votes": 2692
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.25%",
+        "votes": 199
+      }
+    ]
+  },
+  {
+    "division": "Welimada",
+    "district": "Badulla",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "48.15%",
+        "votes": 30670
+      },
+      {
+        "party": "NDF",
+        "percentage": "46.58%",
+        "votes": 29673
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.62%",
+        "votes": 1671
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.26%",
+        "votes": 166
+      }
+    ]
+  },
+  {
+    "division": "Wellawaya",
+    "district": "Moneragala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.76%",
+        "votes": 91349
+      },
+      {
+        "party": "NDF",
+        "percentage": "26.37%",
+        "votes": 35557
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.78%",
+        "votes": 5094
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.3%",
+        "votes": 403
+      }
+    ]
+  },
+  {
+    "division": "Wennappuwa",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.29%",
+        "votes": 45969
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.34%",
+        "votes": 26624
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.74%",
+        "votes": 2902
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.98%",
+        "votes": 761
+      }
+    ]
+  },
+  {
+    "division": "Wiyaluwa",
+    "district": "Badulla",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "56.66%",
+        "votes": 24401
+      },
+      {
+        "party": "NDF",
+        "percentage": "37.68%",
+        "votes": 16227
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.85%",
+        "votes": 795
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.38%",
+        "votes": 165
+      }
+    ]
+  },
+  {
+    "division": "Yapahuwa",
+    "district": "Kurunegala",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.86%",
+        "votes": 55823
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.93%",
+        "votes": 32581
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.16%",
+        "votes": 2944
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.29%",
+        "votes": 274
+      }
+    ]
+  },
+  {
+    "division": "Yatinuwara",
+    "district": "Mahanuwara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.32%",
+        "votes": 38765
+      },
+      {
+        "party": "NDF",
+        "percentage": "36.48%",
+        "votes": 24244
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.04%",
+        "votes": 2021
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.45%",
+        "votes": 302
+      }
+    ]
+  },
+  {
+    "division": "Yatiyantota",
+    "district": "Kegalle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "51.62%",
+        "votes": 32753
+      },
+      {
+        "party": "NDF",
+        "percentage": "44.47%",
+        "votes": 28215
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.56%",
+        "votes": 990
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.23%",
+        "votes": 145
+      }
+    ]
+  }
+]
