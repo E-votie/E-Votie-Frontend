@@ -11,7 +11,7 @@ const voter_application = [
     { id: 'nic', label: 'NIC', minWidth: 170 }
 ]
 
-const title = "Upcoming Election"
+const title = "Pending Voter Applications"
 
 export const VoterApplications = () => {
 

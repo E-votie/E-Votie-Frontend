@@ -3,10 +3,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { object } from "yup";
 import { useMutation } from 'react-query';
-import axios from 'axios';
+import {authGet, authPost} from '../../Auth/authFetch.jsx';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import React from 'react';
+
 
 const MySwal = withReactContent(Swal);
 
@@ -16,8 +17,10 @@ export const CreateElection = () => {
         StartingDateTime: yup.string().required("Cannot be empty"),
         EndingDateTime: yup.string().required("Cannot be empty"),
         ElectionType: yup.string().required("Cannot be empty"),
-        ElectionTitle: yup.string().required("Cannot be empty"),
-        ElectionDetails: yup.string().required("Cannot be empty"),
+        ElectionTitleEnglish: yup.string().required("Cannot be empty"),
+        ElectionTitleSinhala: yup.string().required("Cannot be empty"),
+        ElectionDescriptionEnglish: yup.string().required("Cannot be empty"),
+        ElectionDescriptionSinhala: yup.string().required("Cannot be empty")
     });
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -25,7 +28,7 @@ export const CreateElection = () => {
     });
 
     const mutation = useMutation((data) => {
-        return axios.post('http://localhost:8081/Election/Create', data);
+        return authPost('http://localhost:8081/Election/Create', data);
     });
 
     const onSubmit = async (data) => {
@@ -56,7 +59,7 @@ export const CreateElection = () => {
             <div className="card-body">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-4">
-                        <p className="font-sans text-3xl font-semibold">New Election</p>
+                        <p className="font-sans text-3xl font-semibold">Create New Election</p>
                         <div className="flex gap-8">
                             <div className="w-1/2 space-y-4">
                                 <div className="flex flex-col">
@@ -76,7 +79,7 @@ export const CreateElection = () => {
                                     <input
                                         className="input input-bordered input-primary w-full"
                                         placeholder="Enter Election Title"
-                                        {...register("ElectionTitle")}
+                                        {...register("ElectionTitleEnglish")}
                                     />
                                     {errors.ElectionTitle &&
                                         <p className="text-red-500 text-sm mt-1">{errors.ElectionTitle.message}</p>}
@@ -86,7 +89,7 @@ export const CreateElection = () => {
                                     <input
                                         className="input input-bordered input-primary w-full"
                                         placeholder="Enter Election Title"
-                                        {...register("ElectionTitle")}
+                                        {...register("ElectionTitleSinhala")}
                                     />
                                     {errors.ElectionTitle &&
                                         <p className="text-red-500 text-sm mt-1">{errors.ElectionTitle.message}</p>}
@@ -120,16 +123,6 @@ export const CreateElection = () => {
                                     {errors.ElectionType &&
                                         <p className="text-red-500 text-sm mt-1">{errors.ElectionType.message}</p>}
                                 </div>
-                                <div className="flex flex-col">
-                                    <label className="mb-2 font-sans text-lg">Election Title</label>
-                                    <input
-                                        className="input input-bordered input-primary w-full"
-                                        placeholder="Enter Election Title"
-                                        {...register("ElectionTitle")}
-                                    />
-                                    {errors.ElectionTitle &&
-                                        <p className="text-red-500 text-sm mt-1">{errors.ElectionTitle.message}</p>}
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -139,34 +132,22 @@ export const CreateElection = () => {
                             <textarea
                                 className="textarea textarea-bordered h-20 textarea-primary w-full"
                                 placeholder="Enter Election Details"
-                                {...register("ElectionDetails")}
+                                {...register("ElectionDescriptionEnglish")}
                             ></textarea>
-                            {errors.ElectionDetails &&
-                                <p className="text-red-500 text-sm mt-1">{errors.ElectionDetails.message}</p>}
+                            {errors.ElectionDescriptionEnglish &&
+                                <p className="text-red-500 text-sm mt-1">{errors.ElectionDescriptionEnglish.message}</p>}
                         </label>
                     </div>
                     <div className="space-y-4">
-                        <p className="font-sans text-2xl">Election Description</p>
+                        <p className="font-sans text-2xl">මැතිවරණ විස්තරය</p>
                         <label className="form-control">
                             <textarea
                                 className="textarea textarea-bordered h-20 textarea-primary w-full"
                                 placeholder="Enter Election Details"
-                                {...register("ElectionDetails")}
+                                {...register("ElectionDescriptionSinhala")}
                             ></textarea>
-                            {errors.ElectionDetails &&
-                                <p className="text-red-500 text-sm mt-1">{errors.ElectionDetails.message}</p>}
-                        </label>
-                    </div>
-                    <div className="space-y-4">
-                        <p className="font-sans text-2xl">Election Description</p>
-                        <label className="form-control">
-                            <textarea
-                                className="textarea textarea-bordered h-20 textarea-primary w-full"
-                                placeholder="Enter Election Details"
-                                {...register("ElectionDetails")}
-                            ></textarea>
-                            {errors.ElectionDetails &&
-                                <p className="text-red-500 text-sm mt-1">{errors.ElectionDetails.message}</p>}
+                            {errors.ElectionDescriptionSinhala &&
+                                <p className="text-red-500 text-sm mt-1">{errors.ElectionDescriptionSinhala.message}</p>}
                         </label>
                     </div>
                     <div className="card-actions justify-end">

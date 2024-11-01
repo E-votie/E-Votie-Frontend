@@ -36,14 +36,14 @@ const actions = [
         "action": "Voters",
         "icon": "inquiry",
         "description": "Voters in GN District",
-        "link": "/inquiries",
+        "link": "/GN/Votes",
         "roles": ["GramaNiladhari"]
     },
     {
         "action": "Notifications",
         "icon": "inquiry",
         "description": "TO Dos",
-        "link": "/inquiries",
+        "link": "/announcements",
         "roles": ["GramaNiladhari"]
     },
 ];
@@ -109,7 +109,7 @@ export const GnHome = () => {
             <Divider/>
             <div className="flex flex-row justify-between">
                 <div
-                    className="w-[350px] bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-row justify-between items-start gap-5 border border-gray-300">
+                    className="w-1/8 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-row justify-between items-start gap-5 border border-gray-300">
                     <div className="flex flex-col p-0 m-0">
                         <EmojiPeopleIcon className="text-pink-500 mb-4" style={{fontSize: 30}}/>
                         <div className="flex flex-row h-fit">
@@ -151,7 +151,7 @@ export const GnHome = () => {
                     </div>
                 </div>
                 <div
-                    className="w-[350px] bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-row justify-between items-start gap-5 border border-gray-300">
+                    className="w-1/8 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-row justify-between items-start gap-5 border border-gray-300">
                     <div className="flex flex-col p-0 m-0">
                         <EmojiPeopleIcon className="text-pink-500 mb-4" style={{fontSize: 30}}/>
                         <div className="flex flex-row h-fit">
@@ -193,7 +193,7 @@ export const GnHome = () => {
                     </div>
                 </div>
                 <div
-                    className="w-[350px] bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-row justify-between items-start gap-5 border border-gray-300">
+                    className="w-1/8 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-row justify-between items-start gap-5 border border-gray-300">
                     <div className="flex flex-col p-0 m-0">
                         <EmojiPeopleIcon className="text-pink-500 mb-4" style={{fontSize: 30}}/>
                         <div className="flex flex-row h-fit">
@@ -235,7 +235,7 @@ export const GnHome = () => {
                     </div>
                 </div>
                 <div
-                    className="w-[350px] bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-row justify-between items-start gap-5 border border-gray-300">
+                    className="w-1/8 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-row justify-between items-start gap-5 border border-gray-300">
                     <div className="flex flex-col p-0 m-0">
                         <EmojiPeopleIcon className="text-pink-500 mb-4" style={{fontSize: 30}}/>
                         <div className="flex flex-row h-fit">

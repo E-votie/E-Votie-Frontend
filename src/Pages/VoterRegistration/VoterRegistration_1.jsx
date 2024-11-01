@@ -105,7 +105,7 @@ export const VoterRegistration_1 = () => {
     })
 
     const mutation = useMutation((data) => {
-        return axios.post('http://localhost:8081/voter-registration/voter', data);
+        return axios.post(import.meta.env.VITE_API_VoterRegistration_URL + '/voter', data);
     });
 
     const onSubmit = (data) => {
@@ -127,7 +127,7 @@ export const VoterRegistration_1 = () => {
             },
             onError: (error) => {
                 MySwal.fire({
-                    title: `<p>${error.response.data}</p>`,
+                    title: `<p>${error.response.data.message}</p>`,
                     icon: 'error',
                     showConfirmButton: true,
                     confirmButtonText: 'OK',
