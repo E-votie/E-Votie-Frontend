@@ -139,30 +139,30 @@ export const PartyRegistrationApplicationDrawer = () => {
               Party Information
             </Typography>
             <Divider />
-            <Stack direction="row">
-              <TextField
-                fullWidth
-                label="Party Name"
-                variant="outlined"
-                {...register("partyName", { required: true })}
-                />
+            <TextField
+              fullWidth
+              label="Party Name"
+              variant="outlined"
+              {...register("partyName", { required: true })}
+              />
+            <Stack>
               <TextField
                 fullWidth
                 label="Abbreviation"
                 variant="outlined"
                 {...register("abbreviation", { required: true })}
               />
+              <TextField
+                fullWidth
+                label="Established Date"
+                variant="outlined"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                {...register("date", { required: true })}
+              />
             </Stack>
-            <TextField
-              fullWidth
-              label="Established Date"
-              variant="outlined"
-              type="date"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              {...register("date", { required: true })}
-            />
             <Stack spacing={2}>
               <Stack direction="row">
                 <TextField

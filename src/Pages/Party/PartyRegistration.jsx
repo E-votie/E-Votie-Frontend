@@ -6,6 +6,7 @@ import { PartyRegistrationApplicationDrawer } from "../../Components/PartyRegist
 import { PartyRegistrationApplication } from "../../Components/PartyRegistrationApplication";
 import {Box, Stack} from "@mui/material";
 import {Button} from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 
 export const PartyRegistration = () => {
@@ -29,9 +30,35 @@ export const PartyRegistration = () => {
                         Party Registration
                     </div>
                     <div>
-                        <Button variant="outlined" onClick={handleOpenPartyApplication}>
-                            Open Registration Form
+                        <Button 
+                            variant="outlined" 
+                            onClick={handleOpenPartyApplication}
+                            sx={{
+                                color: '#EC4899',
+                                position: 'relative',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 1,
+                                paddingRight: 2,
+                                '&:hover': {
+                                    color: '#EC4899',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.1)', 
+                                },
+                                '& .MuiSvgIcon-root': {
+                                    transform: 'translateX(0)',
+                                    transition: 'transform 0.3s ease-in-out',
+                                },
+                                '&:hover .MuiSvgIcon-root': {
+                                    transform: 'translateX(5px)', // arrow slides slightly on hover
+                                },
+                            }}
+                        >
+                            Click here to view application
+                            <ArrowForwardIcon />
                         </Button>
+                        {/* <Button variant="outlined" onClick={handleOpenPartyApplication}>
+                            Open Registration Form
+                        </Button> */}
                         <PartyRegistrationApplication open={openPartyRegistrationApplication} handleClose={handleClosePartyRegistrationApplication} />
                     </div>
                 </div>   

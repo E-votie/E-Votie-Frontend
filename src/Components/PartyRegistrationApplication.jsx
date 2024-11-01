@@ -62,7 +62,7 @@ const initialApplicationDetails = {
   };
 
 export const PartyRegistrationApplication = ({ open, handleClose }) => {
-    const { register, formState: { errors }, setValue, getValues } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue, getValues } = useForm();
     const [activeStep, setActiveStep] = useState(0);
     const [isLeaderVerified, setIsLeaderVerified] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -111,6 +111,12 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
+    const onSubmit = (data) => {
+        console.log("onSubmit function called");
+        console.log(data);
+        
+    }
+
     const renderPartyInformationForm = () => (
         <Box sx={{ padding: 2 }}>
             <Stack spacing={2}>
@@ -118,35 +124,35 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                     Party Information
                 </Typography> */}
                 <Divider />
+                <TextField
+                    fullWidth
+                    label="Party Name"
+                    variant="outlined"
+                    {...register("partyName", { required: true })}
+                />
                 <Stack direction="row" spacing={2}>
-                    <TextField
-                        fullWidth
-                        label="Party Name"
-                        variant="outlined"
-                        {...register("partyName", { required: true })}
-                    />
                     <TextField
                         fullWidth
                         label="Abbreviation"
                         variant="outlined"
                         {...register("abbreviation", { required: true })}
                     />
+                    <TextField
+                        fullWidth
+                        label="Established Date"
+                        variant="outlined"
+                        type="date"
+                        InputLabelProps={{ shrink: true }}
+                        {...register("date", { required: true })}
+                    />
                 </Stack>
                 <TextField
                     fullWidth
-                    label="Established Date"
+                    label="Address line 1"
                     variant="outlined"
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                    {...register("date", { required: true })}
+                    {...register("addressLine1", { required: true })}
                 />
                 <Stack direction="row" spacing={2}>
-                    <TextField
-                        fullWidth
-                        label="Address line 1"
-                        variant="outlined"
-                        {...register("addressLine1", { required: true })}
-                    />
                     <TextField
                         fullWidth
                         label="Address line 2"
@@ -159,8 +165,6 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         variant="outlined"
                         {...register("city", { required: true })}
                     />
-                </Stack>
-                <Stack direction="row" spacing={2}>
                     <TextField
                         fullWidth
                         label="Postal Code"
@@ -187,10 +191,9 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         value={leaderName}
                     />
                 </Stack>
-                {isLoading && <Typography>Verifying leader NIC...</Typography>}
-                {isLeaderVerified && (
-                    <Typography color="success.main">Leader verified successfully!</Typography>
-                )}
+                {isLoading && <Typography>Verifying leader NIC...</Typography>} 
+                {!isLoading && isLeaderVerified && <Typography color='success.main'>Leader identified successfully!</Typography>}
+                {!isLoading && !isLeaderVerified && <Typography className='text-error'>Leader identification failed!</Typography>}
             </Stack>
         </Box>
     );
@@ -248,7 +251,9 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         </Step>
                     ))}
                 </Stepper>
-                {activeStep === 0 ? renderPartyInformationForm() : renderDocumentUploadForm()}
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    {activeStep === 0 ? renderPartyInformationForm() : renderDocumentUploadForm()}
+                </form>
             </DialogContent>
             <DialogActions>
                 {activeStep > 0 && (
