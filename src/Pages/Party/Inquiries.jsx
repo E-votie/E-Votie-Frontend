@@ -1,5 +1,6 @@
 import React from 'react'
 import { InquiryCard } from '../../Components/InquiryCard';
+import GnHome from "../GramaNiladhari/GnHome.jsx";
 
 const inquiries = [
     {
@@ -66,3 +67,5 @@ export const Inquiries = () => {
     </div>
   )
 }
+
+export default Inquiries;
