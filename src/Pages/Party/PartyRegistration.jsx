@@ -1,19 +1,38 @@
+import { useState } from 'react';
 import { Divider, Paper } from "@mui/material";
 import { List, ListItem, ListItemText, Typography } from '@mui/material';
 import {PartyRegistrationForm} from '../../Components/PartyRegistrationForm';
 import { PartyRegistrationApplicationDrawer } from "../../Components/PartyRegistrationApplicationDrawer";
+import { PartyRegistrationApplication } from "../../Components/PartyRegistrationApplication";
 import {Box, Stack} from "@mui/material";
+import {Button} from '@mui/material';
+
 
 export const PartyRegistration = () => {
+    const[openPartyRegistrationApplication, setOpenPartyRegistrationApplication] = useState(false);
+
+    const handleOpenPartyApplication = () => {
+        setOpenPartyRegistrationApplication(true);
+    };
+
+    const handleClosePartyRegistrationApplication  = () => {
+        setOpenPartyRegistrationApplication(false);
+    };
+
     return (
         <div className="min-h-[600px] flex bg-base-100 shadow-md rounded-xl px-4 pb-4 gap-6">
             <div className="registerPartyContainer w-full">
                 {/* Header */}
                 <div className='header my-8 flex justify-between items-center'>
                     {/* Topic */}
-                    <div className="text-3xl font-semibold text-gray-900">
+                    <div className="text-3xl font-semibold text-gray-900 flex justify-between">
                         Party Registration
-                        <PartyRegistrationApplicationDrawer />
+                    </div>
+                    <div>
+                        <Button variant="outlined" onClick={handleOpenPartyApplication}>
+                            Open Registration Form
+                        </Button>
+                        <PartyRegistrationApplication open={openPartyRegistrationApplication} handleClose={handleClosePartyRegistrationApplication} />
                     </div>
                 </div>   
                 {/* Application form and instructions */}

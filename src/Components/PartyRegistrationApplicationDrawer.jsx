@@ -164,19 +164,27 @@ export const PartyRegistrationApplicationDrawer = () => {
               {...register("date", { required: true })}
             />
             <Stack spacing={2}>
-              <TextField
-                  fullWidth
-                  label="Address line 1"
-                  variant="outlined"
-                  {...register("address line 1", { required: true })}
-              />
-              <TextField
-                fullWidth
-                label="Address line 2"
-                variant="outlined"
-                {...register("address line 2", { required: true })}
-              />
               <Stack direction="row">
+                <TextField
+                    fullWidth
+                    label="Address line 1"
+                    variant="outlined"
+                    {...register("address line 1", { required: true })}
+                />
+                <TextField
+                  fullWidth
+                  label="Address line 2"
+                  variant="outlined"
+                  {...register("address line 2", { required: true })}
+                />
+                <TextField
+                  fullWidth
+                  label="City"
+                  variant="outlined"
+                  {...register("city", { required: true })}
+                />
+              </Stack>
+              {/* <Stack direction="row">
                 <TextField
                   fullWidth
                   label="City"
@@ -190,7 +198,7 @@ export const PartyRegistrationApplicationDrawer = () => {
                   {...register("postal code", { required: true })}
 
                 />
-              </Stack>
+              </Stack> */}
             </Stack>
             <Stack direction="row">
               {/* Leader NIC */}
@@ -227,7 +235,7 @@ export const PartyRegistrationApplicationDrawer = () => {
               Documents
             </Typography>
             <Divider />
-            {/* {renderAttachments()} */}
+            {renderAttachments()}
           </Stack>
         </Box>
 
@@ -239,18 +247,18 @@ export const PartyRegistrationApplicationDrawer = () => {
     </Box>
   );
 
-//   return (
-//     <div>
-//       <Button variant="outlined" onClick={toggleDrawer(true)}>
-//         Open Registration Form
-//       </Button>
-//       <Drawer
-//         anchor="right"
-//         open={state.right}
-//         onClose={toggleDrawer(false)}
-//       >
-//         {form()}
-//       </Drawer>
-//     </div>
-//   );
-// }
+  return (
+    <div>
+      <Button variant="outlined" onClick={toggleDrawer(true)}>
+        Open Registration Form
+      </Button>
+      <Drawer
+        anchor="right"
+        open={state.right}
+        onClose={toggleDrawer(false)}
+      >
+        {form()}
+      </Drawer>
+    </div>
+  );
+}

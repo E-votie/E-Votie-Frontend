@@ -19,8 +19,9 @@
     "@mui/icons-material": "^5.15.21",
     "@mui/material": "^5.16.0",
     "@mui/x-data-grid": "^7.11.1",
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@react-google-maps/api": "^2.19.3",
-    "@react-pdf/renderer": "^3.4.4",
+    "@react-pdf/renderer": "^4.0.0",
     "@tailwindcss/typography": "^0.5.13",
     "@tanstack/react-query": "^5.50.1",
     "@vis.gl/react-google-maps": "^1.1.0",
@@ -45,7 +46,7 @@
     "prop-types": "^15.8.1",
     "raphael": "^2.3.0",
     "react": "^18.3.1",
-    "react-big-calendar": "^1.13.4",
+    "react-big-calendar": "^1.15.0",
     "react-chartjs-2": "^5.2.0",
     "react-countup": "^6.5.3",
     "react-dom": "^18.3.1",
@@ -64,6 +65,7 @@
     "reactjs-popup": "^2.0.6",
     "sweetalert2": "^11.12.1",
     "sweetalert2-react-content": "^5.0.7",
+    "yoga-layout-prebuilt": "^1.10.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
