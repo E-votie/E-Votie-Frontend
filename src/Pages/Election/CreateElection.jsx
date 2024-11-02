@@ -3,10 +3,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { object } from "yup";
 import { useMutation } from 'react-query';
-import {authGet, authPost} from '../../Auth/authFetch.jsx';
+import { authPost} from '../../Auth/authFetch.jsx';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import React from 'react';
 
 
 const MySwal = withReactContent(Swal);
@@ -54,6 +53,9 @@ export const CreateElection = () => {
         });
     };
 
+    // Get today's date in the format 'YYYY-MM-DDTHH:MM' for the min attribute
+    const today = new Date().toISOString().slice(0, 16);
+
     return (
         <div className="card card-side bg-base-100 shadow-xl gap-10 px-4">
             <div className="card-body">
@@ -69,6 +71,7 @@ export const CreateElection = () => {
                                         type="datetime-local"
                                         className="input input-bordered input-primary w-full"
                                         {...register("StartingDateTime")}
+                                        min={today}  // Set minimum date to today
                                     />
 
                                     {errors.StartingDateTime &&
@@ -103,6 +106,7 @@ export const CreateElection = () => {
                                         placeholder="Select date and time"
                                         className="input input-bordered input-primary w-full"
                                         {...register("EndingDateTime")}
+                                        min={today}  // Set minimum date to today
                                     />
                                     {errors.EndingDateTime &&
                                         <p className="text-red-500 text-sm mt-1">{errors.EndingDateTime.message}</p>}
