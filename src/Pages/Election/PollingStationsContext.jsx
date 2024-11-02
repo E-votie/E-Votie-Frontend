@@ -1,54 +1,134 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useCallback } from 'react';
+import districtsData from '../../../public/Resource/Srilankan_Dropdown.json';
 
 export const PollingStationsContext = createContext();
 
 export const PollingStationsProvider = ({ children }) => {
-    const [pollingStations, setPollingStations] = useState([
-        { electionDistrict: "", name: "", coordinates: "" },
-    ]);
-    const { electionDistricts, addElectionDistrict } = useState(null);
-    const [newDistrict, setNewDistrict] = useState('');
+    const [adminDistricts, setAdminDistricts] = useState(Object.keys(districtsData));
+    const [selectedAdminDistrict, setSelectedAdminDistrict] = useState('');
+    const [electoralDistricts, setElectoralDistricts] = useState([]);
+    const [selectedElectoralDistrict, setSelectedElectoralDistrict] = useState('');
+    const [pollingDistricts, setPollingDistricts] = useState([]);
+    const [selectedPollingDistrict, setSelectedPollingDistrict] = useState('');
+    const [pollingStations, setPollingStations] = useState({});
 
-    const addPollingStation = (district) => {
-        setPollingStations((prevStations) => [
-            ...prevStations,
-            { electionDistrict: district, name: "", coordinates: "" },
-        ]);
-    };
+    const handleAdminDistrictChange = useCallback((adminDistrict) => {
+        setSelectedAdminDistrict(adminDistrict);
+        setElectoralDistricts(Object.keys(districtsData[adminDistrict] || {}));
+        setSelectedElectoralDistrict('');
+        setPollingDistricts([]);
+        setSelectedPollingDistrict('');
+    }, []);
 
-    const deletePollingStation = (index, district) => {
-        if (pollingStations.length > 1) {
-            setPollingStations((prevStations) =>
-                prevStations.filter((_, i) => i !== index)
-            );
-        } else {
-            // Show a warning message or handle the case where the last polling station cannot be deleted
-        }
-    };
+    const handleBulkUpload = useCallback((jsonData) => {
+        const newPollingStations = {};
+        const newAdminDistricts = new Set(adminDistricts);
+        const newElectoralDistricts = new Set(electoralDistricts);
+        const newPollingDistricts = new Set(pollingDistricts);
 
-    const handlePollingStationNameChange = (index, value, district) => {
-        setPollingStations((prevStations) => {
-            const updatedStations = [...prevStations];
-            const stationIndex = updatedStations.findIndex(
-                (station) => station.electionDistrict === district && station.name === prevStations[index].name
-            );
-            updatedStations[stationIndex].name = value;
-            return updatedStations;
+        Object.entries(jsonData).forEach(([adminDistrict, electoralDistrictsData]) => {
+            newAdminDistricts.add(adminDistrict);
+            Object.entries(electoralDistrictsData).forEach(([electoralDistrict, pollingDistrictsData]) => {
+                newElectoralDistricts.add(electoralDistrict);
+                Object.entries(pollingDistrictsData).forEach(([pollingDistrict, stations]) => {
+                    newPollingDistricts.add(pollingDistrict);
+                    if (!newPollingStations[pollingDistrict]) {
+                        newPollingStations[pollingDistrict] = [];
+                    }
+                    newPollingStations[pollingDistrict].push(...stations);
+                });
+            });
         });
+
+        setAdminDistricts(Array.from(newAdminDistricts));
+        setElectoralDistricts(Array.from(newElectoralDistricts));
+        setPollingDistricts(Array.from(newPollingDistricts));
+        setPollingStations(prevStations => ({
+            ...prevStations,
+            ...newPollingStations
+        }));
+    }, [adminDistricts, electoralDistricts, pollingDistricts]);
+
+    const getDistrictHierarchy = () => {
+        const hierarchy = [];
+
+        Object.entries(districtsData).forEach(([adminDistrict, electoralDistrictsObj]) => {
+            Object.entries(electoralDistrictsObj).forEach(([electoralDistrict, pollingDistrictsArr]) => {
+                console.log("------->>>>", pollingDistrictsArr, "++++++++++++++")
+                pollingDistrictsArr.forEach(pollingDistrict => {
+                    hierarchy.push({
+                        adminDistrict,
+                        electoralDistrict,
+                        pollingDistrict
+                    });
+                });
+            });
+        });
+
+        return hierarchy;
     };
+
+    const handleElectoralDistrictChange = useCallback((electoralDistrict) => {
+        setSelectedElectoralDistrict(electoralDistrict);
+        setPollingDistricts(districtsData[selectedAdminDistrict][electoralDistrict] || []);
+        setSelectedPollingDistrict('');
+    }, [selectedAdminDistrict]);
+
+    const handlePollingDistrictChange = useCallback((pollingDistrict) => {
+        setSelectedPollingDistrict(pollingDistrict);
+    }, []);
+
+    const addPollingStation = useCallback((district, name = '', coordinates = '') => {
+        setPollingStations(prev => ({
+            ...prev,
+            [district]: [...(prev[district] || []), { name, coordinates }]
+        }));
+    }, []);
+
+    const deletePollingStation = useCallback((district, index) => {
+        setPollingStations(prev => ({
+            ...prev,
+            [district]: prev[district].filter((_, i) => i !== index)
+        }));
+    }, []);
+
+    const handlePollingStationNameChange = useCallback((district, index, name) => {
+        setPollingStations(prev => ({
+            ...prev,
+            [district]: prev[district].map((station, i) =>
+                i === index ? { ...station, name } : station
+            )
+        }));
+    }, []);
+
+    const updatePollingStationCoordinates = useCallback((district, index, coordinates) => {
+        setPollingStations(prev => ({
+            ...prev,
+            [district]: prev[district].map((station, i) =>
+                i === index ? { ...station, coordinates } : station
+            )
+        }));
+    }, []);
 
     return (
         <PollingStationsContext.Provider
             value={{
+                adminDistricts,
+                selectedAdminDistrict,
+                electoralDistricts,
+                selectedElectoralDistrict,
+                pollingDistricts,
+                selectedPollingDistrict,
                 pollingStations,
-                setPollingStations,
+                handleAdminDistrictChange,
+                handleElectoralDistrictChange,
+                handlePollingDistrictChange,
                 addPollingStation,
                 deletePollingStation,
                 handlePollingStationNameChange,
-                electionDistricts,
-                addElectionDistrict,
-                newDistrict,
-                setNewDistrict,
+                updatePollingStationCoordinates,
+                handleBulkUpload,
+                getDistrictHierarchy
             }}
         >
             {children}

@@ -5,10 +5,7 @@ import { styled } from '@mui/system';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   display: 'flex',
-  width: '50%',
   backgroundColor: "#fff",
-  margin: theme.spacing(2),
-  overflow: 'visible',
   transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
   '&:hover': {
     transform: 'scale(1.03)',
@@ -34,7 +31,7 @@ export const Politician = ({ politician }) => {
   };
 
   return (
-    <StyledCard onClick={handleClick}>
+    <StyledCard onClick={handleClick} className="w-[calc(50%-0.5rem)]">
       <CardActionArea>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           {/* <Box sx={{ height: 80, bgcolor: 'primary.main' }} /> */}

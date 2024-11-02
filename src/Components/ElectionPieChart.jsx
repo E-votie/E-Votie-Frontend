@@ -57,6 +57,7 @@ const customLegend = {
 };
 
 function transformData(allIslandResults) {
+    console.log(allIslandResults);
     if (!Array.isArray(allIslandResults)) {
         console.error('allIslandResults is not an array:', allIslandResults);
         return {
@@ -70,7 +71,7 @@ function transformData(allIslandResults) {
         };
     }
 
-    const labels = allIslandResults.map(item => item.Party);
+    const labels = allIslandResults.map(item => item.party);
     const data = allIslandResults.map(item => item.count);
     const backgroundColor = allIslandResults.map(item => item.color);
 
@@ -87,7 +88,7 @@ function transformData(allIslandResults) {
 
 function PieChart({ data }) {
     const chartData = transformData(data);
-
+    console.log(chartData);
     return (
         <div style={{width: '200px', height: '200px'}}>
             <Pie data={chartData} options={options}/>

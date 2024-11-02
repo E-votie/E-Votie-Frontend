@@ -15,7 +15,7 @@ const ElectionResultSmallCards = ({ result, district, candidateInfo }) => {
                 </div>
                 {result.map((candidate, index) => {
                     const matchingCandidate = candidateInfo.candidates.find(
-                        info => info.name === candidate.candidate
+                        info => info.party === candidate.party
                     );
 
                     return (

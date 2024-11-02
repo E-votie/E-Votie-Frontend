@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './../assets/css/Scan.css'
 import MySwal from "sweetalert2";
 import {useNavigate} from "react-router-dom";
+const fingerprintUrl = import.meta.env.VITE_API_Fingerprint_URL;
 
 function FingerprintScanner({ ApplicationID }) {
 
@@ -16,7 +17,7 @@ function FingerprintScanner({ ApplicationID }) {
 
     useEffect(() => {
         // Create WebSocket connection
-        const newSocket = new WebSocket(`ws://localhost:8081/fingerprint-websocket?id=${ApplicationID}`);
+        const newSocket = new WebSocket(`${fingerprintUrl}/fingerprint-websocket?id=${ApplicationID}`);
 
         // Connection opened
         newSocket.onopen = (event) => {
@@ -85,8 +86,10 @@ function FingerprintScanner({ ApplicationID }) {
     };
 
     const sendCommand = (command) => {
+        console.log(ApplicationID ,"-------------->>>>>>>>>>>>>>>>>>>>>>>");
         if (socket && socket.readyState === WebSocket.OPEN) {
             const jsonMessage = {
+                ApplicationID: ApplicationID,
                 sourceDevice: ApplicationID,
                 targetDevice: deviceId,
                 message: command

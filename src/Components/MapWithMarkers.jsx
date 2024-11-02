@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { PollingStationsContext } from './../Pages/Election/PollingStationsContext.jsx';
 
 const MapWithMarkers = ({ onLocationSelect }) => {
     const mapStyles = {
@@ -10,7 +11,10 @@ const MapWithMarkers = ({ onLocationSelect }) => {
     };
 
     const [center, setCenter] = useState({ lat: 0, lng: 0 });
-    const [markerPosition, setMarkerPosition] = useState(null);
+    const [markers, setMarkers] = useState([]);
+    const [tempMarker, setTempMarker] = useState(null);
+
+    const { pollingStations, selectedPollingDistrict } = useContext(PollingStationsContext);
 
     useEffect(() => {
         if ("geolocation" in navigator) {
@@ -23,30 +27,33 @@ const MapWithMarkers = ({ onLocationSelect }) => {
                 },
                 (error) => {
                     console.error("Error getting location:", error);
-                    setCenter({ lat: 0, lng: 0 }); // Default fallback
+                    setCenter({ lat: 7.8731, lng: 80.7718 }); // Default to Sri Lanka's center
                 }
             );
         } else {
             console.log("Geolocation is not available");
-            setCenter({ lat: 0, lng: 0 }); // Default fallback
+            setCenter({ lat: 7.8731, lng: 80.7718 }); // Default to Sri Lanka's center
         }
     }, []);
+
+    useEffect(() => {
+        if (selectedPollingDistrict && pollingStations[selectedPollingDistrict]) {
+            const newMarkers = pollingStations[selectedPollingDistrict].map(station => {
+                const [lat, lng] = station.coordinates.split(',').map(Number);
+                return { position: { lat, lng }, name: station.name };
+            });
+            setMarkers(newMarkers);
+        } else {
+            setMarkers([]);
+        }
+    }, [selectedPollingDistrict, pollingStations]);
 
     const onMapClick = (e) => {
         const newPosition = {
             lat: e.latLng.lat(),
             lng: e.latLng.lng()
         };
-        setMarkerPosition(newPosition);
-        onLocationSelect(newPosition.lat, newPosition.lng);
-    };
-
-    const onMarkerDragEnd = (e) => {
-        const newPosition = {
-            lat: e.latLng.lat(),
-            lng: e.latLng.lng()
-        };
-        setMarkerPosition(newPosition);
+        setTempMarker(newPosition);
         onLocationSelect(newPosition.lat, newPosition.lng);
     };
 
@@ -55,44 +62,29 @@ const MapWithMarkers = ({ onLocationSelect }) => {
             <LoadScript googleMapsApiKey="AIzaSyCyn3Iymp1NpFUBho-3HfzzMrnJSLKaqgA">
                 <GoogleMap
                     mapContainerStyle={mapStyles}
-                    zoom={13}
+                    zoom={8}
                     center={center}
                     onClick={onMapClick}
                 >
-                    {markerPosition && (
+                    {markers.map((marker, index) => (
                         <Marker
-                            position={markerPosition}
-                            draggable={true}
-                            onDragEnd={onMarkerDragEnd}
+                            key={index}
+                            position={marker.position}
+                            title={marker.name}
+                        />
+                    ))}
+                    {tempMarker && (
+                        <Marker
+                            position={tempMarker}
+                            icon={{
+                                url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                            }}
                         />
                     )}
                 </GoogleMap>
             </LoadScript>
-            {markerPosition && (
-                <div style={{textAlign: 'center', marginTop: '20px'}}>
-                    {/*<h3>Selected Location:</h3>*/}
-                    {/*<p>Latitude: {markerPosition.lat.toFixed(6)}</p>*/}
-                    {/*<p>Longitude: {markerPosition.lng.toFixed(6)}</p>*/}
-                </div>
-            )}
         </div>
     );
 };
 
 export default MapWithMarkers;
-
-
-// // App.jsx
-// import React from 'react';
-// import MapWithMarkers from 'MapWithMarkers';
-//
-// const App = () => {
-//     return (
-//         <div>
-//             <h1>Google Maps with Draggable Marker</h1>
-//             <MapWithMarkers />
-//         </div>
-//     );
-// };
-//
-// export default App;

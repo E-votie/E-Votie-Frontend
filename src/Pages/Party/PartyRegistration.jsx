@@ -1,17 +1,65 @@
+import { useState } from 'react';
 import { Divider, Paper } from "@mui/material";
 import { List, ListItem, ListItemText, Typography } from '@mui/material';
 import {PartyRegistrationForm} from '../../Components/PartyRegistrationForm';
+import { PartyRegistrationApplicationDrawer } from "../../Components/PartyRegistrationApplicationDrawer";
+import { PartyRegistrationApplication } from "../../Components/PartyRegistrationApplication";
 import {Box, Stack} from "@mui/material";
+import {Button} from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
 
 export const PartyRegistration = () => {
+    const[openPartyRegistrationApplication, setOpenPartyRegistrationApplication] = useState(false);
+
+    const handleOpenPartyApplication = () => {
+        setOpenPartyRegistrationApplication(true);
+    };
+
+    const handleClosePartyRegistrationApplication  = () => {
+        setOpenPartyRegistrationApplication(false);
+    };
+
     return (
         <div className="min-h-[600px] flex bg-base-100 shadow-md rounded-xl px-4 pb-4 gap-6">
             <div className="registerPartyContainer w-full">
                 {/* Header */}
                 <div className='header my-8 flex justify-between items-center'>
                     {/* Topic */}
-                    <div className="text-3xl font-semibold text-gray-900">
+                    <div className="text-3xl font-semibold text-gray-900 flex justify-between">
                         Party Registration
+                    </div>
+                    <div>
+                        <Button 
+                            variant="outlined" 
+                            onClick={handleOpenPartyApplication}
+                            sx={{
+                                color: '#EC4899',
+                                position: 'relative',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 1,
+                                paddingRight: 2,
+                                '&:hover': {
+                                    color: '#EC4899',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.1)', 
+                                },
+                                '& .MuiSvgIcon-root': {
+                                    transform: 'translateX(0)',
+                                    transition: 'transform 0.3s ease-in-out',
+                                },
+                                '&:hover .MuiSvgIcon-root': {
+                                    transform: 'translateX(5px)', // arrow slides slightly on hover
+                                },
+                            }}
+                        >
+                            Click here to view application
+                            <ArrowForwardIcon />
+                        </Button>
+                        {/* <Button variant="outlined" onClick={handleOpenPartyApplication}>
+                            Open Registration Form
+                        </Button> */}
+                        <PartyRegistrationApplication open={openPartyRegistrationApplication} handleClose={handleClosePartyRegistrationApplication} />
                     </div>
                 </div>   
                 {/* Application form and instructions */}
@@ -65,12 +113,12 @@ export const PartyRegistration = () => {
 
                     </div>
                     {/* Party Registration Application */}
-                    <div className="applicationForm w-1/2 bg-base-100 rounded-md p-2"> 
+                    {/* <div className="applicationForm w-1/2 bg-base-100 rounded-md p-2"> 
                         <div className="topic text-xl mb-4 font-bold ">
                             Application
                         </div> 
                         <PartyRegistrationForm />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
