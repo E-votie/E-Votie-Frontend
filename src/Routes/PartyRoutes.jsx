@@ -7,7 +7,7 @@ import {PartyApplication} from "../Pages/Party/PartyApplication.jsx";
 import {PartyMember} from "../Pages/Party/PartyMember.jsx";
 import {Manifesto} from "../Pages/Party/Manifesto.jsx";
 import {Election} from "../Pages/Party/Election.jsx";
-import PartyList from "../Pages/Party/PartyList.jsx";
+import {PartyList} from "../Pages/Party/PartyList.jsx";
 
 
 const PartyRoutes = () => {
