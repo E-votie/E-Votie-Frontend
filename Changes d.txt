@@ -109,3 +109,5 @@ class Voter {
         return name;
     }
 }
+
+//new line
