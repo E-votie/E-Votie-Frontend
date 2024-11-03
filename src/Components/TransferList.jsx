@@ -17,8 +17,9 @@ import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Swal from 'sweetalert2';  // Import SweetAlert2
 
-// Utility functions
+// Utility functions (same as before)
 function not(a, b) {
     return a.filter((value) => b.indexOf(value) === -1);
 }
@@ -48,6 +49,20 @@ export default function TransferList() {
 
     const leftChecked = intersection(checked, left.map(item => item.id));
     const rightChecked = intersection(checked, right.map(item => item.id));
+
+    // SweetAlert2 Popup for viewing candidate details
+    const handleView = (candidate) => () => {
+        Swal.fire({
+            title: 'Candidate Details',
+            html: `
+                <strong>Name:</strong> ${candidate.name}<br>
+                <strong>Party:</strong> ${candidate.party}
+               <br> <strong>Details:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        `,
+            icon: 'info',
+            confirmButtonText: 'Close',
+        });
+    };
 
     const handleToggle = (id) => () => {
         const currentIndex = checked.indexOf(id);
@@ -143,7 +158,7 @@ export default function TransferList() {
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{item.party}</TableCell>
                                 <TableCell>
-                                    <IconButton aria-label="view">
+                                    <IconButton aria-label="view" onClick={handleView(item)}>
                                         <VisibilityIcon />
                                     </IconButton>
                                 </TableCell>

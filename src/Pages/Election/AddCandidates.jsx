@@ -32,3 +32,5 @@ export default function AddCandidates() {
         </Box>
     );
 }
+
+//new line

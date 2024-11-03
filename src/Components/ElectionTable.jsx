@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,11 +12,21 @@ import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Slide from '@mui/material/Slide';
 import Box from '@mui/material/Box';
+import EditorJS from '@editorjs/editorjs';
+import Header from '@editorjs/header';
+import ImageTool from '@editorjs/image';
+import Checklist from '@editorjs/checklist';
+import SimpleImage from "@editorjs/simple-image";
+import NestedList from '@editorjs/nested-list';
+import LinkTool from '@editorjs/link';
+import Embed from '@editorjs/embed';
+import Tablepopup from '@editorjs/table';
+import Delimiter from '@editorjs/delimiter';
+import AttachesTool from '@editorjs/attaches';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -25,6 +35,74 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function ElectionTable({ rows, columns }) {
     const [open, setOpen] = useState(false);
     const [selectedDescription, setSelectedDescription] = useState('');
+    const editorInstance = useRef(null);
+    const editorRef = useRef(null);
+
+    useEffect(() => {
+        if (editorRef.current) {
+            editorInstance.current = new EditorJS({
+                    holder: editorRef.current,
+                    tools: {
+                        header: Header,
+                        image1: SimpleImage,
+                        table: Tablepopup,
+                        image: {
+                            class: ImageTool,
+                            config: {
+                                endpoints: {
+                                    byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
+                                    byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+                                }
+                            }
+                        },
+                        checklist: {
+                            class: Checklist,
+                            inlineToolbar: true,
+                        },
+
+                        list: {
+                            class: NestedList,
+                            inlineToolbar: true,
+                            config: {
+                                defaultStyle: 'unordered'
+                            },
+                        },
+                        linkTool: {
+                            class: LinkTool,
+                            config: {
+                                endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for url data fetching,
+                            }
+                        },
+                        embed: {
+                            class: Embed,
+                            config: {
+                                services: {
+                                    youtube: true,
+                                    coub: true
+                                }
+                            }
+                        },
+                        delimiter: Delimiter,
+                        attaches: {
+                            class: AttachesTool,
+                            config: {
+                                endpoint: 'http://localhost:8008/uploadFile'
+                            }
+                        },
+                    },
+                },
+            );
+
+
+            // Clean up when the component unmounts
+            return () => {
+                if (editorInstance.current) {
+                    editorInstance.current.destroy();
+                    editorInstance.current = null;
+                }
+            };
+        }
+    }, [open]); // Re-initialize the editor when the dialog opens
 
     const handleClickOpen = (description) => {
         setSelectedDescription(description);
@@ -64,7 +142,6 @@ export default function ElectionTable({ rows, columns }) {
                                             key={colIndex}
                                             align={colIndex === 0 ? 'left' : 'right'}
                                             onClick={() => {
-                                                // Open the modal only if the column is the description column
                                                 if (column === 'Description') {
                                                     handleClickOpen(row[column]);
                                                 }
@@ -83,7 +160,7 @@ export default function ElectionTable({ rows, columns }) {
                     sx={{
                         display: 'flex',
                         justifyContent: 'flex-end',
-                        mt: 2, // Adds margin-top to space out the button from the table
+                        mt: 2,
                     }}
                 >
                     <Button
@@ -119,15 +196,10 @@ export default function ElectionTable({ rows, columns }) {
                     id="alert-dialog-title"
                     sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}
                 >
-                    Election Description
+                    Add Description
                 </DialogTitle>
                 <DialogContent>
-                    <DialogContentText
-                        id="alert-dialog-description"
-                        sx={{ fontSize: '1rem', color: '#555' }}
-                    >
-                        {selectedDescription}
-                    </DialogContentText>
+                    <div id="editorjs" ref={editorRef} style={{ border: '1px solid #ddd', padding: '10px', borderRadius: '4px' }} />
                 </DialogContent>
                 <DialogActions>
                     <Button

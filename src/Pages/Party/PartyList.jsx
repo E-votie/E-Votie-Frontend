@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Box, Button, Divider, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, InputAdornment, TextField  } from '@mui/material';
@@ -169,6 +169,8 @@ export const PartyList = () => {
     </motion.div>
   );
 };
+
+export default PartyList;
 
 
 // Importing images
