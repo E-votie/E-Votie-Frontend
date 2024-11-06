@@ -11,45 +11,88 @@ import React, { useEffect } from 'react';
 // import KeycloakService from "../../services/KeycloakService.jsx";
 // import { authGet } from "../../Auth/authFetch.jsx";
 
-// const actions = [
-//     { /* action data omitted for brevity */ }
+// const actionItems = [
+//     {
+//         // Label for the action
+//         "label": "Party Applications",
+//         "icon": "party",
+//         // Description of the purpose of this action
+//         "description": "Application to register political parties.",
+//         "link": "/party/list",
+//         "allowedRoles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "label": "Candidates Application",
+//         "icon": "candidate",
+//         "description": "Candidate.",
+//         "allowedRoles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "label": "Elections",
+//         "icon": "election",
+//         "description": "Create new elections and view past",
+//         "link": "/election/list",
+//         "allowedRoles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "label": "Notifications",
+//         "icon": "inquiry",
+//         "description": "To-Dos and reminders.",
+//         "link": "/inquiries",
+//         "allowedRoles": ["GramaNiladhari"]
+//     },
+//     {
+//         "label": "Inquiries",
+//         "icon": "inquiry",
+//         "description": "Submit your inquiries and complaints here.",
+//         "link": "/inquiries",
+//         "allowedRoles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "label": "Announcements",
+//         "icon": "announcement",
+//         "description": "Latest announcements and updates.",
+//         "link": "/announcements",
+//         "allowedRoles": ["ElectionCommissioner"]
+//     },
 // ];
 
-// const isCardVisible = (roles) => {
-//     if (roles.includes("ALL")) return true;
-//     if (roles.includes("Anonymous") && !keycloakService.isLoggedIn()) return true;
+// const displayCard = (allowedRoles) => {
+//     if (allowedRoles.includes("ALL")) return true;
+//     if (allowedRoles.includes("Anonymous") && !keycloakService.isLoggedIn()) return true;
 //     if (keycloakService.isLoggedIn()) {
-//         return roles.some(role => KeycloakService.hasRole(role));
+//         return allowedRoles.some(role => KeycloakService.hasRole(role));
 //     }
 //     return false;
 // };
 
 // export const ElectionHome = () => {
 
-//     const [gnDistrict, setGnDistrict] = React.useState("Nampanumuwa");
-//     const [userName, setUserName] = React.useState("Lahiru Jayathilake");
-//     const [totalVoters, setTotalVoters] = React.useState(1281);
-//     const [eligibleVoters, setEligibleVoters] = React.useState(1135);
-//     const [newVoters, setNewVoters] = React.useState(84);
-//     const [pendingCases, setPendingCases] = React.useState(2);
+//     const [district, setDistrict] = React.useState("Nampanumuwa");
+//     const [userFullName, setUserFullName] = React.useState("Lahiru Jayathilake");
+//     const [voterCount, setVoterCount] = React.useState(1281);
+//     const [eligibleVoterCount, setEligibleVoterCount] = React.useState(1135);
+//     const [newVoterCount, setNewVoterCount] = React.useState(84);
+//     const [pendingCaseCount, setPendingCaseCount] = React.useState(2);
 
 //     useEffect(() => {
-//         const retrieveData = async () => {
+//         const loadData = async () => {
 //             if (keycloakService.isLoggedIn()) {
 //                 try {
 //                     setLoading(true);
+//                     // Fetching status of voters
 //                     const response = await authGet(`/voter/status`);
 //                     setStatus(response.Status);
 //                     await new Promise(resolve => setTimeout(resolve, 1000));
 //                     setLoading(false);
 //                 } catch (error) {
-//                     console.error('Data retrieval error:', error);
+//                     console.error('Error while loading data:', error);
 //                     setLoading(false);
 //                 }
 //             }
 //         };
 
-//         retrieveData();
+//         loadData();
 //     }, []);
 
 //     return (
@@ -61,19 +104,19 @@ import React, { useEffect } from 'react';
 //                     animate={{ y: 0 }}
 //                     transition={{ duration: 0.5 }}
 //                 >
-//                     Welcome Mr. {userName}
+//                     Welcome Mr. {userFullName}
 //                 </motion.h1>
 //             </div>
 //             <Divider />
 //             <div className="flex flex-row justify-between">
-//                 {/* Card components omitted for brevity */}
+//                 {/* Cards for voter data are displayed here */}
 //             </div>
 //             <Divider />
 //             <div className="flex flex-row justify-between">
 //                 <div className="">
 //                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//                         {actions.map((action, index) => (
-//                             isCardVisible(action.roles) && (
+//                         {actionItems.map((action, index) => (
+//                             displayCard(action.allowedRoles) && (
 //                                 <motion.div
 //                                     key={index}
 //                                     initial={{ opacity: 0, y: 20 }}
@@ -82,10 +125,10 @@ import React, { useEffect } from 'react';
 //                                 >
 //                                     <ActionCard
 //                                         icon={action.icon}
-//                                         action={action.action}
+//                                         action={action.label}
 //                                         description={action.description}
 //                                         link={action.link}
-//                                         role={action.roles}
+//                                         role={action.allowedRoles}
 //                                     />
 //                                 </motion.div>
 //                             )
