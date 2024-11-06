@@ -1,4 +1,4 @@
-// import React, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 // import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 // import { Divider, Link, Typography } from "@mui/material";
 // import CountingEffect from "../../Components/CountingEffect.jsx";
@@ -11,148 +11,81 @@
 // import KeycloakService from "../../services/KeycloakService.jsx";
 // import { authGet } from "../../Auth/authFetch.jsx";
 
-// const sampleActions = [
-//     {
-//         "name": "Party Registration",
-//         "icon": "party",
-//         "details": "Register political parties.",
-//         "url": "/party/register",
-//         "permissions": ["ElectionCommissioner"]
-//     },
-//     {
-//         "name": "Candidate Submission",
-//         "icon": "candidate",
-//         "details": "Candidate submissions.",
-//         "permissions": ["ElectionCommissioner"]
-//     },
-//     {
-//         "name": "Elections Management",
-//         "icon": "election",
-//         "details": "Manage and view elections",
-//         "url": "/election/manage",
-//         "permissions": ["ElectionCommissioner"]
-//     },
-//     {
-//         "name": "Alerts",
-//         "icon": "alerts",
-//         "details": "Notifications",
-//         "url": "/notifications",
-//         "permissions": ["GramaNiladhari"]
-//     },
-//     {
-//         "name": "Public Complaints",
-//         "icon": "complaint",
-//         "details": "Inquiries and complaints.",
-//         "url": "/complaints",
-//         "permissions": ["ElectionCommissioner"]
-//     },
-//     {
-//         "name": "Updates",
-//         "icon": "updates",
-//         "details": "Recent announcements.",
-//         "url": "/announcements",
-//         "permissions": ["ElectionCommissioner"]
-//     },
+// const actions = [
+//     { /* action data omitted for brevity */ }
 // ];
 
-// const isVisible = (permissions) => {
-//     if (permissions.includes("ALL")) return true;
-//     if (permissions.includes("Guest") && !keycloakService.isLoggedIn()) return true;
+// const isCardVisible = (roles) => {
+//     if (roles.includes("ALL")) return true;
+//     if (roles.includes("Anonymous") && !keycloakService.isLoggedIn()) return true;
 //     if (keycloakService.isLoggedIn()) {
-//         return permissions.some(role => KeycloakService.hasRole(role));
+//         return roles.some(role => KeycloakService.hasRole(role));
 //     }
 //     return false;
 // };
 
-// export const SampleHomePage = () => {
+// export const ElectionHome = () => {
 
-//     const [district, setDistrict] = React.useState("Nampanumuwa");
+//     const [gnDistrict, setGnDistrict] = React.useState("Nampanumuwa");
 //     const [userName, setUserName] = React.useState("Lahiru Jayathilake");
-//     const [votersCount, setVotersCount] = React.useState(1281);
+//     const [totalVoters, setTotalVoters] = React.useState(1281);
 //     const [eligibleVoters, setEligibleVoters] = React.useState(1135);
-//     const [newRegistrations, setNewRegistrations] = React.useState(84);
+//     const [newVoters, setNewVoters] = React.useState(84);
 //     const [pendingCases, setPendingCases] = React.useState(2);
 
 //     useEffect(() => {
-//         const loadData = async () => {
+//         const retrieveData = async () => {
 //             if (keycloakService.isLoggedIn()) {
 //                 try {
 //                     setLoading(true);
-//                     const response = await authGet(`/voter/info`);
+//                     const response = await authGet(`/voter/status`);
 //                     setStatus(response.Status);
 //                     await new Promise(resolve => setTimeout(resolve, 1000));
 //                     setLoading(false);
 //                 } catch (error) {
-//                     console.error('Data load error:', error);
+//                     console.error('Data retrieval error:', error);
 //                     setLoading(false);
 //                 }
 //             }
 //         };
 
-//         loadData();
+//         retrieveData();
 //     }, []);
 
 //     return (
-//         <div className="container flex flex-col bg-light rounded p-6 pb-0 gap-8">
-//             <div className="header flex justify-between">
+//         <div className="flex flex-col bg-base-100 shadow-md rounded-xl p-6 pb-0 gap-8">
+//             <div className="flex flex-row justify-between">
 //                 <motion.h1
-//                     className={`title text-2xl font-bold mb-2 transition-opacity duration-500 opacity-100`}
+//                     className={`text-2xl font-bold mb-2 transition-opacity duration-500 opacity-100`}
 //                     initial={{ y: -20 }}
 //                     animate={{ y: 0 }}
 //                     transition={{ duration: 0.5 }}
 //                 >
-//                     Greetings {userName}
+//                     Welcome Mr. {userName}
 //                 </motion.h1>
 //             </div>
 //             <Divider />
-//             <div className="content flex justify-between">
-//                 <div className="card bg-white rounded shadow transition-all duration-300 p-6 flex items-start gap-5 border">
-//                     <EmojiPeopleIcon className="icon text-pink-500 mb-4" style={{ fontSize: 30 }} />
-//                     <Typography className="label text-gray-800 font-bold" sx={{ fontSize: '15px', fontWeight: '700' }}>
-//                         Total Voters
-//                     </Typography>
-//                     <CountingEffect value={votersCount} textSize={'.9rem'} duration={1000} />
-//                 </div>
-//                 <div className="card bg-white rounded shadow transition-all duration-300 p-6 flex items-start gap-5 border">
-//                     <EmojiPeopleIcon className="icon text-pink-500 mb-4" style={{ fontSize: 30 }} />
-//                     <Typography className="label text-gray-800 font-bold" sx={{ fontSize: '15px', fontWeight: '700' }}>
-//                         Eligible Voters
-//                     </Typography>
-//                     <CountingEffect value={eligibleVoters} textSize={'.9rem'} duration={1000} />
-//                 </div>
-//                 <div className="card bg-white rounded shadow transition-all duration-300 p-6 flex items-start gap-5 border">
-//                     <EmojiPeopleIcon className="icon text-pink-500 mb-4" style={{ fontSize: 30 }} />
-//                     <Typography className="label text-gray-800 font-bold" sx={{ fontSize: '15px', fontWeight: '700' }}>
-//                         New Voters
-//                     </Typography>
-//                     <CountingEffect value={newRegistrations} textSize={'.9rem'} duration={1000} />
-//                 </div>
-//                 <div className="card bg-white rounded shadow transition-all duration-300 p-6 flex items-start gap-5 border">
-//                     <EmojiPeopleIcon className="icon text-pink-500 mb-4" style={{ fontSize: 30 }} />
-//                     <Typography className="label text-gray-800 font-bold" sx={{ fontSize: '15px', fontWeight: '700' }}>
-//                         Pending Cases
-//                     </Typography>
-//                     <CountingEffect value={pendingCases} textSize={'.9rem'} duration={1000} />
-//                 </div>
+//             <div className="flex flex-row justify-between">
+//                 {/* Card components omitted for brevity */}
 //             </div>
 //             <Divider />
-//             <div className="actions flex justify-between">
-//                 <div className="action-list">
+//             <div className="flex flex-row justify-between">
+//                 <div className="">
 //                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//                         {sampleActions.map((action, idx) => (
-//                             isVisible(action.permissions) && (
+//                         {actions.map((action, index) => (
+//                             isCardVisible(action.roles) && (
 //                                 <motion.div
-//                                     key={idx}
+//                                     key={index}
 //                                     initial={{ opacity: 0, y: 20 }}
 //                                     animate={{ opacity: 1, y: 0 }}
-//                                     transition={{ delay: idx * 0.1, duration: 0.3 }}
+//                                     transition={{ delay: index * 0.1, duration: 0.3 }}
 //                                 >
 //                                     <ActionCard
 //                                         icon={action.icon}
-//                                         action={action.name}
-//                                         description={action.details}
-//                                         link={action.url}
-//                                         role={action.permissions}
+//                                         action={action.action}
+//                                         description={action.description}
+//                                         link={action.link}
+//                                         role={action.roles}
 //                                     />
 //                                 </motion.div>
 //                             )
@@ -160,13 +93,14 @@
 //                     </div>
 //                 </div>
 //                 <Divider orientation="vertical" />
-//                 <div className="calendar-section bg-gray-100">
+//                 <div className="bg-gray-100">
 //                     <MiniCalendar />
 //                 </div>
 //             </div>
 //             <Divider />
+//             <div />
 //         </div>
 //     );
 // };
 
-// export default SampleHomePage;
+// export default ElectionHome;
