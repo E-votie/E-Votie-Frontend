@@ -12,18 +12,25 @@ public class ElectionManagementSystem {
         // Add candidates
         election.addCandidate(new Candidate("John Doe", "Party A"));
         election.addCandidate(new Candidate("Jane Smith", "Party B"));
+        election.addCandidate(new Candidate("Alex Johnson", "Party C")); // New candidate
+
+        // Display candidate list before voting
+        election.displayCandidates();
 
         // Register voters
         election.registerVoter(new Voter("Alice", 101));
         election.registerVoter(new Voter("Bob", 102));
-        election.registerVoter(new Voter("Charlie", 103)); // Adding an additional voter for variety
+        election.registerVoter(new Voter("Charlie", 103)); // New voter
+
+        // Display voter list
+        election.displayVoters();
 
         // Cast votes
         election.castVote(101, "John Doe");
         election.castVote(102, "Jane Smith");
-        election.castVote(103, "John Doe"); // Additional vote for John Doe
+        election.castVote(103, "John Doe"); // Extra vote for John Doe
 
-        // Display results with winner announcement
+        // Display final results with winner or tie information
         election.displayResults();
     }
 }
@@ -47,18 +54,50 @@ class Election {
         votes.put(candidate.getName(), 0); // Initialize vote count
     }
 
+    public void displayCandidates() {
+        System.out.println("\nCandidates for " + name + ":");
+        for (Candidate candidate : candidates) {
+            System.out.println(" - " + candidate.getName() + " (" + candidate.getParty() + ")");
+        }
+    }
+
     public void registerVoter(Voter voter) {
-        voters.add(voter);
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
     }
 
     public void castVote(int voterId, String candidateName) {
         if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
             votes.put(candidateName, votes.get(candidateName) + 1);
-            votedVoters.add(voterId); // Mark voter as having voted
+            votedVoters.add(voterId);
             System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
         } else {
             System.out.println("Invalid vote attempt or voter has already voted!");
         }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
     }
 
     private boolean isValidVoter(int voterId) {
@@ -66,11 +105,26 @@ class Election {
     }
 
     public void displayResults() {
-        System.out.println("\nElection Results:");
+        System.out.println("\nFinal Election Results:");
         votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
 
-        String winner = Collections.max(votes.entrySet(), Map.Entry.comparingByValue()).getKey();
-        System.out.println("\nWinner: " + winner);
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\nIt's a tie between:");
+            for (String winner : winners) {
+                System.out.println(" - " + winner);
+            }
+        } else {
+            System.out.println("\nWinner: " + winners.get(0));
+        }
     }
 }
 
