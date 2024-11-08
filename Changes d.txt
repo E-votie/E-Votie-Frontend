@@ -1,3 +1,5 @@
+import java.util.*;
+
 // Main class for Election Management System
 public class ElectionManagementSystem {
 
@@ -14,12 +16,14 @@ public class ElectionManagementSystem {
         // Register voters
         election.registerVoter(new Voter("Alice", 101));
         election.registerVoter(new Voter("Bob", 102));
+        election.registerVoter(new Voter("Charlie", 103)); // Adding an additional voter for variety
 
         // Cast votes
         election.castVote(101, "John Doe");
         election.castVote(102, "Jane Smith");
+        election.castVote(103, "John Doe"); // Additional vote for John Doe
 
-        // Display results
+        // Display results with winner announcement
         election.displayResults();
     }
 }
@@ -31,6 +35,7 @@ class Election {
     private List<Candidate> candidates = new ArrayList<>();
     private List<Voter> voters = new ArrayList<>();
     private Map<String, Integer> votes = new HashMap<>();
+    private Set<Integer> votedVoters = new HashSet<>();
 
     public Election(String name, String date) {
         this.name = name;
@@ -47,28 +52,25 @@ class Election {
     }
 
     public void castVote(int voterId, String candidateName) {
-        if (isValidVoter(voterId) && votes.containsKey(candidateName)) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
             votes.put(candidateName, votes.get(candidateName) + 1);
-            System.out.println("Vote cast for " + candidateName);
+            votedVoters.add(voterId); // Mark voter as having voted
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
         } else {
-            System.out.println("Invalid vote attempt!");
+            System.out.println("Invalid vote attempt or voter has already voted!");
         }
     }
 
     private boolean isValidVoter(int voterId) {
-        for (Voter voter : voters) {
-            if (voter.getId() == voterId) {
-                return true;
-            }
-        }
-        return false;
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
     }
 
     public void displayResults() {
         System.out.println("\nElection Results:");
-        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue() + " votes");
-        }
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        String winner = Collections.max(votes.entrySet(), Map.Entry.comparingByValue()).getKey();
+        System.out.println("\nWinner: " + winner);
     }
 }
 
@@ -109,5 +111,3 @@ class Voter {
         return name;
     }
 }
-
-//new line
