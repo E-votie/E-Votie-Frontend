@@ -1,0 +1,1751 @@
+import java.util.*;
+
+// Main class for Election Management System
+public class ElectionManagementSystem {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Election Management System");
+
+        // Initialize election data
+        Election election = new Election("Presidential Election 2024", "2024-11-03");
+
+        // Add candidates
+        election.addCandidate(new Candidate("John Doe", "Party A"));
+        election.addCandidate(new Candidate("Jane Smith", "Party B"));
+        election.addCandidate(new Candidate("Alex Johnson", "Party C")); // New candidate
+
+        // Display candidate list before voting
+        election.displayCandidates();
+
+        // Register voters
+        election.registerVoter(new Voter("Alice", 101));
+        election.registerVoter(new Voter("Bob", 102));
+        election.registerVoter(new Voter("Charlie", 103)); // New voter
+
+        // Display voter list
+        election.displayVoters();
+
+        // Cast votes
+        election.castVote(101, "John Doe");
+        election.castVote(102, "Jane Smith");
+        election.castVote(103, "John Doe"); // Extra vote for John Doe
+
+        // Display final results with winner or tie information
+        election.displayResults();
+    }
+}
+
+// Election class to handle election details and actions
+class Election {
+    private String name;
+    private String date;
+    private List<Candidate> candidates = new ArrayList<>();
+    private List<Voter> voters = new ArrayList<>();
+    private Map<String, Integer> votes = new HashMap<>();
+    private Set<Integer> votedVoters = new HashSet<>();
+
+    public Election(String name, String date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public void addCandidate(Candidate candidate) {
+        candidates.add(candidate);
+        votes.put(candidate.getName(), 0); // Initialize vote count
+    }
+
+    public void displayCandidates() {
+        System.out.println("\nCandidates for " + name + ":");
+        for (Candidate candidate : candidates) {
+            System.out.println(" - " + candidate.getName() + " (" + candidate.getParty() + ")");
+        }
+    }
+
+    public void registerVoter(Voter voter) {
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
+    }
+
+    public void castVote(int voterId, String candidateName) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
+            votes.put(candidateName, votes.get(candidateName) + 1);
+            votedVoters.add(voterId);
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
+        } else {
+            System.out.println("Invalid vote attempt or voter has already voted!");
+        }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\nIt's a tie between:");
+            for (String winner : winners) {
+                System.out.println(" - " + winner);
+            }
+        } else {
+            System.out.println("\nWinner: " + winners.get(0));
+        }
+    }
+}
+
+// Candidate class to represent a candidate
+class Candidate {
+    private String name;
+    private String party;
+
+    public Candidate(String name, String party) {
+        this.name = name;
+        this.party = party;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getParty() {
+        return party;
+    }
+}
+
+// Voter class to represent a voter
+class Voter {
+    private String name;
+    private int id;
+
+    public Voter(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+import java.util.*;
+
+// Main class for Election Management System
+public class ElectionManagementSystem {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Election Management System");
+
+        // Initialize election data
+        Election election = new Election("Presidential Election 2024", "2024-11-03");
+
+        // Add candidates
+        election.addCandidate(new Candidate("John Doe", "Party A"));
+        election.addCandidate(new Candidate("Jane Smith", "Party B"));
+        election.addCandidate(new Candidate("Alex Johnson", "Party C")); // New candidate
+
+        // Display candidate list before voting
+        election.displayCandidates();
+
+        // Register voters
+        election.registerVoter(new Voter("Alice", 101));
+        election.registerVoter(new Voter("Bob", 102));
+        election.registerVoter(new Voter("Charlie", 103)); // New voter
+
+        // Display voter list
+        election.displayVoters();
+
+        // Cast votes
+        election.castVote(101, "John Doe");
+        election.castVote(102, "Jane Smith");
+        election.castVote(103, "John Doe"); // Extra vote for John Doe
+
+        // Display final results with winner or tie information
+        election.displayResults();
+    }
+}
+
+// Election class to handle election details and actions
+class Election {
+    private String name;
+    private String date;
+    private List<Candidate> candidates = new ArrayList<>();
+    private List<Voter> voters = new ArrayList<>();
+    private Map<String, Integer> votes = new HashMap<>();
+    private Set<Integer> votedVoters = new HashSet<>();
+
+    public Election(String name, String date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public void addCandidate(Candidate candidate) {
+        candidates.add(candidate);
+        votes.put(candidate.getName(), 0); // Initialize vote count
+    }
+
+    public void displayCandidates() {
+        System.out.println("\nCandidates for " + name + ":");
+        for (Candidate candidate : candidates) {
+            System.out.println(" - " + candidate.getName() + " (" + candidate.getParty() + ")");
+        }
+    }
+
+    public void registerVoter(Voter voter) {
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
+    }
+
+    public void castVote(int voterId, String candidateName) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
+            votes.put(candidateName, votes.get(candidateName) + 1);
+            votedVoters.add(voterId);
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
+        } else {
+            System.out.println("Invalid vote attempt or voter has already voted!");
+        }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\nIt's a tie between:");
+            for (String winner : winners) {
+                System.out.println(" - " + winner);
+            }
+        } else {
+            System.out.println("\nWinner: " + winners.get(0));
+        }
+    }
+}
+
+// Candidate class to represent a candidate
+class Candidate {
+    private String name;
+    private String party;
+
+    public Candidate(String name, String party) {
+        this.name = name;
+        this.party = party;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getParty() {
+        return party;
+    }
+}
+
+// Voter class to represent a voter
+class Voter {
+    private String name;
+    private int id;
+
+    public Voter(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+import java.util.*;
+
+// Main class for Election Management System
+public class ElectionManagementSystem {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Election Management System");
+
+        // Initialize election data
+        Election election = new Election("Presidential Election 2024", "2024-11-03");
+
+        // Add candidates
+        election.addCandidate(new Candidate("John Doe", "Party A"));
+        election.addCandidate(new Candidate("Jane Smith", "Party B"));
+        election.addCandidate(new Candidate("Alex Johnson", "Party C")); // New candidate
+
+        // Display candidate list before voting
+        election.displayCandidates();
+
+        // Register voters
+        election.registerVoter(new Voter("Alice", 101));
+        election.registerVoter(new Voter("Bob", 102));
+        election.registerVoter(new Voter("Charlie", 103)); // New voter
+
+        // Display voter list
+        election.displayVoters();
+
+        // Cast votes
+        election.castVote(101, "John Doe");
+        election.castVote(102, "Jane Smith");
+        election.castVote(103, "John Doe"); // Extra vote for John Doe
+
+        // Display final results with winner or tie information
+        election.displayResults();
+    }
+}
+
+// Election class to handle election details and actions
+class Election {
+    private String name;
+    private String date;
+    private List<Candidate> candidates = new ArrayList<>();
+    private List<Voter> voters = new ArrayList<>();
+    private Map<String, Integer> votes = new HashMap<>();
+    private Set<Integer> votedVoters = new HashSet<>();
+
+    public Election(String name, String date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public void addCandidate(Candidate candidate) {
+        candidates.add(candidate);
+        votes.put(candidate.getName(), 0); // Initialize vote count
+    }
+
+    public void displayCandidates() {
+        System.out.println("\nCandidates for " + name + ":");
+        for (Candidate candidate : candidates) {
+            System.out.println(" - " + candidate.getName() + " (" + candidate.getParty() + ")");
+        }
+    }
+
+    public void registerVoter(Voter voter) {
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
+    }
+
+    public void castVote(int voterId, String candidateName) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
+            votes.put(candidateName, votes.get(candidateName) + 1);
+            votedVoters.add(voterId);
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
+        } else {
+            System.out.println("Invalid vote attempt or voter has already voted!");
+        }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\nIt's a tie between:");
+            for (String winner : winners) {
+                System.out.println(" - " + winner);
+            }
+        } else {
+            System.out.println("\nWinner: " + winners.get(0));
+        }
+    }
+}
+
+// Candidate class to represent a candidate
+class Candidate {
+    private String name;
+    private String party;
+
+    public Candidate(String name, String party) {
+        this.name = name;
+        this.party = party;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getParty() {
+        return party;
+    }
+}
+
+// Voter class to represent a voter
+class Voter {
+    private String name;
+    private int id;
+
+    public Voter(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+import java.util.*;
+
+// Main class for Election Management System
+public class ElectionManagementSystem {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Election Management System");
+
+        // Initialize election data
+        Election election = new Election("Presidential Election 2024", "2024-11-03");
+
+        // Add candidates
+        election.addCandidate(new Candidate("John Doe", "Party A"));
+        election.addCandidate(new Candidate("Jane Smith", "Party B"));
+        election.addCandidate(new Candidate("Alex Johnson", "Party C")); // New candidate
+
+        // Display candidate list before voting
+        election.displayCandidates();
+
+        // Register voters
+        election.registerVoter(new Voter("Alice", 101));
+        election.registerVoter(new Voter("Bob", 102));
+        election.registerVoter(new Voter("Charlie", 103)); // New voter
+
+        // Display voter list
+        election.displayVoters();
+
+        // Cast votes
+        election.castVote(101, "John Doe");
+        election.castVote(102, "Jane Smith");
+        election.castVote(103, "John Doe"); // Extra vote for John Doe
+
+        // Display final results with winner or tie information
+        election.displayResults();
+    }
+}
+
+// Election class to handle election details and actions
+class Election {
+    private String name;
+    private String date;
+    private List<Candidate> candidates = new ArrayList<>();
+    private List<Voter> voters = new ArrayList<>();
+    private Map<String, Integer> votes = new HashMap<>();
+    private Set<Integer> votedVoters = new HashSet<>();
+
+    public Election(String name, String date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public void addCandidate(Candidate candidate) {
+        candidates.add(candidate);
+        votes.put(candidate.getName(), 0); // Initialize vote count
+    }
+
+    public void displayCandidates() {
+        System.out.println("\nCandidates for " + name + ":");
+        for (Candidate candidate : candidates) {
+            System.out.println(" - " + candidate.getName() + " (" + candidate.getParty() + ")");
+        }
+    }
+
+    public void registerVoter(Voter voter) {
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
+    }
+
+    public void castVote(int voterId, String candidateName) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
+            votes.put(candidateName, votes.get(candidateName) + 1);
+            votedVoters.add(voterId);
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
+        } else {
+            System.out.println("Invalid vote attempt or voter has already voted!");
+        }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\nIt's a tie between:");
+            for (String winner : winners) {
+                System.out.println(" - " + winner);
+            }
+        } else {
+            System.out.println("\nWinner: " + winners.get(0));
+        }
+    }
+}
+
+// Candidate class to represent a candidate
+class Candidate {
+    private String name;
+    private String party;
+
+    public Candidate(String name, String party) {
+        this.name = name;
+        this.party = party;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getParty() {
+        return party;
+    }
+}
+
+// Voter class to represent a voter
+class Voter {
+    private String name;
+    private int id;
+
+    public Voter(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+import java.util.*;
+
+// Main class for Election Management System
+public class ElectionManagementSystem {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Election Management System");
+
+        // Initialize election data
+        Election election = new Election("Presidential Election 2024", "2024-11-03");
+
+        // Add candidates
+        election.addCandidate(new Candidate("John Doe", "Party A"));
+        election.addCandidate(new Candidate("Jane Smith", "Party B"));
+        election.addCandidate(new Candidate("Alex Johnson", "Party C")); // New candidate
+
+        // Display candidate list before voting
+        election.displayCandidates();
+
+        // Register voters
+        election.registerVoter(new Voter("Alice", 101));
+        election.registerVoter(new Voter("Bob", 102));
+        election.registerVoter(new Voter("Charlie", 103)); // New voter
+
+        // Display voter list
+        election.displayVoters();
+
+        // Cast votes
+        election.castVote(101, "John Doe");
+        election.castVote(102, "Jane Smith");
+        election.castVote(103, "John Doe"); // Extra vote for John Doe
+
+        // Display final results with winner or tie information
+        election.displayResults();
+    }
+}
+
+// Election class to handle election details and actions
+class Election {
+    private String name;
+    private String date;
+    private List<Candidate> candidates = new ArrayList<>();
+    private List<Voter> voters = new ArrayList<>();
+    private Map<String, Integer> votes = new HashMap<>();
+    private Set<Integer> votedVoters = new HashSet<>();
+
+    public Election(String name, String date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public void addCandidate(Candidate candidate) {
+        candidates.add(candidate);
+        votes.put(candidate.getName(), 0); // Initialize vote count
+    }
+
+    public void displayCandidates() {
+        System.out.println("\nCandidates for " + name + ":");
+        for (Candidate candidate : candidates) {
+            System.out.println(" - " + candidate.getName() + " (" + candidate.getParty() + ")");
+        }
+    }
+
+    public void registerVoter(Voter voter) {
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
+    }
+
+    public void castVote(int voterId, String candidateName) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
+            votes.put(candidateName, votes.get(candidateName) + 1);
+            votedVoters.add(voterId);
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
+        } else {
+            System.out.println("Invalid vote attempt or voter has already voted!");
+        }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\nIt's a tie between:");
+            for (String winner : winners) {
+                System.out.println(" - " + winner);
+            }
+        } else {
+            System.out.println("\nWinner: " + winners.get(0));
+        }
+    }
+}
+
+// Candidate class to represent a candidate
+class Candidate {
+    private String name;
+    private String party;
+
+    public Candidate(String name, String party) {
+        this.name = name;
+        this.party = party;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getParty() {
+        return party;
+    }
+}
+
+// Voter class to represent a voter
+class Voter {
+    private String name;
+    private int id;
+
+    public Voter(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+import java.util.*;
+
+// Main class for Election Management System
+public class ElectionManagementSystem {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Election Management System");
+
+        // Initialize election data
+        Election election = new Election("Presidential Election 2024", "2024-11-03");
+
+        // Add candidates
+        election.addCandidate(new Candidate("John Doe", "Party A"));
+        election.addCandidate(new Candidate("Jane Smith", "Party B"));
+        election.addCandidate(new Candidate("Alex Johnson", "Party C")); // New candidate
+
+        // Display candidate list before voting
+        election.displayCandidates();
+
+        // Register voters
+        election.registerVoter(new Voter("Alice", 101));
+        election.registerVoter(new Voter("Bob", 102));
+        election.registerVoter(new Voter("Charlie", 103)); // New voter
+
+        // Display voter list
+        election.displayVoters();
+
+        // Cast votes
+        election.castVote(101, "John Doe");
+        election.castVote(102, "Jane Smith");
+        election.castVote(103, "John Doe"); // Extra vote for John Doe
+
+        // Display final results with winner or tie information
+        election.displayResults();
+    }
+}
+
+// Election class to handle election details and actions
+class Election {
+    private String name;
+    private String date;
+    private List<Candidate> candidates = new ArrayList<>();
+    private List<Voter> voters = new ArrayList<>();
+    private Map<String, Integer> votes = new HashMap<>();
+    private Set<Integer> votedVoters = new HashSet<>();
+
+    public Election(String name, String date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public void addCandidate(Candidate candidate) {
+        candidates.add(candidate);
+        votes.put(candidate.getName(), 0); // Initialize vote count
+    }
+
+    public void displayCandidates() {
+        System.out.println("\nCandidates for " + name + ":");
+        for (Candidate candidate : candidates) {
+            System.out.println(" - " + candidate.getName() + " (" + candidate.getParty() + ")");
+        }
+    }
+
+    public void registerVoter(Voter voter) {
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
+    }
+
+    public void castVote(int voterId, String candidateName) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
+            votes.put(candidateName, votes.get(candidateName) + 1);
+            votedVoters.add(voterId);
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
+        } else {
+            System.out.println("Invalid vote attempt or voter has already voted!");
+        }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+      
+    public void registerVoter(Voter voter) {
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
+    }
+
+    public void castVote(int voterId, String candidateName) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
+            votes.put(candidateName, votes.get(candidateName) + 1);
+            votedVoters.add(voterId);
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
+        } else {
+            System.out.println("Invalid vote attempt or voter has already voted!");
+        }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\nIt's a tie between:");
+            for (String winner : winners) {
+                System.out.println(" - " + winner);
+            }
+        } else {
+            System.out.println("\nWinner: " + winners.get(0));
+        }
+    }
+}
+
+// Candidate class to represent a candidate
+class Candidate {
+    private String name;
+    private String party;
+
+    public Candidate(String name, String party) {
+        this.name = name;
+        this.party = party;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getParty() {
+        return party;
+    }
+}
+
+// Voter class to represent a voter
+class Voter {
+    private String name;
+    private int id;
+
+    public Voter(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+import java.util.*;
+
+// Main class for Election Management System
+public class ElectionManagementSystem {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Election Management System");
+
+        // Initialize election data
+        Election election = new Election("Presidential Election 2024", "2024-11-03");
+
+        // Add candidates
+        election.addCandidate(new Candidate("John Doe", "Party A"));
+        election.addCandidate(new Candidate("Jane Smith", "Party B"));
+        election.addCandidate(new Candidate("Alex Johnson", "Party C")); // New candidate
+
+        // Display candidate list before voting
+        election.displayCandidates();
+
+        // Register voters
+        election.registerVoter(new Voter("Alice", 101));
+        election.registerVoter(new Voter("Bob", 102));
+        election.registerVoter(new Voter("Charlie", 103)); // New voter
+
+        // Display voter list
+        election.displayVoters();
+
+        // Cast votes
+        election.castVote(101, "John Doe");
+        election.castVote(102, "Jane Smith");
+        election.castVote(103, "John Doe"); // Extra vote for John Doe
+
+        // Display final results with winner or tie information
+        election.displayResults();
+    }
+}
+
+// Election class to handle election details and actions
+class Election {
+    private String name;
+    private String date;
+    private List<Candidate> candidates = new ArrayList<>();
+    private List<Voter> voters = new ArrayList<>();
+    private Map<String, Integer> votes = new HashMap<>();
+    private Set<Integer> votedVoters = new HashSet<>();
+
+    public Election(String name, String date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public void addCandidate(Candidate candidate) {
+        candidates.add(candidate);
+        votes.put(candidate.getName(), 0); // Initialize vote count
+    }
+
+    public void displayCandidates() {
+        System.out.println("\nCandidates for " + name + ":");
+        for (Candidate candidate : candidates) {
+            System.out.println(" - " + candidate.getName() + " (" + candidate.getParty() + ")");
+        }
+    }
+
+    public void registerVoter(Voter voter) {
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
+    }
+
+    public void castVote(int voterId, String candidateName) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
+            votes.put(candidateName, votes.get(candidateName) + 1);
+            votedVoters.add(voterId);
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
+        } else {
+            System.out.println("Invalid vote attempt or voter has already voted!");
+        }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\nIt's a tie between:");
+            for (String winner : winners) {
+                System.out.println(" - " + winner);
+            }
+        } else {
+            System.out.println("\nWinner: " + winners.get(0));
+        }
+    }
+}
+
+// Candidate class to represent a candidate
+class Candidate {
+    private String name;
+    private String party;
+
+    public Candidate(String name, String party) {
+        this.name = name;
+        this.party = party;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getParty() {
+        return party;
+    }
+}
+
+// Voter class to represent a voter
+class Voter {
+    private String name;
+    private int id;
+
+    public Voter(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+import java.util.*;
+
+// Main class for Election Management System
+public class ElectionManagementSystem {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Election Management System");
+
+        // Initialize election data
+        Election election = new Election("Presidential Election 2024", "2024-11-03");
+
+        // Add candidates
+        election.addCandidate(new Candidate("John Doe", "Party A"));
+        election.addCandidate(new Candidate("Jane Smith", "Party B"));
+        election.addCandidate(new Candidate("Alex Johnson", "Party C")); // New candidate
+
+        // Display candidate list before voting
+        election.displayCandidates();
+
+        // Register voters
+        election.registerVoter(new Voter("Alice", 101));
+        election.registerVoter(new Voter("Bob", 102));
+        election.registerVoter(new Voter("Charlie", 103)); // New voter
+
+        // Display voter list
+        election.displayVoters();
+
+        // Cast votes
+        election.castVote(101, "John Doe");
+        election.castVote(102, "Jane Smith");
+        election.castVote(103, "John Doe"); // Extra vote for John Doe
+
+        // Display final results with winner or tie information
+        election.displayResults();
+    }
+}
+
+// Election class to handle election details and actions
+class Election {
+    private String name;
+    private String date;
+    private List<Candidate> candidates = new ArrayList<>();
+    private List<Voter> voters = new ArrayList<>();
+    private Map<String, Integer> votes = new HashMap<>();
+    private Set<Integer> votedVoters = new HashSet<>();
+
+    public Election(String name, String date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public void addCandidate(Candidate candidate) {
+        candidates.add(candidate);
+        votes.put(candidate.getName(), 0); // Initialize vote count
+    }
+
+    public void displayCandidates() {
+        System.out.println("\nCandidates for " + name + ":");
+        for (Candidate candidate : candidates) {
+            System.out.println(" - " + candidate.getName() + " (" + candidate.getParty() + ")");
+        }
+    }
+
+    public void registerVoter(Voter voter) {
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
+    }
+
+    public void castVote(int voterId, String candidateName) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
+            votes.put(candidateName, votes.get(candidateName) + 1);
+            votedVoters.add(voterId);
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
+        } else {
+            System.out.println("Invalid vote attempt or voter has already voted!");
+        }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\nIt's a tie between:");
+            for (String winner : winners) {
+                System.out.println(" - " + winner);
+            }
+        } else {
+            System.out.println("\nWinner: " + winners.get(0));
+        }
+    }
+}
+
+// Candidate class to represent a candidate
+class Candidate {
+    private String name;
+    private String party;
+
+    public Candidate(String name, String party) {
+        this.name = name;
+        this.party = party;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getParty() {
+        return party;
+    }
+}
+
+// Voter class to represent a voter
+class Voter {
+    private String name;
+    private int id;
+
+    public Voter(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+import java.util.*;
+
+// Main class for Election Management System
+public class ElectionManagementSystem {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Election Management System");
+
+        // Initialize election data
+        Election election = new Election("Presidential Election 2024", "2024-11-03");
+
+        // Add candidates
+        election.addCandidate(new Candidate("John Doe", "Party A"));
+        election.addCandidate(new Candidate("Jane Smith", "Party B"));
+        election.addCandidate(new Candidate("Alex Johnson", "Party C")); // New candidate
+
+        // Display candidate list before voting
+        election.displayCandidates();
+
+        // Register voters
+        election.registerVoter(new Voter("Alice", 101));
+        election.registerVoter(new Voter("Bob", 102));
+        election.registerVoter(new Voter("Charlie", 103)); // New voter
+
+        // Display voter list
+        election.displayVoters();
+
+        // Cast votes
+        election.castVote(101, "John Doe");
+        election.castVote(102, "Jane Smith");
+        election.castVote(103, "John Doe"); // Extra vote for John Doe
+
+        // Display final results with winner or tie information
+        election.displayResults();
+    }
+}
+
+// Election class to handle election details and actions
+class Election {
+    private String name;
+    private String date;
+    private List<Candidate> candidates = new ArrayList<>();
+    private List<Voter> voters = new ArrayList<>();
+    private Map<String, Integer> votes = new HashMap<>();
+    private Set<Integer> votedVoters = new HashSet<>();
+
+    public Election(String name, String date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public void addCandidate(Candidate candidate) {
+        candidates.add(candidate);
+        votes.put(candidate.getName(), 0); // Initialize vote count
+    }
+
+    public void displayCandidates() {
+        System.out.println("\nCandidates for " + name + ":");
+        for (Candidate candidate : candidates) {
+            System.out.println(" - " + candidate.getName() + " (" + candidate.getParty() + ")");
+        }
+    }
+
+    public void registerVoter(Voter voter) {
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
+    }
+
+    public void castVote(int voterId, String candidateName) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
+            votes.put(candidateName, votes.get(candidateName) + 1);
+            votedVoters.add(voterId);
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
+        } else {
+            System.out.println("Invalid vote attempt or voter has already voted!");
+        }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\nIt's a tie between:");
+            for (String winner : winners) {
+                System.out.println(" - " + winner);
+            }
+        } else {
+            System.out.println("\nWinner: " + winners.get(0));
+        }
+    }
+}
+
+// Candidate class to represent a candidate
+class Candidate {
+    private String name;
+    private String party;
+
+    public Candidate(String name, String party) {
+        this.name = name;
+        this.party = party;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getParty() {
+        return party;
+    }
+}
+
+// Voter class to represent a voter
+class Voter {
+    private String name;
+    private int id;
+
+    public Voter(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+import java.util.*;
+
+// Main class for Election Management System
+public class ElectionManagementSystem {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Election Management System");
+
+        // Initialize election data
+        Election election = new Election("Presidential Election 2024", "2024-11-03");
+
+        // Add candidates
+        election.addCandidate(new Candidate("John Doe", "Party A"));
+        election.addCandidate(new Candidate("Jane Smith", "Party B"));
+        election.addCandidate(new Candidate("Alex Johnson", "Party C")); // New candidate
+
+        // Display candidate list before voting
+        election.displayCandidates();
+
+        // Register voters
+        election.registerVoter(new Voter("Alice", 101));
+        election.registerVoter(new Voter("Bob", 102));
+        election.registerVoter(new Voter("Charlie", 103)); // New voter
+
+        // Display voter list
+        election.displayVoters();
+
+        // Cast votes
+        election.castVote(101, "John Doe");
+        election.castVote(102, "Jane Smith");
+        election.castVote(103, "John Doe"); // Extra vote for John Doe
+
+        // Display final results with winner or tie information
+        election.displayResults();
+    }
+}
+
+// Election class to handle election details and actions
+class Election {
+    private String name;
+    private String date;
+    private List<Candidate> candidates = new ArrayList<>();
+    private List<Voter> voters = new ArrayList<>();
+    private Map<String, Integer> votes = new HashMap<>();
+    private Set<Integer> votedVoters = new HashSet<>();
+
+    public Election(String name, String date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public void addCandidate(Candidate candidate) {
+        candidates.add(candidate);
+        votes.put(candidate.getName(), 0); // Initialize vote count
+    }
+
+    public void displayCandidates() {
+        System.out.println("\nCandidates for " + name + ":");
+        for (Candidate candidate : candidates) {
+            System.out.println(" - " + candidate.getName() + " (" + candidate.getParty() + ")");
+        }
+    }
+
+    public void registerVoter(Voter voter) {
+        if (!isUniqueVoter(voter.getId())) {
+            System.out.println("Voter ID " + voter.getId() + " is already registered. Skipping registration for " + voter.getName());
+        } else {
+            voters.add(voter);
+            System.out.println("Voter " + voter.getName() + " (ID: " + voter.getId() + ") registered successfully.");
+        }
+    }
+
+    private boolean isUniqueVoter(int voterId) {
+        return voters.stream().noneMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayVoters() {
+        System.out.println("\nRegistered Voters:");
+        for (Voter voter : voters) {
+            System.out.println(" - " + voter.getName() + " (ID: " + voter.getId() + ")");
+        }
+    }
+
+    public void castVote(int voterId, String candidateName) {
+        if (isValidVoter(voterId) && !votedVoters.contains(voterId) && votes.containsKey(candidateName)) {
+            votes.put(candidateName, votes.get(candidateName) + 1);
+            votedVoters.add(voterId);
+            System.out.println("Vote cast for " + candidateName + " by Voter ID: " + voterId);
+            displayVoteSummary();
+        } else {
+            System.out.println("Invalid vote attempt or voter has already voted!");
+        }
+    }
+
+    private void displayVoteSummary() {
+        System.out.println("\nCurrent Vote Summary:");
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            System.out.println(" - " + entry.getKey() + ": " + entry.getValue() + " votes");
+        }
+        System.out.println();
+    }
+
+    private boolean isValidVoter(int voterId) {
+        return voters.stream().anyMatch(voter -> voter.getId() == voterId);
+    }
+
+    public void displayResults() {
+        System.out.println("\nFinal Election Results:");
+        votes.forEach((candidate, count) -> System.out.println(candidate + ": " + count + " votes"));
+
+        int maxVotes = Collections.max(votes.values());
+        List<String> winners = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : votes.entrySet()) {
+            if (entry.getValue() == maxVotes) {
+                winners.add(entry.getKey());
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\nIt's a tie between:");
+            for (String winner : winners) {
+                System.out.println(" - " + winner);
+            }
+        } else {
+            System.out.println("\nWinner: " + winners.get(0));
+        }
+    }
+}
+
+// Candidate class to represent a candidate
+class Candidate {
+    private String name;
+    private String party;
+
+    public Candidate(String name, String party) {
+        this.name = name;
+        this.party = party;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getParty() {
+        return party;
+    }
+}
+
+// Voter class to represent a voter
+class Voter {
+    private String name;
+    private int id;
+
+    public Voter(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
