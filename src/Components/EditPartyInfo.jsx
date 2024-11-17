@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useCallback} from 'react';
 import {
     Button,
     Box,
@@ -21,6 +21,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
 import { useForm } from "react-hook-form";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import KeycloakService from "../services/KeycloakService.jsx";
+
+const MySwal = withReactContent(Swal);
 
 const cities = [
     'Akmeemana', 'Ambalanthota', 'Alayadiwembu', 'Ambalangoda', 'Akurana', 'Ambagamuwa', 'Akuressa', 'Ampara', 'Alawwa', 
@@ -73,24 +79,97 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   }));
 
 export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
-    const { register, formState: { errors }, setValue, getValues } = useForm();
-    const [partyLogo, setPartyLogo] = React.useState(null);
-    const [uploadedFileName, setUploadedFileName] = React.useState(null);
+    const { register, formState: { errors }, setValue, getValues, handleSubmit } = useForm();
+    const [partyLogo, setPartyLogo] = useState(null);
+    const [uploadedFileName, setUploadedFileName] = useState(null);
+    const [isLeaderVerified, setIsLeaderVerified] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+    const [leaderName, setLeaderName] = useState("");
 
     const handlePartyLogoChange = (event) => {
         setPartyLogo(event.target.files[0]);
     };
 
-    const handleSubmit = () => {
+    const handleLeaderNicBlur = (e) => {
+        validateLeaderNic(e.target.value);
+    };
+
+    const validateLeaderNic = useCallback(async (nic) => {
+        if (!nic) return;
+        const updatedToken = KeycloakService.getToken();
+        setIsLoading(true);
+        try {
+            const response = await axios.get(`http://localhost:5003/api/voter/${nic}`, {
+                headers: {
+                    Authorization: `Bearer ${updatedToken}`
+                }
+            });
+            if ([200, 201].includes(response.status)) {
+                setLeaderName(response.data.Name);
+                setIsLeaderVerified(true);
+                setIsSubmitDisabled(false);
+            } else {
+                setLeaderName("");
+                setIsLeaderVerified(false);
+                setIsSubmitDisabled(true);
+            }
+        } catch (error) {
+            console.log(error);
+            setLeaderName("");
+            setIsLeaderVerified(false);
+            setIsSubmitDisabled(true);
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    const updateParty = async (data) => {
+
+        const showErrorModal = (message, redirectPath) => {
+            handleClose();
+            MySwal.fire({
+                title: `<p>${message}</p>`,
+                icon: 'error',
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed && redirectPath) {
+                    // navigate(redirectPath);
+                }
+            });
+        };
+
+        const showSuccessModal = (message, redirectPath) => {
+            handleClose();
+            MySwal.fire({
+                title: `<p>${message}</p>`,
+                icon: 'success',
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed && redirectPath) {
+                    // navigate(redirectPath);
+                }
+            });
+        };
         // Handle form submission here
+        console.log(data);
+        try{
+            const response = await axios.post();
+        }catch(err){
+            console.log(err.message);
+        }
         handleClose();
     };
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
+        alert("File changed");
+        console.log("file");
         if (file) {
             setUploadedFileName(file.name);
-            setValue("partySymbol", file); // Set the file object to the form value
+            setValue("partySymbol", file); 
         }
     };
 
@@ -117,8 +196,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
-                    <FormControl fullWidth variant="outlined" margin='normal'>
-
+                    <form onSubmit={handleSubmit(updateParty)}>
                         <Box>
                             <Stack spacing={2}>
                                 <Stack spacing={2} direction="row">
@@ -130,6 +208,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                             required
                                             fullWidth
                                             defaultValue={partyInfo.partyName}
+                                            {...register("partyName")}
                                         />
                                     </Box>
                                     {/* Abbreviation */}
@@ -140,41 +219,10 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                             required
                                             fullWidth
                                             defaultValue={partyInfo.abbreviation}
+                                            {...register("abbreviation")}
                                         />
                                     </Box>
                                 </Stack>
-                                {/* Party Leader*/}
-                                <Box>
-                                    <FormControl required className='w-full'> 
-                                        <InputLabel id="leader-label">Leader</InputLabel>
-                                        <Select
-                                            variant="outlined"
-                                            labelId="leader-label"
-                                            label="Leader"
-                                            id="leader"
-                                            defaultValue={partyInfo.leader}
-                                        >
-                                            {/* Add MenuItems dynamically based on available leaders */}
-                                            <MenuItem value="Mahinda Rajapaksa">Mahinda Rajapaksa</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-                                {/* Party Secretary */}
-                                <Box>
-                                    <FormControl required className='w-full'>
-                                        <InputLabel id="secretary-label">Secretary</InputLabel>
-                                        <Select
-                                            labelId="secretary-label"
-                                            label="Secretary"
-                                            id="secretary"
-                                            variant="outlined"
-                                            defaultValue={partyInfo.secretary}
-                                        >
-                                            {/* Add MenuItems dynamically based on available secretaries */}
-                                            <MenuItem value="Sagara Kariyawasam">Sagara Kariyawasam</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </Box>
                                 <Box>
                                     <TextField
                                         labelId="founded-date-label"
@@ -187,6 +235,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                             shrink: true,
                                           }}
                                         defaultValue={partyInfo.foundedYear}
+                                        {...register("foundedDate")}
                                     />
                                 </Box>
                                 {/* Seats */}
@@ -198,6 +247,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                             fullWidth
                                             type="number"
                                             defaultValue={partyInfo.districtBasisSeats}
+                                            {...register("districtBasisSeats")}
                                         />
                                     </Box>
                                     <Box >
@@ -207,6 +257,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                             fullWidth
                                             type="number"
                                             defaultValue={partyInfo.nationalBasisSeats}
+                                            {...register("nationalBasisSeats")}
                                         />
                                     </Box>
                                     <Box >
@@ -216,6 +267,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                             fullWidth
                                             type="number"
                                             defaultValue={partyInfo.totalSeats}
+                                            {...register("totalSeats")}
                                         />
                                     </Box>
                                 </Stack>
@@ -227,7 +279,6 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                         type="file"
                                         style={{ display: "none" }}
                                         onChange={handleFileChange}
-                                        {...register("partySymbol")}
                                     />
                                     <label htmlFor="partySymbolInput">
                                         <Button
@@ -240,11 +291,10 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                         Upload Party Symbol
                                         </Button>
                                     </label>
-                                    {uploadedFileName && (
-                                        <div>
+                                    {<div>
                                         <p>Uploaded File: {uploadedFileName}</p>
-                                        </div>
-                                    )}
+                                    </div>
+                                    }
                                 </Box>
                             </Stack>
                         </Box>
@@ -337,14 +387,112 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                             </Stack>
                         </Box>
 
-                    </FormControl>
+                        <DialogActions>
+                            <Button type="submit" color="primary">
+                                Save Changes
+                            </Button>
+                        </DialogActions>
+                    </form>
                 </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={handleSubmit} >
-                        Save changes
-                    </Button>
-                </DialogActions>
             </BootstrapDialog>
         </React.Fragment>
     );
 };
+
+
+// <FormControl required className='w-full'> 
+// <InputLabel id="leader-label">Leader</InputLabel>
+// <Select
+//     variant="outlined"
+//     labelId="leader-label"
+//     label="Leader"
+//     id="leader"
+//     defaultValue={partyInfo.leader}
+//     {...register("leader")}
+// >
+//     {/* Add MenuItems dynamically based on available leaders */}
+//     <MenuItem value="Mahinda Rajapaksa">Mahinda Rajapaksa</MenuItem>
+// </Select>
+// </FormControl>
+
+// <FormControl required className='w-full'>
+// <InputLabel id="secretary-label">Secretary</InputLabel>
+// <Select
+//     labelId="secretary-label"
+//     label="Secretary"
+//     id="secretary"
+//     variant="outlined"
+//     defaultValue={partyInfo.secretary}
+//     {...register("secretary")}
+// >
+//     {/* Add MenuItems dynamically based on available secretaries */}
+//     <MenuItem value="Sagara Kariyawasam">Sagara Kariyawasam</MenuItem>
+// </Select>
+// </FormControl>
+
+// <Box my={2} />
+// <Divider />
+// <Box my={2} />
+
+// <Box>
+//     <Stack spacing={2}>
+//         {/* Party Leader*/}
+//         <Box>
+//             <Stack spacing={2} direction="row">
+//                 <TextField
+//                     className='w-1/3'
+//                     label="Leader NIC"
+//                     variant="outlined"
+//                     {...register("leaderNic", { required: true })}
+//                     error={!!errors.leaderNic}
+//                     helperText={errors.leaderNic && 'Leader NIC is required'}
+//                     onBlur={handleLeaderNicBlur}
+//                     padding="normal"
+//                     sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+//                 />
+//                 <TextField
+//                     className='w-2/3'
+//                     label="Leader Name"
+//                     variant="outlined"
+//                     {...register("leaderName", { required: true })}
+//                     disabled
+//                     value={leaderName}
+//                     padding="normal"
+//                     sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+//                 />
+//             </Stack>
+//             {isLoading && <p>Verifying leader NIC...</p>} 
+//             {!isLoading && isLeaderVerified && <Typography color='success.main'>Leader identified successfully!</Typography>}
+//             {!isLoading && !isLeaderVerified && <Typography className='text-error'>Leader identification failed!</Typography>}
+//         </Box>
+//         {/* Party Secretary */}
+//         <Box>
+//             <Stack spacing={2} direction="row">
+//                 <TextField
+//                     className='w-1/3'
+//                     label="Leader NIC"
+//                     variant="outlined"
+//                     {...register("leaderNic", { required: true })}
+//                     error={!!errors.leaderNic}
+//                     helperText={errors.leaderNic && 'Leader NIC is required'}
+//                     onBlur={handleLeaderNicBlur}
+//                     padding="normal"
+//                     sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+//                 />
+//                 <TextField
+//                     className='w-2/3'
+//                     label="Leader Name"
+//                     variant="outlined"
+//                     {...register("leaderName", { required: true })}
+//                     disabled
+//                     value={leaderName}
+//                     padding="normal"
+//                     sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+//                 />
+//             </Stack>
+//             {isLoading && <p>Verifying leader NIC...</p>} 
+//             {!isLoading && isLeaderVerified && <Typography color='success.main'>Leader identified successfully!</Typography>}
+//             {!isLoading && !isLeaderVerified && <Typography className='text-error'>Leader identification failed!</Typography>}
+//         </Box>
+//     </Stack>
+// </Box>

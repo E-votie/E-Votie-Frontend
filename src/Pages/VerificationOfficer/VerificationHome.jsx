@@ -65,7 +65,7 @@ const actions = [
         "action": "Party Applications",
         "icon": "application",
         "description": "Pending applications for verification.",
-        "link": "/verification_officer/voter_applications",
+        "link": "/verification_officer/party_applications",
         "roles": ["VerificationOfficer"],
     },
     {

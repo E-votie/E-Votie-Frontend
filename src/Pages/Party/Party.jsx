@@ -128,7 +128,7 @@ export const Party = () => {
   return (
     <div className="min-h-[600px] flex flex-col bg-gray-100 shadow-2xl pb-4 rounded-lg">
       <CoverImage>
-        <PartyLogo src="../src/assets/slpp.jpg" alt="Party Logo" />
+        <PartyLogo src="../src/assets/deafultPartyLogo.jpg" alt="Party Logo" />
       </CoverImage>
       <Box sx={{ mt: 10, textAlign: 'center' }}>
         <div className="text-4xl font-bold">Sri Lanka Podujana Peramuna (SLPP)</div>
