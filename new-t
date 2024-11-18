@@ -351,3 +351,180 @@ import React, { useEffect } from 'react';
 //                                     key={index}
 //                                     initial={{opacity: 0, y: 20}}
 //                                    
+
+// const updateVoterData = async () => {
+//     const newTotalVoters = 1500;
+//     setTotalVoters(newTotalVoters);
+//     const newEligibleVoters = 1400;
+//     setEligibleVoters(newEligibleVoters);
+//     const newNewVoters = 100;
+//     setNewVoters(newNewVoters);
+// };
+
+// const fetchAnnouncements = async () => {
+//     try {
+//         const response = await fetch('/announcements');
+//         const data = await response.json();
+//     } catch (error) {
+//         console.error('Error fetching announcements:', error);
+//     }
+// };
+
+// const showNotification = (message) => {
+//     alert(message);
+// };
+
+// const DateRangeSelector = () => {
+//     const [startDate, setStartDate] = React.useState('');
+//     const [endDate, setEndDate] = React.useState('');
+
+//     const handleStartDateChange = (e) => setStartDate(e.target.value);
+//     const handleEndDateChange = (e) => setEndDate(e.target.value);
+
+//     return (
+//         <div>
+//             <input type="date" value={startDate} onChange={handleStartDateChange} />
+//             <input type="date" value={endDate} onChange={handleEndDateChange} />
+//         </div>
+//     );
+// };
+
+// const validateElectionData = (data) => {
+//     const { candidates, votingDate, electionType } = data;
+//     if (!candidates || candidates.length === 0) {
+//         showNotification('No candidates selected!');
+//         return false;
+//     }
+//     if (!votingDate) {
+//         showNotification('Voting date is missing!');
+//         return false;
+//     }
+//     if (!electionType) {
+//         showNotification('Election type is not specified!');
+//         return false;
+//     }
+//     return true;
+// };
+
+// const formatElectionDate = (date) => {
+//     const options = { year: 'numeric', month: 'long', day: 'numeric' };
+//     return new Date(date).toLocaleDateString('en-US', options);
+// };
+
+// const updateVotingStatus = (status) => {
+//     setStatus(status);
+//     showNotification(`Voting status updated to: ${status}`);
+// };
+
+// const ElectionStatus = ({ status }) => (
+//     <div>
+//         <h3>Election Status: {status}</h3>
+//     </div>
+// );
+
+// const fetchElectionResults = async () => {
+//     try {
+//         const response = await fetch('/election/results');
+//         const results = await response.json();
+//     } catch (error) {
+//         console.error('Error fetching election results:', error);
+//     }
+// };
+
+// const logActivity = (message) => {
+//     console.log(`Activity Log: ${message}`);
+// };
+
+// const sendUserNotification = (userId, message) => {
+//     console.log(`Sending message to user ${userId}: ${message}`);
+// };
+
+// const UserProfile = ({ name, role, contact }) => (
+//     <div className="user-profile">
+//         <h4>{name}</h4>
+//         <p>Role: {role}</p>
+//         <p>Contact: {contact}</p>
+//     </div>
+// );
+
+// const ActionCardComponent = ({ action, description }) => (
+//     <div className="action-card">
+//         <h4>{action}</h4>
+//         <p>{description}</p>
+//     </div>
+// );
+
+// const checkUserEligibility = (user) => {
+//     if (user.age >= 18 && user.citizenship === 'Sri Lanka') {
+//         showNotification('User is eligible to vote!');
+//     } else {
+//         showNotification('User is not eligible to vote.');
+//     }
+// };
+
+// const bulkVoterRegistration = (voterDataList) => {
+//     voterDataList.forEach((voterData) => {
+//         console.log(`Registering voter: ${voterData.name}`);
+//     });
+//     showNotification('Bulk voter registration complete.');
+// };
+
+// const toggleVisibility = (elementId) => {
+//     const element = document.getElementById(elementId);
+//     if (element) {
+//         element.style.display = element.style.display === 'none' ? 'block' : 'none';
+//     }
+// };
+
+// const MiniCalendarComponent = () => (
+//     <div className="mini-calendar">
+//         <h3>Mini Calendar</h3>
+//     </div>
+// );
+
+// const calculateVoterTurnout = (totalVoters, eligibleVoters) => {
+//     return ((totalVoters / eligibleVoters) * 100).toFixed(2);
+// };
+
+// const markElectionAsComplete = (electionId) => {
+//     console.log(`Marking election ${electionId} as complete`);
+//     showNotification('Election marked as complete!');
+// };
+
+// const ElectionDatePicker = () => {
+//     const [date, setDate] = React.useState('');
+//     const handleDateChange = (e) => setDate(e.target.value);
+
+//     return <input type="date" value={date} onChange={handleDateChange} />;
+// };
+
+// const updateUserRole = (userId, newRole) => {
+//     console.log(`Updating role of user ${userId} to ${newRole}`);
+//     showNotification(`User role updated to ${newRole}`);
+// };
+
+// const fetchPollingData = async () => {
+//     try {
+//         const response = await fetch('/polling/data');
+//         const data = await response.json();
+//     } catch (error) {
+//         console.error('Error fetching polling data:', error);
+//     }
+// };
+
+// const calculateRegistrationCompletion = (registeredVoters, totalVoters) => {
+//     return ((registeredVoters / totalVoters) * 100).toFixed(2);
+// };
+
+// const VoterStats = ({ totalVoters, eligibleVoters, newVoters }) => (
+//     <div>
+//         <p>Total Voters: {totalVoters}</p>
+//         <p>Eligible Voters: {eligibleVoters}</p>
+//         <p>New Voters: {newVoters}</p>
+//     </div>
+// );
+
+// const displayElectionResult = (result) => {
+//     console.log(`Displaying election result: ${result}`);
+// };
+
