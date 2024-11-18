@@ -101,7 +101,7 @@ const initialApplicationDetails = {
   ];
 
 export const PartyRegistrationApplication = ({ open, handleClose }) => {
-    const { register, handleSubmit, formState: { errors }, setValue, getValues } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue, getValues, reset } = useForm();
     const [activeStep, setActiveStep] = useState(0);
     const [isLeaderVerified, setIsLeaderVerified] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -164,7 +164,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                 }
             });
         };
-
+    
         const showSuccessModal = (message, redirectPath) => {
             handleClose();
             MySwal.fire({
@@ -178,43 +178,61 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                 }
             });
         };
-
-        // Function to submit party data
+    
+        const confirmSubmission = () => {
+            return MySwal.fire({
+                title: 'Are you sure?',
+                text: 'Do you want to continue with submitting the application?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Submit',
+                cancelButtonText: 'No, Cancel',
+                customClass: {
+                    popup: 'myswal-popup',
+                },
+            });
+        };
+    
         const submitPartyData = async (partyData) => {
-            console.log(partyData);
-            const data = {
-                "partyName": "Example Party",
-                "abbreviation": "EP",
-                "foundedDate": "2020-01-01",
-                "leader": "John Doe",
-                "addressLine1": "123 Main St",
-                "addressLine2": "Suite 400",
-                "city": "Colombo",
-                "postalCode": "00100",
-                "contactNumber": "0123456789",
-                "symbol": "example-symbol.png",
-                "partyColors": [],
-                "constitution": "example-constitution.pdf",
-                "financialStatements": "example-financial-statements.pdf",
-                "declaration": "We declare that...",
-                "status": "pending verification"
-            }
             const formData = new FormData();
-            
-            for (let key in partyData) {
-                formData.append(key, partyData[key]);
-            }
+    
+            const partyDetails = {
+                partyName: getValues("partyName"),
+                abbreviation: getValues("abbreviation"),
+                foundedDate: getValues("foundedDate"),
+                address: {
+                    addressLine_1: getValues("addressLine1"),
+                    addressLine_2: getValues("addressLine2"),
+                    city: getValues("city"),
+                    postalCode: getValues("postalCode"),
+                },
+                leaderId: getValues("leaderNic"),
+            };
+    
+            formData.append("party", JSON.stringify(partyDetails));
+    
+            if (constitution) formData.append("files", getValues("constitution"));
+            if (logo) formData.append("files", getValues("logo"));
+            if (membership) formData.append("files", getValues("membership"));
+            if (financial) formData.append("files", getValues("financial"));
+            if (leadership) formData.append("files", getValues("leadership"));
 
+            console.log(formData);
+            
+    
             try {
                 const token = KeycloakService.getToken();
-                console.log(token);
-                const response = await axios.post('http://localhost:5003/api/party', data, {
+                const response = await axios.post('http://localhost:5003/api/party', formData, {
                     headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });                
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
                 if ([200, 201].includes(response.status)) {
                     showSuccessModal('Application Submitted Successfully!', '/party/list');
+                    reset();
+                    handleBack();
+                    setIsLeaderVerified(false);
                 } else {
                     showErrorModal(response.data, '/party/list');
                 }
@@ -223,10 +241,15 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                 showErrorModal(error.response ? error.response.data : 'An error occurred', '/');
             }
         };
-
-        await submitPartyData(data);
+    
+        const result = await confirmSubmission();
+        if (result.isConfirmed) {
+            await submitPartyData(data);
+        } else {
+            console.log('Submission canceled by the user.');
+        }
     };
-
+    
     const[constitution, setConstitution] = useState(null);
     const[logo, setLogo] = useState(null);
     const[membership, setMembership] = useState(null);
@@ -269,6 +292,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                     margin="normal"
                     padding="normal"
                     sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                    required
                 />
                 <Stack direction="row" spacing={2}>
                     <TextField
@@ -279,6 +303,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         margin="normal"
                         padding="normal"
                         sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                        required
                     />
                     <LocalizationProvider dateAdapter={AdapterDayjs} >
                             <DatePicker label="Established Date" />
@@ -292,6 +317,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                     margin="normal"
                     padding="normal"
                     sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                    required
                 />
                 <Stack direction="row" spacing={2}>
                     <TextField
@@ -302,6 +328,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         margin="normal"
                         padding="normal"
                         sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                        required
                     />
                     <TextField
                         fullWidth
@@ -311,6 +338,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         margin="normal"
                         padding="normal"
                         sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                        required
                     />
                     <TextField
                         fullWidth
@@ -320,6 +348,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         margin="normal"
                         padding="normal"
                         sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                        required
                     />
                 </Stack>
                 <Stack direction="row" spacing={2} mb={0}>
@@ -334,6 +363,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         margin="normal"
                         padding="normal"
                         sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                        required
                     />
                     <TextField
                         fullWidth
@@ -419,7 +449,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
     
 
     return (
-        <BootstrapDialog onClose={handleClose} open={open}>
+        <BootstrapDialog onClose={handleClose} open={open} style={{ zIndex: 1000 }}>
             <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
                 Party Registration
             </DialogTitle>
@@ -430,7 +460,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
             >
                 <CloseIcon />
             </IconButton>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}  encType="multipart/form-data">
                 <DialogContent dividers>
                     <Stepper activeStep={activeStep} alternativeLabel className='mb-2'>
                         {steps.map((label) => (
@@ -448,13 +478,13 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         </Button>
                     )}
                     {activeStep < steps.length - 1 ? (
-                        <Button onClick={handleNext}>
+                        <Button type="button" onClick={handleNext} disabled={isSubmitDisabled}>
                             Next
                         </Button>
                     ) : (
                         <Button
+                            key="submit-button" 
                             type="submit"
-                            disabled={isSubmitDisabled}
                         >
                             Submit
                         </Button>
@@ -464,53 +494,3 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
         </BootstrapDialog>
     );
 };
-
-
-// {initialApplicationDetails.attachments.map((attachment, index) => (
-//     <Grid item xs={12} sm={6} md={4} key={index}>
-//         <Card variant="outlined">
-//             <CardContent>
-//                 <Typography variant="body2" color="textSecondary" gutterBottom>
-//                     {attachment.type}
-//                 </Typography>
-//                 <Box display="flex" alignItems="center" mb={1}>
-//                     <AttachFileIcon fontSize="small" />
-//                     <Typography variant="body2" sx={{ ml: 1 }} noWrap>
-//                         {attachment.name}
-//                     </Typography>
-//                 </Box>
-//                 <Button
-//                     variant="contained"
-//                     startIcon={<UploadIcon />}
-//                     fullWidth
-//                 >
-//                     Update
-//                 </Button>
-//                 <Box>
-//                     <input
-//                         accept="image/*"
-//                         id="partySymbolInput"
-//                         type="file"
-//                         style={{ display: "none" }}
-//                         onChange={handleFileChange}
-//                     />
-//                     <label htmlFor="partySymbolInput">
-//                         <Button
-//                         component="span"
-//                         role={undefined}
-//                         variant="outlined"
-//                         tabIndex={-1}
-//                         startIcon={<CloudUploadIcon />}
-//                         >
-//                         Upload Party Symbol
-//                         </Button>
-//                     </label>
-//                     {<div>
-//                         <p>Uploaded File: {uploadedFileName}</p>
-//                     </div>
-//                     }
-//                 </Box>
-//             </CardContent>
-//         </Card>
-//     </Grid>
-// ))}
