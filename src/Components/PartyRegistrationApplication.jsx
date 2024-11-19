@@ -151,35 +151,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
     };
 
     const onSubmit = async (data) => {
-        const showErrorModal = (message, redirectPath) => {
-            handleClose();
-            MySwal.fire({
-                title: `<p>${message}</p>`,
-                icon: 'error',
-                showConfirmButton: true,
-                confirmButtonText: 'OK',
-            }).then((result) => {
-                if (result.isConfirmed && redirectPath) {
-                    // navigate(redirectPath);
-                }
-            });
-        };
-    
-        const showSuccessModal = (message, redirectPath) => {
-            handleClose();
-            MySwal.fire({
-                title: `<p>${message}</p>`,
-                icon: 'success',
-                showConfirmButton: true,
-                confirmButtonText: 'OK',
-            }).then((result) => {
-                if (result.isConfirmed && redirectPath) {
-                    // navigate(redirectPath);
-                }
-            });
-        };
-    
-        const confirmSubmission = () => {
+        const confirmSubmission = async () => {
             return MySwal.fire({
                 title: 'Are you sure?',
                 text: 'Do you want to continue with submitting the application?',
@@ -187,9 +159,6 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                 showCancelButton: true,
                 confirmButtonText: 'Yes, Submit',
                 cancelButtonText: 'No, Cancel',
-                customClass: {
-                    popup: 'myswal-popup',
-                },
             });
         };
     
@@ -216,39 +185,64 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
             if (membership) formData.append("files", getValues("membership"));
             if (financial) formData.append("files", getValues("financial"));
             if (leadership) formData.append("files", getValues("leadership"));
-
-            console.log(formData);
-            
     
             try {
                 const token = KeycloakService.getToken();
+    
+                // Show loading SweetAlert2 modal
+                MySwal.fire({
+                    title: 'Submitting your application...',
+                    html: '<div class="spinner"></div>',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        MySwal.showLoading(); // Display the SweetAlert2 spinner
+                    },
+                });
+    
                 const response = await axios.post('http://localhost:5003/api/party', formData, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data',
                     },
                 });
+    
                 if ([200, 201].includes(response.status)) {
-                    showSuccessModal('Application Submitted Successfully!', '/party/list');
-                    reset();
-                    handleBack();
-                    setIsLeaderVerified(false);
+                    MySwal.fire({
+                        title: 'Application Submitted Successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    });
+                    reset(); // Reset the form
+                    handleBack(); // Go to the previous step
+                    setIsLeaderVerified(false); // Reset leader verification
                 } else {
-                    showErrorModal(response.data, '/party/list');
+                    MySwal.fire({
+                        title: 'Error!',
+                        text: response.data || 'An error occurred while submitting the application.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
                 }
             } catch (error) {
-                console.error('Error submitting the application:', error);
-                showErrorModal(error.response ? error.response.data : 'An error occurred', '/');
+                MySwal.fire({
+                    title: 'Error!',
+                    text: error.response ? error.response.data : 'An error occurred.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
             }
         };
     
         const result = await confirmSubmission();
         if (result.isConfirmed) {
+            handleClose(); // Close the form modal immediately
             await submitPartyData(data);
         } else {
             console.log('Submission canceled by the user.');
         }
     };
+    
     
     const[constitution, setConstitution] = useState(null);
     const[logo, setLogo] = useState(null);
@@ -419,8 +413,6 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                                 Choose File
                                 </Button>
                             </label>
-                            
-
                         </div>
                     </div>
                     <div className='flex justify-between mr-4'>
