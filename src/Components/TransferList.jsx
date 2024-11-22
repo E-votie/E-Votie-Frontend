@@ -17,9 +17,10 @@ import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import Swal from 'sweetalert2';  // Import SweetAlert2
+import axios from 'axios';
+import {authGet} from "../Auth/authFetch.jsx";  // You can use axios or fetch
 
-// Utility functions (same as before)
+// Utility functions
 function not(a, b) {
     return a.filter((value) => b.indexOf(value) === -1);
 }
@@ -34,35 +35,37 @@ function union(a, b) {
 
 export default function TransferList() {
     const [checked, setChecked] = React.useState([]);
-    const [left, setLeft] = React.useState([
-        { id: 0, name: 'John Doe', party: 'Party A' },
-        { id: 1, name: 'Jane Smith', party: 'Party B' },
-        { id: 2, name: 'Alice Johnson', party: 'Party C' },
-        { id: 3, name: 'Bob Brown', party: 'Party D' },
-    ]);
-    const [right, setRight] = React.useState([
-        { id: 4, name: 'Charlie Davis', party: 'Party E' },
-        { id: 5, name: 'Diana Green', party: 'Party F' },
-        { id: 6, name: 'Edward White', party: 'Party G' },
-        { id: 7, name: 'Fiona Black', party: 'Party H' },
-    ]);
+    const [left, setLeft] = React.useState([]);  // Empty initially
+    const [right, setRight] = React.useState([]); // Empty initially
+    const [loading, setLoading] = React.useState(true); // To track the loading state
+    const [error, setError] = React.useState(null); // To handle any errors
+    const electionId = window.location.pathname.split("/").pop();
+
+    // Fetch data from the backend
+    React.useEffect(() => {
+        // Replace with your actual API endpoints
+        const fetchData = async () => {
+            try {
+                const responseLeft = await authGet(`/election/get_candidates/${electionId}/Pending`); // Example API for left candidates
+                const responseRight = await authGet(`/election/get_candidates/${electionId}/Accepted`); // Example API for right candidates
+
+                // Set the state with the fetched data
+                setLeft(responseLeft.data);
+                setRight(responseRight.data);
+                console.log(responseLeft.data, responseRight.data);
+            } catch (err) {
+                setError('Failed to fetch data');
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);  // Empty dependency array ensures this runs only once when the component is mounted
 
     const leftChecked = intersection(checked, left.map(item => item.id));
     const rightChecked = intersection(checked, right.map(item => item.id));
-
-    // SweetAlert2 Popup for viewing candidate details
-    const handleView = (candidate) => () => {
-        Swal.fire({
-            title: 'Candidate Details',
-            html: `
-                <strong>Name:</strong> ${candidate.name}<br>
-                <strong>Party:</strong> ${candidate.party}
-               <br> <strong>Details:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit
-        `,
-            icon: 'info',
-            confirmButtonText: 'Close',
-        });
-    };
 
     const handleToggle = (id) => () => {
         const currentIndex = checked.indexOf(id);
@@ -101,15 +104,29 @@ export default function TransferList() {
     };
 
     const handleCheckedRight = () => {
-        setRight(right.concat(left.filter(item => leftChecked.includes(item.id))));
+        const selectedCandidates = left.filter(item => leftChecked.includes(item.id));
+        console.log(selectedCandidates[0].id);
+        const responseLeft = authGet(`/election/set_status_candidates/${electionId}/${selectedCandidates[0].id}/Accepted`);
+        setRight(right.concat(selectedCandidates));
         setLeft(left.filter(item => !leftChecked.includes(item.id)));
         setChecked(not(checked, leftChecked));
     };
 
-    const handleCheckedLeft = () => {
-        setLeft(left.concat(right.filter(item => rightChecked.includes(item.id))));
-        setRight(right.filter(item => !rightChecked.includes(item.id)));
-        setChecked(not(checked, rightChecked));
+    const handleCheckedLeft = async () => {
+        const selectedCandidates = right.filter(item => rightChecked.includes(item.id));
+
+        // Make an API call to update candidate status to 'Pending'
+        try {
+            await authGet(`/election/set_status_candidates/${electionId}/${selectedCandidates[0].id}/Pending`);
+
+            // Update the local state
+            setLeft(left.concat(selectedCandidates));
+            setRight(right.filter(item => !rightChecked.includes(item.id)));
+            setChecked(not(checked, rightChecked));
+        } catch (error) {
+            console.error("Error updating candidate status:", error);
+            setError('Failed to update candidate status.');
+        }
     };
 
     const customTable = (title, items, isRight) => (
@@ -140,7 +157,7 @@ export default function TransferList() {
                             <TableCell><strong>Name</strong></TableCell>
                             <TableCell><strong>Party</strong></TableCell>
                             <TableCell><strong>View</strong></TableCell>
-                            <TableCell><strong>{isRight ? 'Remove' : 'Approve'}</strong></TableCell>
+                            <TableCell><strong>{isRight ? 'Remove' : 'Verified'}</strong></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -158,7 +175,7 @@ export default function TransferList() {
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{item.party}</TableCell>
                                 <TableCell>
-                                    <IconButton aria-label="view" onClick={handleView(item)}>
+                                    <IconButton aria-label="view">
                                         <VisibilityIcon />
                                     </IconButton>
                                 </TableCell>
@@ -172,10 +189,10 @@ export default function TransferList() {
                                         </IconButton>
                                     ) : (
                                         <IconButton
-                                            aria-label="approve"
+                                            aria-label="verified"
                                             onClick={handleApprove(item.id)}
                                         >
-                                            <CheckIcon />
+                                            <CheckIcon  sx={{ color: 'green' }} />
                                         </IconButton>
                                     )}
                                 </TableCell>
@@ -186,6 +203,16 @@ export default function TransferList() {
             </TableContainer>
         </Card>
     );
+
+    // If data is still loading, show a loading state
+    if (loading) {
+        return <Box sx={{ textAlign: 'center', mt: 4 }}>Loading...</Box>;
+    }
+
+    // If an error occurred, display an error message
+    if (error) {
+        return <Box sx={{ textAlign: 'center', mt: 4, color: 'red' }}>Error: {error}</Box>;
+    }
 
     return (
         <Box sx={{ width: '100%', my: 2 }}>

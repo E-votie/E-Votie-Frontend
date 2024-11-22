@@ -16,7 +16,7 @@ export const Elections = ({ topic, electionData }) => {
 
   return (
     <div className="pb-2 mb-8">
-      <Typography variant="h6" color="textSecondary" gutterBottom>
+      <Typography variant="h6" color="textSecondary" gutterBottom className="p-4">
         {topic}
       </Typography>
       <Divider />
@@ -26,19 +26,21 @@ export const Elections = ({ topic, electionData }) => {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell><Typography variant='body1' fontWeight="bold">Name</Typography></TableCell>
                 <TableCell><Typography variant='body1' fontWeight="bold">Type</Typography></TableCell>
                 <TableCell><Typography variant='body1' fontWeight="bold">Start Date</Typography></TableCell>
                 <TableCell><Typography variant='body1' fontWeight="bold">End Date</Typography></TableCell>
-                <TableCell><Typography variant='body1' fontWeight="bold">Duration</Typography></TableCell>
+                <TableCell><Typography variant='body1' fontWeight="bold">Status</Typography></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {electionData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((election, index) => (
                 <TableRow key={index} hover className='cursor-pointer'>
                   <TableCell><Typography variant='body1'>{election.type}</Typography></TableCell>
-                  <TableCell><Typography variant='body1'>{election.startDate}</Typography></TableCell>
-                  <TableCell><Typography variant='body1'>{election.endDate}</Typography></TableCell>
-                  <TableCell><Typography variant='body1'>{election.duration}</Typography></TableCell>
+                  <TableCell><Typography variant='body1'>{election.name}</Typography></TableCell>
+                  <TableCell><Typography variant='body1'>{election.electionStartDate}</Typography></TableCell>
+                  <TableCell><Typography variant='body1'>{election.electionEndDate}</Typography></TableCell>
+                  <TableCell><Typography variant='body1'>{election.status}</Typography></TableCell>
                 </TableRow>
               ))}
             </TableBody>

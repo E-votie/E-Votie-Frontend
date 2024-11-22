@@ -137,6 +137,13 @@ export const FingerprintReg = (props) => {
                         <button className="btn btn-primary">Send OTP</button>
                     </div>
                 </form>
+                <div className="mt-5">
+                    {showFingerprintScanner && (
+                        <div>
+                            <FingerprintScanner ApplicationID={responseData.applicationID} action={"scan"} />
+                        </div>
+                    )}
+                </div>
             </div>
             <div className="card-body w-[800px]">
                 <form className="space-y-3 h-full">
@@ -169,7 +176,7 @@ export const FingerprintReg = (props) => {
                                    value={responseData ? responseData.name : ''} readOnly/>
                         </label>
                         {responseData && (
-                            <div className="flex gap-5 h-[600px]">
+                            <div className="flex gap-5 h-[400px]">
                                 <label className="form-control w-full max-w-xs">
                                     <div className="label">
                                         <span className="label-text">NIC Front</span>
@@ -213,11 +220,6 @@ export const FingerprintReg = (props) => {
                     </div>
                 </form>
             </div>
-            {showFingerprintScanner && (
-                <div>
-                    <FingerprintScanner ApplicationID={responseData.applicationID} />
-                </div>
-            )}
         </Stack>
     </div>)
 }

@@ -11,6 +11,8 @@ import ElectionTimeline from "../Pages/Election/Election_Timeline.jsx";
 import Additional_Materials from "../Pages/Election/Additional_Materials.jsx";
 import AddCandidates from "../Pages/Election/AddCandidates.jsx";
 import ElectionHome from "../Pages/Election/Election_Home.jsx";
+import ElectionSlip from "../Pages/Voter/ElectionSlip.jsx";
+import ApprovePartyMembers from "../Pages/Election/ApprovePartyMembers.jsx";
 
 
 const ElectionRoutes = () => {
@@ -44,15 +46,31 @@ const ElectionRoutes = () => {
                     />
                 }
             />
-            {/*<Route path="/Approve" element={<ApprovePartyMembers />} />*/}
-            <Route path="/Election/Polling_Stations" element={
+            <Route path="/Approve" element={<ApprovePartyMembers />} />
+            <Route path="/Election/Polling_Stations/:election_id" element={
                 <PollingStationsProvider>
                     <Polling_Stations />
                 </PollingStationsProvider>} />
             <Route path="/Election/Upcoming_Elections" element={<UpcomingElections />} />
-            <Route path="/Election/Election_Timeline" element={<ElectionTimeline />} />
-            <Route path="/Election/Additional_Materials" element={<Additional_Materials />} />
-            <Route path="/Election/AddCandidates" element={<AddCandidates />} />
+            <Route
+                path="/Election/Election_Timeline/:election_id"
+                element={
+                    <ProtectedRoute
+                        element={ElectionTimeline}
+                        role="ElectionCommissioner"
+                    />
+                }
+            />
+            <Route path="/Election/Additional_Materials/:election_id" element={<Additional_Materials />} />
+            <Route
+                path="/Election/AddCandidates/:election_id"
+                element={
+                    <ProtectedRoute
+                        element={AddCandidates}
+                        role="ElectionCommissioner"
+                    />
+                }
+            />
         </>
     );
 };

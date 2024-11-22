@@ -3,23 +3,26 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { object } from "yup";
 import { useMutation } from 'react-query';
-import { authPost} from '../../Auth/authFetch.jsx';
+import {authGet, authPost} from '../../Auth/authFetch.jsx';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import React from 'react';
+import {useNavigate} from "react-router-dom";
 
 
 const MySwal = withReactContent(Swal);
 
 export const CreateElection = () => {
 
+    const navigate = useNavigate();
     const schema = object({
-        StartingDateTime: yup.string().required("Cannot be empty"),
-        EndingDateTime: yup.string().required("Cannot be empty"),
-        ElectionType: yup.string().required("Cannot be empty"),
-        ElectionTitleEnglish: yup.string().required("Cannot be empty"),
-        ElectionTitleSinhala: yup.string().required("Cannot be empty"),
-        ElectionDescriptionEnglish: yup.string().required("Cannot be empty"),
-        ElectionDescriptionSinhala: yup.string().required("Cannot be empty")
+        electionStartDate: yup.string().required("Cannot be empty"),
+        electionEndDate: yup.string().required("Cannot be empty"),
+        type: yup.string().required("Cannot be empty"),
+        name: yup.string().required("Cannot be empty"),
+        sinhalaName: yup.string().required("Cannot be empty"),
+        description: yup.string().required("Cannot be empty"),
+        sinhalaDescription: yup.string().required("Cannot be empty")
     });
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -27,11 +30,11 @@ export const CreateElection = () => {
     });
 
     const mutation = useMutation((data) => {
-        return authPost('http://localhost:8081/Election/Create', data);
+        return authPost('/election/create', data);
     });
 
     const onSubmit = async (data) => {
-        console.log("-------->>>>>>>>>>>")
+        console.log("-------->>>>>>>>>>>", data);
         mutation.mutate(data, {
             onSuccess: (response) => {
                 MySwal.fire({
@@ -42,7 +45,7 @@ export const CreateElection = () => {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // You might want to import and use 'navigate' from react-router-dom here
-                        // navigate('/Home');
+                        navigate('/Election/Election_Timeline/' + response.data.id, { state: { responseData: response.data } });
                     }
                 });
             },
@@ -52,9 +55,6 @@ export const CreateElection = () => {
             }
         });
     };
-
-    // Get today's date in the format 'YYYY-MM-DDTHH:MM' for the min attribute
-    const today = new Date().toISOString().slice(0, 16);
 
     return (
         <div className="card card-side bg-base-100 shadow-xl gap-10 px-4">
@@ -67,22 +67,21 @@ export const CreateElection = () => {
                                 <div className="flex flex-col">
                                     <label className="mb-2 font-sans text-lg">Starting Date and Time</label>
                                     <input
-                                        id="StartingDateTime"
+                                        id="electionStartDate"
                                         type="datetime-local"
                                         className="input input-bordered input-primary w-full"
-                                        {...register("StartingDateTime")}
-                                        min={today}  // Set minimum date to today
+                                        {...register("electionStartDate")}
                                     />
 
-                                    {errors.StartingDateTime &&
-                                        <p className="text-red-500 text-sm mt-1">{errors.StartingDateTime.message}</p>}
+                                    {errors.electionStartDate &&
+                                        <p className="text-red-500 text-sm mt-1">{errors.electionStartDate.message}</p>}
                                 </div>
                                 <div className="flex flex-col">
                                     <label className="mb-2 font-sans text-lg">Election Title</label>
                                     <input
                                         className="input input-bordered input-primary w-full"
                                         placeholder="Enter Election Title"
-                                        {...register("ElectionTitleEnglish")}
+                                        {...register("name")}
                                     />
                                     {errors.ElectionTitle &&
                                         <p className="text-red-500 text-sm mt-1">{errors.ElectionTitle.message}</p>}
@@ -92,7 +91,7 @@ export const CreateElection = () => {
                                     <input
                                         className="input input-bordered input-primary w-full"
                                         placeholder="Enter Election Title"
-                                        {...register("ElectionTitleSinhala")}
+                                        {...register("sinhalaName")}
                                     />
                                     {errors.ElectionTitle &&
                                         <p className="text-red-500 text-sm mt-1">{errors.ElectionTitle.message}</p>}
@@ -105,17 +104,16 @@ export const CreateElection = () => {
                                         type="datetime-local"
                                         placeholder="Select date and time"
                                         className="input input-bordered input-primary w-full"
-                                        {...register("EndingDateTime")}
-                                        min={today}  // Set minimum date to today
+                                        {...register("electionEndDate")}
                                     />
-                                    {errors.EndingDateTime &&
-                                        <p className="text-red-500 text-sm mt-1">{errors.EndingDateTime.message}</p>}
+                                    {errors.electionEndDate &&
+                                        <p className="text-red-500 text-sm mt-1">{errors.electionEndDate.message}</p>}
                                 </div>
                                 <div className="flex flex-col">
                                     <label className="mb-2 font-sans text-lg">Election Type</label>
                                     <select
                                         className="select select-primary w-full"
-                                        {...register("ElectionType")}
+                                        {...register("type")}
                                     >
                                         <option disabled value="">Select Election Type</option>
                                         <option>Presidential Election</option>
@@ -124,8 +122,8 @@ export const CreateElection = () => {
                                         <option>Local Authorities Election</option>
                                         <option>Referendum</option>
                                     </select>
-                                    {errors.ElectionType &&
-                                        <p className="text-red-500 text-sm mt-1">{errors.ElectionType.message}</p>}
+                                    {errors.type &&
+                                        <p className="text-red-500 text-sm mt-1">{errors.type.message}</p>}
                                 </div>
                             </div>
                         </div>
@@ -136,10 +134,10 @@ export const CreateElection = () => {
                             <textarea
                                 className="textarea textarea-bordered h-20 textarea-primary w-full"
                                 placeholder="Enter Election Details"
-                                {...register("ElectionDescriptionEnglish")}
+                                {...register("description")}
                             ></textarea>
-                            {errors.ElectionDescriptionEnglish &&
-                                <p className="text-red-500 text-sm mt-1">{errors.ElectionDescriptionEnglish.message}</p>}
+                            {errors.description &&
+                                <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
                         </label>
                     </div>
                     <div className="space-y-4">
@@ -148,10 +146,10 @@ export const CreateElection = () => {
                             <textarea
                                 className="textarea textarea-bordered h-20 textarea-primary w-full"
                                 placeholder="Enter Election Details"
-                                {...register("ElectionDescriptionSinhala")}
+                                {...register("sinhalaDescription")}
                             ></textarea>
-                            {errors.ElectionDescriptionSinhala &&
-                                <p className="text-red-500 text-sm mt-1">{errors.ElectionDescriptionSinhala.message}</p>}
+                            {errors.sinhalaDescription &&
+                                <p className="text-red-500 text-sm mt-1">{errors.sinhalaDescription.message}</p>}
                         </label>
                     </div>
                     <div className="card-actions justify-end">
