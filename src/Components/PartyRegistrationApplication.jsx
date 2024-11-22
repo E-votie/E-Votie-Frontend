@@ -121,6 +121,8 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
             });
             if ([200, 201].includes(response.status)) {
                 setLeaderName(response.data.Name);
+                console.log(response);
+                
                 setIsLeaderVerified(true);
                 setIsSubmitDisabled(false);
             } else {
@@ -150,96 +152,243 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const onSubmit = async (data) => {
-        const confirmSubmission = async () => {
-            return MySwal.fire({
-                title: 'Are you sure?',
-                text: 'Do you want to continue with submitting the application?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, Submit',
-                cancelButtonText: 'No, Cancel',
-            });
+    // const onSubmit = async (data) => {
+    //     const confirmSubmission = async () => {
+    //         return MySwal.fire({
+    //             title: 'Are you sure?',
+    //             text: 'Do you want to continue with submitting the application?',
+    //             icon: 'warning',
+    //             showCancelButton: true,
+    //             confirmButtonText: 'Yes, Submit',
+    //             cancelButtonText: 'No, Cancel',
+    //         });
+    //     };
+    
+    //     const submitPartyData = async (partyData) => {
+    //         const formData = new FormData();
+    
+    //         const partyDetails = {
+    //             partyName: getValues("partyName"),
+    //             abbreviation: getValues("abbreviation"),
+    //             foundedDate: getValues("foundedDate"),
+    //             address: {
+    //                 addressLine_1: getValues("addressLine1"),
+    //                 addressLine_2: getValues("addressLine2"),
+    //                 city: getValues("city"),
+    //                 postalCode: getValues("postalCode"),
+    //             },
+    //             leaderId: getValues("leaderNic"),
+    //             state: "verified",
+    //         };
+    
+    //         formData.append("party", JSON.stringify(partyDetails));
+    
+    //         if (constitution) formData.append("files", getValues("constitution"));
+    //         if (logo) formData.append("files", getValues("logo"));
+    //         if (membership) formData.append("files", getValues("membership"));
+    //         if (financial) formData.append("files", getValues("financial"));
+    //         if (leadership) formData.append("files", getValues("leadership"));
+    
+    //         try {
+    //             const token = KeycloakService.getToken();
+    
+    //             // Show loading SweetAlert2 modal
+    //             MySwal.fire({
+    //                 title: 'Submitting your application...',
+    //                 html: '<div class="spinner"></div>',
+    //                 allowOutsideClick: false,
+    //                 showConfirmButton: false,
+    //                 didOpen: () => {
+    //                     MySwal.showLoading(); // Display the SweetAlert2 spinner
+    //                 },
+    //             });
+    
+    //             const response = await axios.post('http://localhost:5003/api/party', formData, {
+    //                 headers: {
+    //                     'Authorization': `Bearer ${token}`,
+    //                     'Content-Type': 'multipart/form-data',
+    //                 },
+    //             });
+    
+    //             if ([200, 201].includes(response.status)) {
+    //                 MySwal.fire({
+    //                     title: 'Application Submitted Successfully!',
+    //                     icon: 'success',
+    //                     confirmButtonText: 'OK',
+    //                 });
+    //                 reset(); // Reset the form
+    //                 handleBack(); // Go to the previous step
+    //                 setIsLeaderVerified(false); // Reset leader verification
+    //             } else {
+    //                 MySwal.fire({
+    //                     title: 'Error!',
+    //                     text: response.data || 'An error occurred while submitting the application.',
+    //                     icon: 'error',
+    //                     confirmButtonText: 'OK',
+    //                 });
+    //             }
+    //         } catch (error) {
+    //             MySwal.fire({
+    //                 title: 'Error!',
+    //                 text: error.response ? error.response.data : 'An error occurred.',
+    //                 icon: 'error',
+    //                 confirmButtonText: 'OK',
+    //             });
+    //         }
+    //     };
+    
+    //     const result = await confirmSubmission();
+    //     if (result.isConfirmed) {
+    //         handleClose(); // Close the form modal immediately
+    //         await submitPartyData(data);
+    //     } else {
+    //         console.log('Submission canceled by the user.');
+    //     }
+    // };
+
+    const onSubmit = async (partyData) => {
+        const formData = new FormData();
+    
+        const partyDetails = {
+            partyName: getValues("partyName"),
+            abbreviation: getValues("abbreviation"),
+            foundedDate: getValues("foundedDate"),
+            address: {
+                addressLine_1: getValues("addressLine1"),
+                addressLine_2: getValues("addressLine2"),
+                city: getValues("city"),
+                postalCode: getValues("postalCode"),
+            },
+            leaderId: getValues("leaderNic"),
+            state: "pending verification",
         };
     
-        const submitPartyData = async (partyData) => {
-            const formData = new FormData();
+        formData.append("party", JSON.stringify(partyDetails));
     
-            const partyDetails = {
-                partyName: getValues("partyName"),
-                abbreviation: getValues("abbreviation"),
-                foundedDate: getValues("foundedDate"),
-                address: {
-                    addressLine_1: getValues("addressLine1"),
-                    addressLine_2: getValues("addressLine2"),
-                    city: getValues("city"),
-                    postalCode: getValues("postalCode"),
+        if (constitution) formData.append("files", getValues("constitution"));
+        if (logo) formData.append("files", getValues("logo"));
+        if (membership) formData.append("files", getValues("membership"));
+        if (financial) formData.append("files", getValues("financial"));
+        if (leadership) formData.append("files", getValues("leadership"));
+    
+        try {
+            const token = KeycloakService.getToken();
+    
+            // Update Keycloak roles
+            await updateKeycloakRoles(partyDetails.leaderId);
+    
+            // Show loading SweetAlert2 modal
+            MySwal.fire({
+                title: 'Submitting your application...',
+                html: '<div class="spinner"></div>',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    MySwal.showLoading(); // Display the SweetAlert2 spinner
                 },
-                leaderId: getValues("leaderNic"),
-            };
+            });
     
-            formData.append("party", JSON.stringify(partyDetails));
+            const response = await axios.post('http://localhost:5003/api/party', formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
     
-            if (constitution) formData.append("files", getValues("constitution"));
-            if (logo) formData.append("files", getValues("logo"));
-            if (membership) formData.append("files", getValues("membership"));
-            if (financial) formData.append("files", getValues("financial"));
-            if (leadership) formData.append("files", getValues("leadership"));
-    
-            try {
-                const token = KeycloakService.getToken();
-    
-                // Show loading SweetAlert2 modal
+            if ([200, 201].includes(response.status)) {
+                // Application submitted successfully
                 MySwal.fire({
-                    title: 'Submitting your application...',
-                    html: '<div class="spinner"></div>',
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => {
-                        MySwal.showLoading(); // Display the SweetAlert2 spinner
-                    },
+                    title: 'Application Submitted Successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
                 });
     
-                const response = await axios.post('http://localhost:5003/api/party', formData, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-    
-                if ([200, 201].includes(response.status)) {
-                    MySwal.fire({
-                        title: 'Application Submitted Successfully!',
-                        icon: 'success',
-                        confirmButtonText: 'OK',
-                    });
-                    reset(); // Reset the form
-                    handleBack(); // Go to the previous step
-                    setIsLeaderVerified(false); // Reset leader verification
-                } else {
-                    MySwal.fire({
-                        title: 'Error!',
-                        text: response.data || 'An error occurred while submitting the application.',
-                        icon: 'error',
-                        confirmButtonText: 'OK',
-                    });
-                }
-            } catch (error) {
+                reset(); // Reset the form
+                handleBack(); // Go to the previous step
+                setIsLeaderVerified(false); // Reset leader verification
+            } else {
                 MySwal.fire({
                     title: 'Error!',
-                    text: error.response ? error.response.data : 'An error occurred.',
+                    text: response.data || 'An error occurred while submitting the application.',
                     icon: 'error',
                     confirmButtonText: 'OK',
                 });
             }
-        };
+        } catch (error) {
+            MySwal.fire({
+                title: 'Error!',
+                text: error.response ? error.response.data : 'An error occurred.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        }
+    };
     
-        const result = await confirmSubmission();
-        if (result.isConfirmed) {
-            handleClose(); // Close the form modal immediately
-            await submitPartyData(data);
+    const updateKeycloakRoles = async (leaderNic) => {
+        try {
+            const adminToken = await KeycloakService.getAdminToken(); // Get admin token
+    
+            // Get logged-in user's ID (party secretary)
+            const secretaryUserId = KeycloakService.getUserId();
+    
+            // Assign 'Party Secretary' role to logged-in user
+            await assignRoleToUser(adminToken, secretaryUserId, 'PartySecretary');
+    
+            // Get leader's userId using their NIC (username)
+            const leaderUserId = await KeycloakService.getUserIdByUsername('demo', leaderNic);
+    
+            if (!leaderUserId) {
+                throw new Error(`User not found for leader NIC: ${leaderNic}`);
+            }
+    
+            // Assign 'Party Leader' role to the leader
+            await assignRoleToUser(adminToken, leaderUserId, 'PartyLeader');
+        } catch (error) {
+            console.error('Failed to update Keycloak roles:', error.message);
+        }
+    };
+    
+    const assignRoleToUser = async (adminToken, userId, roleName) => {
+        const roleId = await getRoleIdByName(adminToken, roleName);
+    
+        if (!roleId) {
+            throw new Error(`Role not found: ${roleName}`);
+        }
+    
+        const payload = [
+            {
+                id: roleId,
+                name: roleName,
+            },
+        ];
+        console.log(payload);
+        
+    
+        await fetch(`http://localhost:8086/admin/realms/demo/users/${userId}/role-mappings/clients/162f9e0e-64e2-4ae7-84fe-93d625a161bd`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${adminToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+    };
+    
+    const getRoleIdByName = async (adminToken, roleName) => {
+        const response = await fetch(`http://localhost:8086/admin/realms/demo/clients/162f9e0e-64e2-4ae7-84fe-93d625a161bd/roles/${roleName}`, {
+            headers: {
+                Authorization: `Bearer ${adminToken}`,
+                'Content-Type': 'application/json',
+            },
+        });
+    
+        if (response.ok) {
+            const role = await response.json();
+            console.log(role.id);
+            return role.id;
         } else {
-            console.log('Submission canceled by the user.');
+            console.error('Failed to fetch role ID:', await response.text());
+            return null;
         }
     };
     

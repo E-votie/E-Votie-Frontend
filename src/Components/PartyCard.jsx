@@ -131,11 +131,19 @@ const PartyCard = ({ party, state }) => {
 
   };
 
+  const getPartyImage = () => {
+    if (state === "pending verification") {
+      return unpImage;
+    }
+    return party.image || unpImage; 
+  };
+
   return (
     <StyledCard className='w-full' sx={{width: "100%"}}>
       <CardActionArea className="flex-grow w-full" onClick={openParty}>
         <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
-          {state != "pending verification" && <CardMedia
+          {state != "pending verification" && 
+          <CardMedia
             component="img"
             sx={{ 
               width: { xs: '100%', sm: 120 }, 
