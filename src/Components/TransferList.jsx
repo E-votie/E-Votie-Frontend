@@ -46,8 +46,8 @@ export default function TransferList() {
         // Replace with your actual API endpoints
         const fetchData = async () => {
             try {
-                const responseLeft = await authGet(`/election/get_candidates/${electionId}/Pending`); // Example API for left candidates
-                const responseRight = await authGet(`/election/get_candidates/${electionId}/Accepted`); // Example API for right candidates
+                const responseLeft = await authGet(`/election/get_candidates/${electionId}/Pending`);
+                const responseRight = await authGet(`/election/get_candidates/${electionId}/Accepted`);
 
                 // Set the state with the fetched data
                 setLeft(responseLeft.data);
