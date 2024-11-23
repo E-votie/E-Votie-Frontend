@@ -23,18 +23,20 @@ jobs:
           # Configure Git with a default user
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          
-          # Clone the destination repository
-          git clone https://${API_TOKEN_GITHUB}@github.com/lahiruthpala/E-Votie_FrontEnd.git E_votie_Vercel
 
-          # Remove all files in the destination repository (except .git)
-          find RecruitEase_Vercel -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          # Remove any existing files from the destination repo (except .git)
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
 
-          # Copy all files from the source to the destination repository
-          rsync -av --exclude='.git' --exclude='.github' --exclude='E_votie_Vercel' ./ E_votie_Vercel/
+          # Clone the destination repository directly into the root folder
+          git clone https://${API_TOKEN_GITHUB}@github.com/lahiruthpala/E-Votie_FrontEnd.git .
+
+          # Remove any files from the destination repo (except .git)
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+
+          # Copy all files from the source to the destination repository (excluding .git)
+          rsync -av --exclude='.git' --exclude='.github' --exclude='E-Votie_FrontEnd' ./ ./
 
           # Commit and push changes to the destination repository
-          cd RecruitEase_Vercel
           git add .
           git commit -m "Update from source repository"
           git push origin main --force
