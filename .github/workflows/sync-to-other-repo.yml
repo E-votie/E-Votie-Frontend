@@ -24,17 +24,18 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
 
-          # Remove any existing files from the destination repo (except .git)
-          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          # Create a new directory for the destination repository
+          mkdir destination-repo
+          cd destination-repo
 
-          # Clone the destination repository directly into the root folder
+          # Clone the destination repository into the new folder
           git clone https://${API_TOKEN_GITHUB}@github.com/lahiruthpala/E-Votie_FrontEnd.git .
 
-          # Remove any files from the destination repo (except .git)
+          # Remove any files from the destination repository (except .git)
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
 
           # Copy all files from the source to the destination repository (excluding .git)
-          rsync -av --exclude='.git' --exclude='.github' --exclude='E-Votie_FrontEnd' ./ ./
+          rsync -av --exclude='.git' --exclude='.github' --exclude='E-Votie_FrontEnd' ../ ./  # Note the use of ../ to refer to the source files outside the folder
 
           # Commit and push changes to the destination repository
           git add .
