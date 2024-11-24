@@ -8,6 +8,7 @@ export const ElectionRegistrationForm = () => {
 
     const [loading, setLoading] = useState(true);
     const [responseData, setResponseData] = useState(null);
+    const [responseDataElection, setResponseDataElection] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,6 +18,7 @@ export const ElectionRegistrationForm = () => {
                 console.log("This is the plase")
                 const data = await authGet(`/voter/my_details`);
                 await new Promise(resolve => setTimeout(resolve, 1000));
+                const election = await authGet(`/election/get_active_election`);
                 setResponseData(data.voter)
                 setLoading(false);
             } catch (error) {
@@ -28,6 +30,18 @@ export const ElectionRegistrationForm = () => {
         fetchData();
     }, []);
 
+    const handleRegister = async () => {
+        try {
+            setLoading(true);
+            const data = await authGet(`/voter/election_registration//${responseData.NIC}`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            setLoading(false);
+            navigate("/voter/profile");
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setLoading(false);
+        }
+    }
 
     return (<div>
         {loading ? (
@@ -159,7 +173,7 @@ export const ElectionRegistrationForm = () => {
                                 </button>
                                 <button
                                     className="btn btn-primary mt-12 text-white"
-                                    onClick={() => {}}
+                                    onClick={() => {handleRegister()}}
                                 >
                                     Register for this Election
                                 </button>

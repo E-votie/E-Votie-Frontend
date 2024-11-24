@@ -23,6 +23,10 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import UploadIcon from '@mui/icons-material/Upload';
 import { styled } from '@mui/material/styles';
 import { useForm } from 'react-hook-form';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -137,14 +141,20 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         variant="outlined"
                         {...register("abbreviation", { required: true })}
                     />
-                    <TextField
+                    <LocalizationProvider dateAdapter={AdapterDayjs} >
+                        <DemoContainer components={['DatePicker']}>
+                            <DatePicker label="Established Date" />
+                        </DemoContainer>
+                    </LocalizationProvider>
+
+                    {/* <TextField
                         fullWidth
                         label="Established Date"
                         variant="outlined"
                         type="date"
                         InputLabelProps={{ shrink: true }}
                         {...register("date", { required: true })}
-                    />
+                    /> */}
                 </Stack>
                 <TextField
                     fullWidth

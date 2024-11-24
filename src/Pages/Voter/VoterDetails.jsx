@@ -72,6 +72,7 @@ export const VoterDetails = () => {
                 console.log(data.voter)
                 setResponseData(data.voter);
                 setProfileImage(data.profileImageUrl);
+                console.log(data.voter.voterID)
                 setQrCode(data.voter.voterID)
                 setLoading(false);
             } catch (error) {

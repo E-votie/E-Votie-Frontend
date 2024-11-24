@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from "../services/ProtectedRoute.jsx";
 import { Inquiries } from "../Pages/Party/Inquiries.jsx";
 

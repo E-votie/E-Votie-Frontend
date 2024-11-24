@@ -1,0 +1,138 @@
+[
+  {
+    "division": "Batticaloa",
+    "district": "Batticaloa",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "78.13%",
+        "count": 109449,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "8.99%",
+        "count": 12594,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "IND10",
+        "percentage": "8.65%",
+        "count": 12122,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.07%",
+        "count": 1499,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      }
+    ]
+  },
+  {
+    "division": "Kalkudah",
+    "district": "Batticaloa",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "75.96%",
+        "count": 65847,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "19.22%",
+        "count": 16663,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.75%",
+        "count": 652,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.75%",
+        "count": 648,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Padiruppu",
+    "district": "Batticaloa",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "83.05%",
+        "count": 54132,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "12.19%",
+        "count": 7948,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.18%",
+        "count": 767,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "IND11",
+        "percentage": "0.37%",
+        "count": 238,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Postal-count-Bcaloa",
+    "district": "Batticaloa",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "81.83%",
+        "count": 9221,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "11.14%",
+        "count": 1255,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.1%",
+        "count": 349,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "IND10",
+        "percentage": "2.36%",
+        "count": 266,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  }
+]

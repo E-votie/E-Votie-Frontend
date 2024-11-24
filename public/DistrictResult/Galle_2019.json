@@ -1,0 +1,376 @@
+[
+  {
+    "division": "Akmeemana",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.58%",
+        "count": 51418,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.82%",
+        "count": 24117,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.63%",
+        "count": 3745,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.42%",
+        "count": 340,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Ambalangoda",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "65.78%",
+        "count": 41528,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "28.19%",
+        "count": 17793,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.93%",
+        "count": 2480,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.37%",
+        "count": 234,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Baddegama",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.56%",
+        "count": 51698,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "30.67%",
+        "count": 24945,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.46%",
+        "count": 2811,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.29%",
+        "count": 238,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Balapitiya",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "66.07%",
+        "count": 28185,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.46%",
+        "count": 12567,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.64%",
+        "count": 1127,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.26%",
+        "count": 112,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Bentara-Elpitiya",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "66.7%",
+        "count": 49734,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "27.63%",
+        "count": 20606,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.37%",
+        "count": 2511,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.3%",
+        "count": 222,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Galle",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "46.89%",
+        "count": 31248,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "46.68%",
+        "count": 31108,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.57%",
+        "count": 3044,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.64%",
+        "count": 424,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Habaraduwa",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "69.4%",
+        "count": 47659,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "25.46%",
+        "count": 17487,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.3%",
+        "count": 2264,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.29%",
+        "count": 197,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Hiniduma",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "62.66%",
+        "count": 54299,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "32.37%",
+        "count": 28046,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.86%",
+        "count": 2479,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.24%",
+        "count": 209,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Karandeniya",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "70.29%",
+        "count": 42664,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "23.79%",
+        "count": 14437,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.62%",
+        "count": 2199,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.29%",
+        "count": 177,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Postal-count-Galle",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.49%",
+        "count": 25099,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "24.45%",
+        "count": 9093,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "6.59%",
+        "count": 2450,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.81%",
+        "count": 301,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Ratgama",
+    "district": "Galle",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.92%",
+        "count": 42756,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "27.11%",
+        "count": 17062,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.01%",
+        "count": 1896,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.28%",
+        "count": 176,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  }
+]

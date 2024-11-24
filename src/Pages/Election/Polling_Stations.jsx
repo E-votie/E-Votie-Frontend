@@ -9,6 +9,9 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import {authGet, authPost} from '../../Auth/authFetch.jsx';
 import Swal from "sweetalert2";
+import KeycloakService from "../../services/KeycloakService.jsx";
+import {useNavigate} from "react-router-dom";
+const BaseURL = import.meta.env.VITE_API_BASE_URL;
 
 const Toast = Swal.mixin({
     toast: true,
@@ -55,6 +58,8 @@ const Polling_Stations = () => {
     const [tempMarker, setTempMarker] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [uploadSummary, setUploadSummary] = useState(null);
+    const electionId = window.location.pathname.split("/").pop();
+    const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm({
 
@@ -255,10 +260,7 @@ const Polling_Stations = () => {
 
     const handleDownload = () => {
         const downloadData = {};
-
-        // Assume we have a way to get the correct hierarchy,
-        // either from context or from the districtsData imported in PollingStationsContext
-        const districtHierarchy = getDistrictHierarchy(); // You'll need to implement this function
+        const districtHierarchy = getDistrictHierarchy();
 
         districtHierarchy.forEach(({ adminDistrict, electoralDistrict, pollingDistrict }) => {
             if (!downloadData[adminDistrict]) {
@@ -293,6 +295,73 @@ const Polling_Stations = () => {
         });
     };
 
+    const submitTheFile = async () => {
+        setIsSubmitting(true);
+
+        try {
+            // Generate the polling_stations.json file
+            const downloadData = {};
+            const districtHierarchy = getDistrictHierarchy();
+
+            // Make sure pollingStations is defined
+            if (!pollingStations) {
+                throw new Error("Polling stations data is not available.");
+            }
+
+            districtHierarchy.forEach(({ adminDistrict, electoralDistrict, pollingDistrict }) => {
+                if (!downloadData[adminDistrict]) {
+                    downloadData[adminDistrict] = {};
+                }
+                if (!downloadData[adminDistrict][electoralDistrict]) {
+                    downloadData[adminDistrict][electoralDistrict] = {};
+                }
+                if (pollingStations[pollingDistrict]) {
+                    downloadData[adminDistrict][electoralDistrict][pollingDistrict] =
+                        pollingStations[pollingDistrict].map(station => ({
+                            name: station.name,
+                            coordinates: station.coordinates
+                        }));
+                }
+            });
+
+            // Create a Blob and File for the polling stations data
+            const jsonString = JSON.stringify(downloadData, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const file = new File([blob], `${electionId}_polling_stations.json`, { type: 'application/json' });
+
+            // Get the token for authorization
+            const token = KeycloakService.getToken();
+            const formDataToSend = new FormData();
+            formDataToSend.append('file', file); // Attach the JSON file
+
+            // Send the multipart request
+            const response = await fetch(`${BaseURL}/api/files/upload`, {
+                method: 'POST',
+                body: formDataToSend,
+                headers: {
+                    Authorization: `Bearer ${token}` // Use your token for authentication
+                }
+            });
+
+            // Check if the response is OK
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Upload failed: ${errorData.message || 'Unknown error'}`);
+            }
+
+            // Handle successful response
+            const result = await response.json();
+            console.log('File upload successful:', result);
+            return true;
+        } catch (error) {
+            console.error('Error submitting file:', error);
+            return false;
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+
     const onSubmit = async (formData) => {
         console.log("-------------->>>>>>>>>>>>>")
         setIsSubmitting(true);
@@ -302,7 +371,8 @@ const Polling_Stations = () => {
                 stations.map(station => ({
                     district,
                     name: station.name,
-                    coordinates: station.coordinates
+                    latitude: station.coordinates.split(',')[0],
+                    longitude: station.coordinates.split(',')[1]
                 }))
             );
 
@@ -310,19 +380,20 @@ const Polling_Stations = () => {
                 ...formData,
                 pollingStations: pollingStationsData
             };
-
             console.log(dataToSend);
-            return;
 
             // Send the data to the backend
-            const response = await authPost('/election/polingstations', dataToSend);
+            const result = await submitTheFile();
+            const response = await authPost(`/election/set_polingstations/${electionId}`, dataToSend);
+            console.log(response);
 
-            if (response.success) {
+            if (response.status === "200") {
                 await Toast.fire({
                     icon: "success",
                     title: "Polling stations saved successfully!"
                 });
                 // Optionally, you can redirect the user or clear the form here
+                navigate(`/Election/Additional_Materials/${electionId}`)
             } else {
                 await Toast.fire({
                     icon: "error",

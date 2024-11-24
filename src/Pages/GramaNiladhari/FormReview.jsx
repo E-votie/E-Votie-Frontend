@@ -21,7 +21,7 @@ export const FormReview = () => {
     const [photoData, setPhotoData] = useState(null);
     const [nicFrontData, setNicFrontData] = useState(null);
     const [nicBackData, setNicBackData] = useState(null);
-    const [showPopup, setShowPopup] = useState(false); // State to control the popup
+    const [showPopup, setShowPopup] = useState(false);
     const {ApplicationID} = useParams();
     const closePopup = () => {
         setShowPopup(false);

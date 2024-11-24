@@ -13,7 +13,7 @@ export default function UpcomingElections() {
     const title = "Upcoming Elections"
 
     return (
-        <DataProvider link={"/verification_officer/get_voter_applications"} tableData={voter_application} title={title}>
+        <DataProvider link={"/election/get_elections/upcoming"} tableData={voter_application} title={title}>
             <ColumnGroupingTable link={"/verification_officer/form_review/"} title={title} />
         </DataProvider>
     );

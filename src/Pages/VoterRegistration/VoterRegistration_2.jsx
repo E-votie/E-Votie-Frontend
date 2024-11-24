@@ -19,7 +19,9 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import EmailIcon from '@mui/icons-material/Email';
 import jsonData from "./../../../public/Resource/Srilankan_Dropdown.json";
+import {uploadFile} from "../../api/FileUpload.jsx";
 
+const base_url = import.meta.env.VITE_API_BASE_URL;
 const MySwal = withReactContent(Swal)
 
 export const VoterRegistration_2 = () => {
@@ -82,85 +84,63 @@ export const VoterRegistration_2 = () => {
     const handlePrevious = () => setStep((prevStep) => prevStep - 1);
 
     const mutation = useMutation((data) => {
-        return axios.post('http://localhost:8081/voter-registration/new-application', data);
+        return axios.post(`${base_url}/voter-registration/new-application`, data);
     });
 
     const onSubmit = async (data) => {
         console.log(data);
+        console.log("ApplicationID: ", responseData.applicationID);
+        // Show loading state
         MySwal.fire({
-            title: 'Please wait.....',
+            title: 'Please wait...',
             allowOutsideClick: false,
             showConfirmButton: false,
-            willOpen: () => {
-                MySwal.showLoading();
-            },
+            willOpen: () => MySwal.showLoading(),
         });
-        const NICFront = new FormData();
-        const NICFrontFileName = responseData.applicationID+"_NICFront.jpg";
-        console.log(data.NICFront[0])
-        const NICFrontFile = new File([data.NICFront[0]], NICFrontFileName, { type: data.NICFront.type });
-        NICFront.append('file', NICFrontFile);
+
         try {
-            const response = await axios.post('http://localhost:8081/api/files/upload', NICFront, {
-                headers: { 'Content-Type': 'multipart/form-data' }
+            // Assuming responseData is already available in your code
+            const { applicationID } = responseData;
+
+            // Upload the NIC Front, NIC Back, and Face images
+            const nicFrontResponse = await uploadFile(data.NICFront, `${applicationID}_NICFront.jpg`, base_url);
+            const nicBackResponse = await uploadFile(data.NICBack, `${applicationID}_NICBack.jpg`, base_url);
+            const faceResponse = await uploadFile(data.Face, `${applicationID}_Face.jpg`, base_url);
+
+            setUploadStatus(`Files uploaded successfully: ${nicFrontResponse}, ${nicBackResponse}, ${faceResponse}`);
+
+            // Remove the uploaded files from the data
+            delete data.NICFront;
+            delete data.NICBack;
+            delete data.Face;
+
+            // Proceed with the form submission after uploading files
+            mutation.mutate(data, {
+                onSuccess: (response) => {
+                    MySwal.close();
+                    MySwal.fire({
+                        title: <p>Application Successfully Submitted. Check your email for the reference number.</p>,
+                        icon: 'success',
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            navigate('/');
+                        }
+                    });
+                },
+                onError: (error) => {
+                    console.error('Error submitting data:', error);
+                }
             });
-            setUploadStatus(`File uploaded successfully: ${response.data}`);
         } catch (error) {
-            console.error('Error uploading file:', error);
-            setUploadStatus('Error uploading file');
+            // Handle file upload failure
+            setUploadStatus('Error uploading files');
+            MySwal.close();
+            console.error('Error uploading files:', error);
         }
-        const NICBack = new FormData();
-        const NICBackFileName = responseData.applicationID+"_NICBack.jpg";
-        const NICBackFile = new File([data.NICBack[0]], NICBackFileName, { type: data.NICBack.type });
-        NICBack.append('file', NICBackFile);
-        try {
-            const response = await axios.post('http://localhost:8081/api/files/upload', NICBack, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
-            setUploadStatus(`File uploaded successfully: ${response.data}`);
-        } catch (error) {
-            console.error('Error uploading file:', error);
-            setUploadStatus('Error uploading file');
-        }
-        const Face = new FormData();
-        const FaceFileName = responseData.applicationID+"_Face.jpg";
-        const FaceFile = new File([data.Face[0]], FaceFileName, { type: data.Face.type });
-        Face.append('file', FaceFile);
-        try {
-            const response = await axios.post('http://localhost:8081/api/files/upload', Face, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
-            setUploadStatus(`File uploaded successfully: ${response.data}`);
-        } catch (error) {
-            console.error('Error uploading file:', error);
-            setUploadStatus('Error uploading file');
-        }
-        delete data.NICFront;
-        delete data.NICBack;
-        delete data.Face;
-        mutation.mutate(data, {
-            onSuccess: (response) => {
-                MySwal.close();
-                MySwal.fire({
-                    title: <p>Application Successfully Submitted. Check the your email for reference number</p>,
-                    icon: 'success',
-                    showConfirmButton: true,
-                    confirmButtonText: 'OK',
-                    didOpen: () => {
-                        // `MySwal` is a subclass of `Swal` with all the same instance & static methods
-                    },
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        navigate('/');
-                    }
-                })
-            },
-            onError: (error) => {
-                console.error('Error submitting data:', error);
-                // Handle error (e.g., show error message)
-            }
-        });
-    }
+    };
+
 
     const handleUpload = () => {
     }

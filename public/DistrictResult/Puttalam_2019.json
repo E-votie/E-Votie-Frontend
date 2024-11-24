@@ -1,0 +1,206 @@
+[
+  {
+    "division": "Anamaduwa",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "64.07%",
+        "count": 60963,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "31.36%",
+        "count": 29842,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.29%",
+        "count": 2183,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.34%",
+        "count": 326,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Chillaw",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "54.57%",
+        "count": 51233,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "39.96%",
+        "count": 37512,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.17%",
+        "count": 2977,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.45%",
+        "count": 427,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Nattandiya",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.02%",
+        "count": 38832,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "36.32%",
+        "count": 24308,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.27%",
+        "count": 2190,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.83%",
+        "count": 555,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Postal-count-Pulam",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "57.36%",
+        "count": 7645,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "35.15%",
+        "count": 4685,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.73%",
+        "count": 764,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.98%",
+        "count": 130,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Puttalam",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "71.28%",
+        "count": 76385,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "24.37%",
+        "count": 26118,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.77%",
+        "count": 1896,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.36%",
+        "count": 390,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Wennappuwa",
+    "district": "Puttalam",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.29%",
+        "count": 45969,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.34%",
+        "count": 26624,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.74%",
+        "count": 2902,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.98%",
+        "count": 761,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  }
+]

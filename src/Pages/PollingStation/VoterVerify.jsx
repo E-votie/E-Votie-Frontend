@@ -8,17 +8,19 @@ import {useMutation} from "react-query";
 import axios from "axios";
 import MySwal from "sweetalert2";
 import {PhotoProvider, PhotoView} from "react-photo-view";
-import keycloakService from "../../services/KeycloakService.jsx";
-import {QrReader} from "react-qr-reader";
+import {Html5QrcodeScanner} from "html5-qrcode";
+
+import FingerprintScanner from "../../Components/FingerprintScanner.jsx";
+import {QrCode} from "@mui/icons-material";
+import {authGet} from "../../Auth/authFetch.jsx";
+import Swal from "sweetalert2";
 const electionApiBaseUrl = import.meta.env.VITE_API_Election_BASE_URL;
 
-export const VotingView = () => {
+export const VoterVerify = () => {
 
     const [voterID, setVoterID] = useState(null);
     const [responseData, setResponseData] = useState(null);
     const [showFingerprintScanner, setShowFingerprintScanner] = useState(false);
-    const [sourceDevice, setSourceDevice] = useState(null);
-    const [socket, setSocket] = useState(null);
 
     const schema = object({
         voterID: yup.string("Invalid NIC").required("Can not be empty"),
@@ -28,98 +30,62 @@ export const VotingView = () => {
         resolver: yupResolver(schema)
     })
 
-    const mutation = useMutation((data) => {
-        return axios.post(`${electionApiBaseUrl}/voting/voter_verify`, data);
+    const getVoterDetails = useMutation((data) => {
+        return authGet(`/verification_officer/voter_details/${voterID}`);
     });
 
-    useEffect(() => {
-        let id = keycloakService.getUserName()
-        setSourceDevice(id)
-        // Create WebSocket connection
-        const newSocket = new WebSocket(`ws://localhost:8090/fingerprint-websocket?id=${id}`);
+    const getDetails = async () => {
+        getVoterDetails.mutate("",{
+            onSuccess: (response) => {
+                console.log(response);
+                setResponseData(response);
+                setShowFingerprintScanner(true);
+            },
+            onError: (error) => {
+                const errorMessage = error.message;
+                const statusMatch = errorMessage.match(/status: (\d+)/);
+                const status = statusMatch ? parseInt(statusMatch[1]) : null;
 
-        // Connection opened
-        newSocket.onopen = (event) => {
-            console.log('WebSocket is connected.');
-        };
-
-        // Listen for messages
-        newSocket.onmessage = (event) => {
-            console.log('Message from server:', event.data);
-            if (event.data instanceof Blob) {
-                // Handle binary data (template)
-                handleBinaryMessage(event.data);
-            } else {
-                // Handle text message
-                handleTextMessage(event.data);
+                if (status === 401) { // Unauthorized error
+                    window.location.href = "/";
+                } else {
+                    Swal.fire({
+                        title: `${errorMessage}`,  // Display the error message directly
+                        icon: 'error',
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Additional actions if needed
+                        }
+                    });
+                }
             }
-        };
+        });
+    }
 
-        // Save the socket in state
-        setSocket(newSocket);
+    useEffect(() => {
+        const scaner = new Html5QrcodeScanner('reader', {
+            fps: 10,
+            qrbox: 250
+        })
 
-        // Clean up the socket on component unmount
-        return () => {
-            newSocket.close();
-        };
+        scaner.render(QrCode,Qrerror);
+
+        function QrCode(data) {
+            // scanner.clear(); // Assuming 'scanner' is the correct variable name
+            console.log(data);
+            setVoterID(data);
+        }
+
+        function Qrerror(error) {
+
+        }
     }, []);
 
-    const handleTextMessage = (message) => {
-        try {
-            const jsonMessage = JSON.parse(message);
-            const { sourceDevice, targetDevice, message: content } = jsonMessage;
-            setMessages(prevMessages => [...prevMessages, `${sourceDevice} to ${targetDevice}: ${content}`]);
-            console.log(content);
-            if (content === 'SCAN_COMPLETE') {
-                setScanningStatus(prev => ({ ...prev, [sourceDevice]: false }));
-                MySwal.fire({
-                    title: "Fingerprint successfully registered",
-                    icon: 'success',
-                    showConfirmButton: true,
-                    confirmButtonText: 'OK',
-                    didOpen: () => {
-                        // `MySwal` is a subclass of `Swal` with all the same instance & static methods
-                    },
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        navigate('/');
-                    }
-                })
-            }else{
-                setScanningMassage(content)
-            }
-        } catch (error) {
-            console.error('Error parsing message:', error);
-        }
+    const handleInputChange = (e) => {
+        setVoterID(e.target.value);
     };
-
-    const sendCommand = (VoterID, command) => {
-        console.log("-------------->>>>>>>>>>>>>>>>>>>>>>>");
-        if (socket && socket.readyState === WebSocket.OPEN) {
-            const jsonMessage = {
-                VoterID: VoterID,
-                sourceDevice: sourceDevice,
-                targetDevice: "SENSOR_1",
-                message: command
-            };
-            socket.send(JSON.stringify(jsonMessage));
-        } else {
-            console.error('WebSocket is not open');
-        }
-    };
-
-    const Verify = (data) => {
-        MySwal.fire({
-            title: 'Please wait.....',
-            allowOutsideClick: false,
-            showConfirmButton: false,
-            willOpen: () => {
-                MySwal.showLoading();
-            },
-        });
-        console.log(data.voterID);
-        sendCommand(data.voterID, "MATCH")
-    }
 
     return (
         <div className="card lg:card-side bg-base-100 shadow-xl h-full">
@@ -129,7 +95,7 @@ export const VotingView = () => {
                 spacing={2}
             >
                 <div className="card-body w-[500px]">
-                    <form onSubmit={handleSubmit(Verify)}>
+                    <form>
                         <label className="form-control w-full">
                             <div className="label">
                                 <span className="label-text text-xl self-center ml-20 text-primary font-semibold">Enter the NIC to get the voter</span>
@@ -138,25 +104,23 @@ export const VotingView = () => {
                                 <span className="label-text">Voter ID</span>
                             </div>
                             <input type="text" placeholder="Enter the NIC hear"
-                                   className="input input-bordered w-full input-primary" {...register("voterID")}/>
+                                   className="input input-bordered w-full input-primary" value={voterID}
+                                   onChange={handleInputChange}/>
                         </label>
                         <div className="card-actions justify-end mt-5">
-                            <button type={"submit"} className="btn btn-primary">Verify</button>
+                            <button onClick={(e) => {e.preventDefault(); getDetails()}} className="btn btn-primary">Verify</button>
                         </div>
                     </form>
-                    <QrReader
-                        onResult={(result, error) => {
-                            if (!!result) {
-                                setVoterID(result?.text);
-                            }
-
-                            if (!!error) {
-                                console.info(error);
-                            }
-                        }}
-                        style={{ width: '100%' }}
-                     constraints={{ facingMode: 'user' }}
-                    />
+                    {!showFingerprintScanner && (
+                        <div>
+                            <div id="reader"></div>
+                        </div>
+                    )}
+                    {showFingerprintScanner && (
+                        <div>
+                            <FingerprintScanner ApplicationID={voterID} action={"match"} />
+                        </div>
+                    )}
                 </div>
 
                 <div className="card-body w-[800px]">
@@ -164,7 +128,7 @@ export const VotingView = () => {
                         <div className="space-y-3">
                             <div className="label flex gap-3">
                                 <span className="label-text">VoterID : </span>
-                                <input type="text" value={responseData ? responseData.applicationID : ''}
+                                <input type="text" value={responseData ? voterID : ''}
                                        className="grow"
                                        placeholder="VoterID" readOnly/>
                             </div>
@@ -191,7 +155,7 @@ export const VotingView = () => {
                                        value={responseData ? responseData.name : ''} readOnly/>
                             </label>
                             {responseData && (
-                                <div className="flex gap-5 h-[600px]">
+                                <div className="flex gap-5 h-[500px]">
                                     <label className="form-control w-full max-w-xs">
                                         <div className="label">
                                             <span className="label-text">NIC Front</span>

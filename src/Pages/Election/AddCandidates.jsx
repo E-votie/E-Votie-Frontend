@@ -8,20 +8,32 @@ import TransferList from './../../Components/TransferList.jsx';
 
 export default function AddCandidates() {
     return (
-        <Box sx={{ maxWidth: 1400, mx: 'auto', mt: 4, px: 2 }}>
-            <Card sx={{ p: { xs: 2, md: 4 } }}>
-                <CardContent>
-                    <Typography variant="h4" component="div" gutterBottom sx={{ mb: 4 }}>
+        <Box className="max-w-full h-full mx-auto mt-12 px-4">
+            {/* Card Container */}
+            <Card className="shadow-lg rounded-lg overflow-hidden">
+                <CardContent className="p-8">
+                    {/* Title */}
+                    <Typography
+                        variant="h4"
+                        component="h2"
+                        className="text-3xl font-semibold text-center mb-8"
+                        style={{ color: '#EC4899' }} // Directly applying the color
+                    >
                         Add Candidates
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '500px' }}>
+
+                    {/* Content Section */}
+                    <Box className="flex flex-col min-h-[500px] m-8">
                         <TransferList />
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+
+                        {/* Submit Button Section */}
+                        <Box className="mt-8 flex justify-end">
                             <Button
                                 variant="contained"
                                 color="primary"
                                 size="large"
                                 aria-label="submit"
+                                className="py-3 px-8 text-lg font-semibold"
                             >
                                 Submit
                             </Button>

@@ -1,0 +1,41 @@
+[
+  {
+    "party": "NDF",
+    "Name": "Sajith Premadasa",
+    "percentage": "58.28",
+    "count": 277913,
+    "color": "#0e723a",
+    "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png"
+  },
+  {
+    "party": "SLPP",
+    "Name": "Gotabaya Rajapaksa",
+    "percentage": "36.87",
+    "count": 175823,
+    "color": "#b41f24",
+    "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png"
+  },
+  {
+    "party": "NMPP",
+    "Name": "Anura Kumara Dissanayaka",
+    "percentage": "1.24",
+    "count": 5891,
+    "color": "#8c0154",
+    "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png"
+  },
+  {
+    "party": "DUNF",
+    "Name": "Ariyawansha Dissanayake",
+    "percentage": "0.45",
+    "count": 2130,
+    "color": "#a5a5Aa",
+    "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png"
+  },
+  {
+    "party": "OTHER",
+    "percentage": "3.46",
+    "count": 16498,
+    "color": "#a5a5Aa",
+    "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png"
+  }
+]

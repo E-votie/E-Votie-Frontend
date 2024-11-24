@@ -1,0 +1,308 @@
+[
+  {
+    "division": "Balangoda",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "56.42%",
+        "count": 53120,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "38.69%",
+        "count": 36421,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.29%",
+        "count": 2160,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.27%",
+        "count": 253,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Eheliyagoda",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "61.11%",
+        "count": 50993,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.58%",
+        "count": 28855,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.33%",
+        "count": 1946,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.24%",
+        "count": 202,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Kalawana",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "61.86%",
+        "count": 35399,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "33.71%",
+        "count": 19291,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.13%",
+        "count": 1221,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.3%",
+        "count": 173,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Kolonna",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "68.05%",
+        "count": 83520,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "26.12%",
+        "count": 32052,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.87%",
+        "count": 4747,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "JSWP",
+        "percentage": "0.22%",
+        "count": 274,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Nivitigala",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.35%",
+        "count": 50806,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "37.55%",
+        "count": 32691,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.54%",
+        "count": 1344,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.24%",
+        "count": 211,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Pelmadulla",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "54.33%",
+        "count": 41469,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "41.72%",
+        "count": 31845,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.72%",
+        "count": 1315,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.21%",
+        "count": 160,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Postal-count-Rpura",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "65.72%",
+        "count": 19061,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "27.37%",
+        "count": 7940,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.79%",
+        "count": 1678,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.63%",
+        "count": 183,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Rakwana",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "53.86%",
+        "count": 48867,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "41.89%",
+        "count": 38008,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.92%",
+        "count": 1743,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.24%",
+        "count": 217,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Ratnapura",
+    "district": "Ratnapura",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "60.58%",
+        "count": 64809,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.96%",
+        "count": 37400,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "2.55%",
+        "count": 2733,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.22%",
+        "count": 237,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  }
+]

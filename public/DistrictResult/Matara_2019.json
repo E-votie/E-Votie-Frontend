@@ -1,0 +1,274 @@
+[
+  {
+    "division": "Akuressa",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "66.81%",
+        "count": 53478,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "26.75%",
+        "count": 21415,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.73%",
+        "count": 3787,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.19%",
+        "count": 149,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Deniyaya",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "64.04%",
+        "count": 54472,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "30.29%",
+        "count": 25763,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.28%",
+        "count": 2786,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.25%",
+        "count": 214,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Devinuwara",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.32%",
+        "count": 43556,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "26.88%",
+        "count": 17391,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.27%",
+        "count": 2760,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.2%",
+        "count": 131,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Hakmana",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "71.13%",
+        "count": 55814,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "23.38%",
+        "count": 18346,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.5%",
+        "count": 2750,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.26%",
+        "count": 202,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Kamburupitiya",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "71.53%",
+        "count": 48140,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "23.06%",
+        "count": 15517,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.61%",
+        "count": 2427,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "SPSL",
+        "percentage": "0.27%",
+        "count": 185,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Matara",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.66%",
+        "count": 47203,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.33%",
+        "count": 21747,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "5.51%",
+        "count": 4084,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.5%",
+        "count": 374,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Postal-count-Matara",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "70.23%",
+        "count": 19379,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "20.95%",
+        "count": 5782,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "7.8%",
+        "count": 2153,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.46%",
+        "count": 127,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Weligama",
+    "district": "Matara",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "65.93%",
+        "count": 52439,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "29%",
+        "count": 23065,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.38%",
+        "count": 2692,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "IND10",
+        "percentage": "0.25%",
+        "count": 199,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  }
+]

@@ -36,6 +36,9 @@ export const NewHome = () => {
         if(keycloakService.hasRole("ElectionCommissioner")){
             navigate("/election/home");
         }
+        if(keycloakService.hasRole("pollingStation")){
+            navigate("/polling_station");
+        }
         const handleScroll = () => {
             const element = document.getElementById('animatedDiv');
             const rect = element.getBoundingClientRect();
@@ -443,6 +446,7 @@ export const NewHome = () => {
                                     <Button
                                         className="block w-full text-black hover:font-bold"
                                         variant="text"
+                                        onClick={() => navigate('/candidate_nomination_form')}
                                         sx={{
                                             color: 'black',
                                             '&:hover': {
