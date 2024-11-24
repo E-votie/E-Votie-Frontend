@@ -97,7 +97,7 @@ function FingerprintScanner({ ApplicationID,action }) {
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate('/polling_station/voter_verify');
+                        navigate('/');
                     }
                 })
             }

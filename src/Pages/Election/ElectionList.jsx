@@ -88,10 +88,10 @@ export const ElectionList = () => {
                   ) : (
                       <>
                           {selectedTab === 'ongoing' &&
-                              <Elections topic="Ongoing Elections" electionData={ongoingElections}/>}
+                              <Elections topic="Ongoing Elections" electionData={ongoingElections} navigate={navigate} />}
                           {selectedTab === 'upcoming' &&
-                              <Elections topic="Upcoming Elections" electionData={upcomingElections}/>}
-                          {selectedTab === 'past' && <Elections topic="Past Elections" electionData={pastElections}/>}
+                              <Elections topic="Upcoming Elections" electionData={upcomingElections} navigate={navigate}/>}
+                          {selectedTab === 'past' && <Elections topic="Past Elections" electionData={pastElections} navigate={navigate}/>}
                       </>
                   )}
               </div>

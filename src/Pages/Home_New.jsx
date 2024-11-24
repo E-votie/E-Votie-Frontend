@@ -446,6 +446,7 @@ export const NewHome = () => {
                                     <Button
                                         className="block w-full text-black hover:font-bold"
                                         variant="text"
+                                        onClick={() => navigate('/candidate_nomination_form')}
                                         sx={{
                                             color: 'black',
                                             '&:hover': {

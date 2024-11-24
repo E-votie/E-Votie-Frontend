@@ -1,0 +1,410 @@
+[
+  {
+    "division": "Chavakachcheri",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "84.75%",
+        "count": 28007,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.37%",
+        "count": 1775,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.99%",
+        "count": 656,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.14%",
+        "count": 377,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Jaffna",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "85.51%",
+        "count": 20792,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "6.65%",
+        "count": 1617,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.92%",
+        "count": 466,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.18%",
+        "count": 288,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Kankesanturai",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "83.2%",
+        "count": 23773,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.91%",
+        "count": 1688,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "2.05%",
+        "count": 586,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.66%",
+        "count": 475,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Kayts",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "69.82%",
+        "count": 11319,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "17.99%",
+        "count": 2917,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "2.36%",
+        "count": 382,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.38%",
+        "count": 223,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Kilinochchi",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "87.11%",
+        "count": 55585,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.07%",
+        "count": 3238,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.63%",
+        "count": 1041,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "IND11",
+        "percentage": "0.82%",
+        "count": 526,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Kopay",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "83.44%",
+        "count": 30835,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.03%",
+        "count": 1858,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "2.43%",
+        "count": 897,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.25%",
+        "count": 462,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Manipay",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "84.69%",
+        "count": 31369,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.02%",
+        "count": 1859,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "2.13%",
+        "count": 790,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.44%",
+        "count": 534,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Nallur",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "86.02%",
+        "count": 27605,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.72%",
+        "count": 1836,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "IND11",
+        "percentage": "2.05%",
+        "count": 659,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.48%",
+        "count": 475,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Point Pedro",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "82.31%",
+        "count": 19931,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "7.63%",
+        "count": 1848,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "IND11",
+        "percentage": "2.66%",
+        "count": 644,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.78%",
+        "count": 431,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Postal-count-Jaffna",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "84.69%",
+        "count": 17961,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "7.37%",
+        "count": 1563,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "IND11",
+        "percentage": "3.82%",
+        "count": 810,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.13%",
+        "count": 239,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      }
+    ]
+  },
+  {
+    "division": "Udupiddy",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "81.74%",
+        "count": 19307,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.65%",
+        "count": 1334,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "IND11",
+        "percentage": "3.99%",
+        "count": 942,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "2.24%",
+        "count": 529,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Vaddukkoddai",
+    "district": "Jaffna",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "82.44%",
+        "count": 26238,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "5.43%",
+        "count": 1728,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "IND11",
+        "percentage": "2.28%",
+        "count": 727,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.87%",
+        "count": 594,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  }
+]
