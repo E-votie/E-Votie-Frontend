@@ -22,7 +22,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import UploadIcon from '@mui/icons-material/Upload';
 import { styled } from '@mui/material/styles';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -33,6 +33,7 @@ import withReactContent from 'sweetalert2-react-content';
 import KeycloakService from "../services/KeycloakService.jsx";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Upload, FileText, Image, Users, DollarSign, Landmark, FileCheck } from 'lucide-react';
+import dayjs from 'dayjs';
 
 const MySwal = withReactContent(Swal);
 
@@ -101,48 +102,115 @@ const initialApplicationDetails = {
   ];
 
 export const PartyRegistrationApplication = ({ open, handleClose }) => {
-    const { register, handleSubmit, formState: { errors }, setValue, getValues, reset } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue, getValues, reset, control } = useForm();
     const [activeStep, setActiveStep] = useState(0);
     const [isLeaderVerified, setIsLeaderVerified] = useState(false);
+    const [isLeaderAvaialble, setIsLeaderAvailable] = useState(false);
+    const [isCheckedLeaderNIC, setIsCheckedLeaderNIC] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
     const [leaderName, setLeaderName] = useState("");
     const steps = ['Party Information', 'Documents'];
-
+    
+    //validate if the leader is a voter or not
     const validateLeaderNic = useCallback(async (nic) => {
         if (!nic) return;
+
         const updatedToken = KeycloakService.getToken();
+
         setIsLoading(true);
+        setIsCheckedLeaderNIC(true);
+
         try {
-            const response = await axios.get(`http://localhost:5003/api/voter/${nic}`, {
+            const leader = await axios.get(`http://localhost:5003/api/voter/${nic}`, {
                 headers: {
                     Authorization: `Bearer ${updatedToken}`
                 }
             });
-            if ([200, 201].includes(response.status)) {
-                setLeaderName(response.data.Name);
-                console.log(response);
-                
-                setIsLeaderVerified(true);
-                setIsSubmitDisabled(false);
-            } else {
-                setLeaderName("");
-                setIsLeaderVerified(false);
-                setIsSubmitDisabled(true);
-            }
+
+            return leader;
         } catch (error) {
             console.log(error);
-            setLeaderName("");
-            setIsLeaderVerified(false);
             setIsSubmitDisabled(true);
         } finally {
             setIsLoading(false);
         }
+
+        console.log("isLeaderAvaialble "+ isLeaderAvaialble);
+        console.log("isLeaderVerified "+ isLeaderVerified);
     }, []);
 
-    const handleLeaderNicBlur = (e) => {
-        validateLeaderNic(e.target.value);
+    //check if the user is already a leader/secretary or not
+    const getPartyMemberByNIC = async (nic) => {
+        try{
+            const updatedToken = KeycloakService.getToken();
+            const partyMember = await axios.get(`http://localhost:5003/api/party/member/by/nic/${nic}`, {
+                headers: {
+                    Authorization: `Bearer ${updatedToken}`
+                }
+            });
+            return partyMember;
+        }catch(err){
+            console.log(err);
+            return null;
+        }
+    }
+
+    const handleLeaderNicBlur = async (e) => {
+        const nic = e.target.value;
+        if (!nic) return;
+    
+        setIsLoading(true);
+        setIsCheckedLeaderNIC(true);
+    
+        const updatedState = {
+            isLeaderVerified: false,
+            isLeaderAvailable: false,
+            isSubmitDisabled: true,
+        };
+    
+        const voter = await validateLeaderNic(nic);
+        const partyMember = await getPartyMemberByNIC(nic);
+    
+        if (!voter) {
+            console.log("inside block 1");
+            updatedState.isLeaderVerified = false;
+            updatedState.isLeaderAvailable = false;
+            updatedState.isSubmitDisabled = true;
+        } else if (voter && !partyMember) {
+            console.log("inside block 2");
+            updatedState.isLeaderVerified = true;
+            updatedState.isLeaderAvailable = true;
+            updatedState.isSubmitDisabled = false;
+        } else if (voter && partyMember) {
+            console.log("inside block 3");
+            updatedState.isLeaderVerified = true;
+            const partyMemberRole = partyMember.data.role;
+    
+            if (partyMemberRole === "Leader" || partyMemberRole === "Secretary") {
+                console.log("inside block 4");
+                updatedState.isLeaderAvailable = false;
+                updatedState.isSubmitDisabled = true;
+            } else {
+                updatedState.isLeaderAvailable = true;
+                updatedState.isSubmitDisabled = false;
+            }
+        } else {
+            console.log("inside else");
+            updatedState.isLeaderVerified = false;
+            updatedState.isLeaderAvailable = false;
+            updatedState.isSubmitDisabled = true;
+        }
+    
+        setIsLeaderVerified(updatedState.isLeaderVerified);
+        setIsLeaderAvailable(updatedState.isLeaderAvailable);
+        setIsSubmitDisabled(updatedState.isSubmitDisabled);
+    
+        console.log("Updated State: ", updatedState);
+    
+        setIsLoading(false);
     };
+    
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -152,178 +220,132 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    // const onSubmit = async (data) => {
-    //     const confirmSubmission = async () => {
-    //         return MySwal.fire({
-    //             title: 'Are you sure?',
-    //             text: 'Do you want to continue with submitting the application?',
-    //             icon: 'warning',
-    //             showCancelButton: true,
-    //             confirmButtonText: 'Yes, Submit',
-    //             cancelButtonText: 'No, Cancel',
-    //         });
-    //     };
+    const formatDate = (input) => {
+        if (!input || !dayjs(input).isValid()) {
+            console.error("Invalid date input:", input);
+            return null; // Return null or handle appropriately
+        }
     
-    //     const submitPartyData = async (partyData) => {
-    //         const formData = new FormData();
+        const { $y: year, $M: month, $D: day } = dayjs(input);
+        console.log("Input Dayjs object:", input);
+        console.log("Raw foundedDate value:", getValues("foundedDate"));
     
-    //         const partyDetails = {
-    //             partyName: getValues("partyName"),
-    //             abbreviation: getValues("abbreviation"),
-    //             foundedDate: getValues("foundedDate"),
-    //             address: {
-    //                 addressLine_1: getValues("addressLine1"),
-    //                 addressLine_2: getValues("addressLine2"),
-    //                 city: getValues("city"),
-    //                 postalCode: getValues("postalCode"),
-    //             },
-    //             leaderId: getValues("leaderNic"),
-    //             state: "verified",
-    //         };
+        const date = new Date(year, month, day); // Create JavaScript Date object
+        const formattedDate = date.toISOString(); // Format as ISO string
     
-    //         formData.append("party", JSON.stringify(partyDetails));
+        return formattedDate;
+    };
     
-    //         if (constitution) formData.append("files", getValues("constitution"));
-    //         if (logo) formData.append("files", getValues("logo"));
-    //         if (membership) formData.append("files", getValues("membership"));
-    //         if (financial) formData.append("files", getValues("financial"));
-    //         if (leadership) formData.append("files", getValues("leadership"));
-    
-    //         try {
-    //             const token = KeycloakService.getToken();
-    
-    //             // Show loading SweetAlert2 modal
-    //             MySwal.fire({
-    //                 title: 'Submitting your application...',
-    //                 html: '<div class="spinner"></div>',
-    //                 allowOutsideClick: false,
-    //                 showConfirmButton: false,
-    //                 didOpen: () => {
-    //                     MySwal.showLoading(); // Display the SweetAlert2 spinner
-    //                 },
-    //             });
-    
-    //             const response = await axios.post('http://localhost:5003/api/party', formData, {
-    //                 headers: {
-    //                     'Authorization': `Bearer ${token}`,
-    //                     'Content-Type': 'multipart/form-data',
-    //                 },
-    //             });
-    
-    //             if ([200, 201].includes(response.status)) {
-    //                 MySwal.fire({
-    //                     title: 'Application Submitted Successfully!',
-    //                     icon: 'success',
-    //                     confirmButtonText: 'OK',
-    //                 });
-    //                 reset(); // Reset the form
-    //                 handleBack(); // Go to the previous step
-    //                 setIsLeaderVerified(false); // Reset leader verification
-    //             } else {
-    //                 MySwal.fire({
-    //                     title: 'Error!',
-    //                     text: response.data || 'An error occurred while submitting the application.',
-    //                     icon: 'error',
-    //                     confirmButtonText: 'OK',
-    //                 });
-    //             }
-    //         } catch (error) {
-    //             MySwal.fire({
-    //                 title: 'Error!',
-    //                 text: error.response ? error.response.data : 'An error occurred.',
-    //                 icon: 'error',
-    //                 confirmButtonText: 'OK',
-    //             });
-    //         }
-    //     };
-    
-    //     const result = await confirmSubmission();
-    //     if (result.isConfirmed) {
-    //         handleClose(); // Close the form modal immediately
-    //         await submitPartyData(data);
-    //     } else {
-    //         console.log('Submission canceled by the user.');
-    //     }
-    // };
-
+    //submit founction
     const onSubmit = async (partyData) => {
-        const formData = new FormData();
-    
-        const partyDetails = {
-            partyName: getValues("partyName"),
-            abbreviation: getValues("abbreviation"),
-            foundedDate: getValues("foundedDate"),
-            address: {
-                addressLine_1: getValues("addressLine1"),
-                addressLine_2: getValues("addressLine2"),
-                city: getValues("city"),
-                postalCode: getValues("postalCode"),
-            },
-            leaderId: getValues("leaderNic"),
-            state: "pending verification",
+        const confirmSubmission = async () => {
+            return MySwal.fire({
+                title: 'Are you sure?',
+                text: 'Do you want to continue with submitting the application?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Submit',
+                cancelButtonText: 'No, Cancel',
+            });
         };
-    
-        formData.append("party", JSON.stringify(partyDetails));
-    
-        if (constitution) formData.append("files", getValues("constitution"));
-        if (logo) formData.append("files", getValues("logo"));
-        if (membership) formData.append("files", getValues("membership"));
-        if (financial) formData.append("files", getValues("financial"));
-        if (leadership) formData.append("files", getValues("leadership"));
-    
-        try {
-            const token = KeycloakService.getToken();
-    
-            // Update Keycloak roles
-            await updateKeycloakRoles(partyDetails.leaderId);
-    
-            // Show loading SweetAlert2 modal
-            MySwal.fire({
-                title: 'Submitting your application...',
-                html: '<div class="spinner"></div>',
-                allowOutsideClick: false,
-                showConfirmButton: false,
-                didOpen: () => {
-                    MySwal.showLoading(); // Display the SweetAlert2 spinner
+
+        const submitPartyData = async (partyData) => {
+
+            const formData = new FormData();
+            console.log(getValues("foundedDate"));
+            
+            const partyDetails = {
+                partyName: getValues("partyName"),
+                abbreviation: formatDate(getValues("abbreviation")),
+                foundedDate: getValues("foundedDate"),
+                address: {
+                    addressLine_1: getValues("addressLine1"),
+                    addressLine_2: getValues("addressLine2"),
+                    city: getValues("city"),
+                    postalCode: getValues("postalCode"),
                 },
-            });
-    
-            const response = await axios.post('http://localhost:5003/api/party', formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-    
-            if ([200, 201].includes(response.status)) {
-                // Application submitted successfully
+                leaderId: getValues("leaderNic"),
+                state: "pending verification",
+                districtBasisSeats: 0,
+                nationalBasisSeats: 0,
+                totalSeats: 0,
+                contactNumber: "Not Avaialble",
+                partyWebsite: "Not Avaialble",
+                // partySymbol: getValues("partySymbol"),
+            };
+        
+            formData.append("party", JSON.stringify(partyDetails));
+        
+            if (constitution) formData.append("files", getValues("constitution"));
+            if (logo) formData.append("files", getValues("logo"));
+            if (membership) formData.append("files", getValues("membership"));
+            if (financial) formData.append("files", getValues("financial"));
+            if (leadership) formData.append("files", getValues("leadership"));
+        
+            try {
+                const token = KeycloakService.getToken();
+        
+                // Update Keycloak roles
+                await updateKeycloakRoles(partyDetails.leaderId);
+        
+                // Show loading SweetAlert2 modal
                 MySwal.fire({
-                    title: 'Application Submitted Successfully!',
-                    icon: 'success',
-                    confirmButtonText: 'OK',
+                    title: 'Submitting your application...',
+                    html: '<div class="spinner"></div>',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        MySwal.showLoading(); // Display the SweetAlert2 spinner
+                    },
                 });
-    
-                reset(); // Reset the form
-                handleBack(); // Go to the previous step
-                setIsLeaderVerified(false); // Reset leader verification
-            } else {
+        
+                const response = await axios.post('http://localhost:5003/api/party', formData, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+        
+                if ([200, 201].includes(response.status)) {
+                    // Application submitted successfully
+                    MySwal.fire({
+                        title: 'Application Submitted Successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    });
+        
+                    reset(); // Reset the form
+                    handleBack(); // Go to the previous step
+                    setIsLeaderVerified(false); // Reset leader verification
+                } else {
+                    MySwal.fire({
+                        title: 'Error!',
+                        text: response.data || 'An error occurred while submitting the application.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
+                }
+            } catch (error) {
                 MySwal.fire({
                     title: 'Error!',
-                    text: response.data || 'An error occurred while submitting the application.',
+                    text: error.response ? error.response.data : 'An error occurred.',
                     icon: 'error',
                     confirmButtonText: 'OK',
                 });
             }
-        } catch (error) {
-            MySwal.fire({
-                title: 'Error!',
-                text: error.response ? error.response.data : 'An error occurred.',
-                icon: 'error',
-                confirmButtonText: 'OK',
-            });
+
+        }
+
+        const result = await confirmSubmission();
+        if (result.isConfirmed) {
+            await submitPartyData(partyData);
+            handleClose();
+        } else {
+            console.log('Submission canceled by the user.');
         }
     };
     
+    //update keycloak roles upon a successful submission
     const updateKeycloakRoles = async (leaderNic) => {
         try {
             const adminToken = await KeycloakService.getAdminToken(); // Get admin token
@@ -392,7 +414,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
         }
     };
     
-    
+    //register files
     const[constitution, setConstitution] = useState(null);
     const[logo, setLogo] = useState(null);
     const[membership, setMembership] = useState(null);
@@ -409,6 +431,11 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
           }else if(documentId === "logo"){
             setValue("logo", file);
             setLogo(file.name);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setValue("partySymbol", reader.result.split(",")[1]);
+            };
+            reader.readAsDataURL(file);
           }else if(documentId === "membership"){
             setValue("membership", file);
             setMembership(file.name);
@@ -422,7 +449,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
             alert("Invalid File Type");
           }
         }
-      };
+    };
 
     const renderPartyInformationForm = () => (
         <Box className="w-full max-w-4xl mb-1.5">
@@ -448,8 +475,30 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         sx={{ fontSize: '1rem', fontWeight: 'bold' }}
                         required
                     />
-                    <LocalizationProvider dateAdapter={AdapterDayjs} >
-                            <DatePicker label="Established Date" />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <Controller
+                            name="foundedDate"
+                            control={control}
+                            defaultValue={null} // Use null as the initial value
+                            rules={{ required: "Founded Date is required" }}
+                            render={({ field, fieldState }) => (
+                            <DatePicker
+                                {...field}
+                                label="Established Date"
+                                value={field.value ? dayjs(field.value) : null} // Ensure compatibility
+                                renderInput={(params) => (
+                                <TextField 
+                                    {...params} 
+                                    error={!!fieldState.error} 
+                                    helperText={fieldState.error?.message} 
+                                />
+                                )}
+                                // onChange={(newValue) => {
+                                // field.onChange(newValue ? newValue.toISOString() : null); // Convert to ISO
+                                // }}
+                            />
+                            )}
+                        />
                     </LocalizationProvider>
                 </Stack>
                 <TextField
@@ -521,9 +570,23 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                     />
                 </Stack>
             </Stack>
-            {isLoading && <p>Verifying leader NIC...</p>} 
-            {!isLoading && isLeaderVerified && <Typography color='success.main'>Leader identified successfully!</Typography>}
-            {!isLoading && !isLeaderVerified && <Typography className='text-error'>Leader identification failed!</Typography>}
+            {!isLoading && !isCheckedLeaderNIC && (
+                <Typography color="success.main">Enter Leader NIC to proceed</Typography>
+            )}
+
+            {isLoading && <p>Verifying leader NIC...</p>}
+
+            {!isLoading && isCheckedLeaderNIC && !isLeaderVerified && (
+                <Typography className="text-error">Leader identification failed!</Typography>
+            )}
+
+            {!isLoading && isCheckedLeaderNIC && isLeaderVerified && !isLeaderAvaialble && (
+                <Typography className="text-error">Leader is not available!</Typography>
+            )}
+
+            {!isLoading && isCheckedLeaderNIC && isLeaderVerified && isLeaderAvaialble && (
+                <Typography color="success.main">Leader identified successfully!</Typography>
+            )}
         </Box>
     );
 

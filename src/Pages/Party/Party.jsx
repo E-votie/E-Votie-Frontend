@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Politician } from '../../Components/PoliticianCard';
 import Divider from '@mui/material/Divider';
 import { PartyDetails } from '../../Components/PartyDetails';
@@ -10,6 +10,9 @@ import { EditPartyInfo } from '../../Components/EditPartyInfo';
 import {PartyMemberSideBar} from '../../Components/PartyMemberSideBar';
 import { styled } from '@mui/system';
 import { Card, CardContent, Avatar, InputAdornment, TextField } from '@mui/material';
+import KeycloakService from "../../services/KeycloakService";
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const candidates = [
   {
@@ -116,6 +119,10 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
 export const Party = () => {
   const [openEditPartyInfoModal, setOpenEditPartyInfoModal] = React.useState(false);
+  const [party, setParty] = useState(null);
+  const [partyState, setPartyState] = useState(null);
+  const [error, setError] = useState(null);
+  const { partyId } = useParams();
 
   const handleOpenEditPartyInfoModal = () => {
     setOpenEditPartyInfoModal(true);
@@ -124,6 +131,40 @@ export const Party = () => {
   const handleCloseEditPartyInfoModal = () => {
     setOpenEditPartyInfoModal(false);
   };
+
+  // Fetch data on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+
+      try {
+        const token = KeycloakService.getToken();
+        const partyResponse = await axios.get(`http://localhost:5003/api/party/${partyId}`, {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      });
+        setParty(partyResponse.data);
+        setPartyState(partyResponse.data.state);
+        console.log(partyResponse);
+        
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('Failed to load party data. Please try again later.');
+      } 
+    };
+
+    fetchData();
+  }, [partyState]);
+
+
+  if (!party) {
+    return (
+      <Box className="min-h-[600px] flex bg-base-100 rounded-xl shadow-lg px-6 pb-6 gap-6" sx={{ maxWidth: 1200, margin: 'auto', p: 3 }}>
+        Loading application.....
+        {/* <CircularProgress /> */}
+      </Box>
+    );
+  }
 
   return (
     <div className="min-h-[600px] flex flex-col bg-gray-100 shadow-2xl pb-4 rounded-lg">

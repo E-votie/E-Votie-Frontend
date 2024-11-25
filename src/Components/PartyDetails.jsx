@@ -1,90 +1,123 @@
 import React from 'react';
-import { Card, CardContent, Typography, Avatar, Chip, Box, Link, Paper } from '@mui/material';
-import { styled } from '@mui/system';
-
-const StyledCard = styled(Card)(({ theme }) => ({
-  margin: 'auto',
-  marginTop: theme.spacing(4),
-  marginBottom: theme.spacing(4),
-  boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
-  '&:hover': {
-    boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
-  },
-}));
-
-const SectionPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  flex: '1 1 45%',
-  marginBottom: theme.spacing(2),
-}));
-
-const InfoItem = ({ label, value }) => (
-  <Box mb={1}>
-    <Typography variant="subtitle2" color="textSecondary" gutterBottom>
-      {label}
-    </Typography>
-    <Typography variant="body1">{value}</Typography>
-  </Box>
-);
 
 export const PartyDetails = ({ party }) => {
+  const formatDate = (dateString) => {
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch {
+      return 'Not Available';
+    }
+  };
+
+  const statusColors = {
+    'pending verification': 'bg-yellow-100 text-yellow-800',
+    'verified': 'bg-green-100 text-green-800',
+    'rejected': 'bg-red-100 text-red-800'
+  };
+
   return (
-    <StyledCard>
-      <CardContent>
-        <Box display="flex" gap={4}  justifyContent="space-between">
+    <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+      {/* Header Section */}
+      <div className="">
+          <div className={`px-4 py-2 rounded-full text-sm font-medium ${statusColors[party.state] || 'bg-gray-100 text-gray-800'}`}>
+            {party.state?.charAt(0).toUpperCase() + party.state?.slice(1) || 'Unknown Status'}
+          </div>
+      </div>
 
-          <SectionPaper elevation={2} width={1/2}>
-            <Typography variant="h6" gutterBottom>Basic Information</Typography>
-            <Box display="flex" alignItems="center" mb={4}>
-              <Avatar
-                src={party.logo}
-                alt={`${party.partyName} logo`}
-                sx={{ width: 100, height: 100, marginRight: 3 }}
-              />
-              <Box>
-                <Typography variant="h4" gutterBottom>
-                  {party.partyName}
-                </Typography>
-                <Chip label={party.abbreviation} color="primary" size="large" />
-              </Box>
-            </Box>
-            <InfoItem label="Leader" value={party.leader} />
-            <InfoItem label="Secretary" value={party.secretary} />
-            <InfoItem label="Founded Year" value={party.foundedYear} />
-            <Typography variant="h6" gutterBottom>Party Colors</Typography>
-            <Box display="flex" flexWrap="wrap" gap={1}>
-              {party.colors.map((color, index) => (
-                <Chip 
-                  key={index} 
-                  label={color} 
-                  style={{ backgroundColor: color, color: 'white' }} 
-                />
-              ))}
-            </Box>
-          </SectionPaper>
-
-          <Box display="flex" flexDirection="column" justifyContent="space-between"  width={1/2}>
-            <SectionPaper elevation={2}>
-              <Typography variant="h6" gutterBottom>Contact Information</Typography>
-              <InfoItem label="Headquarters" value={party.headquarters.address} />
-              <InfoItem label="Contact" value={party.headquarters.contactNumber} />
-              {party.website && (
-                <Link href={party.website} target="_blank" rel="noopener noreferrer">
-                  Visit Official Website
-                </Link>
+      {/* Content Grid */}
+      <div className="grid md:grid-cols-2 gap-6 p-6">
+        {/* Basic Information */}
+        <div className="space-y-6">
+          <div className="bg-gray-50 rounded-lg p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Basic Information</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium text-gray-500">Founded Date</label>
+                <p className="mt-1 text-gray-900">{formatDate(party.foundedDate)}</p>
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Party Leader</label>
+                <p className="mt-1 text-gray-900">{party.leader || 'Not Available'}</p>
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Secretary</label>
+                <p className="mt-1 text-gray-900">{party.secretary || 'Not Available'}</p>
+              </div>
+              {party.partyColors?.length > 0 && (
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Party Colors</label>
+                  <div className="flex gap-2 mt-2">
+                    {party.partyColors.map((color, index) => (
+                      <div
+                        key={index}
+                        className="w-8 h-8 rounded-full border border-gray-200"
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </div>
+                </div>
               )}
-            </SectionPaper>
+            </div>
+          </div>
+          
+          {/* Contact Information */}
+          <div className="bg-gray-50 rounded-lg p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Contact Information</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium text-gray-500">Address</label>
+                <p className="mt-1 text-gray-900">
+                  {party.address?.addressLine_1}<br />
+                  {party.address?.addressLine_2}<br />
+                  {party.address?.city}, {party.address?.postalCode}
+                </p>
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Contact Number</label>
+                <p className="mt-1 text-gray-900">{party.contactNumber}</p>
+              </div>
+              {party.partyWebsite && party.partyWebsite !== 'Not Avaialble' && (
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Website</label>
+                  <a
+                    href={party.partyWebsite}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 block text-blue-600 hover:text-blue-800"
+                  >
+                    {party.partyWebsite}
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
 
-            <SectionPaper elevation={2} >
-              <Typography variant="h6" gutterBottom>Seats in Parliament</Typography>
-              <InfoItem label="District Basis" value={party.seatsInParliament.districtBasisSeats} />
-              <InfoItem label="National Basis" value={party.seatsInParliament.nationalBasisSeats} />
-              <InfoItem label="Total Seats" value={party.seatsInParliament.totalSeats} />
-            </SectionPaper>
-          </Box>
-
-        </Box>
-      </CardContent>
-    </StyledCard>
+        {/* Parliamentary Information */}
+        <div className="bg-gray-50 rounded-lg p-6 h-fit">
+          <h2 className="text-xl font-semibold text-gray-900 mb-6">Parliamentary Representation</h2>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="bg-white rounded-lg p-4 text-center shadow-sm">
+              <span className="block text-2xl font-bold text-gray-900">{party.districtBasisSeats}</span>
+              <span className="text-sm text-gray-500">District Basis</span>
+            </div>
+            <div className="bg-white rounded-lg p-4 text-center shadow-sm">
+              <span className="block text-2xl font-bold text-gray-900">{party.nationalBasisSeats}</span>
+              <span className="text-sm text-gray-500">National Basis</span>
+            </div>
+            <div className="bg-white rounded-lg p-4 text-center shadow-sm">
+              <span className="block text-2xl font-bold text-blue-600">{party.totalSeats}</span>
+              <span className="text-sm text-gray-500">Total Seats</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
+

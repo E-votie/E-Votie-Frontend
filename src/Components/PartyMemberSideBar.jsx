@@ -6,6 +6,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import { PartyMemberRequestCard } from './PartyMemberRequestCard';
 import { AddNewPartyMemberWithNic } from './AddNewPartyMemberWithNic';
+import { SendNomineesModal } from './SendNominiees';
+import SendIcon from '@mui/icons-material/Send';
 
 const StyledDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
@@ -37,6 +39,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 export const PartyMemberSideBar = ({ requestList }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [openAddPolitician, setOpenAddPolitician] = useState(false);
+  const [openSendNomineesModal, setOpenSendNomineesModal] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -47,6 +50,9 @@ export const PartyMemberSideBar = ({ requestList }) => {
 
   const handleOpenAddPolitician = () => setOpenAddPolitician(true);
   const handleCloseAddPolitician = () => setOpenAddPolitician(false);
+
+  const handleOpenSendNominations = () => setOpenSendNomineesModal(true);
+  const handleCloseNomineesModal = () => setOpenSendNomineesModal(false);
 
   return (
     <>
@@ -67,6 +73,15 @@ export const PartyMemberSideBar = ({ requestList }) => {
             sx={{ mb: 2 }}
           >
             Add New Politician
+          </StyledButton>
+
+          <StyledButton
+            variant="contained"
+            startIcon={<SendIcon />}
+            onClick={handleOpenSendNominations}
+            sx={{ mb: 2 }}
+          >
+            Send Nominations
           </StyledButton>
 
           <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
@@ -93,6 +108,7 @@ export const PartyMemberSideBar = ({ requestList }) => {
       </StyledDrawer>
 
       <AddNewPartyMemberWithNic open={openAddPolitician} handleClose={handleCloseAddPolitician} />
+      <SendNomineesModal open={openSendNomineesModal} handleClose={handleCloseNomineesModal} />
     </>
   );
 };

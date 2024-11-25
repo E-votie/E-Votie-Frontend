@@ -100,12 +100,17 @@ const MemberCountChip = styled(Chip)(({ theme, count }) => ({
   fontWeight: 'bold',
 }));
 
-const PartyCard = ({ party, state }) => {
+const PartyCard = ({ party, state, viewMode }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
 
+
   const openParty = () => {
-    navigate(`/party/${party.id}`);
+    if(viewMode === 'application') {
+      navigate(`/party/registration/application/${party.registrationId}`);
+    }else{
+      navigate(`/party/${party.registrationId}`);
+    }
   };
 
   const handleMenuOpen = (event) => {
@@ -160,33 +165,32 @@ const PartyCard = ({ party, state }) => {
             sx={{ 
               width: { xs: '100%', sm: 120 }, 
               height: { xs: 200, sm: 120 },
-              margin: 'auto'
             }}
             image={unpImage}
             alt={party.name}
             className='object-cover'
           />
           }
-          <CardContent className="flex-grow">
-            <Typography gutterBottom variant="h6" component="div" sx={{ color: getPartyColor() }}>
-              {party.partyName}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Party Leader: {party.leader}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Party Secretary: {party.secretary}
-            </Typography>
-            {/* <Box mt={1}>
+          <CardContent className="flex border-b-2">
+            <Box>
+              <Typography gutterBottom variant="h6" component="div" sx={{ color: "black" }} className="font-semibold text-gray-900 flex justify-between">
+                {party.partyName}({party.abreviation})
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Party Leader: {party.leader}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Party Secretary: {party.secretary}
+              </Typography>
+            </Box>
+            <Box>
               <MemberCountChip 
-                label={`${party.memberCount} Members`} 
+                label={`${party.totalSeats} Members`} 
                 count={party.memberCount}
               />
-            </Box> */}
+            </Box>
           </CardContent>
         </Box>
-      </CardActionArea>
-      <Box className="flex flex-col justify-between items-center p-2">
         {state === "verified" && (
           <Stack spacing={1} className='flex flex-col items-center justify-center'>
             <Tooltip title="Verified">
@@ -194,36 +198,9 @@ const PartyCard = ({ party, state }) => {
                 <VerifiedIcon />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Join">
-              <IconButton size="small" color="primary">
-                <PersonAddIcon />
-              </IconButton>
-            </Tooltip>
-            {/* <Button 
-              variant="contained"
-              startIcon={<PersonAddIcon />}
-              size="small"
-              color="primary"
-            >
-            </Button> */}
-          </Stack>
-
-        )}
-
-        {state === "pending verification" && (
-          <Stack spacing={1} width="100%" className='flex items-center justify-center h-full'>
-            <i>
-              <Chip
-                  label="Click Here to View Application >>>"
-                  clickable
-                  onClick={handleChipClick}
-                  sx={{ mt: 2, fontSize: '0.8rem', padding: '0.5rem 1rem' }}
-              />
-            </i>
-
           </Stack>
         )}
-      </Box>
+      </CardActionArea>
     </StyledCard>
   );
 };
