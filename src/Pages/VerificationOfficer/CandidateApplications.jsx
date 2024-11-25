@@ -14,7 +14,7 @@ export const CandidateApplicationsVerificationOfficer = () => {
 
     return (
         <DataProvider link={"/verification_officer/get_candidate_applications"} tableData={candidate_application}>
-            <ColumnGroupingTable link={"/verification_officer/candidate_review/"} />
+            <ColumnGroupingTable link={"/verification_officer/candidate_review/"} title={"Voter Application"} />
         </DataProvider>
     );
 };
