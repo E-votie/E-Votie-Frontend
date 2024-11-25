@@ -171,7 +171,7 @@ export const VoterRegistration_1 = () => {
             <h6 className="text-sm text-gray-700 font-semibold flex items-center justify-center bg-yellow-100 p-2 rounded">
                 <svg className="w-5 h-5 text-yellow-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
                      viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                           d="M13 16h-1v-4h-1m1 4v-4m0 4h1m-2-4V9h1l1-2m2 6h2a2 2 0 100-4h-1V7h1a2 2 0 00.874-3.757M13 9V7h-1V4m0 4V7h-1M9 12V9H8V7h1V4m0 4V7h1v2m-2-1H6v2h1v2a2 2 0 102 2h4a2 2 0 104-4h-1V9h1V7h1l1 2h2a2 2 0 100-4h-1a2 2 0 00-.874-3.757M6 5a2 2 0 104 0H8a2 2 0 10-4 0h1a2 2 0 00.874-3.757M3 4h2m0 2h2m-1 2h1v2H4V8h2V7H5a2 2 0 100-4h2a2 2 0 100 4h1V6h2m2 2v4m0 4v4m1 0h2"/>
                 </svg>
                 Your information is strictly confidential and will not be shared with any third party.
