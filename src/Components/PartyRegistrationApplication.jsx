@@ -34,6 +34,8 @@ import KeycloakService from "../services/KeycloakService.jsx";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Upload, FileText, Image, Users, DollarSign, Landmark, FileCheck } from 'lucide-react';
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
+
 
 const MySwal = withReactContent(Swal);
 
@@ -111,6 +113,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
     const [leaderName, setLeaderName] = useState("");
     const steps = ['Party Information', 'Documents'];
+    const navigate = useNavigate();
     
     //validate if the leader is a voter or not
     const validateLeaderNic = useCallback(async (nic) => {
@@ -256,8 +259,8 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
             
             const partyDetails = {
                 partyName: getValues("partyName"),
-                abbreviation: formatDate(getValues("abbreviation")),
-                foundedDate: getValues("foundedDate"),
+                abbreviation: getValues("abbreviation"),
+                foundedDate: formatDate(getValues("foundedDate")),
                 address: {
                     addressLine_1: getValues("addressLine1"),
                     addressLine_2: getValues("addressLine2"),
@@ -269,8 +272,8 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                 districtBasisSeats: 0,
                 nationalBasisSeats: 0,
                 totalSeats: 0,
-                contactNumber: "Not Avaialble",
-                partyWebsite: "Not Avaialble",
+                contactNumber: "Not available",
+                partyWebsite: "Not available",
                 // partySymbol: getValues("partySymbol"),
             };
         
@@ -312,11 +315,12 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         title: 'Application Submitted Successfully!',
                         icon: 'success',
                         confirmButtonText: 'OK',
+                    }).then(() => { // Pass a function here
+                        reset(); // Reset the form
+                        handleBack(); // Go to the previous step
+                        setIsLeaderVerified(false); // Reset leader verification
+                        navigate("/party/list");
                     });
-        
-                    reset(); // Reset the form
-                    handleBack(); // Go to the previous step
-                    setIsLeaderVerified(false); // Reset leader verification
                 } else {
                     MySwal.fire({
                         title: 'Error!',
@@ -325,6 +329,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         confirmButtonText: 'OK',
                     });
                 }
+
             } catch (error) {
                 MySwal.fire({
                     title: 'Error!',
@@ -385,7 +390,6 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
         ];
         console.log(payload);
         
-    
         await fetch(`http://localhost:8086/admin/realms/demo/users/${userId}/role-mappings/clients/162f9e0e-64e2-4ae7-84fe-93d625a161bd`, {
             method: 'POST',
             headers: {
@@ -424,32 +428,57 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
     const handleFileChange = (documentId) => (event) => {
         const file = event.target.files[0];
         if (file) {
-          console.log(`File uploaded for ${documentId}:`, file.name);
-          if(documentId === "constitution"){
-            setValue("constitution", file);
-            setConstitution(file.name);
-          }else if(documentId === "logo"){
-            setValue("logo", file);
-            setLogo(file.name);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setValue("partySymbol", reader.result.split(",")[1]);
-            };
-            reader.readAsDataURL(file);
-          }else if(documentId === "membership"){
-            setValue("membership", file);
-            setMembership(file.name);
-          }else if(documentId === "financial"){
-            setValue("financial", file);
-            setFinancial(file.name);
-          }else if(documentId === "leadership"){
-            setValue("leadership", file);
-            setLeadership(file.name);
-          }else{
-            alert("Invalid File Type");
-          }
+            console.log(`File uploaded for ${documentId}:`, file.name);
+    
+            const originalFileName = file.name.split('.').slice(0, -1).join('.'); 
+            const fileExtension = file.name.split('.').pop(); 
+            const renamedFileName = `${originalFileName}_${documentId}.${fileExtension}`;
+    
+            const renamedFile = new File([file], renamedFileName, { type: file.type });
+    
+            switch (documentId) {
+                case "constitution": {
+                    setValue("constitution", renamedFile);
+                    setConstitution(renamedFileName); 
+                    break;
+                }
+                case "logo": {
+                    setValue("logo", renamedFile);
+                    setLogo(renamedFileName);
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        setValue("partySymbol", reader.result.split(",")[1]);
+                    };
+                    reader.readAsDataURL(renamedFile);
+                    break;
+                }
+                case "membership": {
+                    setValue("membership", renamedFile);
+                    setMembership(renamedFileName); 
+                    break;
+                }
+                case "financial": {
+                    setValue("financial", renamedFile);
+                    setFinancial(renamedFileName); 
+                    break;
+                }
+                case "leadership": {
+                    setValue("leadership", renamedFile);
+                    setLeadership(renamedFileName);
+                    break;
+                }
+                default: {
+                    alert("Invalid File Type");
+                    break;
+                }
+            }
+    
+            // Optionally, log the renamed file
+            console.log(`Renamed file for ${documentId}:`, renamedFile.name);
         }
     };
+    
+    
 
     const renderPartyInformationForm = () => (
         <Box className="w-full max-w-4xl mb-1.5">

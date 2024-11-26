@@ -153,8 +153,8 @@ const PartyCard = ({ party, state, viewMode }) => {
             sx={{ 
               width: { xs: '100%', sm: 120 }, 
               height: { xs: 200, sm: 120 },
-              margin: 'auto'
             }}
+            src={party.documents[1].documentUrl}
             image={party.image}
             alt={party.name}
             className='object-cover'
@@ -166,7 +166,7 @@ const PartyCard = ({ party, state, viewMode }) => {
               width: { xs: '100%', sm: 120 }, 
               height: { xs: 200, sm: 120 },
             }}
-            image={unpImage}
+            src={party.documents[1].documentUrl}
             alt={party.name}
             className='object-cover'
           />
@@ -175,6 +175,15 @@ const PartyCard = ({ party, state, viewMode }) => {
             <Box>
               <Typography gutterBottom variant="h6" component="div" sx={{ color: "black" }} className="font-semibold text-gray-900 flex justify-between">
                 {party.partyName}({party.abreviation})
+                {state === "verified" && (
+                  <Stack spacing={1} className='flex flex-col items-center justify-center'>
+                    <Tooltip title="Verified">
+                      <IconButton size="small" color="primary">
+                        <VerifiedIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </Stack>
+                )}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Party Leader: {party.leader}
@@ -183,23 +192,8 @@ const PartyCard = ({ party, state, viewMode }) => {
                 Party Secretary: {party.secretary}
               </Typography>
             </Box>
-            <Box>
-              <MemberCountChip 
-                label={`${party.totalSeats} Members`} 
-                count={party.memberCount}
-              />
-            </Box>
           </CardContent>
         </Box>
-        {state === "verified" && (
-          <Stack spacing={1} className='flex flex-col items-center justify-center'>
-            <Tooltip title="Verified">
-              <IconButton size="small" color="primary">
-                <VerifiedIcon />
-              </IconButton>
-            </Tooltip>
-          </Stack>
-        )}
       </CardActionArea>
     </StyledCard>
   );

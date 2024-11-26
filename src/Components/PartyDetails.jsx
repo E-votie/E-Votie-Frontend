@@ -21,20 +21,20 @@ export const PartyDetails = ({ party }) => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+    <div className="bg-white">
       {/* Header Section */}
-      <div className="">
-          <div className={`px-4 py-2 rounded-full text-sm font-medium ${statusColors[party.state] || 'bg-gray-100 text-gray-800'}`}>
+      {/* <div className="">
+          <div className={`${statusColors[party.state] || 'bg-gray-100 text-gray-800'}`}>
             {party.state?.charAt(0).toUpperCase() + party.state?.slice(1) || 'Unknown Status'}
           </div>
-      </div>
+      </div> */}
 
       {/* Content Grid */}
-      <div className="grid md:grid-cols-2 gap-6 p-6">
+      <div className="grid md:grid-cols-2 gap-6">
         {/* Basic Information */}
         <div className="space-y-6">
           <div className="bg-gray-50 rounded-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Basic Information</h2>
+            <h2 className="text-l font-semibold text-gray-900 mb-4">Basic Information</h2>
             <div className="space-y-4">
               <div>
                 <label className="text-sm font-medium text-gray-500">Founded Date</label>
@@ -67,7 +67,7 @@ export const PartyDetails = ({ party }) => {
           
           {/* Contact Information */}
           <div className="bg-gray-50 rounded-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Contact Information</h2>
+            <h2 className="text-l font-semibold text-gray-900 mb-4">Contact Information</h2>
             <div className="space-y-4">
               <div>
                 <label className="text-sm font-medium text-gray-500">Address</label>
@@ -100,7 +100,7 @@ export const PartyDetails = ({ party }) => {
 
         {/* Parliamentary Information */}
         <div className="bg-gray-50 rounded-lg p-6 h-fit">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">Parliamentary Representation</h2>
+          <h2 className="text-l font-semibold text-gray-900 mb-6">Parliamentary Representation</h2>
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-white rounded-lg p-4 text-center shadow-sm">
               <span className="block text-2xl font-bold text-gray-900">{party.districtBasisSeats}</span>

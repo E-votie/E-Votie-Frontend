@@ -25,6 +25,11 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import KeycloakService from "../services/KeycloakService.jsx";
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Controller } from 'react-hook-form';
 
 const MySwal = withReactContent(Swal);
 
@@ -79,10 +84,13 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   }));
 
 export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
-    const { register, formState: { errors }, setValue, getValues, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue, getValues, reset, control } = useForm();
     const [partyLogo, setPartyLogo] = useState(null);
     const [uploadedFileName, setUploadedFileName] = useState(null);
+    const [activeStep, setActiveStep] = useState(0);
     const [isLeaderVerified, setIsLeaderVerified] = useState(false);
+    const [isLeaderAvaialble, setIsLeaderAvailable] = useState(false);
+    const [isCheckedLeaderNIC, setIsCheckedLeaderNIC] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
     const [leaderName, setLeaderName] = useState("");
@@ -91,85 +99,323 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
         setPartyLogo(event.target.files[0]);
     };
 
-    const handleLeaderNicBlur = (e) => {
-        validateLeaderNic(e.target.value);
+    const handleLeaderNicBlur = async (e) => {
+        const nic = e.target.value;
+        if (!nic) return;
+    
+        setIsLoading(true);
+        setIsCheckedLeaderNIC(true);
+    
+        const updatedState = {
+            isLeaderVerified: false,
+            isLeaderAvailable: false,
+            isSubmitDisabled: true,
+        };
+    
+        const voter = await validateLeaderNic(nic);
+        const partyMember = await getPartyMemberByNIC(nic);
+    
+        if (!voter) {
+            console.log("inside block 1");
+            updatedState.isLeaderVerified = false;
+            updatedState.isLeaderAvailable = false;
+            updatedState.isSubmitDisabled = true;
+        } else if (voter && !partyMember) {
+            console.log("inside block 2");
+            updatedState.isLeaderVerified = true;
+            updatedState.isLeaderAvailable = true;
+            updatedState.isSubmitDisabled = false;
+        } else if (voter && partyMember) {
+            console.log("inside block 3");
+            updatedState.isLeaderVerified = true;
+            const partyMemberRole = partyMember.data.role;
+    
+            if (partyMemberRole === "Leader" || partyMemberRole === "Secretary") {
+                console.log("inside block 4");
+                updatedState.isLeaderAvailable = false;
+                updatedState.isSubmitDisabled = true;
+            } else {
+                updatedState.isLeaderAvailable = true;
+                updatedState.isSubmitDisabled = false;
+            }
+        } else {
+            console.log("inside else");
+            updatedState.isLeaderVerified = false;
+            updatedState.isLeaderAvailable = false;
+            updatedState.isSubmitDisabled = true;
+        }
+    
+        setIsLeaderVerified(updatedState.isLeaderVerified);
+        setIsLeaderAvailable(updatedState.isLeaderAvailable);
+        setIsSubmitDisabled(updatedState.isSubmitDisabled);
+    
+        console.log("Updated State: ", updatedState);
+    
+        setIsLoading(false);
     };
 
+    //validate if the leader is a voter or not
     const validateLeaderNic = useCallback(async (nic) => {
         if (!nic) return;
+
         const updatedToken = KeycloakService.getToken();
+
         setIsLoading(true);
+        setIsCheckedLeaderNIC(true);
+
         try {
-            const response = await axios.get(`http://localhost:5003/api/voter/${nic}`, {
+            const leader = await axios.get(`http://localhost:5003/api/voter/${nic}`, {
                 headers: {
                     Authorization: `Bearer ${updatedToken}`
                 }
             });
-            if ([200, 201].includes(response.status)) {
-                setLeaderName(response.data.Name);
-                setIsLeaderVerified(true);
-                setIsSubmitDisabled(false);
-            } else {
-                setLeaderName("");
-                setIsLeaderVerified(false);
-                setIsSubmitDisabled(true);
-            }
+
+            return leader;
         } catch (error) {
             console.log(error);
-            setLeaderName("");
-            setIsLeaderVerified(false);
             setIsSubmitDisabled(true);
         } finally {
             setIsLoading(false);
         }
+
+        console.log("isLeaderAvaialble "+ isLeaderAvaialble);
+        console.log("isLeaderVerified "+ isLeaderVerified);
     }, []);
 
-    const updateParty = async (data) => {
-
-        const showErrorModal = (message, redirectPath) => {
-            handleClose();
-            MySwal.fire({
-                title: `<p>${message}</p>`,
-                icon: 'error',
-                showConfirmButton: true,
-                confirmButtonText: 'OK',
-            }).then((result) => {
-                if (result.isConfirmed && redirectPath) {
-                    // navigate(redirectPath);
-                }
-            });
-        };
-
-        const showSuccessModal = (message, redirectPath) => {
-            handleClose();
-            MySwal.fire({
-                title: `<p>${message}</p>`,
-                icon: 'success',
-                showConfirmButton: true,
-                confirmButtonText: 'OK',
-            }).then((result) => {
-                if (result.isConfirmed && redirectPath) {
-                    // navigate(redirectPath);
-                }
-            });
-        };
-        // Handle form submission here
-        console.log(data);
+    //check if the user is already a leader/secretary or not
+    const getPartyMemberByNIC = async (nic) => {
         try{
-            const response = await axios.post();
+            const updatedToken = KeycloakService.getToken();
+            const partyMember = await axios.get(`http://localhost:5003/api/party/member/by/nic/${nic}`, {
+                headers: {
+                    Authorization: `Bearer ${updatedToken}`
+                }
+            });
+            return partyMember;
         }catch(err){
-            console.log(err.message);
+            console.log(err);
+            return null;
         }
-        handleClose();
+    }
+
+    
+    const formatDate = (input) => {
+        if (!input || !dayjs(input).isValid()) {
+            console.error("Invalid date input:", input);
+            return null; // Return null or handle appropriately
+        }
+    
+        const { $y: year, $M: month, $D: day } = dayjs(input);
+        console.log("Input Dayjs object:", input);
+        console.log("Raw foundedDate value:", getValues("foundedDate"));
+    
+        const date = new Date(year, month, day); // Create JavaScript Date object
+        const formattedDate = date.toISOString(); // Format as ISO string
+    
+        return formattedDate;
     };
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        alert("File changed");
-        console.log("file");
+    //submit founction
+    const onSubmit = async (partyData) => {
+        const confirmSubmission = async () => {
+            return MySwal.fire({
+                title: 'Are you sure?',
+                text: 'Do you want to continue with submitting the application?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Submit',
+                cancelButtonText: 'No, Cancel',
+            });
+        };
+
+        const submitPartyData = async (partyData) => {
+
+            const formData = new FormData();
+            console.log(getValues("foundedDate"));
+            
+            const partyDetails = {
+                partyName: getValues("partyName"),
+                abbreviation: getValues("abbreviation"),
+                foundedDate: formatDate(getValues("foundedDate")),
+                address: {
+                    addressLine_1: getValues("addressLine1"),
+                    addressLine_2: getValues("addressLine2"),
+                    city: getValues("city"),
+                    postalCode: getValues("postalCode"),
+                },
+                leaderId: getValues("leaderNic"),
+                state: "pending verification",
+                districtBasisSeats: 0,
+                nationalBasisSeats: 0,
+                totalSeats: 0,
+                contactNumber: "Not available",
+                partyWebsite: "Not available",
+                // partySymbol: getValues("partySymbol"),
+            };
+        
+            formData.append("party", JSON.stringify(partyDetails));
+        
+            if (logo) formData.append("files", getValues("logo"));
+
+            try {
+                const token = KeycloakService.getToken();
+        
+                // Update Keycloak roles
+                await updateKeycloakRoles(partyDetails.leaderId);
+        
+                // Show loading SweetAlert2 modal
+                MySwal.fire({
+                    title: 'Submitting your application...',
+                    html: '<div class="spinner"></div>',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        MySwal.showLoading(); // Display the SweetAlert2 spinner
+                    },
+                });
+        
+                const response = await axios.post('http://localhost:5003/api/party', formData, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+        
+                if ([200, 201].includes(response.status)) {
+                    // Application submitted successfully
+                    MySwal.fire({
+                        title: 'Application Submitted Successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    });
+        
+                    reset(); // Reset the form
+                    setIsLeaderVerified(false); // Reset leader verification
+                } else {
+                    MySwal.fire({
+                        title: 'Error!',
+                        text: response.data || 'An error occurred while submitting the application.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
+                }
+            } catch (error) {
+                MySwal.fire({
+                    title: 'Error!',
+                    text: error.response ? error.response.data : 'An error occurred.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+            }
+
+        }
+
+        const result = await confirmSubmission();
+        if (result.isConfirmed) {
+            await submitPartyData(partyData);
+            handleClose();
+        } else {
+            console.log('Submission canceled by the user.');
+        }
+    };
+
+
+    //update keycloak roles upon a successful submission
+    const updateKeycloakRoles = async (leaderNic) => {
+        try {
+            const adminToken = await KeycloakService.getAdminToken(); // Get admin token
+    
+            // Get logged-in user's ID (party secretary)
+            const secretaryUserId = KeycloakService.getUserId();
+    
+            // Assign 'Party Secretary' role to logged-in user
+            await assignRoleToUser(adminToken, secretaryUserId, 'PartySecretary');
+    
+            // Get leader's userId using their NIC (username)
+            const leaderUserId = await KeycloakService.getUserIdByUsername('demo', leaderNic);
+    
+            if (!leaderUserId) {
+                throw new Error(`User not found for leader NIC: ${leaderNic}`);
+            }
+    
+            // Assign 'Party Leader' role to the leader
+            await assignRoleToUser(adminToken, leaderUserId, 'PartyLeader');
+        } catch (error) {
+            console.error('Failed to update Keycloak roles:', error.message);
+        }
+    };
+    
+    const assignRoleToUser = async (adminToken, userId, roleName) => {
+        const roleId = await getRoleIdByName(adminToken, roleName);
+    
+        if (!roleId) {
+            throw new Error(`Role not found: ${roleName}`);
+        }
+    
+        const payload = [
+            {
+                id: roleId,
+                name: roleName,
+            },
+        ];
+        console.log(payload);
+        
+        await fetch(`http://localhost:8086/admin/realms/demo/users/${userId}/role-mappings/clients/162f9e0e-64e2-4ae7-84fe-93d625a161bd`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${adminToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+    };
+    
+    const getRoleIdByName = async (adminToken, roleName) => {
+        const response = await fetch(`http://localhost:8086/admin/realms/demo/clients/162f9e0e-64e2-4ae7-84fe-93d625a161bd/roles/${roleName}`, {
+            headers: {
+                Authorization: `Bearer ${adminToken}`,
+                'Content-Type': 'application/json',
+            },
+        });
+    
+        if (response.ok) {
+            const role = await response.json();
+            console.log(role.id);
+            return role.id;
+        } else {
+            console.error('Failed to fetch role ID:', await response.text());
+            return null;
+        }
+    };
+    
+    //register files
+    const[constitution, setConstitution] = useState(null);
+    const[logo, setLogo] = useState(null);
+    const[membership, setMembership] = useState(null);
+    const[financial, setFinancial] = useState(null);
+    const[leadership, setLeadership] = useState(null);
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
         if (file) {
-            setUploadedFileName(file.name);
-            setValue("partySymbol", file); 
+            console.log(`File uploaded for logo:`, file.name);
+    
+            const originalFileName = file.name.split('.').slice(0, -1).join('.'); 
+            const fileExtension = file.name.split('.').pop(); 
+            const renamedFileName = `${originalFileName}_logo.${fileExtension}`;
+    
+            const renamedFile = new File([file], renamedFileName, { type: file.type });
+    
+            setValue("logo", renamedFile);
+            setLogo(renamedFileName);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setValue("partySymbol", reader.result.split(",")[1]);
+            };
+            reader.readAsDataURL(renamedFile);
+    
+            // Optionally, log the renamed file
+            console.log(`Renamed file for logo:`, renamedFile.name);
         }
     };
 
@@ -179,99 +425,129 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
                 open={open}
+                fullWidth
+                maxWidth="md"
+                style={{ zIndex: 1000 }}
             >
-                <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    Update Party Information
-                </DialogTitle>
-                <IconButton
-                    aria-label="close"
-                    onClick={handleClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: (theme) => theme.palette.grey[500],
-                    }}
+                <DialogTitle 
+                    sx={{ 
+                        m: 0, 
+                        p: 2, 
+                        display: 'flex', 
+                        justifyContent: 'space-between', 
+                        alignItems: 'center' 
+                    }} 
+                    id="customized-dialog-title"
                 >
-                    <CloseIcon />
-                </IconButton>
+                    Update Party Information
+                    <IconButton
+                        aria-label="close"
+                        onClick={handleClose}
+                        sx={{
+                            color: (theme) => theme.palette.grey[500],
+                        }}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                </DialogTitle>
                 <DialogContent dividers>
-                    <form onSubmit={handleSubmit(updateParty)}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <Box>
                             <Stack spacing={2}>
+                                {/* Party Name and Abbreviation */}
                                 <Stack spacing={2} direction="row">
-                                    {/* Party Name */}
                                     <Box className='w-5/6'>
                                         <TextField
                                             variant="outlined"
                                             label="Party Name"
                                             required
                                             fullWidth
-                                            defaultValue={partyInfo.partyName}
+                                            value={partyInfo.partyName}
                                             {...register("partyName")}
                                         />
                                     </Box>
-                                    {/* Abbreviation */}
                                     <Box>
                                         <TextField
                                             variant="outlined"
                                             label="Abbreviation"
                                             required
                                             fullWidth
-                                            defaultValue={partyInfo.abbreviation}
+                                            value={partyInfo.abbreviation}
                                             {...register("abbreviation")}
                                         />
                                     </Box>
                                 </Stack>
+
+                                {/* Founded Date */}
                                 <Box>
-                                    <TextField
-                                        labelId="founded-date-label"
-                                        variant="outlined"
-                                        label="Founded"
-                                        required
-                                        className='w-full'
-                                        type="date"
-                                        InputLabelProps={{
-                                            shrink: true,
-                                          }}
-                                        defaultValue={partyInfo.foundedYear}
-                                        {...register("foundedDate")}
-                                    />
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <Controller
+                                            name="foundedDate"
+                                            control={control}
+                                            defaultValue={null} // Use null as the initial value
+                                            rules={{ required: "Founded Date is required" }}
+                                            render={({ field, fieldState }) => (
+                                            <DatePicker
+                                                className='w-full'
+                                                {...field}
+                                                label="Established Date"
+                                                value={partyInfo.foundedDate ? dayjs(partyInfo.foundedDate) : null} // Ensure compatibility
+                                                renderInput={(params) => (
+                                                <TextField 
+                                                    {...params} 
+                                                    error={!!fieldState.error} 
+                                                    helperText={fieldState.error?.message} 
+                                                />
+                                                )}
+                                            />
+                                            )}
+                                        />
+                                    </LocalizationProvider>
                                 </Box>
+
                                 {/* Seats */}
                                 <Stack spacing={2} direction="row">
-                                    <Box >
+                                    <Box>
                                         <TextField
                                             variant="outlined"
                                             label="District Basis Seats"
                                             fullWidth
                                             type="number"
-                                            defaultValue={partyInfo.districtBasisSeats}
-                                            {...register("districtBasisSeats")}
+                                            inputProps={{ min: 0 }}
+                                            {...register("districtBasisSeats", {
+                                                value: partyInfo.districtBasisSeats || 0,
+                                                validate: (value) => value > 0 || "The value must be greater than zero",
+                                            })}
                                         />
                                     </Box>
-                                    <Box >
+                                    <Box>
                                         <TextField
                                             variant="outlined"
                                             label="National Basis Seats"
                                             fullWidth
                                             type="number"
-                                            defaultValue={partyInfo.nationalBasisSeats}
-                                            {...register("nationalBasisSeats")}
+                                            inputProps={{ min: 0 }}
+                                            {...register("nationalBasisSeats", {
+                                                value: partyInfo.nationalBasisSeats || 0,
+                                                validate: (value) => value > 0 || "The value must be greater than zero",
+                                            })}
                                         />
                                     </Box>
-                                    <Box >
+                                    <Box>
                                         <TextField
                                             variant="outlined"
                                             label="Total Seats"
                                             fullWidth
                                             type="number"
-                                            defaultValue={partyInfo.totalSeats}
-                                            {...register("totalSeats")}
+                                            {...register("totalSeats", {
+                                                value: partyInfo.totalSeats || 0,
+                                                validate: (value) => value > 0 || "The value must be greater than zero",
+                                            })}
                                         />
                                     </Box>
                                 </Stack>
-                                {/* Party Symbol */}
+
+                                {/* Party Symbol Upload */}
                                 <Box>
                                     <input
                                         accept="image/*"
@@ -282,217 +558,124 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                     />
                                     <label htmlFor="partySymbolInput">
                                         <Button
-                                        component="span"
-                                        role={undefined}
-                                        variant="outlined"
-                                        tabIndex={-1}
-                                        startIcon={<CloudUploadIcon />}
+                                            component="span"
+                                            role={undefined}
+                                            variant="outlined"
+                                            tabIndex={-1}
+                                            startIcon={<CloudUploadIcon />}
                                         >
-                                        Upload Party Symbol
+                                            Update Party Symbol
                                         </Button>
                                     </label>
-                                    {<div>
-                                        <p>Uploaded File: {uploadedFileName}</p>
-                                    </div>
-                                    }
+                                    {logo && (
+                                        <div>
+                                            <p>Uploaded File: {logo}</p>
+                                        </div>
+                                    )}
                                 </Box>
                             </Stack>
                         </Box>
 
-                        <Box my={2} />
-                        <Divider />
-                        <Box my={2} />
+                        <Box my={2}>
+                            <Divider />
+                        </Box>
 
                         <Box>
-                            {/* Headquarters Address */}
                             <Stack spacing={2}>
-                                {/* address line 1 */}
+                                {/* Address Line 1 */}
                                 <Box>
                                     <TextField
                                         variant='outlined'
-                                        id="addressLine1"
                                         label="Headquarter's Address Line 1"
                                         className='w-full'
-                                        required
-                                        {...register("addressLine1")}
+                                        defaultValue={partyInfo.address.addressLine_1 || ''}
+                                        {...register("addressLine_1")}
                                     />
                                 </Box>
-                                {/* address line 2 */}
+
+                                {/* Address Line 2 */}
                                 <Box>
                                     <TextField
                                         variant='outlined'
-                                        id="addressLine2"
                                         label="Headquarter's Address Line 2"
                                         className='w-full'
                                         required
+                                        defaultValue={partyInfo.address.addressLine_2 || ''}
                                         {...register("addressLine2")}
                                     />
                                 </Box>
+
+                                {/* City and Postal Code */}
                                 <Stack spacing={2} direction="row">
-                                    {/* City */}
                                     <Box className="w-1/2">
                                         <FormControl fullWidth required>
-                                                <InputLabel id="born-label">City</InputLabel>
-                                                <Select
-                                                    labelId="born-label"
-                                                    label="City"
-                                                    id="city"
-                                                    variant="outlined"
-                                                    className='w-full'
-                                                    required                                            {...register("city")}
-                                                    {...register("city")}
-                                                >
-                                                    {cities.map((city, index) => (
+                                            <InputLabel id="city-label">City</InputLabel>
+                                            <Select
+                                                labelId="city-label"
+                                                label="City"
+                                                variant="outlined"
+                                                className='w-full'
+                                                defaultValue={partyInfo.address.city || ''}
+                                                required                                           
+                                                {...register("city")}
+                                            >
+                                                {cities.map((city, index) => (
                                                     <MenuItem key={index} value={city}>
                                                         {city}
                                                     </MenuItem>
-                                                    ))}
-                                                </Select>
+                                                ))}
+                                            </Select>
                                         </FormControl>
                                     </Box>
-                                    {/* Postal Code */}
                                     <Box>
                                         <TextField
                                             variant='outlined'
-                                            id="postalCode"
                                             label="Postal Code"
                                             className='w-full'
                                             required
+                                            defaultValue={partyInfo.address.postalCode || ''}
                                             {...register("postalCode")}
                                         />
                                     </Box>
                                 </Stack>
+
                                 {/* Contact Number */}
                                 <Box>
                                     <TextField
                                         variant='outlined'
-                                        id="contactNumber"
                                         label="Contact Number"
                                         className='w-full'
                                         required
+                                        defaultValue={partyInfo.contactNumber || ''}
                                         {...register("contactNumber")}
                                     />
                                 </Box>
-                                {/* Party WebSite */}
+
+                                {/* Party Website */}
                                 <Box>
                                     <TextField
-                                        id="partyWebsite"
                                         variant='outlined'
                                         label="Website"
                                         fullWidth
-                                        defaultValue={partyInfo.website}
+                                        defaultValue={partyInfo.partyWebsite || ''}
                                         {...register("partyWebsite")}
                                     />
                                 </Box>
                             </Stack>
                         </Box>
-
-                        <DialogActions>
-                            <Button type="submit" color="primary">
-                                Save Changes
-                            </Button>
-                        </DialogActions>
                     </form>
                 </DialogContent>
+                <DialogActions>
+                    <Button 
+                        type="submit" 
+                        onClick={handleSubmit(onSubmit)}
+                    >
+                        Save Changes
+                    </Button>
+                </DialogActions>
             </BootstrapDialog>
         </React.Fragment>
     );
 };
 
 
-// <FormControl required className='w-full'> 
-// <InputLabel id="leader-label">Leader</InputLabel>
-// <Select
-//     variant="outlined"
-//     labelId="leader-label"
-//     label="Leader"
-//     id="leader"
-//     defaultValue={partyInfo.leader}
-//     {...register("leader")}
-// >
-//     {/* Add MenuItems dynamically based on available leaders */}
-//     <MenuItem value="Mahinda Rajapaksa">Mahinda Rajapaksa</MenuItem>
-// </Select>
-// </FormControl>
-
-// <FormControl required className='w-full'>
-// <InputLabel id="secretary-label">Secretary</InputLabel>
-// <Select
-//     labelId="secretary-label"
-//     label="Secretary"
-//     id="secretary"
-//     variant="outlined"
-//     defaultValue={partyInfo.secretary}
-//     {...register("secretary")}
-// >
-//     {/* Add MenuItems dynamically based on available secretaries */}
-//     <MenuItem value="Sagara Kariyawasam">Sagara Kariyawasam</MenuItem>
-// </Select>
-// </FormControl>
-
-// <Box my={2} />
-// <Divider />
-// <Box my={2} />
-
-// <Box>
-//     <Stack spacing={2}>
-//         {/* Party Leader*/}
-//         <Box>
-//             <Stack spacing={2} direction="row">
-//                 <TextField
-//                     className='w-1/3'
-//                     label="Leader NIC"
-//                     variant="outlined"
-//                     {...register("leaderNic", { required: true })}
-//                     error={!!errors.leaderNic}
-//                     helperText={errors.leaderNic && 'Leader NIC is required'}
-//                     onBlur={handleLeaderNicBlur}
-//                     padding="normal"
-//                     sx={{ fontSize: '1rem', fontWeight: 'bold' }}
-//                 />
-//                 <TextField
-//                     className='w-2/3'
-//                     label="Leader Name"
-//                     variant="outlined"
-//                     {...register("leaderName", { required: true })}
-//                     disabled
-//                     value={leaderName}
-//                     padding="normal"
-//                     sx={{ fontSize: '1rem', fontWeight: 'bold' }}
-//                 />
-//             </Stack>
-//             {isLoading && <p>Verifying leader NIC...</p>} 
-//             {!isLoading && isLeaderVerified && <Typography color='success.main'>Leader identified successfully!</Typography>}
-//             {!isLoading && !isLeaderVerified && <Typography className='text-error'>Leader identification failed!</Typography>}
-//         </Box>
-//         {/* Party Secretary */}
-//         <Box>
-//             <Stack spacing={2} direction="row">
-//                 <TextField
-//                     className='w-1/3'
-//                     label="Leader NIC"
-//                     variant="outlined"
-//                     {...register("leaderNic", { required: true })}
-//                     error={!!errors.leaderNic}
-//                     helperText={errors.leaderNic && 'Leader NIC is required'}
-//                     onBlur={handleLeaderNicBlur}
-//                     padding="normal"
-//                     sx={{ fontSize: '1rem', fontWeight: 'bold' }}
-//                 />
-//                 <TextField
-//                     className='w-2/3'
-//                     label="Leader Name"
-//                     variant="outlined"
-//                     {...register("leaderName", { required: true })}
-//                     disabled
-//                     value={leaderName}
-//                     padding="normal"
-//                     sx={{ fontSize: '1rem', fontWeight: 'bold' }}
-//                 />
-//             </Stack>
-//             {isLoading && <p>Verifying leader NIC...</p>} 
-//             {!isLoading && isLeaderVerified && <Typography color='success.main'>Leader identified successfully!</Typography>}
-//             {!isLoading && !isLeaderVerified && <Typography className='text-error'>Leader identification failed!</Typography>}
-//         </Box>
-//     </Stack>
-// </Box>

@@ -215,7 +215,7 @@ export const PartyList = () => {
                           {partyList.map((party) => (
                             <TableRow key={party.id}>
                               <TableCell>{party.partyName}</TableCell>
-                              <TableCell align="right">{party.noOfMPs}</TableCell>
+                              <TableCell align="right">{party.totalSeats}</TableCell>
                             </TableRow>
                           ))}
                         </TableBody>
@@ -263,7 +263,7 @@ export const PartyList = () => {
                             {partyList.map((party) => (
                               <TableRow key={party.id}>
                                 <TableCell>{party.partyName}</TableCell>
-                                <TableCell align="right">{party.noOfMPs}</TableCell>
+                                <TableCell align="right">{party.totalSeats}</TableCell>
                               </TableRow>
                             ))}
                           </TableBody>

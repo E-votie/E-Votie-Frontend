@@ -66,15 +66,7 @@ export const PartyMemberSideBar = ({ requestList }) => {
       
       <StyledDrawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', p: 2 }}>
-          <StyledButton
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={handleOpenAddPolitician}
-            sx={{ mb: 2 }}
-          >
-            Add New Politician
-          </StyledButton>
-
+          
           <StyledButton
             variant="contained"
             startIcon={<SendIcon />}
@@ -84,8 +76,17 @@ export const PartyMemberSideBar = ({ requestList }) => {
             Send Nominations
           </StyledButton>
 
+          <StyledButton
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={handleOpenAddPolitician}
+            sx={{ mb: 2 }}
+          >
+            Add New Politician
+          </StyledButton>
+
           <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
-            {['Received Request', 'Sent Request', 'New Politician'].map((section, index) => (
+            {['Sent Requests'].map((section, index) => (
               <StyledAccordion key={index}>
                 <StyledAccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography variant="subtitle1">{section}</Typography>
@@ -104,6 +105,7 @@ export const PartyMemberSideBar = ({ requestList }) => {
               </StyledAccordion>
             ))}
           </Box>
+
         </Box>
       </StyledDrawer>
 

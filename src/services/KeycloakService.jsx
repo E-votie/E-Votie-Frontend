@@ -99,6 +99,15 @@ class KeycloakService {
         return null;
     }
 
+    getNIC() {
+        if (this.keycloak && this.keycloak.tokenParsed) {
+            // The exact claim name might vary depending on your Keycloak configuration
+            // Common claims are 'preferred_username', 'username', or 'sub'
+            return this.keycloak.tokenParsed.preferred_username;
+        }
+        return null;
+    }
+
     // New method to get user ID
     getUserId() {
         if (this.keycloak && this.keycloak.tokenParsed) {
