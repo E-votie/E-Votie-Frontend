@@ -789,3 +789,171 @@ import React, { useEffect } from 'react';
 // };
 
 // export default VoterDetails;
+
+// import React, { useState, useEffect } from 'react';
+// import { authGet } from '../../Auth/authFetch.jsx';
+// import { Typography, Button, Tabs, Tab } from '@mui/material';
+// import PropTypes from 'prop-types';
+// import Avatar from '@mui/material/Avatar';
+// import { QRCodeCanvas } from 'qrcode.react';
+// import HistoryList from '../../Components/HistoryListVoter.jsx';
+// import Swal from 'sweetalert2';
+// import CircularProgress from '@mui/material/CircularProgress';
+
+// const VoterDetails = () => {
+//   const [loading, setLoading] = useState(true);
+//   const [voterInfo, setVoterInfo] = useState(null);
+//   const [activeTab, setActiveTab] = useState(0);
+//   const [isEditable, setIsEditable] = useState(false);
+//   const [updatedFields, setUpdatedFields] = useState({});
+
+//   const showToast = (type, message) => {
+//     Swal.fire({
+//       icon: type,
+//       title: message,
+//       toast: true,
+//       position: 'top-right',
+//       timer: 2500,
+//       showConfirmButton: false,
+//     });
+//   };
+
+//   useEffect(() => {
+//     const fetchVoterInfo = async () => {
+//       try {
+//         setLoading(true);
+//         const { voter, profileImageUrl } = await authGet('/voter/my_details');
+//         setVoterInfo({ ...voter, profileImage: profileImageUrl });
+//       } catch (error) {
+//         console.error('Error loading voter info:', error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchVoterInfo();
+//   }, []);
+
+//   const toggleEditMode = () => setIsEditable(!isEditable);
+
+//   const handleInputChange = (key, value) => {
+//     setUpdatedFields((prev) => ({ ...prev, [key]: value }));
+//   };
+
+//   const saveUpdates = async () => {
+//     try {
+//       const response = await authGet('/voter/update_info', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(updatedFields),
+//       });
+//       if (response.ok) {
+//         setVoterInfo((prev) => ({ ...prev, ...updatedFields }));
+//         setUpdatedFields({});
+//         setIsEditable(false);
+//         showToast('success', 'Details updated successfully!');
+//       } else {
+//         showToast('error', 'Failed to save updates.');
+//       }
+//     } catch (error) {
+//       console.error('Error saving voter details:', error);
+//       showToast('error', 'An error occurred.');
+//     }
+//   };
+
+//   return (
+//     <div>
+//       {loading ? (
+//         <div className="flex justify-center items-center min-h-screen">
+//           <CircularProgress />
+//         </div>
+//       ) : (
+//         <div className="card shadow-lg p-6">
+//           <div className="flex justify-between mb-4">
+//             <Tabs
+//               value={activeTab}
+//               onChange={(e, index) => setActiveTab(index)}
+//               aria-label="voter details tabs"
+//             >
+//               <Tab label="Profile" />
+//               <Tab label="History" />
+//             </Tabs>
+//             {activeTab === 0 && (
+//               <Button
+//                 variant="contained"
+//                 color={isEditable ? 'primary' : 'secondary'}
+//                 onClick={isEditable ? saveUpdates : toggleEditMode}
+//               >
+//                 {isEditable ? 'Save' : 'Edit'}
+//               </Button>
+//             )}
+//           </div>
+
+//           {activeTab === 0 && (
+//             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//               <div>
+//                 <Avatar
+//                   alt="Voter Profile"
+//                   src={voterInfo?.profileImage}
+//                   sx={{ width: 120, height: 120 }}
+//                 />
+//                 <div className="mt-4">
+//                   <QRCodeCanvas
+//                     value={voterInfo?.voterID || ''}
+//                     size={120}
+//                     fgColor="#ff1744"
+//                   />
+//                   <Typography variant="caption" color="error" display="block" align="center">
+//                     Do not share this QR code
+//                   </Typography>
+//                 </div>
+//               </div>
+//               <div>
+//                 <Typography variant="h6" gutterBottom>
+//                   Voter Details
+//                 </Typography>
+//                 <div>
+//                   <Typography variant="body1" gutterBottom>
+//                     NIC: {voterInfo?.NIC || 'N/A'}
+//                   </Typography>
+//                   <Typography variant="body1" gutterBottom>
+//                     Name:{' '}
+//                     {isEditable ? (
+//                       <input
+//                         type="text"
+//                         value={updatedFields.Name || voterInfo?.Name || ''}
+//                         onChange={(e) => handleInputChange('Name', e.target.value)}
+//                         className="input input-bordered"
+//                       />
+//                     ) : (
+//                       voterInfo?.Name || 'N/A'
+//                     )}
+//                   </Typography>
+//                   <Typography variant="body1" gutterBottom>
+//                     DOB: {voterInfo?.DOB || 'N/A'}
+//                   </Typography>
+//                 </div>
+//               </div>
+//             </div>
+//           )}
+
+//           {activeTab === 1 && <HistoryList data={voterInfo?.history || []} />}
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// VoterDetails.propTypes = {
+//   voterInfo: PropTypes.shape({
+//     NIC: PropTypes.string,
+//     Name: PropTypes.string,
+//     DOB: PropTypes.string,
+//     voterID: PropTypes.string,
+//     profileImage: PropTypes.string,
+//     history: PropTypes.arrayOf(PropTypes.object),
+//   }),
+// };
+
+// export default VoterDetails;
+
