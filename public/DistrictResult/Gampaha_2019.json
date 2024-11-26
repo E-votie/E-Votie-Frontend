@@ -1,0 +1,478 @@
+[
+  {
+    "division": "Attanagalla",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.98%",
+        "count": 66850,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.89%",
+        "count": 39548,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.26%",
+        "count": 4829,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.44%",
+        "count": 503,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Biyagama",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "63.13%",
+        "count": 68145,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "31.24%",
+        "count": 33715,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.88%",
+        "count": 4188,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.6%",
+        "count": 646,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Divulapitiya",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.93%",
+        "count": 55371,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.8%",
+        "count": 32149,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.37%",
+        "count": 3117,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.43%",
+        "count": 399,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Dompe",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "66.92%",
+        "count": 67754,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "28.28%",
+        "count": 28629,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.03%",
+        "count": 3070,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.34%",
+        "count": 341,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Gampaha",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "67.31%",
+        "count": 84507,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "25.48%",
+        "count": 31984,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.98%",
+        "count": 6256,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.74%",
+        "count": 932,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Ja-Ela",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.76%",
+        "count": 71690,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.14%",
+        "count": 41649,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.55%",
+        "count": 5556,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.25%",
+        "count": 1527,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Katana",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "58.1%",
+        "count": 71565,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.95%",
+        "count": 43053,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.34%",
+        "count": 5343,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.12%",
+        "count": 1375,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Kelaniya",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "57.57%",
+        "count": 43668,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "36.28%",
+        "count": 27521,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.13%",
+        "count": 3134,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.78%",
+        "count": 589,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Mahara",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "64.43%",
+        "count": 83989,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "29.46%",
+        "count": 38407,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.26%",
+        "count": 5547,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.62%",
+        "count": 804,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Minuwangoda",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "61.03%",
+        "count": 69978,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "32.45%",
+        "count": 37212,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.59%",
+        "count": 5259,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.56%",
+        "count": 646,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Mirigama",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "59.53%",
+        "count": 61478,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "34.07%",
+        "count": 35184,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.57%",
+        "count": 4720,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.35%",
+        "count": 365,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Negombo",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "53.03%",
+        "count": 44032,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "38.23%",
+        "count": 31743,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "4.98%",
+        "count": 4132,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.86%",
+        "count": 1546,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Postal-count-Gampaha",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "65.37%",
+        "count": 30918,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "25.64%",
+        "count": 12125,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "6.73%",
+        "count": 3181,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "1.48%",
+        "count": 700,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Wattala",
+    "district": "Gampaha",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "47.72%",
+        "count": 49463,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "46.51%",
+        "count": 48214,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.31%",
+        "count": 3428,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.87%",
+        "count": 899,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  }
+]

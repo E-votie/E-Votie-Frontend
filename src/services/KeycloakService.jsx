@@ -1,6 +1,12 @@
 // KeycloakService.jsx
 import Keycloak from 'keycloak-js';
 
+const keycloakConfig = {
+    realm: import.meta.env.VITE_KEYCLOAK_REALM,
+    clientId: import.meta.env.VITE_KEYCLOAK_RESOURCE, // Changed from 'resource' to 'clientId'
+    url: import.meta.env.VITE_KEYCLOAK_AUTH_SERVER_URL
+}
+
 class KeycloakService {
     constructor() {
         this.keycloak = null;
@@ -13,7 +19,7 @@ class KeycloakService {
             return Promise.resolve();
         }
 
-        this.keycloak = new Keycloak('/keycloak.json');
+        this.keycloak = new Keycloak(keycloakConfig);
         return this.keycloak.init({ onLoad: 'check-sso' })
             .then(authenticated => {
                 this.authenticated = authenticated;

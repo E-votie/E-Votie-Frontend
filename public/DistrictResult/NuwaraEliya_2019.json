@@ -1,0 +1,172 @@
+[
+  {
+    "division": "Hanguranketha",
+    "district": "NuwaraEliya",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "52.5%",
+        "count": 30999,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "42.33%",
+        "count": 24995,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.95%",
+        "count": 1153,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.44%",
+        "count": 261,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Kotmale",
+    "district": "NuwaraEliya",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "54.7%",
+        "count": 36901,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "40.87%",
+        "count": 27572,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.57%",
+        "count": 1057,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.31%",
+        "count": 212,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "NEliya-Maskeliya",
+    "district": "NuwaraEliya",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "66.37%",
+        "count": 174413,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "28.73%",
+        "count": 75499,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "0.86%",
+        "count": 2256,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.51%",
+        "count": 1348,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Postal-count-NEliya",
+    "district": "NuwaraEliya",
+    "results": [
+      {
+        "party": "SLPP",
+        "percentage": "51.77%",
+        "count": 9151,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NDF",
+        "percentage": "43.54%",
+        "count": 7696,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "3.61%",
+        "count": 638,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "NPP",
+        "percentage": "0.42%",
+        "count": 75,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/msn-2019-pe1.png",
+        "color": "#83c341"
+      }
+    ]
+  },
+  {
+    "division": "Walapane",
+    "district": "NuwaraEliya",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "48.51%",
+        "count": 33908,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "46.65%",
+        "count": 32602,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.13%",
+        "count": 787,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "0.43%",
+        "count": 299,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  }
+]

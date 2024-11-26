@@ -1,0 +1,43 @@
+name: Push main to another repository
+
+on:
+  push:
+    branches:
+      - main  # Trigger on changes to the 'main' branch
+
+jobs:
+  push-to-other-repo:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu image for the runner
+    steps:
+      # Step 1: Checkout the source repository
+      - name: Checkout source repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Full history to ensure that we can push to the destination repo
+
+      # Step 2: Push to the destination repository
+      - name: Push to destination repository
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.DESTINATION_REPO_PAT }}
+        run: |
+          # Configure Git with a default user
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+
+          # Create a new directory for the destination repository
+          mkdir destination-repo
+          cd destination-repo
+
+          # Clone the destination repository into the new folder
+          git clone https://${API_TOKEN_GITHUB}@github.com/lahiruthpala/E-Votie_FrontEnd.git .
+
+          # Remove any files from the destination repository (except .git)
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+
+          # Copy all files from the source to the destination repository (excluding .git)
+          rsync -av --exclude='.git' --exclude='.github' --exclude='E-Votie_FrontEnd' ../ ./  # Note the use of ../ to refer to the source files outside the folder
+
+          # Commit and push changes to the destination repository
+          git add .
+          git commit -m "Update from source repository"
+          git push origin main --force

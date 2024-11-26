@@ -7,7 +7,7 @@ function Carousel() {
     { image: "https://elections.gov.lk/7.jpg" },
     { image: "https://elections.gov.lk/3.jpg" },
     { image: "https://elections.gov.lk/5.jpg" },
-    { image: "public/e-votie-high-resolution-logo-white.png" },
+    { image: "/e-votie-high-resolution-logo-white.png" },
 
   ];
 

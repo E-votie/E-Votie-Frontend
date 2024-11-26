@@ -1,0 +1,959 @@
+import React, { useEffect } from 'react';
+// import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+// import { Divider, Link, Typography } from "@mui/material";
+// import CountingEffect from "../../Components/CountingEffect.jsx";
+// import PercentageCountingEffect from "../../Components/PercentageCountingEffect.jsx";
+// import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+// import MiniCalendar from "../../Components/MiniCalendar.jsx";
+// import { motion } from "framer-motion";
+// import ActionCard from "../../Components/ActionCard.jsx";
+// import keycloakService from "../../services/KeycloakService.jsx";
+// import KeycloakService from "../../services/KeycloakService.jsx";
+// import { authGet } from "../../Auth/authFetch.jsx";
+
+// const actionItems = [
+//     {
+//         // Label for the action
+//         "label": "Party Applications",
+//         "icon": "party",
+//         // Description of the purpose of this action
+//         "description": "Application to register political parties.",
+//         "link": "/party/list",
+//         "allowedRoles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "label": "Candidates Application",
+//         "icon": "candidate",
+//         "description": "Candidate.",
+//         "allowedRoles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "label": "Elections",
+//         "icon": "election",
+//         "description": "Create new elections and view past",
+//         "link": "/election/list",
+//         "allowedRoles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "label": "Notifications",
+//         "icon": "inquiry",
+//         "description": "To-Dos and reminders.",
+//         "link": "/inquiries",
+//         "allowedRoles": ["GramaNiladhari"]
+//     },
+//     {
+//         "label": "Inquiries",
+//         "icon": "inquiry",
+//         "description": "Submit your inquiries and complaints here.",
+//         "link": "/inquiries",
+//         "allowedRoles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "label": "Announcements",
+//         "icon": "announcement",
+//         "description": "Latest announcements and updates.",
+//         "link": "/announcements",
+//         "allowedRoles": ["ElectionCommissioner"]
+//     },
+// ];
+
+// const displayCard = (allowedRoles) => {
+//     if (allowedRoles.includes("ALL")) return true;
+//     if (allowedRoles.includes("Anonymous") && !keycloakService.isLoggedIn()) return true;
+//     if (keycloakService.isLoggedIn()) {
+//         return allowedRoles.some(role => KeycloakService.hasRole(role));
+//     }
+//     return false;
+// };
+
+// export const ElectionHome = () => {
+
+//     const [district, setDistrict] = React.useState("Nampanumuwa");
+//     const [userFullName, setUserFullName] = React.useState("Lahiru Jayathilake");
+//     const [voterCount, setVoterCount] = React.useState(1281);
+//     const [eligibleVoterCount, setEligibleVoterCount] = React.useState(1135);
+//     const [newVoterCount, setNewVoterCount] = React.useState(84);
+//     const [pendingCaseCount, setPendingCaseCount] = React.useState(2);
+
+//     useEffect(() => {
+//         const loadData = async () => {
+//             if (keycloakService.isLoggedIn()) {
+//                 try {
+//                     setLoading(true);
+//                     // Fetching status of voters
+//                     const response = await authGet(`/voter/status`);
+//                     setStatus(response.Status);
+//                     await new Promise(resolve => setTimeout(resolve, 1000));
+//                     setLoading(false);
+//                 } catch (error) {
+//                     console.error('Error while loading data:', error);
+//                     setLoading(false);
+//                 }
+//             }
+//         };
+
+//         loadData();
+//     }, []);
+
+//     return (
+//         <div className="flex flex-col bg-base-100 shadow-md rounded-xl p-6 pb-0 gap-8">
+//             <div className="flex flex-row justify-between">
+//                 <motion.h1
+//                     className={`text-2xl font-bold mb-2 transition-opacity duration-500 opacity-100`}
+//                     initial={{ y: -20 }}
+//                     animate={{ y: 0 }}
+//                     transition={{ duration: 0.5 }}
+//                 >
+//                     Welcome Mr. {userFullName}
+//                 </motion.h1>
+//             </div>
+//             <Divider />
+//             <div className="flex flex-row justify-between">
+//                 {/* Cards for voter data are displayed here */}
+//             </div>
+//             <Divider />
+//             <div className="flex flex-row justify-between">
+//                 <div className="">
+//                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+//                         {actionItems.map((action, index) => (
+//                             displayCard(action.allowedRoles) && (
+//                                 <motion.div
+//                                     key={index}
+//                                     initial={{ opacity: 0, y: 20 }}
+//                                     animate={{ opacity: 1, y: 0 }}
+//                                     transition={{ delay: index * 0.1, duration: 0.3 }}
+//                                 >
+//                                     <ActionCard
+//                                         icon={action.icon}
+//                                         action={action.label}
+//                                         description={action.description}
+//                                         link={action.link}
+//                                         role={action.allowedRoles}
+//                                     />
+//                                 </motion.div>
+//                             )
+//                         ))}
+//                     </div>
+//                 </div>
+//                 <Divider orientation="vertical" />
+//                 <div className="bg-gray-100">
+//                     <MiniCalendar />
+//                 </div>
+//             </div>
+//             <Divider />
+//             <div />
+//         </div>
+//     );
+// };
+
+// export default ElectionHome;
+
+
+// const actions = [
+//     {
+//         "action": "Party Applications",
+//         "icon": "party",
+//         "description": "Application to register political parties.",
+//         "link": "/party/list",
+//         "roles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "action": "Candidates Application",
+//         "icon": "candidate",
+//         "description": "Candidate.",
+//         "roles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "action": "Elections",
+//         "icon": "election",
+//         "description": "Create new elections and view past",
+//         "link": "/election/list",
+//         "roles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "action": "Notifications",
+//         "icon": "inquiry",
+//         "description": "TO Dos",
+//         "link": "/inquiries",
+//         "roles": ["GramaNiladhari"]
+//     },
+//     {
+//         "action": "Inquiries",
+//         "icon": "inquiry",
+//         "description": "Submit your inquiries and complaints here.",
+//         "link": "/inquiries",
+//         "roles": ["ElectionCommissioner"]
+//     },
+//     {
+//         "action": "Announcements",
+//         "icon": "announcement",
+//         "description": "Latest announcements and updates.",
+//         "link": "/announcements",
+//         "roles": ["ElectionCommissioner"]
+//     },
+// ];
+
+// const shouldShowCard = (roles) => {
+//     if (roles.includes("ALL")) return true;
+//     if (roles.includes("Anonymous")) return true;
+//     if (keycloakService.isLoggedIn()) {
+//         return roles.some(role => KeycloakService.hasRole(role));
+//     }
+//     return false;
+// };
+
+// export const ElectionHome = () => {
+
+//     const [GnDistrict, setGnDistrict] = React.useState("Nampanumuwa");
+//     const [Name, setName] = React.useState("Lahiru Jayathilake");
+//     const [TotalVoters, setTotalVoters] = React.useState(1281);
+//     const [EligibleVoters, setEligibleVoters] = React.useState(1135);
+//     const [NewVoters, setNewVoters] = React.useState(84);
+//     const [PendingLegal, setPendingLegal] = React.useState(2);
+
+//     useEffect(() => {
+//         const fetchData = async () => {
+//             // Fetching the status for the logged-in user
+//             if (keycloakService.isLoggedIn()) {
+//                 try {
+//                     setLoading(true);
+//                     const data = await authGet(`/voter/status`);
+//                     setStatus(data.Status);
+//                     await new Promise(resolve => setTimeout(resolve, 1000));
+//                     setLoading(false);
+//                 } catch (error) {
+//                     console.error('Error fetching data:', error);
+//                     setLoading(false);
+//                 }
+//             }
+//         };
+
+//         fetchData();
+//     }, []);
+
+//     return (
+//         <div className="flex flex-col bg-base-100 shadow-md rounded-xl p-6 pb-0 gap-8">
+//             <div className="flex flex-row justify-between">
+//                 <motion.h1
+//                     className={`text-2xl font-bold mb-2 transition-opacity duration-500 opacity-100`}
+//                     initial={{y: -20}}
+//                     animate={{y: 0}}
+//                     transition={{duration: 0.5}}
+//                 >
+//                     Welcome Mr. {Name}
+//                 </motion.h1>
+//             </div>
+//             <Divider/>
+//             <div className="flex flex-row justify-between">
+//                 <div
+//                     className="w-[350px] bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-row justify-between items-start gap-5 border border-gray-300">
+//                     <div className="flex flex-col p-0 m-0">
+//                         <EmojiPeopleIcon className="text-pink-500 mb-4" style={{fontSize: 30}}/>
+//                         <div className="flex flex-row h-fit">
+//                             <Typography className="text-gray-800 font-bold text-center mb-2"
+//                                         sx={{fontSize: '15px', fontWeight: '700'}}
+//                                         style={{
+//                                             flex: '1',
+//                                             display: 'flex',
+//                                             alignItems: 'start',
+//                                             justifyContent: 'start',
+//                                             height: '21px',
+//                                             width: '120px'
+//                                         }}
+//                             >
+//                                 Total Voters
+//                             </Typography>
+//                         </div>
+//                         <CountingEffect value={TotalVoters} textSize={'.9rem'} duration={1000}/>
+//                     </div>
+//                     <div className="flex flex-col">
+//                         <div className="flex flex-row">
+//                             <PercentageCountingEffect value={12.5} textSize={'15px'}
+//                                                       duration={100}/>
+//                             <ArrowCircleUpIcon className="text-green-500 mb-4"
+//                                                style={{fontSize: 20, marginLeft: '5px'}}/>
+//                         </div>
+//                     </div>
+//                 </div>
+
+//                 <div
+//                     className="w-[350px] bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-row justify-between items-start gap-5 border border-gray-300">
+//                     <div className="flex flex-col p-0 m-0">
+//                         <EmojiPeopleIcon className="text-pink-500 mb-4" style={{fontSize: 30}}/>
+//                         <div className="flex flex-row h-fit">
+//                             <Typography className="text-gray-800 font-bold text-center mb-2"
+//                                         sx={{fontSize: '15px', fontWeight: '700'}}
+//                                         style={{
+//                                             flex: '1',
+//                                             display: 'flex',
+//                                             alignItems: 'start',
+//                                             justifyContent: 'start',
+//                                             height: '21px',
+//                                             width: '120px'
+//                                         }}
+//                             >
+//                                 Eligible Voters
+//                             </Typography>
+//                         </div>
+//                         <CountingEffect value={EligibleVoters} textSize={'.9rem'} duration={1000}/>
+//                     </div>
+//                     <div className="flex flex-col">
+//                         <div className="flex flex-row">
+//                             <PercentageCountingEffect value={12.5} textSize={'15px'}
+//                                                       duration={100}/>
+//                             <ArrowCircleUpIcon className="text-green-500 mb-4"
+//                                                style={{fontSize: 20, marginLeft: '5px'}}/>
+//                         </div>
+//                     </div>
+//                 </div>
+
+
+//                 <div
+//                     className="w-[350px] bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-row justify-between items-start gap-5 border border-gray-300">
+//                     <div className="flex flex-col p-0 m-0">
+//                         <EmojiPeopleIcon className="text-pink-500 mb-4" style={{fontSize: 30}}/>
+//                         <div className="flex flex-row h-fit">
+//                             <Typography className="text-gray-800 font-bold text-center mb-2"
+//                                         sx={{fontSize: '15px', fontWeight: '700'}}
+//                                         style={{
+//                                             flex: '1',
+//                                             display: 'flex',
+//                                             alignItems: 'start',
+//                                             justifyContent: 'start',
+//                                             height: '21px',
+//                                             width: '120px'
+//                                         }}
+//                             >
+//                                 New Voters
+//                             </Typography>
+//                         </div>
+//                         <CountingEffect value={NewVoters} textSize={'.9rem'} duration={1000}/>
+//                     </div>
+//                     <div className="flex flex-col">
+//                         <div className="flex flex-row">
+//                             <PercentageCountingEffect value={12.5} textSize={'15px'}
+//                                                       duration={100}/>
+//                             <ArrowCircleUpIcon className="text-green-500 mb-4"
+//                                                style={{fontSize: 20, marginLeft: '5px'}}/>
+//                         </div>
+//                     </div>
+//                 </div>
+
+
+//             </div>
+//             <Divider/>
+//             <div className="flex flex-row justify-between">
+//                 <div className="">
+//                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+//                         {actions.map((action, index) => (
+//                             shouldShowCard(action.roles) && (
+//                                 <motion.div
+//                                     key={index}
+//                                     initial={{opacity: 0, y: 20}}
+//                                    
+
+// const updateVoterData = async () => {
+//     const newTotalVoters = 1500;
+//     setTotalVoters(newTotalVoters);
+//     const newEligibleVoters = 1400;
+//     setEligibleVoters(newEligibleVoters);
+//     const newNewVoters = 100;
+//     setNewVoters(newNewVoters);
+// };
+
+// const fetchAnnouncements = async () => {
+//     try {
+//         const response = await fetch('/announcements');
+//         const data = await response.json();
+//     } catch (error) {
+//         console.error('Error fetching announcements:', error);
+//     }
+// };
+
+// const showNotification = (message) => {
+//     alert(message);
+// };
+
+// const DateRangeSelector = () => {
+//     const [startDate, setStartDate] = React.useState('');
+//     const [endDate, setEndDate] = React.useState('');
+
+//     const handleStartDateChange = (e) => setStartDate(e.target.value);
+//     const handleEndDateChange = (e) => setEndDate(e.target.value);
+
+//     return (
+//         <div>
+//             <input type="date" value={startDate} onChange={handleStartDateChange} />
+//             <input type="date" value={endDate} onChange={handleEndDateChange} />
+//         </div>
+//     );
+// };
+
+// const validateElectionData = (data) => {
+//     const { candidates, votingDate, electionType } = data;
+//     if (!candidates || candidates.length === 0) {
+//         showNotification('No candidates selected!');
+//         return false;
+//     }
+//     if (!votingDate) {
+//         showNotification('Voting date is missing!');
+//         return false;
+//     }
+//     if (!electionType) {
+//         showNotification('Election type is not specified!');
+//         return false;
+//     }
+//     return true;
+// };
+
+// const formatElectionDate = (date) => {
+//     const options = { year: 'numeric', month: 'long', day: 'numeric' };
+//     return new Date(date).toLocaleDateString('en-US', options);
+// };
+
+// const updateVotingStatus = (status) => {
+//     setStatus(status);
+//     showNotification(`Voting status updated to: ${status}`);
+// };
+
+// const ElectionStatus = ({ status }) => (
+//     <div>
+//         <h3>Election Status: {status}</h3>
+//     </div>
+// );
+
+// const fetchElectionResults = async () => {
+//     try {
+//         const response = await fetch('/election/results');
+//         const results = await response.json();
+//     } catch (error) {
+//         console.error('Error fetching election results:', error);
+//     }
+// };
+
+// const logActivity = (message) => {
+//     console.log(`Activity Log: ${message}`);
+// };
+
+// const sendUserNotification = (userId, message) => {
+//     console.log(`Sending message to user ${userId}: ${message}`);
+// };
+
+// const UserProfile = ({ name, role, contact }) => (
+//     <div className="user-profile">
+//         <h4>{name}</h4>
+//         <p>Role: {role}</p>
+//         <p>Contact: {contact}</p>
+//     </div>
+// );
+
+// const ActionCardComponent = ({ action, description }) => (
+//     <div className="action-card">
+//         <h4>{action}</h4>
+//         <p>{description}</p>
+//     </div>
+// );
+
+// const checkUserEligibility = (user) => {
+//     if (user.age >= 18 && user.citizenship === 'Sri Lanka') {
+//         showNotification('User is eligible to vote!');
+//     } else {
+//         showNotification('User is not eligible to vote.');
+//     }
+// };
+
+// const bulkVoterRegistration = (voterDataList) => {
+//     voterDataList.forEach((voterData) => {
+//         console.log(`Registering voter: ${voterData.name}`);
+//     });
+//     showNotification('Bulk voter registration complete.');
+// };
+
+// const toggleVisibility = (elementId) => {
+//     const element = document.getElementById(elementId);
+//     if (element) {
+//         element.style.display = element.style.display === 'none' ? 'block' : 'none';
+//     }
+// };
+
+// const MiniCalendarComponent = () => (
+//     <div className="mini-calendar">
+//         <h3>Mini Calendar</h3>
+//     </div>
+// );
+
+// const calculateVoterTurnout = (totalVoters, eligibleVoters) => {
+//     return ((totalVoters / eligibleVoters) * 100).toFixed(2);
+// };
+
+// const markElectionAsComplete = (electionId) => {
+//     console.log(`Marking election ${electionId} as complete`);
+//     showNotification('Election marked as complete!');
+// };
+
+// const ElectionDatePicker = () => {
+//     const [date, setDate] = React.useState('');
+//     const handleDateChange = (e) => setDate(e.target.value);
+
+//     return <input type="date" value={date} onChange={handleDateChange} />;
+// };
+
+// const updateUserRole = (userId, newRole) => {
+//     console.log(`Updating role of user ${userId} to ${newRole}`);
+//     showNotification(`User role updated to ${newRole}`);
+// };
+
+// const fetchPollingData = async () => {
+//     try {
+//         const response = await fetch('/polling/data');
+//         const data = await response.json();
+//     } catch (error) {
+//         console.error('Error fetching polling data:', error);
+//     }
+// };
+
+// const calculateRegistrationCompletion = (registeredVoters, totalVoters) => {
+//     return ((registeredVoters / totalVoters) * 100).toFixed(2);
+// };
+
+// const VoterStats = ({ totalVoters, eligibleVoters, newVoters }) => (
+//     <div>
+//         <p>Total Voters: {totalVoters}</p>
+//         <p>Eligible Voters: {eligibleVoters}</p>
+//         <p>New Voters: {newVoters}</p>
+//     </div>
+// );
+
+// const displayElectionResult = (result) => {
+//     console.log(`Displaying election result: ${result}`);
+// };
+
+// const updateVoterData = async () => {
+//     const newTotalVoters = 1500;
+//     setTotalVoters(newTotalVoters);
+//     const newEligibleVoters = 1400;
+//     setEligibleVoters(newEligibleVoters);
+//     const newNewVoters = 100;
+//     setNewVoters(newNewVoters);
+// };
+
+// const fetchAnnouncements = async () => {
+//     try {
+//         const response = await fetch('/announcements');
+//         const data = await response.json();
+//     } catch (error) {
+//         console.error('Error fetching announcements:', error);
+//     }
+// };
+
+// const showNotification = (message) => {
+//     alert(message);
+// };
+
+// const DateRangeSelector = () => {
+//     const [startDate, setStartDate] = React.useState('');
+//     const [endDate, setEndDate] = React.useState('');
+
+//     const handleStartDateChange = (e) => setStartDate(e.target.value);
+//     const handleEndDateChange = (e) => setEndDate(e.target.value);
+
+//     return (
+//         <div>
+//             <input type="date" value={startDate} onChange={handleStartDateChange} />
+//             <input type="date" value={endDate} onChange={handleEndDateChange} />
+//         </div>
+//     );
+// };
+
+// const validateElectionData = (data) => {
+//     const { candidates, votingDate, electionType } = data;
+//     if (!candidates || candidates.length === 0) {
+//         showNotification('No candidates selected!');
+//         return false;
+//     }
+//     if (!votingDate) {
+//         showNotification('Voting date is missing!');
+//         return false;
+//     }
+//     if (!electionType) {
+//         showNotification('Election type is not specified!');
+//         return false;
+//     }
+//     return true;
+// };
+
+// const validateBallot = (ballot) => {
+//     return ballot.isValid ? "Valid Ballot" : "Invalid Ballot";
+// };
+
+// const calculateElectionWinner = (votes) => {
+//     const result = votes.reduce((acc, vote) => {
+//         acc[vote.candidate] = (acc[vote.candidate] || 0) + 1;
+//         return acc;
+//     }, {});
+//     return Object.keys(result).reduce((a, b) => (result[a] > result[b] ? a : b));
+// };
+
+// const registerComplaint = (complaintDetails) => {
+//     console.log(`Registering complaint: ${complaintDetails}`);
+// };
+
+// const fetchPollingStations = async () => {
+//     try {
+//         const response = await fetch('/polling-stations');
+//         const stations = await response.json();
+//         console.log(stations);
+//     } catch (error) {
+//         console.error('Error fetching polling stations:', error);
+//     }
+// };
+
+// const auditElectionProcess = () => {
+//     console.log('Auditing the election process...');
+// };
+
+
+
+// Import statements
+// import React, { useEffect, useState } from 'react';
+// import { authGet } from '../../Auth/authFetch.jsx';
+// import { ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+// import PropTypes from 'prop-types';
+// import Card from '@mui/material/Card';
+// import CardMedia from '@mui/material/CardMedia';
+// import CardContent from '@mui/material/CardContent';
+// import { QRCode } from 'react-qrcode-logo';
+// import HistoryTable from '../../Components/HistoryTableVoter.jsx';
+// import Swal from 'sweetalert2';
+// import { motion } from 'framer-motion';
+// import CircularProgress from '@mui/material/CircularProgress';
+
+// const VoterDetails = () => {
+//   const [loading, setLoading] = useState(true);
+//   const [voterData, setVoterData] = useState(null);
+//   const [profileImage, setProfileImage] = useState(null);
+//   const [qrCodeValue, setQrCodeValue] = useState('Hello');
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [editableFields, setEditableFields] = useState({});
+//   const [selectedTab, setSelectedTab] = useState('Info');
+
+//   const Toast = Swal.mixin({
+//     toast: true,
+//     position: 'top-end',
+//     showConfirmButton: false,
+//     timer: 3000,
+//     timerProgressBar: true,
+//     didOpen: (toast) => {
+//       toast.onmouseenter = Swal.stopTimer;
+//       toast.onmouseleave = Swal.resumeTimer;
+//     },
+//   });
+
+//   useEffect(() => {
+//     const fetchVoterDetails = async () => {
+//       try {
+//         setLoading(true);
+//         const response = await authGet('/voter/my_details');
+//         await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulating delay
+//         setVoterData(response.voter);
+//         setProfileImage(response.profileImageUrl);
+//         setQrCodeValue(response.voter.voterID);
+//       } catch (error) {
+//         console.error('Error fetching voter details:', error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchVoterDetails();
+//   }, []);
+
+//   const handleTabChange = (event, newTab) => {
+//     if (newTab) setSelectedTab(newTab);
+//   };
+
+//   const handleFieldChange = (field, value) => {
+//     setEditableFields((prevFields) => ({ ...prevFields, [field]: value }));
+//   };
+
+//   const handleSaveChanges = async () => {
+//     try {
+//       const response = await authGet('/voter/update_info', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(editableFields),
+//       });
+
+//       if (response.ok) {
+//         setVoterData({ ...voterData, ...editableFields });
+//         setIsEditing(false);
+//         Toast.fire({ icon: 'success', title: 'Details updated successfully!' });
+//       } else {
+//         Toast.fire({ icon: 'error', title: 'Failed to update details.' });
+//       }
+//     } catch (error) {
+//       console.error('Error saving changes:', error);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       {loading ? (
+//         <div className="flex justify-center items-center h-screen">
+//           <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }}>
+//             <CircularProgress color="secondary" />
+//           </motion.div>
+//         </div>
+//       ) : (
+//         <div className="card bg-base-100 shadow-xl h-full p-5">
+//           <div className="flex justify-end mb-4">
+//             <ToggleButtonGroup
+//               value={selectedTab}
+//               exclusive
+//               onChange={handleTabChange}
+//               aria-label="Tabs"
+//               color="secondary"
+//             >
+//               <ToggleButton value="Info">My Info</ToggleButton>
+//               <ToggleButton value="History">History</ToggleButton>
+//               <ToggleButton value="Notification">Notifications</ToggleButton>
+//             </ToggleButtonGroup>
+//           </div>
+
+//           {selectedTab === 'Info' && (
+//             <div className="flex gap-10">
+//               <Card sx={{ maxWidth: 350 }}>
+//                 <CardMedia sx={{ height: 300 }} image={profileImage} title="Voter Profile" />
+//                 <CardContent>
+//                   <Typography variant="body2" color="text.secondary" align="center">
+//                     Active voter making informed decisions.
+//                   </Typography>
+//                   <QRCode value={qrCodeValue} fgColor="#EC4899" logoWidth={20} />
+//                   <Typography variant="body2" color="error" align="center">
+//                     Do not share this QR code.
+//                   </Typography>
+//                 </CardContent>
+//               </Card>
+
+//               <div>
+//                 <Typography variant="h6" gutterBottom>
+//                   Personal Details
+//                 </Typography>
+//                 <div className="space-y-4">
+//                   <div>
+//                     <label className="block text-sm font-medium">NIC</label>
+//                     <input
+//                       type="text"
+//                       value={voterData?.NIC || ''}
+//                       readOnly
+//                       className="input input-bordered w-full"
+//                     />
+//                   </div>
+//                   <div>
+//                     <label className="block text-sm font-medium">Name</label>
+//                     <input
+//                       type="text"
+//                       value={isEditing ? editableFields.Name : voterData?.Name || ''}
+//                       onChange={(e) => handleFieldChange('Name', e.target.value)}
+//                       className="input input-bordered w-full"
+//                       readOnly={!isEditing}
+//                     />
+//                   </div>
+//                   <div>
+//                     <label className="block text-sm font-medium">Birth Date</label>
+//                     <input
+//                       type="text"
+//                       value={voterData?.DOB || ''}
+//                       readOnly
+//                       className="input input-bordered w-full"
+//                     />
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           )}
+
+//           {selectedTab === 'History' && <HistoryTable data={voterData?.history || []} />}
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// VoterDetails.propTypes = {
+//   voterData: PropTypes.shape({
+//     NIC: PropTypes.string,
+//     Name: PropTypes.string,
+//     DOB: PropTypes.string,
+//   }),
+// };
+
+// export default VoterDetails;
+
+// import React, { useState, useEffect } from 'react';
+// import { authGet } from '../../Auth/authFetch.jsx';
+// import { Typography, Button, Tabs, Tab } from '@mui/material';
+// import PropTypes from 'prop-types';
+// import Avatar from '@mui/material/Avatar';
+// import { QRCodeCanvas } from 'qrcode.react';
+// import HistoryList from '../../Components/HistoryListVoter.jsx';
+// import Swal from 'sweetalert2';
+// import CircularProgress from '@mui/material/CircularProgress';
+
+// const VoterDetails = () => {
+//   const [loading, setLoading] = useState(true);
+//   const [voterInfo, setVoterInfo] = useState(null);
+//   const [activeTab, setActiveTab] = useState(0);
+//   const [isEditable, setIsEditable] = useState(false);
+//   const [updatedFields, setUpdatedFields] = useState({});
+
+//   const showToast = (type, message) => {
+//     Swal.fire({
+//       icon: type,
+//       title: message,
+//       toast: true,
+//       position: 'top-right',
+//       timer: 2500,
+//       showConfirmButton: false,
+//     });
+//   };
+
+//   useEffect(() => {
+//     const fetchVoterInfo = async () => {
+//       try {
+//         setLoading(true);
+//         const { voter, profileImageUrl } = await authGet('/voter/my_details');
+//         setVoterInfo({ ...voter, profileImage: profileImageUrl });
+//       } catch (error) {
+//         console.error('Error loading voter info:', error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchVoterInfo();
+//   }, []);
+
+//   const toggleEditMode = () => setIsEditable(!isEditable);
+
+//   const handleInputChange = (key, value) => {
+//     setUpdatedFields((prev) => ({ ...prev, [key]: value }));
+//   };
+
+//   const saveUpdates = async () => {
+//     try {
+//       const response = await authGet('/voter/update_info', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(updatedFields),
+//       });
+//       if (response.ok) {
+//         setVoterInfo((prev) => ({ ...prev, ...updatedFields }));
+//         setUpdatedFields({});
+//         setIsEditable(false);
+//         showToast('success', 'Details updated successfully!');
+//       } else {
+//         showToast('error', 'Failed to save updates.');
+//       }
+//     } catch (error) {
+//       console.error('Error saving voter details:', error);
+//       showToast('error', 'An error occurred.');
+//     }
+//   };
+
+//   return (
+//     <div>
+//       {loading ? (
+//         <div className="flex justify-center items-center min-h-screen">
+//           <CircularProgress />
+//         </div>
+//       ) : (
+//         <div className="card shadow-lg p-6">
+//           <div className="flex justify-between mb-4">
+//             <Tabs
+//               value={activeTab}
+//               onChange={(e, index) => setActiveTab(index)}
+//               aria-label="voter details tabs"
+//             >
+//               <Tab label="Profile" />
+//               <Tab label="History" />
+//             </Tabs>
+//             {activeTab === 0 && (
+//               <Button
+//                 variant="contained"
+//                 color={isEditable ? 'primary' : 'secondary'}
+//                 onClick={isEditable ? saveUpdates : toggleEditMode}
+//               >
+//                 {isEditable ? 'Save' : 'Edit'}
+//               </Button>
+//             )}
+//           </div>
+
+//           {activeTab === 0 && (
+//             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//               <div>
+//                 <Avatar
+//                   alt="Voter Profile"
+//                   src={voterInfo?.profileImage}
+//                   sx={{ width: 120, height: 120 }}
+//                 />
+//                 <div className="mt-4">
+//                   <QRCodeCanvas
+//                     value={voterInfo?.voterID || ''}
+//                     size={120}
+//                     fgColor="#ff1744"
+//                   />
+//                   <Typography variant="caption" color="error" display="block" align="center">
+//                     Do not share this QR code
+//                   </Typography>
+//                 </div>
+//               </div>
+//               <div>
+//                 <Typography variant="h6" gutterBottom>
+//                   Voter Details
+//                 </Typography>
+//                 <div>
+//                   <Typography variant="body1" gutterBottom>
+//                     NIC: {voterInfo?.NIC || 'N/A'}
+//                   </Typography>
+//                   <Typography variant="body1" gutterBottom>
+//                     Name:{' '}
+//                     {isEditable ? (
+//                       <input
+//                         type="text"
+//                         value={updatedFields.Name || voterInfo?.Name || ''}
+//                         onChange={(e) => handleInputChange('Name', e.target.value)}
+//                         className="input input-bordered"
+//                       />
+//                     ) : (
+//                       voterInfo?.Name || 'N/A'
+//                     )}
+//                   </Typography>
+//                   <Typography variant="body1" gutterBottom>
+//                     DOB: {voterInfo?.DOB || 'N/A'}
+//                   </Typography>
+//                 </div>
+//               </div>
+//             </div>
+//           )}
+
+//           {activeTab === 1 && <HistoryList data={voterInfo?.history || []} />}
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// VoterDetails.propTypes = {
+//   voterInfo: PropTypes.shape({
+//     NIC: PropTypes.string,
+//     Name: PropTypes.string,
+//     DOB: PropTypes.string,
+//     voterID: PropTypes.string,
+//     profileImage: PropTypes.string,
+//     history: PropTypes.arrayOf(PropTypes.object),
+//   }),
+// };
+
+// export default VoterDetails;
+

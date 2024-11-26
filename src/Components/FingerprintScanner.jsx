@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import './../assets/css/Scan.css'
 import MySwal from "sweetalert2";
 import {useNavigate} from "react-router-dom";
+import {TextField} from "@mui/material";
+import {Box} from "@mui/system";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 const fingerprintUrl = import.meta.env.VITE_API_Fingerprint_URL;
 
-function FingerprintScanner({ ApplicationID }) {
+function FingerprintScanner({ ApplicationID,action }) {
 
     const navigate = useNavigate();
 
@@ -66,7 +70,38 @@ function FingerprintScanner({ ApplicationID }) {
                         navigate('/');
                     }
                 })
-            }else{
+            }else if(content === 'MATCH_FOUND'){
+                setScanningStatus(prev => ({ ...prev, [sourceDevice]: false }));
+                MySwal.fire({
+                    title: "Fingerprint Matched",
+                    icon: 'success',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    didOpen: () => {
+                        // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/polling_station/voter_verify');
+                    }
+                })
+            }else if(content === 'MATCH_NOT_FOUND'){
+                setScanningStatus(prev => ({ ...prev, [sourceDevice]: false }));
+                MySwal.fire({
+                    title: "Fingerprint Matched Not Found",
+                    icon: 'error',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    didOpen: () => {
+                        // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/');
+                    }
+                })
+            }
+            else{
                 setScanningMassage(content)
             }
         } catch (error) {
@@ -89,7 +124,7 @@ function FingerprintScanner({ ApplicationID }) {
         console.log(ApplicationID ,"-------------->>>>>>>>>>>>>>>>>>>>>>>");
         if (socket && socket.readyState === WebSocket.OPEN) {
             const jsonMessage = {
-                ApplicationID: ApplicationID,
+                applicationId: ApplicationID,
                 sourceDevice: ApplicationID,
                 targetDevice: deviceId,
                 message: command
@@ -98,39 +133,65 @@ function FingerprintScanner({ ApplicationID }) {
             if (command === 'SCAN') {
                 setScanningStatus(prev => ({ ...prev, [deviceId]: true }));
             }
+            if(command === 'MATCH'){
+                setScanningStatus(prev => ({ ...prev, [deviceId]: true }));
+            }
         } else {
             console.error('WebSocket is not open');
         }
     };
 
     return (
-        <div>
-            <div className="scan">
+        <Box className="p-6 max-w-xl mx-auto bg-gray-50 shadow-md rounded-lg space-y-6">
+            <Typography variant="h5" className="text-center font-bold text-gray-800">
+                Fingerprint Scaner
+            </Typography>
+
+            <Box className="scan">
                 <div className="fingerprint"></div>
-                <h3>Scanning: {Object.entries(scanningStatus).map(([id, status]) =>
-                    `${id}: ${status ? 'Yes' : 'No'}`).join(', ')}</h3>
-                <h5>{scanningMassage}</h5>
-            </div>
-            <h1>Fingerprint WebSocket Test</h1>
-            <div>
-                <label>
-                    Device ID:
-                    <input
-                        type="text"
-                        value={deviceId}
-                        onChange={(e) => setDeviceId(e.target.value)}
-                    />
-                </label>
-            </div>
-            <button onClick={() => sendCommand('SCAN')}>Send Scan Command</button>
-            <button onClick={() => sendCommand('MATCH')}>Send Match Command</button>
-            {/*<h2>Incoming Messages:</h2>*/}
-            {/*<ul>*/}
-            {/*    {messages.map((message, index) => (*/}
-            {/*        <li key={index}>{message}</li>*/}
-            {/*    ))}*/}
-            {/*</ul>*/}
-        </div>
+                <h3>
+                    {Object.entries(scanningStatus)
+                        .map(([id, status]) => `${id}: ${status ? "Yes" : "No"}`)
+                        .join(", ")}
+                </h3>
+                <Typography variant="body2" className="mt-2 text-gray-600">
+                    {scanningMassage}
+                </Typography>
+            </Box>
+
+            <Box>
+                <TextField
+                    label="Device ID"
+                    variant="outlined"
+                    fullWidth
+                    value={deviceId}
+                    onChange={(e) => setDeviceId(e.target.value)}
+                    className="mb-4"
+                />
+            </Box>
+
+            <Box className="flex space-x-4">
+                {action === 'scan' && (
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => sendCommand("SCAN")}
+                    >
+                        Send Scan Command
+                    </Button>
+                )}
+
+                {action === 'match' && (
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => sendCommand("MATCH")}
+                    >
+                        Send Match Command
+                    </Button>
+                )}
+            </Box>
+        </Box>
     );
 }
 

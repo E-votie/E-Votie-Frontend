@@ -5,7 +5,6 @@ import { Layout } from "./Layout.jsx";
 import { Home } from "./Pages/Home.jsx";
 import "./App.css";
 import { ReportView } from "./Pages/ReportGeneration/ReportView.jsx";
-import { VotingView } from "./Pages/VoterVerification_UI/VoterView.jsx";
 import { ResultView } from "./Pages/ReportGeneration/ResultView.jsx";
 import { DistrictResultView } from "./Pages/ReportGeneration/DistrictResult.jsx";
 import NewHome from "./Pages/Home_New.jsx";
@@ -20,6 +19,7 @@ import VerificationOfficerRoutes from "./Routes/VerificationOfficerRoutes.jsx";
 import VotingRoutes from "./Routes/VotingRoutes.jsx";
 import VoterRoutes from "./Routes/VoterRoutes.jsx";
 import { UserProfile } from "./Components/UserProfile.jsx";
+import PollingStation from "./Routes/PollingStation.jsx";
 
 const queryClient = new QueryClient();
 
@@ -36,7 +36,6 @@ function App() {
                             <Route path="election/result" element={<ResultView />} />
                             <Route path="election/result/district/:District" element={<DistrictResultView />} />
                             <Route path="reports/View" element={<ReportView />} />
-                            <Route path="poling_station/voter_verification" element={<VotingView />} />
                             <Route path="voter/profile" element={<UserProfile />} />
 
                             {/* Include nested route components */}
@@ -50,7 +49,7 @@ function App() {
                             {VotingRoutes()}
                             {GramaNiladhariRoutes()}
                             {VerificationOfficerRoutes()}
-
+                            {PollingStation()}
                             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
                         </Route>
                     </Routes>

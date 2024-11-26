@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Paper, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, Select, MenuItem, Snackbar, Alert } from '@mui/material';
+import {authGet} from "../../../Auth/authFetch.jsx";
 
 const CandidateNominationForm = () => {
     const [formData, setFormData] = useState({
@@ -12,9 +13,12 @@ const CandidateNominationForm = () => {
         district: 'Colombo',
     });
 
+
     const [openPopup, setOpenPopup] = useState(false);
     const [isSearchSuccessful, setIsSearchSuccessful] = useState(false);
     const [error, setError] = useState(null); // Error state for handling errors
+    const merchantId = '1226569';
+    const depositAmount = 2500; // Nomination deposit amount in LKR
 
     const handleChange = (e) => {
         setFormData({
@@ -23,13 +27,8 @@ const CandidateNominationForm = () => {
         });
     };
 
-    const handleSearch = () => {
-        // Simulate backend request for candidate data
-        const response = {
-            fullName: 'John Doe',
-            address: '123 Main St, Colombo',
-            dob: '1990-01-01',
-        };
+    const handleSearch = async () => {
+        const response = await authGet(`/voter/nominate/${formData.nominationNumber}/${formData.candidateNIC}`);
 
         // Check if the response is successful
         if (response.fullName) {
@@ -47,6 +46,7 @@ const CandidateNominationForm = () => {
     };
 
     const handleNominationClick = () => {
+
         setOpenPopup(true);
     };
 
@@ -54,9 +54,72 @@ const CandidateNominationForm = () => {
         setOpenPopup(false);
     };
 
-    const handleProceed = () => {
-        // Navigate to PayHere payment gateway
-        window.location.href = 'https://www.payhere.lk';
+    const handleProceed = async () => {
+        // Load PayHere script
+        const script = document.createElement('script');
+        script.src = 'https://www.payhere.lk/lib/payhere.js';
+        script.async = true;
+        document.body.appendChild(script);
+
+        script.onload = async () => {
+            // Payment configuration object
+            const paymentObj = {
+                sandbox: true,
+                merchant_id: merchantId,
+                return_url: 'http://your-domain.com/nomination/success',
+                cancel_url: 'http://your-domain.com/nomination/cancel',
+                notify_url: 'http://your-domain.com/api/nomination/notify',
+                order_id: `NOM-${formData.nominationNumber}`,
+                items: `Nomination Deposit - ${formData.fullName}`,
+                amount: depositAmount,
+                currency: 'LKR',
+                first_name: formData.fullName.split(' ')[0],
+                last_name: formData.fullName.split(' ').slice(1).join(' '),
+                email: 'voter@example.com', // You might want to add email to formData
+                phone: '0771234567', // You might want to add phone to formData
+                address: formData.address,
+                city: formData.district,
+                country: 'Sri Lanka'
+            };
+
+            try {
+                // Get hash from backend
+                const response = await fetch('http://your-domain.com/api/nomination/hash', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(paymentObj)
+                });
+
+                const hash = await response.text();
+                paymentObj.hash = hash;
+
+                // Initialize PayHere payment
+                window.payhere.startPayment(paymentObj);
+
+                // Setup payment completion handler
+                window.payhere.onCompleted = function onCompleted(orderId) {
+                    console.log("Payment completed. OrderID:" + orderId);
+                    // Handle successful payment
+                    // You might want to submit the nomination details to your backend here
+                };
+
+                // Setup payment error handler
+                window.payhere.onError = function onError(error) {
+                    console.log("Error:" + error);
+                    setError("Payment error: " + error);
+                };
+
+                // Setup payment closed handler
+                window.payhere.onDismissed = function onDismissed() {
+                    console.log("Payment dismissed");
+                };
+
+            } catch (err) {
+                setError("Error initiating payment: " + err.message);
+            }
+        };
     };
 
     return (

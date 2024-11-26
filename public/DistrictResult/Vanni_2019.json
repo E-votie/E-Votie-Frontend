@@ -1,0 +1,138 @@
+[
+  {
+    "division": "Mannar",
+    "district": "Vanni",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "84.73%",
+        "count": 53602,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "10.17%",
+        "count": 6435,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.1%",
+        "count": 695,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "IND11",
+        "percentage": "0.6%",
+        "count": 378,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Mullaitivu",
+    "district": "Vanni",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "86.19%",
+        "count": 47594,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "7.7%",
+        "count": 4252,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.63%",
+        "count": 902,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "IND11",
+        "percentage": "0.45%",
+        "count": 251,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Postal-count-Vanni",
+    "district": "Vanni",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "79.3%",
+        "count": 8402,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "16.07%",
+        "count": 1703,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "1.39%",
+        "count": 147,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      },
+      {
+        "party": "IND11",
+        "percentage": "1.36%",
+        "count": 144,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      }
+    ]
+  },
+  {
+    "division": "Vavuniya",
+    "district": "Vanni",
+    "results": [
+      {
+        "party": "NDF",
+        "percentage": "77.83%",
+        "count": 65141,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/sp-2019-pe1.png",
+        "color": "#0e723a"
+      },
+      {
+        "party": "SLPP",
+        "percentage": "16.39%",
+        "count": 13715,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/gr-2019-pe1.png",
+        "color": "#b41f24"
+      },
+      {
+        "party": "DUNF",
+        "percentage": "1.08%",
+        "count": 901,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/assets/images/icon-party-other.png",
+        "color": "#a5a5Aa"
+      },
+      {
+        "party": "NMPP",
+        "percentage": "0.8%",
+        "count": 667,
+        "Image": "http://election.adaderana.lk/presidential-election-2019/elec_images/akd-2019-pe1.png",
+        "color": "#8c0154"
+      }
+    ]
+  }
+]
