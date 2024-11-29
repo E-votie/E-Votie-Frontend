@@ -107,7 +107,6 @@ const Navbar = () => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={() => {navigate("/voter/profile")}}>Profile</MenuItem>
-      <MenuItem onClick={() => {navigate("/voter/profile")}}>My account</MenuItem>
     </Menu>
   );
 

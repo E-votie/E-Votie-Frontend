@@ -11,7 +11,7 @@ import SendIcon from '@mui/icons-material/Send';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import HistoryIcon from '@mui/icons-material/History';
 import UploadIcon from '@mui/icons-material/Upload';
-import {ApplicationChat} from "../../Components/ApplicationChat";
+// import {ApplicationChat} from "../../Components/ApplicationChat";
 
 const steps = ['Submitted', 'Under Review', 'Verified'];
 
@@ -192,7 +192,7 @@ export const PartyApplication = () => {
           {renderHistory()}
         </Grid>
         <Grid item xs={12} md={4}>
-          <ApplicationChat />
+          {/*<ApplicationChat />*/}
         </Grid>
       </Grid>
 

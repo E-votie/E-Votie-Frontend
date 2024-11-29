@@ -18,7 +18,6 @@ export const ElectionRegistrationForm = () => {
                 console.log("This is the plase")
                 const data = await authGet(`/voter/my_details`);
                 await new Promise(resolve => setTimeout(resolve, 1000));
-                const election = await authGet(`/election/get_active_election`);
                 setResponseData(data.voter)
                 setLoading(false);
             } catch (error) {
