@@ -183,8 +183,8 @@ export const Party = () => {
               <p className="text-gray-600">No. of MPs in Parliament</p>
             </div>
           </div>
-          <div className="py-4 mt-4 flex flex-col gap-4">
-            <div className="partyDetailsContainer lg:w-full sm:w-full">
+          <div className="py-4 mt-4 flex flex-row-reverse gap-4">
+            <div className="partyDetailsContainer w-1/3">
               <Box className="flex justify-between">
                 <Typography variant="h6" color="textSecondary" gutterBottom>
                   Party Info
@@ -211,7 +211,7 @@ export const Party = () => {
               </div>
             </div>
 
-            <div className="politicianContainer">
+            <div className="politicianContainer w-2/3">
               <Box className="flex justify-between">
                 <Typography variant="h6" color="textSecondary" gutterBottom>
                   Politicians
@@ -222,7 +222,7 @@ export const Party = () => {
               </Box>
               <Divider />
               <Box my={2} />
-              <div className="flex flex-wrap justify-between gap-2">
+              <div className="flex flex-col justify-between gap-2 w-full">
                 {candidates.length > 0 ? (
                   candidates.map((candidate, index) => (
                     <Politician 
@@ -232,6 +232,7 @@ export const Party = () => {
                         profilePicture: candidate.profilePicture,
                         position: candidate.position
                       }} 
+                      className="w-3/4"
                     />
                   ))
                 ) : (

@@ -30,6 +30,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Controller } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 const MySwal = withReactContent(Swal);
 
@@ -94,6 +95,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
     const [leaderName, setLeaderName] = useState("");
+    const navigate = useNavigate();
 
     const handlePartyLogoChange = (event) => {
         setPartyLogo(event.target.files[0]);
@@ -217,6 +219,8 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
 
     //submit founction
     const onSubmit = async (partyData) => {
+        console.log(partyData);
+        
         const confirmSubmission = async () => {
             return MySwal.fire({
                 title: 'Are you sure?',
@@ -244,12 +248,11 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                     postalCode: getValues("postalCode"),
                 },
                 leaderId: getValues("leaderNic"),
-                state: "pending verification",
-                districtBasisSeats: 0,
-                nationalBasisSeats: 0,
-                totalSeats: 0,
-                contactNumber: "Not available",
-                partyWebsite: "Not available",
+                districtBasisSeats: getValues("districtBasisSeats"),
+                nationalBasisSeats: getValues("nationalBasisSeats"),
+                totalSeats: getValues("totalSeats"),
+                contactNumber: getValues("contactNumber"),
+                partyWebsite: getValues("partyWebsite"),
                 // partySymbol: getValues("partySymbol"),
             };
         
@@ -259,10 +262,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
 
             try {
                 const token = KeycloakService.getToken();
-        
-                // Update Keycloak roles
-                await updateKeycloakRoles(partyDetails.leaderId);
-        
+            
                 // Show loading SweetAlert2 modal
                 MySwal.fire({
                     title: 'Submitting your application...',
@@ -274,7 +274,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                     },
                 });
         
-                const response = await axios.post('http://localhost:5003/api/party', formData, {
+                const response = await axios.put(`http://localhost:5003/api/party/${partyInfo.registrationId}`, formData, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data',
@@ -287,10 +287,11 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                         title: 'Application Submitted Successfully!',
                         icon: 'success',
                         confirmButtonText: 'OK',
+                    }).then(() => {
+                        navigate("/party/" + partyInfo.registrationId);
                     });
         
                     reset(); // Reset the form
-                    setIsLeaderVerified(false); // Reset leader verification
                 } else {
                     MySwal.fire({
                         title: 'Error!',
@@ -318,82 +319,9 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
             console.log('Submission canceled by the user.');
         }
     };
-
-
-    //update keycloak roles upon a successful submission
-    const updateKeycloakRoles = async (leaderNic) => {
-        try {
-            const adminToken = await KeycloakService.getAdminToken(); // Get admin token
-    
-            // Get logged-in user's ID (party secretary)
-            const secretaryUserId = KeycloakService.getUserId();
-    
-            // Assign 'Party Secretary' role to logged-in user
-            await assignRoleToUser(adminToken, secretaryUserId, 'PartySecretary');
-    
-            // Get leader's userId using their NIC (username)
-            const leaderUserId = await KeycloakService.getUserIdByUsername('demo', leaderNic);
-    
-            if (!leaderUserId) {
-                throw new Error(`User not found for leader NIC: ${leaderNic}`);
-            }
-    
-            // Assign 'Party Leader' role to the leader
-            await assignRoleToUser(adminToken, leaderUserId, 'PartyLeader');
-        } catch (error) {
-            console.error('Failed to update Keycloak roles:', error.message);
-        }
-    };
-    
-    const assignRoleToUser = async (adminToken, userId, roleName) => {
-        const roleId = await getRoleIdByName(adminToken, roleName);
-    
-        if (!roleId) {
-            throw new Error(`Role not found: ${roleName}`);
-        }
-    
-        const payload = [
-            {
-                id: roleId,
-                name: roleName,
-            },
-        ];
-        console.log(payload);
-        
-        await fetch(`http://localhost:8086/admin/realms/demo/users/${userId}/role-mappings/clients/162f9e0e-64e2-4ae7-84fe-93d625a161bd`, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${adminToken}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        });
-    };
-    
-    const getRoleIdByName = async (adminToken, roleName) => {
-        const response = await fetch(`http://localhost:8086/admin/realms/demo/clients/162f9e0e-64e2-4ae7-84fe-93d625a161bd/roles/${roleName}`, {
-            headers: {
-                Authorization: `Bearer ${adminToken}`,
-                'Content-Type': 'application/json',
-            },
-        });
-    
-        if (response.ok) {
-            const role = await response.json();
-            console.log(role.id);
-            return role.id;
-        } else {
-            console.error('Failed to fetch role ID:', await response.text());
-            return null;
-        }
-    };
     
     //register files
-    const[constitution, setConstitution] = useState(null);
     const[logo, setLogo] = useState(null);
-    const[membership, setMembership] = useState(null);
-    const[financial, setFinancial] = useState(null);
-    const[leadership, setLeadership] = useState(null);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -416,6 +344,9 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
     
             // Optionally, log the renamed file
             console.log(`Renamed file for logo:`, renamedFile.name);
+        } else {
+            setLogo(null);
+            setValue("logo", null);
         }
     };
 
@@ -462,7 +393,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                             label="Party Name"
                                             required
                                             fullWidth
-                                            value={partyInfo.partyName}
+                                            defaultValue={partyInfo.partyName}
                                             {...register("partyName")}
                                         />
                                     </Box>
@@ -472,7 +403,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                             label="Abbreviation"
                                             required
                                             fullWidth
-                                            value={partyInfo.abbreviation}
+                                            defaultValue={partyInfo.abbreviation}
                                             {...register("abbreviation")}
                                         />
                                     </Box>
@@ -484,22 +415,19 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                         <Controller
                                             name="foundedDate"
                                             control={control}
-                                            defaultValue={null} // Use null as the initial value
-                                            rules={{ required: "Founded Date is required" }}
                                             render={({ field, fieldState }) => (
-                                            <DatePicker
-                                                className='w-full'
-                                                {...field}
-                                                label="Established Date"
-                                                value={partyInfo.foundedDate ? dayjs(partyInfo.foundedDate) : null} // Ensure compatibility
-                                                renderInput={(params) => (
-                                                <TextField 
-                                                    {...params} 
-                                                    error={!!fieldState.error} 
-                                                    helperText={fieldState.error?.message} 
+                                                <DatePicker
+                                                    {...field}
+                                                    label="Established Date"
+                                                    defaultValue={partyInfo.foundedDate ? dayjs(partyInfo.foundedDate) : null} // Ensure compatibility
+                                                    slotProps={{
+                                                        textField: {
+                                                            fullWidth: true,
+                                                            error: !!fieldState.error,
+                                                            helperText: fieldState.error?.message
+                                                        }
+                                                    }}
                                                 />
-                                                )}
-                                            />
                                             )}
                                         />
                                     </LocalizationProvider>
@@ -516,7 +444,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                             inputProps={{ min: 0 }}
                                             {...register("districtBasisSeats", {
                                                 value: partyInfo.districtBasisSeats || 0,
-                                                validate: (value) => value > 0 || "The value must be greater than zero",
+                                                validate: (value) => value >= 0 || "The value must be greater than zero",
                                             })}
                                         />
                                     </Box>
@@ -529,7 +457,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                             inputProps={{ min: 0 }}
                                             {...register("nationalBasisSeats", {
                                                 value: partyInfo.nationalBasisSeats || 0,
-                                                validate: (value) => value > 0 || "The value must be greater than zero",
+                                                validate: (value) => value >= 0 || "The value must be greater than zero",
                                             })}
                                         />
                                     </Box>
@@ -541,7 +469,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                             type="number"
                                             {...register("totalSeats", {
                                                 value: partyInfo.totalSeats || 0,
-                                                validate: (value) => value > 0 || "The value must be greater than zero",
+                                                validate: (value) => value >= 0 || "The value must be greater than zero",
                                             })}
                                         />
                                     </Box>
@@ -663,10 +591,13 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                                 </Box>
                             </Stack>
                         </Box>
+
                     </form>
                 </DialogContent>
                 <DialogActions>
-                    <Button 
+                    <Button
+
+                        key="submit"
                         type="submit" 
                         onClick={handleSubmit(onSubmit)}
                     >

@@ -31,7 +31,7 @@ export const Politician = ({ politician }) => {
   };
 
   return (
-    <StyledCard onClick={handleClick} className="w-[calc(50%-0.5rem)]">
+    <StyledCard onClick={handleClick} className="w-[calc(90%-0.5rem)]">
       <CardActionArea>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           {/* <Box sx={{ height: 80, bgcolor: 'primary.main' }} /> */}
