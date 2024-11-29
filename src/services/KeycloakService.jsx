@@ -2,9 +2,9 @@
 import Keycloak from 'keycloak-js';
 
 const keycloakConfig = {
-    realm: "demo",
-    clientId: "demo-rest-api", // Changed from 'resource' to 'clientId'
-    url: "http://localhost:8086/"
+    realm: import.meta.env.VITE_KEYCLOAK_REALM,
+    clientId: import.meta.env.VITE_KEYCLOAK_RESOURCE,
+    url: import.meta.env.VITE_KEYCLOAK_AUTH_SERVER_URL,
 }
 
 class KeycloakService {
