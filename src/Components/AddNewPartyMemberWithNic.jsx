@@ -51,16 +51,6 @@ export const AddNewPartyMemberWithNic = ({open, handleClose}) => {
             <Stack spacing={2} mb={2}>
               <Box>
                 <Typography variant="body1" gutterBottom>
-                  Full Name
-                </Typography>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  placeholder="Enter full name"
-                />
-              </Box>
-              <Box>
-                <Typography variant="body1" gutterBottom>
                   NIC (National Identity Card)
                 </Typography>
                 <TextField
@@ -71,50 +61,13 @@ export const AddNewPartyMemberWithNic = ({open, handleClose}) => {
               </Box>
               <Box>
                 <Typography variant="body1" gutterBottom>
-                  Position in Party
+                  Full Name
                 </Typography>
                 <TextField
                   variant="outlined"
                   fullWidth
-                  placeholder="Enter position"
-                />
-              </Box>
-              <Box mb={2}>
-                {/* <Typography variant="body1" gutterBottom>
-                  Party
-                </Typography>
-                <FormControl fullWidth variant="outlined">
-                  <Select
-                    label="Party"
-                  >
-                    <MenuItem value="">
-                      <em>Select a party</em>
-                    </MenuItem>
-                    <MenuItem value={"Party A"}>Party A</MenuItem>
-                    <MenuItem value={"Party B"}>Party B</MenuItem>
-                    <MenuItem value={"Party C"}>Party C</MenuItem>
-                  </Select>
-                </FormControl> */}
-              </Box>
-              <Box>
-                <Typography variant="body1" gutterBottom>
-                  Contact Number
-                </Typography>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  placeholder="Enter contact number"
-                />
-              </Box>
-              <Box>
-                <Typography variant="body1" gutterBottom>
-                  Email Address
-                </Typography>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  placeholder="Enter email address"
-                  type="email"
+                  placeholder="Enter full name"
+                  disabled
                 />
               </Box>
             </Stack>

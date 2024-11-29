@@ -7,6 +7,7 @@ import {FormReviewVerificationOfficer} from "../Pages/VerificationOfficer/FormRe
 import {FingerprintReg} from "../Pages/VerificationOfficer/FingerprintReg.jsx";
 import {CandidateApplicationsVerificationOfficer} from "../Pages/VerificationOfficer/CandidateApplications.jsx";
 import VerificationHome from "../Pages/VerificationOfficer/VerificationHome.jsx";
+import { PartyApplications } from '../Pages/VerificationOfficer/PartyApplications.jsx';
 
 
 const VerificationOfficerRoutes = () => {
@@ -26,6 +27,15 @@ const VerificationOfficerRoutes = () => {
                 element={
                     <ProtectedRoute
                         element={VoterApplicationsVerificationOfficer}
+                        role="VerificationOfficer"
+                    />
+                }
+            />
+            <Route
+                path="/verification_officer/party_applications"
+                element={
+                    <ProtectedRoute
+                        element={PartyApplications}
                         role="VerificationOfficer"
                     />
                 }

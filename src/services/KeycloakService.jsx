@@ -2,9 +2,9 @@
 import Keycloak from 'keycloak-js';
 
 const keycloakConfig = {
-    realm: import.meta.env.VITE_KEYCLOAK_REALM,
-    clientId: import.meta.env.VITE_KEYCLOAK_RESOURCE, // Changed from 'resource' to 'clientId'
-    url: import.meta.env.VITE_KEYCLOAK_AUTH_SERVER_URL
+    realm: "demo",
+    clientId: "demo-rest-api", // Changed from 'resource' to 'clientId'
+    url: "http://localhost:8086/"
 }
 
 class KeycloakService {
@@ -40,7 +40,7 @@ class KeycloakService {
             return true;
         }else{
             return false;
-        };
+        }
     }
 
     doLogin() {
@@ -105,6 +105,23 @@ class KeycloakService {
         return null;
     }
 
+    getNIC() {
+        if (this.keycloak && this.keycloak.tokenParsed) {
+            // The exact claim name might vary depending on your Keycloak configuration
+            // Common claims are 'preferred_username', 'username', or 'sub'
+            return this.keycloak.tokenParsed.preferred_username;
+        }
+        return null;
+    }
+
+    // New method to get user ID
+    getUserId() {
+        if (this.keycloak && this.keycloak.tokenParsed) {
+            return this.keycloak.tokenParsed.sub; // 'sub' contains the userId
+        }
+        return null;
+    }
+
     // New method to handle redirection based on role
     redirectBasedOnRole() {
         console.log('Redirecting based on role')
@@ -122,6 +139,81 @@ class KeycloakService {
 
     hasRole(role) {
         return this.getUserRoles().includes(role);
+    }
+
+    async getUserIdByUsername(realm, username) {
+        const adminToken = await this.getAdminToken(); // Obtain an admin token
+        const response = await fetch(`http://localhost:8086/admin/realms/${realm}/users?username=${username}`, {
+            headers: {
+                Authorization: `Bearer ${adminToken}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const users = await response.json();
+            if (users.length > 0) {
+                return users[0].id; // Return the userId of the first match
+            }
+        } else {
+            console.error('Failed to fetch user by username:', await response.text());
+        }
+        return null;
+    }
+
+    async addRoleToUserByUsername(realm, username, roleId, roleName) {
+        const userId = await this.getUserIdByUsername(realm, username);
+        if (!userId) {
+            console.error(`User not found for username: ${username}`);
+            return;
+        }
+
+        const adminToken = await this.getAdminToken();
+        const payload = [
+            {
+                id: roleId,
+                name: roleName,
+            },
+        ];
+
+        const response = await fetch(`http://localhost:8086/admin/realms/${realm}/users/${userId}/role-mappings/realm`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${adminToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+            console.log(`Role ${roleName} added to user ${username}`);
+        } else {
+            console.error('Failed to assign role:', await response.text());
+        }
+    }
+
+    async getAdminToken() {
+        // Replace with your logic to retrieve an admin token
+        const response = await fetch(`http://localhost:8086/realms/demo/protocol/openid-connect/token`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                client_id: 'demo-rest-api',
+                grant_type: 'password',
+                username: 'admin',
+                password: '1111',
+            }),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            return data.access_token;
+        } else {
+            console.error('Failed to get admin token:', await response.text());
+        }
+        return null;
     }
 
 }

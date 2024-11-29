@@ -16,7 +16,7 @@ const PartyRoutes = () => {
             <Route path="/party/:partyId" element={<Party />} />
             <Route path="/party/list" element={<PartyList />} />
             <Route path="/party/registration" element={<PartyRegistration />} />
-            <Route path="/party/registration/application" element={<PartyApplication />} />
+            <Route path="/party/registration/application/:partyId" element={<PartyApplication />} />
             <Route path="/party/member" element={<PartyMember />} />
             <Route path="/party/member/manifesto" element={<Manifesto />} />
             <Route path="/election" element={<Election />} />

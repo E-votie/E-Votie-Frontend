@@ -6,6 +6,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import { PartyMemberRequestCard } from './PartyMemberRequestCard';
 import { AddNewPartyMemberWithNic } from './AddNewPartyMemberWithNic';
+import { SendNomineesModal } from './SendNominiees';
+import SendIcon from '@mui/icons-material/Send';
 
 const StyledDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
@@ -37,6 +39,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 export const PartyMemberSideBar = ({ requestList }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [openAddPolitician, setOpenAddPolitician] = useState(false);
+  const [openSendNomineesModal, setOpenSendNomineesModal] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -47,6 +50,9 @@ export const PartyMemberSideBar = ({ requestList }) => {
 
   const handleOpenAddPolitician = () => setOpenAddPolitician(true);
   const handleCloseAddPolitician = () => setOpenAddPolitician(false);
+
+  const handleOpenSendNominations = () => setOpenSendNomineesModal(true);
+  const handleCloseNomineesModal = () => setOpenSendNomineesModal(false);
 
   return (
     <>
@@ -60,6 +66,16 @@ export const PartyMemberSideBar = ({ requestList }) => {
       
       <StyledDrawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', p: 2 }}>
+          
+          <StyledButton
+            variant="contained"
+            startIcon={<SendIcon />}
+            onClick={handleOpenSendNominations}
+            sx={{ mb: 2 }}
+          >
+            Send Nominations
+          </StyledButton>
+
           <StyledButton
             variant="contained"
             startIcon={<AddIcon />}
@@ -70,7 +86,7 @@ export const PartyMemberSideBar = ({ requestList }) => {
           </StyledButton>
 
           <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
-            {['Received Request', 'Sent Request', 'New Politician'].map((section, index) => (
+            {['Sent Requests'].map((section, index) => (
               <StyledAccordion key={index}>
                 <StyledAccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography variant="subtitle1">{section}</Typography>
@@ -89,10 +105,12 @@ export const PartyMemberSideBar = ({ requestList }) => {
               </StyledAccordion>
             ))}
           </Box>
+
         </Box>
       </StyledDrawer>
 
       <AddNewPartyMemberWithNic open={openAddPolitician} handleClose={handleCloseAddPolitician} />
+      <SendNomineesModal open={openSendNomineesModal} handleClose={handleCloseNomineesModal} />
     </>
   );
 };
