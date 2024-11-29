@@ -74,7 +74,7 @@ const ElectionTimeline = () => {
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate('/');
+                        navigate(`/Election/Polling_Stations/${electionId}`);
                     }
                 })
             }, onError: (error) => {

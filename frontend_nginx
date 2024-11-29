@@ -1,0 +1,24 @@
+server {
+    listen 80;
+    server_name e_votie.<Your Domain>;
+
+    # Redirect HTTP to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name e_votie.<Your Domain>;
+
+    # SSL Configuration
+    ssl_certificate /etc/nginx/ssl/evotie.crt;
+    ssl_certificate_key /etc/nginx/ssl/yourdomain.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM>
+
+    location / {
+        root /home/gdlujayathilake/E-Votie-Frontend/dist;
+        index index.html;
+        try_files $uri /index.html;
+    }
+}
