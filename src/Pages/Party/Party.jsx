@@ -72,6 +72,7 @@ export const Party = () => {
   // const [candidates, setCandidates] = useState([]);
   const [partyLogo, setPartyLogo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [partyRequests, setPartyRequests] = useState([]);
   const { partyId } = useParams();
 
   const handleOpenEditPartyInfoModal = () => {
@@ -93,9 +94,19 @@ export const Party = () => {
 
         const partyResponse = await axios.get(`http://localhost:5003/api/party/${partyId}`);
         const fetchedParty = partyResponse.data;
-        console.log(fetchedParty);
-        
         setParty(fetchedParty);
+        
+        if (KeycloakService.isLoggedIn()){
+          const token = KeycloakService.getToken();
+          const partyRequests = await axios.get(`http://localhost:5003/api/request/party/${partyId}`,{
+              headers: {
+                  Authorization: `Bearer ${token}`
+              }
+          });
+          setPartyRequests(partyRequests.data);
+          console.log("Party requests");
+          console.log(partyRequests);
+        }
         
         // Transform party members to match expected Politician component props
         if (fetchedParty.partyMembers && fetchedParty.partyMembers.length > 0) {
@@ -113,7 +124,6 @@ export const Party = () => {
           await getPartyLogoUrl(logoDocument.documentName);
         }
 
-        
       } catch (err) {
         console.error('Error fetching data:', err);
         setError('Failed to load party data. Please try again later.');
@@ -183,7 +193,7 @@ export const Party = () => {
               <p className="text-gray-600">No. of MPs in Parliament</p>
             </div>
           </div>
-          <div className="py-4 mt-4 flex flex-row-reverse gap-4">
+          <div className="py-4 mt-4 flex flex-row-reverse gap-32">
             <div className="partyDetailsContainer w-1/3">
               <Box className="flex justify-between">
                 <Typography variant="h6" color="textSecondary" gutterBottom>
@@ -217,7 +227,7 @@ export const Party = () => {
                   Politicians
                 </Typography>
                 { ( party.secretaryId == KeycloakService.getNIC() || party.leaderId == KeycloakService.getNIC() ) && 
-                  <PartyMemberSideBar requestList={[]} />
+                  <PartyMemberSideBar party={party} partyRequests={partyRequests}/>
                 }
               </Box>
               <Divider />

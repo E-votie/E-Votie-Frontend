@@ -36,7 +36,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   fontWeight: 'bold',
 }));
 
-export const PartyMemberSideBar = ({ requestList }) => {
+export const PartyMemberSideBar = ({ party, partyRequests }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [openAddPolitician, setOpenAddPolitician] = useState(false);
   const [openSendNomineesModal, setOpenSendNomineesModal] = useState(false);
@@ -55,7 +55,7 @@ export const PartyMemberSideBar = ({ requestList }) => {
   const handleCloseNomineesModal = () => setOpenSendNomineesModal(false);
 
   return (
-    <>
+    <Box style={{ zIndex: 500 }}>
       <Tooltip title="New Party Members" arrow>
         <IconButton size="large" onClick={toggleDrawer(true)} color="primary">
           <Badge badgeContent={4} color="error">
@@ -93,11 +93,12 @@ export const PartyMemberSideBar = ({ requestList }) => {
                 </StyledAccordionSummary>
                 <AccordionDetails>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    {requestList.map((politician, idx) => (
+                    {partyRequests.map((request, idx) => (
                       <PartyMemberRequestCard
                         key={idx}
-                        politician={politician}
-                        requestState={section}
+                        partyId={partyRequests.registrationId}
+                        request={request}
+                        ownership={"party"}
                       />
                     ))}
                   </Box>
@@ -109,8 +110,8 @@ export const PartyMemberSideBar = ({ requestList }) => {
         </Box>
       </StyledDrawer>
 
-      <AddNewPartyMemberWithNic open={openAddPolitician} handleClose={handleCloseAddPolitician} />
+      <AddNewPartyMemberWithNic open={openAddPolitician} handleClose={handleCloseAddPolitician} handleCloseSideBar={setIsDrawerOpen} partyInfo={party} />
       <SendNomineesModal open={openSendNomineesModal} handleClose={handleCloseNomineesModal} />
-    </>
+    </Box>
   );
 };
