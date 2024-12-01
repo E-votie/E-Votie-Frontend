@@ -14,7 +14,6 @@ import FingerprintScanner from "../../Components/FingerprintScanner.jsx";
 import {QrCode} from "@mui/icons-material";
 import {authGet} from "../../Auth/authFetch.jsx";
 import Swal from "sweetalert2";
-const electionApiBaseUrl = import.meta.env.VITE_API_Election_BASE_URL;
 
 export const VoterVerify = () => {
 
