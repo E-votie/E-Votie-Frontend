@@ -16,21 +16,21 @@ const actions = [
         "action": "Postal Voter Applications",
         "icon": "application",
         "description": "Postel Voter's Applications",
-        "link": "/OP/Postal_Voter_Applications",
+        "link": "/PostalVoteApplications",
         "roles": ["GramaNiladhari"],
     },
     {
         "action": "Past Election Duty Log",
         "icon": "candidate",
         "description": "Election duty record of office members",
-        "link": "/inquiries",
+        "link": "/ElectionDutyLog",
         "roles": ["GramaNiladhari"]
     },
     {
         "action": "Notifications",
         "icon": "inquiry",
         "description": "TO Dos",
-        "link": "/inquiries",
+        "link": "/announcements",
         "roles": ["GramaNiladhari"]
     },
 ];

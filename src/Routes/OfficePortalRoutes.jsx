@@ -3,6 +3,8 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import ProtectedRoute from "../services/ProtectedRoute.jsx";
 import OpHome from "../Pages/OffiecPortal/OpHome.jsx";
+import PostalVoteApplications from "../Pages/OffiecPortal/PostalVoteApplications.jsx";
+import ElectionDutyLog from "../Pages/OffiecPortal/ElectionDutyLog.jsx";
 
 const OfficePortalRoutes = () => {
     return (
@@ -13,6 +15,21 @@ const OfficePortalRoutes = () => {
                         <OpHome/>
                 }
             />
+
+            <Route
+                            path="/PostalVoteApplications"
+                            element={
+                                    <PostalVoteApplications/>
+                            }
+                        />
+
+            <Route
+                            path="/ElectionDutyLog"
+                            element={
+                                    <ElectionDutyLog/>
+                            }
+                        />
+
         </>
     );
 };
