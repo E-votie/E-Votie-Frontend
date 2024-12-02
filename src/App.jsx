@@ -18,7 +18,6 @@ import GramaNiladhariRoutes from "./Routes/GramaNiladhariRoutes.jsx";
 import VerificationOfficerRoutes from "./Routes/VerificationOfficerRoutes.jsx";
 import VotingRoutes from "./Routes/VotingRoutes.jsx";
 import VoterRoutes from "./Routes/VoterRoutes.jsx";
-import { UserProfile } from "./Components/UserProfile.jsx";
 import PollingStation from "./Routes/PollingStation.jsx";
 import OfficePortalRoutes from "./Routes/OfficePortalRoutes.jsx";
 
@@ -37,7 +36,6 @@ function App() {
                             <Route path="election/result" element={<ResultView />} />
                             <Route path="election/result/district/:District" element={<DistrictResultView />} />
                             <Route path="reports/View" element={<ReportView />} />
-                            <Route path="voter/profile" element={<UserProfile />} />
 
                             {/* Include nested route components */}
                             <Route path="/VoterRegistration" element={<QueryClientProvider client={queryClient}> <VoterRegistration_1/> </QueryClientProvider>} />
