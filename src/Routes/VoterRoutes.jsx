@@ -70,7 +70,7 @@ const VoterRoutes = () => {
                 }
             />
             <Route
-                path="/voter/party_request_details"
+                path="/voter/party_request_details/:partyID/:receiverNIC"
                 element={
                     <ProtectedRoute
                         element={PartyRequestDetails}

@@ -11,12 +11,15 @@ const PartyRequestDetails = () => {
     const [description, setDescription] = useState("");
     const [imageFile, setImageFile] = useState(null);
     const navigate = useNavigate();
+    const partyId = window.location.pathname.split("/").slice(-2, -1)[0];
+    const receiverNIC = window.location.pathname.split("/").slice(-1)[0];
 
     const fetchData = async () => {
         try {
-            const response = await axios.get("http://localhost:5003/api/request/party/1653/receiver/200130003278");
+            const response = await axios.get(`http://localhost:5003/api/request/party/${partyId}/receiver/${receiverNIC}`);
             setData(response.data);
             setLoading(false);
+            console.error(response.data);
         } catch (err) {
             setError("Failed to load data.");
             setLoading(false);
@@ -32,36 +35,30 @@ const PartyRequestDetails = () => {
     };
 
     const handleAcceptRequest = async () => {
-        if (!description || !imageFile) {
-            alert("Please provide both a description and an image.");
+        if (!description || !imageFile) {  // Validate that all necessary data is provided
+            alert("Please provide both a description, an image, and party information.");
             return;
         }
 
-        // Upload image first
-        const imageName = `${data.receiverNIC}_politicians.jpg`;
-        try {
-            const uploadResponse = await uploadFile(imageFile, imageName, base_url);
-            if (!uploadResponse.success) {
-                alert("Failed to upload the image.");
-                return;
-            }
-        } catch (err) {
-            console.error("Error uploading image:", err);
-            alert("Error uploading the image.");
-            return;
-        }
+        // Create a FormData object to handle both the file and the JSON data
+        const formData = new FormData();
 
-        // Prepare the request payload
-        const payload = {
-            requestID: data.requestId, // Assuming this is part of the `data` object
-            NIC: data.receiverNIC,
-            description,
-            imageName,
-        };
+        // Append the image file to FormData
+        formData.append('image', imageFile, `${data.receiverNIC}_politicians.jpg`);
 
+        // Append the other data (description, NIC, party information)
+        formData.append('party', JSON.stringify({
+            "role": "MP",
+            "partyMemberDescription": description
+        }));
+        console.log(formData);
         // Submit the form data
         try {
-            const response = await axios.post("http://localhost:5003/api/request/accept", payload);
+            const response = await axios.post(`http://localhost:5003/api/request/accept/${data.requestId}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data', // Ensure the request is sent as multipart/form-data
+                },
+            });
             alert("Request accepted successfully!");
             console.log("Response:", response.data);
         } catch (err) {
@@ -69,6 +66,7 @@ const PartyRequestDetails = () => {
             alert("Failed to accept the request.");
         }
     };
+
 
 
     if (loading) {

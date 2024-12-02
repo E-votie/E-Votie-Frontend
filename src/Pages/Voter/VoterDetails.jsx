@@ -10,6 +10,7 @@ import StickyHeadTable from "../../Components/HistoryTableVoter.jsx";
 import Swal from "sweetalert2";
 import {motion} from "framer-motion";
 import CircularProgress from "@mui/material/CircularProgress";
+import axios from "axios";
 
 
 function StatsComponent() {
@@ -40,6 +41,7 @@ export const VoterDetails = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editableData, setEditableData] = useState({});
     const [editedFields, setEditedFields] = useState({});
+    const [partyRequestData, setPartyRequestData] = useState([]);
 
     const [alignment, setAlignment] = React.useState('Info');
 
@@ -74,6 +76,18 @@ export const VoterDetails = () => {
                 setProfileImage(data.profileImageUrl);
                 console.log(data.voter.voterID)
                 setQrCode(data.voter.voterID)
+                axios.get("http://localhost:5003/api/request/receiver/200130003278")
+                    .then(response => {
+                        console.log(response);
+                        console.log(Array.isArray(response.data))
+                        const data = response.data;
+                        const dataArray = Array.isArray(data) ? data : Object.values(data);
+                        setPartyRequestData(dataArray);  // This will be your array
+                        console.log(`++++++++++++++++++>>>>>>>>>>>>>>>>>${partyRequestData[0].requestId}`);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -333,7 +347,7 @@ export const VoterDetails = () => {
                         </div>
                     </div>) : (
                         <div>
-                            <StickyHeadTable></StickyHeadTable>
+                            <StickyHeadTable data={partyRequestData}></StickyHeadTable>
                         </div>)}
                 </div>)}
     </div>)
