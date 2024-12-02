@@ -12,6 +12,7 @@ import React from "react";
 import withReactContent from "sweetalert2-react-content";
 import VerticalLinearStepper from "../../Components/VerticalLinearStepper.jsx";
 import steps from "./../../assets/Other/VoterRegistrationSteps.json"
+const base_url = import.meta.env.VITE_API_BASE_URL;
 
 const MySwal = withReactContent(Swal)
 
@@ -31,7 +32,7 @@ export const EmailVerification = () => {
     });
 
     const mutation = useMutation((data) => {
-        return axios.post('http://localhost:8081/voter-registration/voter/verify', data);
+        return axios.post(`${base_url}/voter-registration/voter/verify`, data);
     });
 
     // Update OTP value in form state when otp changes
