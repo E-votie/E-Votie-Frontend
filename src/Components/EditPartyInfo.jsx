@@ -95,6 +95,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
     const [leaderName, setLeaderName] = useState("");
+    const [isPartyUpdated, setIsPartyUpdated] = useState(false);
     const navigate = useNavigate();
 
     const handlePartyLogoChange = (event) => {
@@ -283,15 +284,13 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
         
                 if ([200, 201].includes(response.status)) {
                     // Application submitted successfully
-                    MySwal.fire({
+                    await MySwal.fire({
                         title: 'Application Submitted Successfully!',
                         icon: 'success',
                         confirmButtonText: 'OK',
-                    }).then(() => {
-                        navigate("/party/" + partyInfo.registrationId);
-                    });
-        
-                    reset(); // Reset the form
+                    })
+                    reset(); 
+                    navigate(`/party/${partyInfo.registrationId}`);
                 } else {
                     MySwal.fire({
                         title: 'Error!',

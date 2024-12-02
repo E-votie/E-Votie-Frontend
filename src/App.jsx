@@ -19,6 +19,7 @@ import VerificationOfficerRoutes from "./Routes/VerificationOfficerRoutes.jsx";
 import VotingRoutes from "./Routes/VotingRoutes.jsx";
 import VoterRoutes from "./Routes/VoterRoutes.jsx";
 import PollingStation from "./Routes/PollingStation.jsx";
+import OfficePortalRoutes from "./Routes/OfficePortalRoutes.jsx";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,7 @@ function App() {
                             {GramaNiladhariRoutes()}
                             {VerificationOfficerRoutes()}
                             {PollingStation()}
+                            {OfficePortalRoutes()}
                             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
                         </Route>
                     </Routes>

@@ -11,7 +11,6 @@ import {ElectionRegistration} from "../Pages/Voter/ElectionRegistration.jsx";
 import ElectionSlip from "../Pages/Voter/ElectionSlip.jsx";
 import PartyRequestDetails from "../Pages/Voter/VoterPartyNotification.jsx";
 
-
 const VoterRoutes = () => {
     return (
         <>
