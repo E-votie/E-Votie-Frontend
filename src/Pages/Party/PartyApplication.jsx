@@ -212,7 +212,7 @@ export const PartyApplication = () => {
 
         await setFileNames();
 
-        const historyResponse = await axios.get(`http://localhost:5003/api/history/party/${partyId}`, {
+        const historyResponse = await axios.get(`${partyUrl}/api/history/party/${partyId}`, {
           headers: {
               Authorization: `Bearer ${token}`
           }
@@ -220,7 +220,7 @@ export const PartyApplication = () => {
         console.log(historyResponse);
         setApplicationHistory(historyResponse.data);
 
-        const inquiryResponse = await axios.get(`http://localhost:5003/api/inquiry/party/${partyId}`, {
+        const inquiryResponse = await axios.get(`${partyUrl}/api/inquiry/party/${partyId}`, {
           headers: {
               Authorization: `Bearer ${token}`
           }
@@ -286,7 +286,7 @@ export const PartyApplication = () => {
 
             const token = KeycloakService.getToken();
             const response = await axios.put(
-                `http://localhost:5003/api/application/update/party/${party.registrationId}/name`,
+                `${partyUrl}/api/application/update/party/${party.registrationId}/name`,
                 data, 
                 {
                     headers: {
@@ -343,7 +343,7 @@ export const PartyApplication = () => {
 
             const token = KeycloakService.getToken();
             const response = await axios.put(
-                `http://localhost:5003/api/application/update/party/${party.registrationId}/abbreviation`,
+                `${partyUrl}/api/application/update/party/${party.registrationId}/abbreviation`,
                 { abbreviation: data.abbreviation }, 
                 {
                     headers: {
@@ -399,7 +399,7 @@ export const PartyApplication = () => {
 
           const token = KeycloakService.getToken();
           const response = await axios.put(
-              `http://localhost:5003/api/application/update/party/${party.registrationId}/date`, 
+              `${partyUrl}/api/application/update/party/${party.registrationId}/date`, 
               { foundedDate: data.foundedDate }, 
               {
                   headers: {
@@ -456,7 +456,7 @@ export const PartyApplication = () => {
 
           const token = KeycloakService.getToken();
           const response = await axios.put(
-              `http://localhost:5003/api/application/update/party/${party.registrationId}/address/line1`,
+              `${partyUrl}/api/application/update/party/${party.registrationId}/address/line1`,
               { address: { addressLine_1: data.addressLine_1} },  
               {
                   headers: {
@@ -512,7 +512,7 @@ export const PartyApplication = () => {
 
           const token = KeycloakService.getToken();
           const response = await axios.put(
-              `http://localhost:5003/api/application/update/party/${party.registrationId}/address/line2`,
+              `${partyUrl}/api/application/update/party/${party.registrationId}/address/line2`,
               { address: { addressLine_2: data.addressLine_2} },  
               {
                   headers: {
@@ -568,7 +568,7 @@ export const PartyApplication = () => {
 
           const token = KeycloakService.getToken();
           const response = await axios.put(
-              `http://localhost:5003/api/application/update/party/${party.registrationId}/city`,
+              `${partyUrl}/api/application/update/party/${party.registrationId}/city`,
               { address: { city: data.city } }, // Assuming the API expects an address object with a city field
               {
                   headers: {
@@ -624,7 +624,7 @@ export const PartyApplication = () => {
 
           const token = KeycloakService.getToken();
           const response = await axios.put(
-              `http://localhost:5003/api/application/update/party/${party.registrationId}/postal`,
+              `${partyUrl}/api/application/update/party/${party.registrationId}/postal`,
               { address: { postalCode: data.postalCode } }, // Assuming API expects postal code inside an address object
               {
                   headers: {
@@ -755,7 +755,7 @@ export const PartyApplication = () => {
         },
       });
       const token = KeycloakService.getToken();
-      const response = await axios.post("http://localhost:5003/api/application/document/upload", formData, {
+      const response = await axios.post("${partyUrl}/api/application/document/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`
@@ -801,7 +801,7 @@ export const PartyApplication = () => {
       });
 
       const response = await axios.post(
-        `http://localhost:5003/api/document/url/${documentName}`,
+        `${partyUrl}/api/document/url/${documentName}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -1025,7 +1025,7 @@ export const PartyApplication = () => {
 
     try {
       const token = KeycloakService.getToken();
-      await axios.delete(`http://localhost:5003/api/inquiry/${inquiryId}`,{
+      await axios.delete(`${partyUrl}/api/inquiry/${inquiryId}`,{
         headers: {
             Authorization: `Bearer ${token}`                
         }

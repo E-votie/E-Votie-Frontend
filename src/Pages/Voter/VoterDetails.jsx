@@ -95,7 +95,6 @@ export const VoterDetails = () => {
                 setLoading(false);
             }
         };
-
         fetchData();
     }, []);
 

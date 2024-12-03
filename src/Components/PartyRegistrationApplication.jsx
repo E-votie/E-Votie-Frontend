@@ -192,7 +192,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
     const getSecretoryName = async () => {
         const updatedToken = KeycloakService.getToken();
         try {
-            const secretory = await axios.get(`http://localhost:5003/api/voter/${KeycloakService.getUserName()}`, {
+            const secretory = await axios.get(`${partyUrl}/api/voter/${KeycloakService.getUserName()}`, {
                 headers: {
                     Authorization: `Bearer ${updatedToken}`
                 }
