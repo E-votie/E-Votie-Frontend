@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { Bar } from "react-chartjs-2";
 import axios from "axios";
+const chatUrl = import.meta.env.VITE_CHAT_URL;
 
 export const AiChatView = () => {
   const [question, setQuestion] = useState("");
@@ -17,7 +18,7 @@ export const AiChatView = () => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.post("http://127.0.0.1:8000/chat", {
+      const { data } = await axios.post(chatUrl, {
         message: question,
       });
       setResponse(data);
