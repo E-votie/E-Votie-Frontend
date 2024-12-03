@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import {motion} from "framer-motion";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 
 
 function StatsComponent() {
@@ -74,9 +75,9 @@ export const VoterDetails = () => {
                 console.log(data.voter)
                 setResponseData(data.voter);
                 setProfileImage(data.profileImageUrl);
-                console.log(data.voter.voterID)
+                console.log(data.voter.voterNIC)
                 setQrCode(data.voter.voterID)
-                axios.get("http://localhost:5003/api/request/receiver/200130003278")
+                axios.get(`${partyUrl}/api/request/receiver/${responseData.voterNIC}`)
                     .then(response => {
                         console.log(response);
                         console.log(Array.isArray(response.data))

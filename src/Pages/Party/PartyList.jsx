@@ -30,7 +30,7 @@ import { motion } from 'framer-motion';
 
 import PartyCard from '../../Components/PartyCard';
 import KeycloakService from '../../services/KeycloakService';
-
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 // SearchBar Component (extracted for better modularity)
 const SearchBar = ({ searchTerm, onSearchChange }) => (
   <Paper
@@ -142,7 +142,7 @@ export const PartyList = () => {
         setIsLoggedIn(loggedIn);
 
         const token = KeycloakService.getToken();
-        const partyResponse = await axios.get('http://localhost:5003/api/party/all');
+        const partyResponse = await axios.get(`${partyUrl}/api/party/all`);
         console.log("Party response: ");
         console.log(partyResponse);
         setPartyList(partyResponse.data);
@@ -150,7 +150,7 @@ export const PartyList = () => {
         if (loggedIn) {
           try {
             const userPartyResponse = await axios.get(
-              'http://localhost:5003/api/party/member',
+              `${partyUrl}/api/party/member`,
               { headers: { Authorization: `Bearer ${token}` } }
             );
             setUserParty(userPartyResponse.data.party);

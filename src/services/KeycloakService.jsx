@@ -1,5 +1,6 @@
 // KeycloakService.jsx
 import Keycloak from 'keycloak-js';
+const authUrl = import.meta.env.VITE_KEYCLOAK_AUTH_SERVER_URL;
 
 const keycloakConfig = {
     realm: import.meta.env.VITE_KEYCLOAK_REALM,
@@ -141,7 +142,7 @@ class KeycloakService {
 
     async getUserIdByUsername(realm, username) {
         const adminToken = await this.getAdminToken(); // Obtain an admin token
-        const response = await fetch(`http://localhost:8086/admin/realms/${realm}/users?username=${username}`, {
+        const response = await fetch(`${authUrl}admin/realms/${realm}/users?username=${username}`, {
             headers: {
                 Authorization: `Bearer ${adminToken}`,
                 'Content-Type': 'application/json',
@@ -174,7 +175,7 @@ class KeycloakService {
             },
         ];
 
-        const response = await fetch(`http://localhost:8086/admin/realms/${realm}/users/${userId}/role-mappings/realm`, {
+        const response = await fetch(`${authUrl}admin/realms/${realm}/users/${userId}/role-mappings/realm`, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${adminToken}`,
@@ -192,7 +193,7 @@ class KeycloakService {
 
     async getAdminToken() {
         // Replace with your logic to retrieve an admin token
-        const response = await fetch(`http://localhost:8086/realms/demo/protocol/openid-connect/token`, {
+        const response = await fetch(`${authUrl}realms/demo/protocol/openid-connect/token`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

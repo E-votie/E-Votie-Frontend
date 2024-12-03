@@ -23,7 +23,7 @@ import {
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import KeycloakService from "../services/KeycloakService";
-
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -51,12 +51,12 @@ export const SendNomineesModal = ({ open, handleClose, partyId }) => {
         const token = KeycloakService.getToken();
         setLoading(true);
         const [electionsResponse, partyMembersResponse] = await Promise.all([
-          axios.get('http://localhost:5003/api/nomination/elections',{
+          axios.get(`${partyUrl}/api/nomination/elections`,{
               headers: {
                   Authorization: `Bearer ${token}`
               }
           }), 
-          axios.get(`http://localhost:5003/api/party/member/all?party=${partyId}`,{
+          axios.get(`${partyUrl}/api/party/member/all?party=${partyId}`,{
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -102,7 +102,7 @@ export const SendNomineesModal = ({ open, handleClose, partyId }) => {
     if (result.isConfirmed) {
       setLoading(true);
       try {
-        await axios.post('/api/submit-nominee', {
+        await axios.post(`${partyUrl}/api/submit-nominee`, {
           partyId,
           electionId: selectedElection,
           nomineeId: selectedNominee

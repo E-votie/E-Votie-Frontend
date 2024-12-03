@@ -13,7 +13,7 @@ import KeycloakService from '../services/KeycloakService';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 const MySwal = withReactContent(Swal);
-
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': { padding: theme.spacing(2) },
@@ -45,7 +45,7 @@ export const AddNewPartyMemberWithNic = ({ open, handleClose, handleCloseSideBar
 
     try {
       const token = KeycloakService.getToken();
-      const response = await axios.get(`http://localhost:5003/api/voter/${nic}`, {
+      const response = await axios.get(`${partyUrl}/api/voter/${nic}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setState((prevState) => ({
@@ -67,7 +67,7 @@ export const AddNewPartyMemberWithNic = ({ open, handleClose, handleCloseSideBar
   const getPartyMemberByNIC = async (nic) => {
     try {
       const token = KeycloakService.getToken();
-      const response = await axios.get(`http://localhost:5003/api/party/member/by/nic/${nic}`, {
+      const response = await axios.get(`${partyUrl}/api/party/member/by/nic/${nic}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       console.log(response);
@@ -86,7 +86,7 @@ export const AddNewPartyMemberWithNic = ({ open, handleClose, handleCloseSideBar
   const getRequest = async (nic) => {
     try {
       const token = KeycloakService.getToken();
-      const response = await axios.get(`http://localhost:5003/api/request/party/${partyInfo.registrationId}/receiver/${nic}`, {
+      const response = await axios.get(`${partyUrl}/api/request/party/${partyInfo.registrationId}/receiver/${nic}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       console.log("Request handling");
@@ -216,7 +216,7 @@ export const AddNewPartyMemberWithNic = ({ open, handleClose, handleCloseSideBar
                 },
             });
     
-            const response = await axios.post('http://localhost:5003/api/request/new', politicianDetails, {
+            const response = await axios.post(`${partyUrl}/api/request/new`, politicianDetails, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },

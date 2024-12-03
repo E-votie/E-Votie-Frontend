@@ -13,7 +13,7 @@ import { Card, Avatar } from '@mui/material';
 import KeycloakService from "../../services/KeycloakService";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 const candidates = [
   {
     name: 'Mahinda Rajapaksa',
@@ -92,13 +92,13 @@ export const Party = () => {
           headers: { Authorization: `Bearer ${token}` }
         };
 
-        const partyResponse = await axios.get(`http://localhost:5003/api/party/${partyId}`);
+        const partyResponse = await axios.get(`${partyUrl}/api/party/${partyId}`);
         const fetchedParty = partyResponse.data;
         setParty(fetchedParty);
         
         if (KeycloakService.isLoggedIn()){
           const token = KeycloakService.getToken();
-          const partyRequests = await axios.get(`http://localhost:5003/api/request/party/${partyId}`,{
+          const partyRequests = await axios.get(`${partyUrl}/api/request/party/${partyId}`,{
               headers: {
                   Authorization: `Bearer ${token}`
               }
@@ -136,7 +136,7 @@ export const Party = () => {
   }, [partyId]);
 
   const getPartyLogoUrl = async (documentName) => {
-    const partyLogoUrl = await axios.post(`http://localhost:5003/api/document/url/${documentName}`);
+    const partyLogoUrl = await axios.post(`${partyUrl}/api/document/url/${documentName}`);
     if (partyLogoUrl) {
       setPartyLogo(partyLogoUrl.data);
     }

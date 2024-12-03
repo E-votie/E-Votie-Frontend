@@ -31,6 +31,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 
 const MySwal = withReactContent(Swal);
 
@@ -167,7 +168,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
         setIsCheckedLeaderNIC(true);
 
         try {
-            const leader = await axios.get(`http://localhost:5003/api/voter/${nic}`, {
+            const leader = await axios.get(`${partyUrl}/api/voter/${nic}`, {
                 headers: {
                     Authorization: `Bearer ${updatedToken}`
                 }
@@ -189,7 +190,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
     const getPartyMemberByNIC = async (nic) => {
         try{
             const updatedToken = KeycloakService.getToken();
-            const partyMember = await axios.get(`http://localhost:5003/api/party/member/by/nic/${nic}`, {
+            const partyMember = await axios.get(`${partyUrl}/api/party/member/by/nic/${nic}`, {
                 headers: {
                     Authorization: `Bearer ${updatedToken}`
                 }
@@ -275,7 +276,7 @@ export const EditPartyInfo = ({ open, handleClose, partyInfo }) => {
                     },
                 });
         
-                const response = await axios.put(`http://localhost:5003/api/party/${partyInfo.registrationId}`, formData, {
+                const response = await axios.put(`${partyUrl}/api/party/${partyInfo.registrationId}`, formData, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data',

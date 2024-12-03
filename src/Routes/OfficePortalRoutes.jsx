@@ -5,16 +5,31 @@ import ProtectedRoute from "../services/ProtectedRoute.jsx";
 import OpHome from "../Pages/OffiecPortal/OpHome.jsx";
 import PostalVoteApplications from "../Pages/OffiecPortal/PostalVoteApplications.jsx";
 import ElectionDutyLog from "../Pages/OffiecPortal/ElectionDutyLog.jsx";
+import ElectionDutyApplications from "../Pages/OffiecPortal/ElectionDutyApplications.jsx";
 
 const OfficePortalRoutes = () => {
     return (
         <>
+
             <Route
-                path="/OpHome"
-                element={
-                        <OpHome/>
-                }
-            />
+                            path="/OpHome"
+                            element={
+                                <ProtectedRoute
+                                    element={OpHome}
+                                    role="Office"
+                                />
+                            }
+                        />
+
+                        <Route
+                                path="/ElectionDutyApplications"
+                                element={
+                                <ProtectedRoute
+                                element={ElectionDutyApplications}
+                                role="Office"
+                                        />
+                                }
+                        />
 
             <Route
                             path="/PostalVoteApplications"

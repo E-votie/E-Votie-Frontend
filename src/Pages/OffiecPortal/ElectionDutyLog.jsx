@@ -15,14 +15,49 @@ import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 
 export default function ElectionDutyLog() {
-  // Dummy data for the table
-  const data = Array.from({ length: 20 }, (_, index) => ({
-    id: index + 1,
-    employeeName: `Employee ${index + 1}`,
-    electionYear: 2020 + (index % 5),
-    electionType: index % 2 === 0 ? "Presidential" : "Parliamentary",
-    workDuration: `202${index % 4}/06/22 - 202${index % 4}/07/05`,
-  }));
+  // Updated dummy data
+  const data = [
+    {
+      id: "200035400877",
+      employeeName: "Nimal Perera",
+      electionYear: 2020,
+      electionType: "Presidential",
+      from: "2020/06/22",
+      to: "2020/07/05",
+    },
+    {
+      id: "927857212V",
+      employeeName: "Kasun Udara",
+      electionYear: 2021,
+      electionType: "Parliamentary",
+      from: "2021/07/10",
+      to: "2021/07/20",
+    },
+    {
+      id: "200178477578",
+      employeeName: "Sunil Bandara",
+      electionYear: 2022,
+      electionType: "Presidential",
+      from: "2022/08/15",
+      to: "2022/08/25",
+    },
+    {
+      id: "200298755788",
+      employeeName: "Thilini Kavinfi",
+      electionYear: 2023,
+      electionType: "Parliamentary",
+      from: "2023/09/01",
+      to: "2023/09/10",
+    },
+    {
+      id: "9578451218V",
+      employeeName: "Sanduni Silva",
+      electionYear: 2024,
+      electionType: "Presidential",
+      from: "2024/10/05",
+      to: "2024/10/15",
+    },
+  ];
 
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -68,7 +103,7 @@ export default function ElectionDutyLog() {
           <Box className="mb-6 flex justify-end items-center">
             <TextField
               variant="outlined"
-              placeholder=""
+              placeholder="Search by Employee Name"
               size="small"
               value={searchQuery}
               onChange={handleSearchChange}
@@ -101,9 +136,11 @@ export default function ElectionDutyLog() {
               <TableHead>
                 <TableRow>
                   <TableCell><strong>Employee Name</strong></TableCell>
+                  <TableCell><strong>ID</strong></TableCell>
                   <TableCell><strong>Election Year</strong></TableCell>
                   <TableCell><strong>Election Type</strong></TableCell>
-                  <TableCell><strong>Work Duration</strong></TableCell>
+                  <TableCell><strong>From</strong></TableCell>
+                  <TableCell><strong>To</strong></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -111,14 +148,16 @@ export default function ElectionDutyLog() {
                   currentRows.map((row) => (
                     <TableRow key={row.id}>
                       <TableCell>{row.employeeName}</TableCell>
+                      <TableCell>{row.id}</TableCell>
                       <TableCell>{row.electionYear}</TableCell>
                       <TableCell>{row.electionType}</TableCell>
-                      <TableCell>{row.workDuration}</TableCell>
+                      <TableCell>{row.from}</TableCell>
+                      <TableCell>{row.to}</TableCell>
                     </TableRow>
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={4} align="center">
+                    <TableCell colSpan={6} align="center">
                       No results found
                     </TableCell>
                   </TableRow>

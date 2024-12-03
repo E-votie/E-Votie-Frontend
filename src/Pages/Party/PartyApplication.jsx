@@ -55,6 +55,7 @@ import { SubmitInquiry } from '../../Components/SubmitInquiry';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const MySwal = withReactContent(Swal);
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -201,7 +202,7 @@ export const PartyApplication = () => {
 
       try {
         const token = KeycloakService.getToken();
-        const partyResponse = await axios.get(`http://localhost:5003/api/party/${partyId}`, {
+        const partyResponse = await axios.get(`${partyUrl}/api/party/${partyId}`, {
           headers: {
               Authorization: `Bearer ${token}`
           }
@@ -855,8 +856,8 @@ export const PartyApplication = () => {
       try {
         const updatedToken = KeycloakService.getToken();
         const partyMember = await axios.put(
-          `http://localhost:5003/api/party/state?party=${partyId}&state=${state}`,
-          null, 
+          `${partyUrl}/api/party/state?party=${partyId}&state=${state}`,
+          null, // If no request body, pass `null` here
           {
             headers: {
               Authorization: `Bearer ${updatedToken}`
@@ -895,7 +896,7 @@ export const PartyApplication = () => {
     setIsCheckedLeaderNIC(true);
 
     try {
-        const leader = await axios.get(`http://localhost:5003/api/voter/${nic}`, {
+        const leader = await axios.get(`${partyUrl}/api/voter/${nic}`, {
             headers: {
                 Authorization: `Bearer ${updatedToken}`
             }
@@ -917,7 +918,7 @@ export const PartyApplication = () => {
   const getPartyMemberByNIC = async (nic) => {
     try{
         const updatedToken = KeycloakService.getToken();
-        const partyMember = await axios.get(`http://localhost:5003/api/party/member/by/nic/${nic}`, {
+        const partyMember = await axios.get(`${partyUrl}/api/party/member/by/nic/${nic}`, {
             headers: {
                 Authorization: `Bearer ${updatedToken}`
             }

@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import { keyframes } from '@mui/material';
 import unpImage from '../assets/pending.jpg';
-
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 const rotate = keyframes`
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -101,7 +101,7 @@ const PartyCard = ({ party, state, viewMode }) => {
   useEffect(() => {
     const fetchPartyImage = async () => {
       try {
-        const imageUrl = `http://localhost:5003/api/document/url/${party.documents[1].documentName}`;
+        const imageUrl = `${partyUrl}/api/document/url/${party.documents[1].documentName}`;
         const response = await axios.post(imageUrl);
         setPartyImageUrl(response.data);
       } catch (error) {
