@@ -17,7 +17,7 @@ const actions = [
         "icon": "application",
         "description": "Postel Voter's Applications",
         "link": "/PostalVoteApplications",
-        "roles": ["GovOffice"],
+        "roles": ["Office"],
     },
 
     {
@@ -25,7 +25,7 @@ const actions = [
             "icon": "application",
             "description": "Applications for election duties",
             "link": "/ElectionDutyApplications",
-            "roles": ["GovOffice"]
+            "roles": ["Office"]
     },
 
     {
@@ -33,14 +33,14 @@ const actions = [
         "icon": "candidate",
         "description": "Election duty record of office members",
         "link": "/ElectionDutyLog",
-        "roles": ["GovOffice"]
+        "roles": ["Office"]
     },
     {
         "action": "Notifications",
         "icon": "inquiry",
         "description": "TO Dos",
         "link": "/announcements",
-        "roles": ["GovOffice"]
+        "roles": ["Office"]
     },
 ];
 

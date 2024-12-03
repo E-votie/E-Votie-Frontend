@@ -16,7 +16,7 @@ const OfficePortalRoutes = () => {
                             element={
                                 <ProtectedRoute
                                     element={OpHome}
-                                    role="GovOffice"
+                                    role="Office"
                                 />
                             }
                         />
@@ -26,7 +26,7 @@ const OfficePortalRoutes = () => {
                                 element={
                                 <ProtectedRoute
                                 element={ElectionDutyApplications}
-                                role="GovOffice"
+                                role="Office"
                                         />
                                 }
                         />

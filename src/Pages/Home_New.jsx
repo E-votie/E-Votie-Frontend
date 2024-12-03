@@ -39,7 +39,7 @@ export const NewHome = () => {
         if(keycloakService.hasRole("pollingStation")){
             navigate("/polling_station");
         }
-        if(keycloakService.hasRole("GovOffice")){
+        if(keycloakService.hasRole("Office")){
             navigate("/OpHome");
         }
         const handleScroll = () => {
