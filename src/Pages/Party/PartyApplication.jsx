@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Calendar, Clock, FileText, HistoryIcon, MessageSquare, Send, Upload,
 } from 'lucide-react';
@@ -26,6 +26,11 @@ import {
   Alert,
   Divider,
   CircularProgress,
+  Stack,
+  MenuItem,
+  FormControl,
+  Select,
+  InputLabel,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
@@ -33,11 +38,19 @@ import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useParams } from 'react-router-dom';
 import {  Image, Users, DollarSign, Landmark, FileCheck } from 'lucide-react';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 import { useForm } from 'react-hook-form';
 import KeycloakService from "../../services/KeycloakService";
 import axios from 'axios';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { Controller } from 'react-hook-form';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
 const MySwal = withReactContent(Swal);
 
@@ -86,6 +99,43 @@ const documents = [
   }
 ];
 
+const cities = [
+  'Akmeemana', 'Ambalanthota', 'Alayadiwembu', 'Ambalangoda', 'Akurana', 'Ambagamuwa', 'Akuressa', 'Ampara', 'Alawwa', 
+  'Arachchikattuwa PS', 'Attanagalla', 'Agalawatta', 'Ayagama', 'Ambanganga Korale', 'Akkaraipattu', 'Angunakolapelessa', 
+  'Addalachchenai', 'Ambanpola', 'Baddegama', 'Bope-Poddala', 'Bandarawela', 'Beruwala', 'Beliatta', 'Bentota', 'Buttala', 
+  'Badulla', 'Bandaragama', 'Balangoda', 'Biyagama', 'Bibile', 'Bulathsinhala', 'Bulathkohupitiya', 'Chilaw', 'Colombo', 
+  'Delthota', 'Divulapitiya', 'Dodangoda', 'Doluwa', 'Dambulla', 'Dickwella', 'Dankotuwa', 'Devinuwara', 'Dimbulagala', 
+  'Dehiattakandiya', 'Deraniyagala', 'Dompe', 'Dehiovita', 'Delft', 'Damana', 'Eravur Pattu', 'Ella', 'Elpitiya', 
+  'Eravur Town', 'Embilipitiya', 'Eheliyagoda', 'Elahera', 'Galgamuwa', 'Galle', 'Ganga Ihala Korale', 'Galewela', 
+  'Gampaha', 'Godakawela', 'Galigamuwa', 'Giribawa', 'Ganewatta', 'Galnewa', 'Haputale', 'Horana', 'Harispattuwa', 
+  'Hildummulla', 'Hali-Ela', 'Hambantota', 'Hikkaduwa', 'Habaraduwa', 'Hatharaliyadda', 'Hingurakgoda', 'Hanguranketha', 
+  'Homagama', 'Hanwella', 'Ipalogama', 'Imaduwa', 'Ingiriya', 'Ibbagamuwa', 'Island South (Velanai)', 'Imbulpe', 'Jaffna', 
+  'Ja-Ela', 'Kesbewa', 'Kaduwela', 'Kelaniya', 'Kalutara', 'Kundasale', 'K.F.G. & G. Korale', 'Katunayake', 
+  'Koralai Pattu (Valachchenai)', 'Kekirawa', 'Katharagama', 'Kuchchaveli', 'Kothmale', 'Kandy', 'Kotapola', 'Kuruvita', 
+  'Kamburupitiya', 'Kalpitiya', 'Kegalle', 'Kurunegala', 'Kobeigane', 'Kalawana', 'Kahawatta', 'Kolonna', 'Koralai Pattu North', 
+  'Kiriella', 'Kuliyapitiya West', 'Kinniya', 'Kolonnawa', 'Katuwana', 'Karandeniya', 'Karuwalagaswewa', 'Karachchi', 
+  'Lunugamvehera', 'Lahugala', 'Lankapura', 'Laggala-Pallegama', 'Lunugala', 'Medadumbara', 'Mahara', 'Maharagama', 
+  'Mathugama', 'Moratuwa', 'Mihinthale', 'Manmunai North', 'Minipe', 'Minuwangoda', 'Mawathagama', 'Mahiyanganaya', 
+  'Manmunai South and Eruvilpattu', 'Mawanella', 'Millaniya', 'Mulatiyana', 'Matale', 'Matara Four Gravets', 'Malimbada', 
+  'Mount Lavinia', 'Mannar Town', 'Mirigama', 'Madulla', 'Mahawewa', 'Moneragala', 'Mahakumbukkadawala', 'Maspotha', 
+  'Maritimepattu', 'Mahawa', 'Medawachchiya', 'Mundalama', 'Mirissa', 'Madurawala', 'Medagama', 'Mallawapitiya', 
+  'Meegahakivula', 'Mahaoya', 'Manthai West', 'Madampe', 'Madhu', 'Nallur', 'Nochchiyagama', 'Negombo', 'N. Palatha East', 
+  'N. Palatha Central', 'Nachchadoowa', 'Nagoda', 'Nanaddan', 'Naula', 'Nivithigala', 'Nuwara Eliya', 'Ninthavur', 
+  'Nikaweratiya', 'Nattandiya', 'Niyagama', 'Neluwa', 'Narammala', 'Opanayaka', 'Palugaswewa', 'Passara', 'Pathadumbara', 
+  'Panvila', 'Pathahewaheta', 'Padukka', 'Pasbage Korale', 'Panadura', 'Poojapitiya', 'Pothuvil', 'Puttalam', 'Polpithigama', 
+  'Pelmadulla', 'Pallepola', 'Pitabeddara', 'Palindanuwara', 'Panduwasnuwara', 'Pannala', 'Palagala', 'Polgahawela', 
+  'Pachchilaipalli', 'Pallama', 'Rambukkana', 'Rambewa', 'Ratnapura', 'Rattota', 'Ruwanwella', 'Rideegama', 'Rajanganaya', 
+  'Sri Jayawardanapura Kotte', 'Sevanagala', 'Sigiriya', 'Sooriyawewa', 'Siyambalanduwa', 'Sainthamarathu', 'Samanthurai', 
+  'Soranathota', 'Thissamaharama - Yala', 'Thawalama', 'Tangalle', 'Thambuttegama', 'Thumpane', 'Thalawa', 'Thirappane', 
+  'Thenmaradchy (Chavakachcheri)', 'Trincomalee Town and Gravets', 'Thanamalvila', 'Thihagoda', 'Thamankaduwa', 
+  'Thampalakamam', 'Udapalatha', 'Udunuwara', 'Uva Paranagama', 'Ukuwela', 'Udubaddawa', 'Unawatuna', 'Udadumbara', 
+  'Uhana', 'Valikamam South', 'Valikamam South-West', 'Valikamam East', 'Valikamam West', 'Vanathavilluwa', 'Vavuniya', 
+  'Valikamam North', 'Vadamaradchy North', 'Vadamaradchi South-West', 'Vavuniya North', 'Walallawita', 'Welivitiya-Divithura', 
+  'Welimada', 'Wattala', 'Wellawaya', 'Welikanda', 'Welipitiya', 'Walapane', 'Wennappuwa', 'Weligama', 'Wariyapola', 
+  'Weeraketiya', 'Wilgamuwa', 'Warakapola', 'Weerambugedara', 'Weligepola', 'Yatinuwara', 'Yakkalamulla', 'Yatiyanthota', 
+  'Yatawatta',
+];
+
 export const PartyApplication = () => {
   const { register, handleSubmit, formState: { errors }, setValue, getValues, reset, control } = useForm();
   const [activeTab, setActiveTab] = useState("details");
@@ -97,6 +147,14 @@ export const PartyApplication = () => {
   const [error, setError] = useState(null);
   const theme = useTheme();
   const { partyId } = useParams();
+  const [activeStep, setActiveStep] = useState(0);
+  const [isLeaderVerified, setIsLeaderVerified] = useState(false);
+  const [isLeaderAvaialble, setIsLeaderAvailable] = useState(false);
+  const [isCheckedLeaderNIC, setIsCheckedLeaderNIC] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [leaderName, setLeaderName] = useState("");
+  const navigate = useNavigate();
   
   const applicationStatus = "under-review"; // Can be: pending verification, verified, rejected, banned
   
@@ -289,6 +347,498 @@ export const PartyApplication = () => {
     }
   };
 
+  //validate if the leader is a voter or not
+  const validateLeaderNic = useCallback(async (nic) => {
+    if (!nic) return;
+
+    const updatedToken = KeycloakService.getToken();
+
+    setIsLoading(true);
+    setIsCheckedLeaderNIC(true);
+
+    try {
+        const leader = await axios.get(`http://localhost:5003/api/voter/${nic}`, {
+            headers: {
+                Authorization: `Bearer ${updatedToken}`
+            }
+        });
+
+        return leader;
+    } catch (error) {
+        console.log(error);
+        setIsSubmitDisabled(true);
+    } finally {
+        setIsLoading(false);
+    }
+
+    console.log("isLeaderAvaialble "+ isLeaderAvaialble);
+    console.log("isLeaderVerified "+ isLeaderVerified);
+  }, []);
+
+  //check if the user is already a leader/secretary or not
+  const getPartyMemberByNIC = async (nic) => {
+    try{
+        const updatedToken = KeycloakService.getToken();
+        const partyMember = await axios.get(`http://localhost:5003/api/party/member/by/nic/${nic}`, {
+            headers: {
+                Authorization: `Bearer ${updatedToken}`
+            }
+        });
+        return partyMember;
+    }catch(err){
+        console.log(err);
+        return null;
+    }
+  }
+
+  const handleLeaderNicBlur = async (e) => {
+    const nic = e.target.value;
+    if (!nic) return;
+
+    setIsLoading(true);
+    setIsCheckedLeaderNIC(true);
+
+    const updatedState = {
+        isLeaderVerified: false,
+        isLeaderAvailable: false,
+        isSubmitDisabled: true,
+    };
+
+    const voter = await validateLeaderNic(nic);
+    const partyMember = await getPartyMemberByNIC(nic);
+
+    if (!voter) {
+        console.log("inside block 1");
+        updatedState.isLeaderVerified = false;
+        updatedState.isLeaderAvailable = false;
+        updatedState.isSubmitDisabled = true;
+    } else if (voter && !partyMember) {
+        console.log("inside block 2");
+        updatedState.isLeaderVerified = true;
+        updatedState.isLeaderAvailable = true;
+        updatedState.isSubmitDisabled = false;
+    } else if (voter && partyMember) {
+        console.log("inside block 3");
+        updatedState.isLeaderVerified = true;
+        const partyMemberRole = partyMember.data.role;
+
+        if (partyMemberRole === "Leader" || partyMemberRole === "Secretary") {
+            console.log("inside block 4");
+            updatedState.isLeaderAvailable = false;
+            updatedState.isSubmitDisabled = true;
+        } else {
+            updatedState.isLeaderAvailable = true;
+            updatedState.isSubmitDisabled = false;
+        }
+    } else {
+        console.log("inside else");
+        updatedState.isLeaderVerified = false;
+        updatedState.isLeaderAvailable = false;
+        updatedState.isSubmitDisabled = true;
+    }
+
+    setIsLeaderVerified(updatedState.isLeaderVerified);
+    setIsLeaderAvailable(updatedState.isLeaderAvailable);
+    setIsSubmitDisabled(updatedState.isSubmitDisabled);
+
+    console.log("Updated State: ", updatedState);
+
+    setIsLoading(false);
+  };
+
+  // Styled Dialog similar to the existing BootstrapDialog
+  const FieldEditDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+        padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+        padding: theme.spacing(1),
+    },
+    '& .MuiPaper-root': {
+        width: '80%',
+        maxWidth: '600px',
+    },
+  }));
+
+  // State for managing edit modals
+  const [openPartyNameModal, setOpenPartyNameModal] = useState(false);
+  const [openAbbreviationModal, setOpenAbbreviationModal] = useState(false);
+  const [openFoundedDateModal, setOpenFoundedDateModal] = useState(false);
+  const [openAddressLine1Modal, setOpenAddressLine1Modal] = useState(false);
+  const [openAddressLine2Modal, setOpenAddressLine2Modal] = useState(false);
+  const [openCityModal, setOpenCityModal] = useState(false);
+  const [openPostalCodeModal, setOpenPostalCodeModal] = useState(false);
+  const [openLeaderNicModal, setOpenLeaderNicModal] = useState(false);
+
+  // Generic edit modal component
+  const EditFieldModal = ({ 
+    open, 
+    handleClose, 
+    title, 
+    children, 
+    onSubmit 
+  }) => (
+    <FieldEditDialog
+        open={open}
+        onClose={handleClose}
+    >
+        <DialogTitle sx={{ m: 0, p: 2 }}>
+            {title}
+        </DialogTitle>
+        <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+            }}
+        >
+            <CloseIcon />
+        </IconButton>
+        <DialogContent dividers>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Stack spacing={2}>
+                    {children}
+                </Stack>
+            </form>
+        </DialogContent>
+        <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit" onClick={handleSubmit(onSubmit)}>Save</Button>
+        </DialogActions>
+    </FieldEditDialog>
+  );
+
+  const renderPartyInformationForm = () => (
+    <Box className="w-full max-w-4xl mb-1.5">
+      <Stack spacing={3}>
+          {/* First Row: Party Name and Abbreviation */}
+          <Stack direction="row" spacing={2} alignItems="center">
+              <Stack direction="row" alignItems="center" flexGrow={1}>
+                  <TextField
+                      fullWidth
+                      label="Party Name"
+                      variant="outlined"
+                      {...register("partyName", { required: true })}
+                      margin="normal"
+                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                  />
+                  <IconButton onClick={() => setOpenPartyNameModal(true)}>
+                      <EditIcon />
+                  </IconButton>
+              </Stack>
+              
+              <Stack direction="row" alignItems="center" flexGrow={1}>
+                  <TextField
+                      fullWidth
+                      label="Abbreviation"
+                      variant="outlined"
+                      {...register("abbreviation", { required: true })}
+                      margin="normal"
+                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                  />
+                  <IconButton onClick={() => setOpenAbbreviationModal(true)}>
+                      <EditIcon />
+                  </IconButton>
+              </Stack>
+          </Stack>
+
+          {/* Second Row: Founded Date */}
+          <Stack direction="row" spacing={2} alignItems="center">
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <Controller
+                      name="foundedDate"
+                      control={control}
+                      render={({ field, fieldState }) => (
+                          <Stack direction="row" alignItems="center" flexGrow={1}>
+                              <DatePicker
+                                  {...field}
+                                  label="Established Date"
+                                  renderInput={(params) => (
+                                      <TextField 
+                                          {...params} 
+                                          fullWidth
+                                          error={!!fieldState.error} 
+                                          helperText={fieldState.error?.message} 
+                                          margin="normal"
+                                      />
+                                  )}
+                              />
+                              <IconButton onClick={() => setOpenFoundedDateModal(true)}>
+                                  <EditIcon />
+                              </IconButton>
+                          </Stack>
+                      )}
+                  />
+              </LocalizationProvider>
+          </Stack>
+
+          {/* Third Row: Address Line 1 and Address Line 2 */}
+          <Stack direction="row" spacing={2} alignItems="center">
+              <Stack direction="row" alignItems="center" flexGrow={1}>
+                  <TextField
+                      fullWidth
+                      label="Address Line 1"
+                      variant="outlined"
+                      {...register("addressLine1", { required: true })}
+                      margin="normal"
+                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                  />
+                  <IconButton onClick={() => setOpenAddressLine1Modal(true)}>
+                      <EditIcon />
+                  </IconButton>
+              </Stack>
+              
+              <Stack direction="row" alignItems="center" flexGrow={1}>
+                  <TextField
+                      fullWidth
+                      label="Address Line 2"
+                      variant="outlined"
+                      {...register("addressLine2")}
+                      margin="normal"
+                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                  />
+                  <IconButton onClick={() => setOpenAddressLine2Modal(true)}>
+                      <EditIcon />
+                  </IconButton>
+              </Stack>
+          </Stack>
+
+          {/* Fourth Row: City and Postal Code */}
+          <Stack direction="row" spacing={2} alignItems="center">
+              <Stack direction="row" alignItems="center" flexGrow={1}>
+                  <FormControl fullWidth margin="normal">
+                      <InputLabel id="city-label">City</InputLabel>
+                      <Select
+                          labelId="city-label"
+                          label="City"
+                          variant="outlined"
+                          {...register("city")}
+                      >
+                          {cities.map((city, index) => (
+                              <MenuItem key={index} value={city}>
+                                  {city}
+                              </MenuItem>
+                          ))}
+                      </Select>
+                  </FormControl>
+                  <IconButton onClick={() => setOpenCityModal(true)}>
+                      <EditIcon />
+                  </IconButton>
+              </Stack>
+              
+              <Stack direction="row" alignItems="center" flexGrow={1}>
+                  <TextField
+                      fullWidth
+                      label="Postal Code"
+                      variant="outlined"
+                      {...register("postalCode", { required: true })}
+                      margin="normal"
+                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                  />
+                  <IconButton onClick={() => setOpenPostalCodeModal(true)}>
+                      <EditIcon />
+                  </IconButton>
+              </Stack>
+          </Stack>
+
+          {/* Fifth Row: Leader NIC and Leader Name */}
+          <Stack direction="row" spacing={2} alignItems="center">
+              <Stack direction="row" alignItems="center" flexGrow={1}>
+                  <TextField
+                      fullWidth
+                      label="Leader NIC"
+                      variant="outlined"
+                      {...register("leaderNic", { required: true })}
+                      margin="normal"
+                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+                  />
+                  <IconButton onClick={() => setOpenLeaderNicModal(true)}>
+                      <EditIcon />
+                  </IconButton>
+              </Stack>
+              
+              <TextField
+                  fullWidth
+                  label="Leader Name"
+                  variant="outlined"
+                  disabled
+                  margin="normal"
+                  sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+              />
+          </Stack>
+      </Stack>
+
+      {/* Modals for each field */}
+      {/* Party Name Modal */}
+      <EditFieldModal
+          open={openPartyNameModal}
+          handleClose={() => setOpenPartyNameModal(false)}
+          title="Edit Party Name"
+          onSubmit={(data) => {
+              console.log('Party Name Updated:', data.partyName);
+              setOpenPartyNameModal(false);
+          }}
+      >
+          <TextField
+              fullWidth
+              label="Party Name"
+              variant="outlined"
+              {...register("partyName", { required: true })}
+          />
+      </EditFieldModal>
+
+      {/* Abbreviation Modal */}
+      <EditFieldModal
+          open={openAbbreviationModal}
+          handleClose={() => setOpenAbbreviationModal(false)}
+          title="Edit Abbreviation"
+          onSubmit={(data) => {
+              console.log('Abbreviation Updated:', data.abbreviation);
+              setOpenAbbreviationModal(false);
+          }}
+      >
+          <TextField
+              fullWidth
+              label="Abbreviation"
+              variant="outlined"
+              {...register("abbreviation", { required: true })}
+          />
+      </EditFieldModal>
+
+      {/* Founded Date Modal */}
+      <EditFieldModal
+          open={openFoundedDateModal}
+          handleClose={() => setOpenFoundedDateModal(false)}
+          title="Edit Founded Date"
+          onSubmit={(data) => {
+              console.log('Founded Date Updated:', data.foundedDate);
+              setOpenFoundedDateModal(false);
+          }}
+      >
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Controller
+                  name="foundedDate"
+                  control={control}
+                  render={({ field }) => (
+                      <DatePicker
+                          {...field}
+                          label="Established Date"
+                          renderInput={(params) => (
+                              <TextField 
+                                  {...params} 
+                                  fullWidth 
+                                  variant="outlined"
+                              />
+                          )}
+                      />
+                  )}
+              />
+          </LocalizationProvider>
+      </EditFieldModal>
+
+      {/* Address Line 1 Modal */}
+      <EditFieldModal
+          open={openAddressLine1Modal}
+          handleClose={() => setOpenAddressLine1Modal(false)}
+          title="Edit Address Line 1"
+          onSubmit={(data) => {
+              console.log('Address Line 1 Updated:', data.addressLine1);
+              setOpenAddressLine1Modal(false);
+          }}
+      >
+          <TextField
+              fullWidth
+              label="Address Line 1"
+              variant="outlined"
+              {...register("addressLine1", { required: true })}
+          />
+      </EditFieldModal>
+
+      {/* Address Line 2 Modal */}
+      <EditFieldModal
+          open={openAddressLine2Modal}
+          handleClose={() => setOpenAddressLine2Modal(false)}
+          title="Edit Address Line 2"
+          onSubmit={(data) => {
+              console.log('Address Line 2 Updated:', data.addressLine2);
+              setOpenAddressLine2Modal(false);
+          }}
+      >
+          <TextField
+              fullWidth
+              label="Address Line 2"
+              variant="outlined"
+              {...register("addressLine2")}
+          />
+      </EditFieldModal>
+
+      {/* City Modal */}
+      <EditFieldModal
+          open={openCityModal}
+          handleClose={() => setOpenCityModal(false)}
+          title="Edit City"
+          onSubmit={(data) => {
+              console.log('City Updated:', data.city);
+              setOpenCityModal(false);
+          }}
+      >
+          <FormControl fullWidth>
+              <InputLabel id="city-label">City</InputLabel>
+              <Select
+                  labelId="city-label"
+                  label="City"
+                  {...register("city")}
+              >
+                  {cities.map((city, index) => (
+                      <MenuItem key={index} value={city}>
+                          {city}
+                      </MenuItem>
+                  ))}
+              </Select>
+          </FormControl>
+      </EditFieldModal>
+
+      {/* Postal Code Modal */}
+      <EditFieldModal
+          open={openPostalCodeModal}
+          handleClose={() => setOpenPostalCodeModal(false)}
+          title="Edit Postal Code"
+          onSubmit={(data) => {
+              console.log('Postal Code Updated:', data.postalCode);
+              setOpenPostalCodeModal(false);
+          }}
+      >
+          <TextField
+              fullWidth
+              label="Postal Code"
+              variant="outlined"
+              {...register("postalCode", { required: true })}
+          />
+      </EditFieldModal>
+
+      {/* Leader NIC Modal */}
+      <EditFieldModal
+          open={openLeaderNicModal}
+          handleClose={() => setOpenLeaderNicModal(false)}
+          title="Edit Leader NIC"
+          onSubmit={(data) => {
+              console.log('Leader NIC Updated:', data.leaderNic);
+              setOpenLeaderNicModal(false);
+          }}
+      >
+          <TextField
+              fullWidth
+              label="Leader NIC"
+              variant="outlined"
+              {...register("leaderNic", { required: true })}
+          />
+      </EditFieldModal>
+    </Box>
+  );
+
   if (error) {
     return (
       <Box sx={{ p: 3 }}>
@@ -317,10 +867,6 @@ export const PartyApplication = () => {
         {getStatusBadge(party.state)}
       </Box>
 
-      <Button variant="outlined" onClick={() => setEditable(!editable)}>
-        {editable ? "Save Changes" : "Edit"}
-      </Button>
-
       <Tabs
         value={activeTab}
         onChange={(e, newValue) => setActiveTab(newValue)}
@@ -332,24 +878,9 @@ export const PartyApplication = () => {
       </Tabs>
 
       {activeTab === 'details' && (
-        <Paper sx={{ p: 4, mt: 4 }}>
+        <Paper sx={{p: 1,mt: 2 }}>
           <Grid container spacing={2}>
-            {Object.entries(applicationDetails).map(([key, value]) => (
-              key !== 'id' && key !== 'status' && (
-                <Grid item xs={6} key={key}>
-                  <TextField
-                    label={key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1').trim()}
-                    value={value}
-                    variant="filled"
-                    fullWidth
-                    onChange={(e) => handleFieldChange(key, e.target.value)}
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                </Grid>
-              )
-            ))}
+            {renderPartyInformationForm()}
           </Grid>
 
           <Divider sx={{ my: 4 }} />
@@ -424,7 +955,7 @@ export const PartyApplication = () => {
 
       {/* Other sections for inquiries and history */}
       {activeTab === 'inquiries' && (
-        <Paper sx={{ p: 4, mt: 4 }}>
+        <Paper sx={{ p: 1, mt: 2 }}>
           {/* <Typography variant="h6" gutterBottom>Inquiries and Requests</Typography> */}
           {inquiries.map((inquiry) => (
             <Alert key={inquiry.id} severity={inquiry.status === "resolved" ? "success" : "warning"} sx={{ mb: 2 }}>
@@ -442,7 +973,7 @@ export const PartyApplication = () => {
       )}
 
       {activeTab === 'history' && (
-        <Paper sx={{ p: 4, mt: 4, bgcolor: 'background.default' }}>
+        <Paper sx={{ p: 1, mt: 2, bgcolor: 'background.default' }}>
           {/* <Typography variant="h6" gutterBottom>Application History</Typography> */}
           <Box sx={{ position: 'relative', pl: 3 }}>
             {history.map((item, index) => (

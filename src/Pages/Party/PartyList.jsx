@@ -143,6 +143,8 @@ export const PartyList = () => {
 
         const token = KeycloakService.getToken();
         const partyResponse = await axios.get('http://localhost:5003/api/party/all');
+        console.log("Party response: ");
+        console.log(partyResponse);
         setPartyList(partyResponse.data);
         
         if (loggedIn) {
@@ -224,7 +226,7 @@ export const PartyList = () => {
                   <div className='w-1/2'>
                     <PartyCard 
                       party={userParty} 
-                      state="pending verification" 
+                      state={userParty.state} 
                       viewMode="application" 
                     />
                   </div>

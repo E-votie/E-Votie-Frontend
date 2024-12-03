@@ -86,7 +86,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-
 const PartyCard = ({ party, state, viewMode }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -142,7 +141,7 @@ const PartyCard = ({ party, state, viewMode }) => {
                 width: { xs: '100%', sm: 120 }, 
                 height: { xs: 200, sm: 120 },
               }}
-              src={unpImage}
+              src={partyImageUrl || unpImage}
               alt={party.name}
               className='object-cover'
             />

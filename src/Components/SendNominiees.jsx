@@ -8,11 +8,11 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import { 
-  Stack, 
-  FormControl, 
-  Box, 
-  Select, 
+import {
+  Stack,
+  FormControl,
+  Box,
+  Select,
   MenuItem,
   List,
   ListItem,
@@ -22,8 +22,8 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import KeycloakService from "../services/KeycloakService";
 
-// Maintain the same styling
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -37,85 +37,89 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-// Dummy data for elections and party members
-const DUMMY_ELECTIONS = [
-  { id: 1, name: "Parliamentary Election 2024" },
-  { id: 2, name: "Provincial Council Election 2024" },
-  { id: 3, name: "Local Government Election 2024" }
-];
-
-const DUMMY_PARTY_MEMBERS = [
-  { id: 1, name: "John Doe", position: "Senior Member", nic: "891234567V" },
-  { id: 2, name: "Jane Smith", position: "Deputy Leader", nic: "901234567V" },
-  { id: 3, name: "Mike Johnson", position: "General Secretary", nic: "851234567V" },
-  { id: 4, name: "Sarah Williams", position: "Treasurer", nic: "871234567V" }
-];
-
-export const SendNomineesModal = ({open, handleClose}) => {
-  const [selectedElection, setSelectedElection] = React.useState('');
+export const SendNomineesModal = ({ open, handleClose, partyId }) => {
+  const [elections, setElections] = React.useState([]);
   const [partyMembers, setPartyMembers] = React.useState([]);
-  const [selectedNominees, setSelectedNominees] = React.useState([]);
+  const [selectedElection, setSelectedElection] = React.useState('');
+  const [selectedNominee, setSelectedNominee] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
 
-  // Fetch party members when election is selected
+  // Fetch elections and party members based on the partyId
   React.useEffect(() => {
-    if (selectedElection) {
-      // Simulating API call to fetch party members
-      setLoading(true);
-      setTimeout(() => {
-        setPartyMembers(DUMMY_PARTY_MEMBERS);
+    const fetchInitialData = async () => {
+      try {
+        const token = KeycloakService.getToken();
+        setLoading(true);
+        const [electionsResponse, partyMembersResponse] = await Promise.all([
+          axios.get('http://localhost:5003/api/nomination/elections',{
+              headers: {
+                  Authorization: `Bearer ${token}`
+              }
+          }), 
+          axios.get(`http://localhost:5003/api/party/member/all?party=${partyId}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }) 
+        ]);
+
+        setElections(electionsResponse.data.body);
+        setPartyMembers(partyMembersResponse.data);
+        console.log("Elections");
+        console.log(electionsResponse);
+        
+      } catch (error) {
+        console.error('Error fetching initial data:', error);
+      } finally {
         setLoading(false);
-      }, 1000);
+      }
+    };
+
+    if (partyId) {
+      fetchInitialData();
     }
-  }, [selectedElection]);
+  }, [partyId]);
 
   const handleElectionChange = (event) => {
     setSelectedElection(event.target.value);
-    setSelectedNominees([]); // Reset selections when election changes
+    setSelectedNominee(null); // Reset nominee selection
   };
 
-  const handleNomineeToggle = (memberId) => {
-    setSelectedNominees(prev => {
-      if (prev.includes(memberId)) {
-        return prev.filter(id => id !== memberId);
-      } else {
-        return [...prev, memberId];
-      }
-    });
+  const handleNomineeSelect = (memberId) => {
+    setSelectedNominee(memberId);
   };
 
-  const handleSubmitNominees = async () => {
-    // Show confirmation dialog
+  const handleSubmitNominee = async () => {
     const result = await Swal.fire({
       title: 'Confirm Submission',
-      text: `Are you sure you want to submit ${selectedNominees.length} nominees for this election?`,
+      text: `Are you sure you want to submit the selected nominee for this election?`,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: 'Yes, submit nominees',
+      confirmButtonText: 'Yes, submit nominee',
       cancelButtonText: 'Cancel'
     });
 
     if (result.isConfirmed) {
       setLoading(true);
       try {
-        // Simulate API call to submit nominees
-        await axios.post('/api/submit-nominees', {
+        await axios.post('/api/submit-nominee', {
+          partyId,
           electionId: selectedElection,
-          nomineeIds: selectedNominees
+          nomineeId: selectedNominee
         });
 
-        // Show success message
         await Swal.fire({
           title: 'Success!',
-          text: 'Nominees have been successfully submitted',
+          text: 'Nominee has been successfully submitted',
           icon: 'success'
         });
 
         handleClose();
       } catch (error) {
+        console.error('Error submitting nominee:', error);
         Swal.fire({
           title: 'Error',
-          text: 'Failed to submit nominees. Please try again.',
+          text: 'Failed to submit nominee. Please try again.',
           icon: 'error'
         });
       } finally {
@@ -132,7 +136,7 @@ export const SendNomineesModal = ({open, handleClose}) => {
         open={open}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Send Nominees for Election
+          Send Nominee for Election
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -162,7 +166,7 @@ export const SendNomineesModal = ({open, handleClose}) => {
                   <MenuItem value="">
                     <em>Select an election</em>
                   </MenuItem>
-                  {DUMMY_ELECTIONS.map((election) => (
+                  {elections.map((election) => (
                     <MenuItem key={election.id} value={election.id}>
                       {election.name}
                     </MenuItem>
@@ -173,7 +177,7 @@ export const SendNomineesModal = ({open, handleClose}) => {
               {selectedElection && (
                 <Box>
                   <Typography variant="body1" gutterBottom>
-                    Select Nominees
+                    Select Nominee
                   </Typography>
                   {loading ? (
                     <Box display="flex" justifyContent="center" p={2}>
@@ -183,20 +187,20 @@ export const SendNomineesModal = ({open, handleClose}) => {
                     <List sx={{ maxHeight: '300px', overflow: 'auto' }}>
                       {partyMembers.map((member) => (
                         <ListItem
-                          key={member.id}
+                          key={member.partyMemberId}
                           dense
                           button
-                          onClick={() => handleNomineeToggle(member.id)}
+                          onClick={() => handleNomineeSelect(member.partyMemberId)}
                         >
                           <Checkbox
                             edge="start"
-                            checked={selectedNominees.includes(member.id)}
+                            checked={selectedNominee === member.partyMemberId} // Ensure only one checkbox is checked
                             tabIndex={-1}
                             disableRipple
                           />
                           <ListItemText
-                            primary={member.name}
-                            secondary={`${member.position} | NIC: ${member.nic}`}
+                            primary={member.partyMemberName}
+                            secondary={`${member.role} | NIC: ${member.nic}`}
                           />
                         </ListItem>
                       ))}
@@ -213,11 +217,11 @@ export const SendNomineesModal = ({open, handleClose}) => {
           </Button>
           <Button
             autoFocus
-            onClick={handleSubmitNominees}
+            onClick={handleSubmitNominee}
             color="primary"
-            disabled={selectedNominees.length === 0 || loading}
+            disabled={!selectedNominee || loading}
           >
-            {loading ? 'Submitting...' : 'Send Nominees'}
+            {loading ? 'Submitting...' : 'Send Nominee'}
           </Button>
         </DialogActions>
       </BootstrapDialog>

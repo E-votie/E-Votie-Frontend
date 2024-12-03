@@ -111,7 +111,7 @@ export const PartyMemberSideBar = ({ party, partyRequests }) => {
       </StyledDrawer>
 
       <AddNewPartyMemberWithNic open={openAddPolitician} handleClose={handleCloseAddPolitician} handleCloseSideBar={setIsDrawerOpen} partyInfo={party} />
-      <SendNomineesModal open={openSendNomineesModal} handleClose={handleCloseNomineesModal} />
+      <SendNomineesModal open={openSendNomineesModal} handleClose={handleCloseNomineesModal} partyId={party.registrationId} />
     </Box>
   );
 };
