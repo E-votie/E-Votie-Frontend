@@ -5,6 +5,7 @@ import { Layout } from "./Layout.jsx";
 import { Home } from "./Pages/Home.jsx";
 import "./App.css";
 import { ReportView } from "./Pages/ReportGeneration/ReportView.jsx";
+import { AiChatView } from "./Pages/ReportGeneration/AiChatView.jsx";
 import { ResultView } from "./Pages/ReportGeneration/ResultView.jsx";
 import { DistrictResultView } from "./Pages/ReportGeneration/DistrictResult.jsx";
 import NewHome from "./Pages/Home_New.jsx";
@@ -33,6 +34,7 @@ function App() {
                         <Route path="/" element={<Layout />}>
                             <Route index element={<NewHome />} />
                             <Route path="Special_home" element={<Home />} />
+                            <Route path="election/aichat" element={<AiChatView />} />
                             <Route path="election/result" element={<ResultView />} />
                             <Route path="election/result/district/:District" element={<DistrictResultView />} />
                             <Route path="reports/View" element={<ReportView />} />
