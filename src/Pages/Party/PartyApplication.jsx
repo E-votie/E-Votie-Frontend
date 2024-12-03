@@ -51,6 +51,8 @@ import { Controller } from 'react-hook-form';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
+import { SubmitInquiry } from '../../Components/SubmitInquiry';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const MySwal = withReactContent(Swal);
 
@@ -154,62 +156,44 @@ export const PartyApplication = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [leaderName, setLeaderName] = useState("");
+  const [applicationHistory, setApplicationHistory] = useState([]);
+  const [inquiryList, setInquiryList] = useState([]);
+  //register files
+  const[constitution, setConstitution] = useState(null);
+  const[logo, setLogo] = useState(null);
+  const[membership, setMembership] = useState(null);
+  const[financial, setFinancial] = useState(null);
+  const[leadership, setLeadership] = useState(null);
   const navigate = useNavigate();
   
-  const applicationStatus = "under-review"; // Can be: pending verification, verified, rejected, banned
+  //update initial file names
+  const setFileNames = useCallback(async () => {
+    if (party?.documents) {
+      party.documents.forEach((document) => {
+        const { documentType, documentName } = document;
   
-  const [applicationDetails, setApplicationDetails] = useState({
-    id: "APP-12345",
-    partyName: "Green Party",
-    leader: "John Doe",
-    submittedDate: "2024-07-31",
-    status: "Under Review",
-    addressLine1: "123 Green Street",
-    addressLine2: "Eco City",
-    postalCode: "12345",
-    contactNumber: "+1 234 567 8900",
-    email: "contact@greenparty.com"
-  });
-
-  const attachments = [
-    { type: "Constitution", name: "Constitution.pdf", status: "verified" },
-    { type: "Logo", name: "Logo.png", status: "pending" },
-    { type: "Membership List", name: "Members.xlsx", status: "rejected" },
-    { type: "Financial Statement", name: "Finances.pdf", status: "pending" },
-    { type: "Leadership Structure", name: "Leadership.pdf", status: "verified" }
-  ];
-
-  const inquiries = [
-    {
-      id: 1,
-      type: "name_change",
-      status: "pending",
-      date: "2024-08-01",
-      request: "Request to change party name from 'Eco Party' to 'Green Party'",
-      submittedBy: "John Doe"
-    },
-    {
-      id: 2,
-      type: "document_update",
-      status: "resolved",
-      date: "2024-07-29",
-      request: "Updated constitution document requested",
-      submittedBy: "Verification Officer"
+        switch (documentType) {
+          case "constitution":
+            setConstitution(documentName);
+            break;
+          case "logo":
+            setLogo(documentName);
+            break;
+          case "membership":
+            setMembership(documentName);
+            break;
+          case "financial":
+            setFinancial(documentName);
+            break;
+          case "leadership":
+            setLeadership(documentName);
+            break;
+          default:
+            console.warn(`Unexpected fileType: ${documentType}`);
+        }
+      });
     }
-  ];
-
-  const history = [
-    {
-      date: "2024-07-31",
-      action: "Application submitted",
-      user: "John Doe"
-    },
-    {
-      date: "2024-07-29",
-      action: "Party name updated from 'Eco Party' to 'Green Party'",
-      user: "John Doe"
-    }
-  ];
+  }, [party]);
 
   // Fetch data on component mount
   useEffect(() => {
@@ -221,10 +205,27 @@ export const PartyApplication = () => {
           headers: {
               Authorization: `Bearer ${token}`
           }
-      });
+        });
         setParty(partyResponse.data);
         setPartyState(partyResponse.data.state);
-        console.log(partyResponse);
+
+        await setFileNames();
+
+        const historyResponse = await axios.get(`http://localhost:5003/api/history/party/${partyId}`, {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+        });
+        console.log(historyResponse);
+        setApplicationHistory(historyResponse.data);
+
+        const inquiryResponse = await axios.get(`http://localhost:5003/api/inquiry/party/${partyId}`, {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+        });
+        console.log(inquiryResponse);
+        setInquiryList(inquiryResponse.data);
         
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -253,55 +254,592 @@ export const PartyApplication = () => {
     );
   };
 
-  const handleSubmitInquiry = () => {
+  const handleClose = () => {
     setShowInquiryDialog(false);
-    setInquiryText("");
+  }
+
+  //===========Methods for update fields============================
+
+  const submitPartyName = async (data) => {
+    const { isConfirmed } = await MySwal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to update the party name?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'Cancel',
+    });
+
+    if (isConfirmed) {
+        try {
+            MySwal.fire({
+              title: 'Updating...',
+              text: 'Please wait while we update the party name.',
+              icon: 'info',
+              showCancelButton: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                  MySwal.showLoading();
+              }
+            });
+
+            const token = KeycloakService.getToken();
+            const response = await axios.put(
+                `http://localhost:5003/api/application/update/party/${party.registrationId}/name`,
+                data, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            MySwal.close();
+            console.log('Party name updated:', response.data);
+            MySwal.fire({
+                title: 'Updated!',
+                text: 'Party name has been successfully updated.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            }).then(() => {
+              handleClose?.();
+              window.location.href = `/party/registration/application/${partyId}`;
+          });
+        } catch (error) {
+            MySwal.fire({
+                title: 'Error!',
+                text: 'Something went wrong while updating the party name.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+            console.error('Update failed:', error);
+        }
+    }
   };
 
-  const handleFieldChange = (key, value) => {
-    setApplicationDetails(prevDetails => ({
-      ...prevDetails,
-      [key]: value,
-    }));
+  const submitAbbreviation = async (data) => {
+    const { isConfirmed } = await MySwal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to update the abbreviation?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'Cancel',
+    });
+
+    if (isConfirmed) {
+        try {
+            MySwal.fire({
+              title: 'Updating...',
+              text: 'Please wait while we update the party abbreviation.',
+              icon: 'info',
+              showCancelButton: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                  MySwal.showLoading();
+              }
+            });
+
+            const token = KeycloakService.getToken();
+            const response = await axios.put(
+                `http://localhost:5003/api/application/update/party/${party.registrationId}/abbreviation`,
+                { abbreviation: data.abbreviation }, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            MySwal.close();
+            MySwal.fire({
+                title: 'Updated!',
+                text: 'Abbreviation has been successfully updated.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            }).then(() => {
+              handleClose?.();
+              window.location.href = `/party/registration/application/${partyId}`;
+          });
+        } catch (error) {
+            MySwal.fire({
+                title: 'Error!',
+                text: 'Something went wrong while updating the abbreviation.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+            console.error('Update failed:', error);
+        }
+    }
   };
 
-  //register files
-  const[constitution, setConstitution] = useState(null);
-  const[logo, setLogo] = useState(null);
-  const[membership, setMembership] = useState(null);
-  const[financial, setFinancial] = useState(null);
-  const[leadership, setLeadership] = useState(null);
+  const submitFoundedDate = async (data) => {
+    const { isConfirmed } = await MySwal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to update the founded date?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'Cancel',
+    });
+
+    if (isConfirmed) {
+        try {
+            MySwal.fire({
+              title: 'Updating...',
+              text: 'Please wait while we update the founded date.',
+              icon: 'info',
+              showCancelButton: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                  MySwal.showLoading();
+              }
+          });
+
+          const token = KeycloakService.getToken();
+          const response = await axios.put(
+              `http://localhost:5003/api/application/update/party/${party.registrationId}/date`, 
+              { foundedDate: data.foundedDate }, 
+              {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+              }
+          );
+
+          MySwal.close();
+
+          MySwal.fire({
+              title: 'Updated!',
+              text: 'Founded date has been successfully updated.',
+              icon: 'success',
+              confirmButtonText: 'OK',
+          }).then(() => {
+            handleClose?.();
+            window.location.href = `/party/registration/application/${partyId}`;
+        });
+        } catch (error) {
+            MySwal.fire({
+                title: 'Error!',
+                text: 'Something went wrong while updating the founded date.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+            console.error('Update failed:', error);
+        }
+    }
+  };
+
+  const submitAddressLine1 = async (data) => {
+    const { isConfirmed } = await MySwal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to update the address line 1?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'Cancel',
+    });
+
+    if (isConfirmed) {
+        try {
+            MySwal.fire({
+              title: 'Updating...',
+              text: 'Please wait while we update the address line 1.',
+              icon: 'info',
+              showCancelButton: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                  MySwal.showLoading();
+              }
+          });
+
+          const token = KeycloakService.getToken();
+          const response = await axios.put(
+              `http://localhost:5003/api/application/update/party/${party.registrationId}/address/line1`,
+              { address: { addressLine_1: data.addressLine_1} },  
+              {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+              }
+          );
+
+          MySwal.close();
+          MySwal.fire({
+              title: 'Updated!',
+              text: 'Address Line 1 has been successfully updated.',
+              icon: 'success',
+              confirmButtonText: 'OK',
+          }).then(() => {
+            handleClose?.();
+            window.location.href = `/party/registration/application/${partyId}`;
+        });
+        } catch (error) {
+            MySwal.fire({
+                title: 'Error!',
+                text: 'Something went wrong while updating Address Line 1.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+            console.error('Update failed:', error);
+        }
+    }
+  };
+
+  const submitAddressLine2 = async (data) => {
+    const { isConfirmed } = await MySwal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to update Address Line 2?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'Cancel',
+    });
+
+    if (isConfirmed) {
+        try {
+            MySwal.fire({
+              title: 'Updating...',
+              text: 'Please wait while we update the address line 2.',
+              icon: 'info',
+              showCancelButton: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                  MySwal.showLoading();
+              }
+          });
+
+          const token = KeycloakService.getToken();
+          const response = await axios.put(
+              `http://localhost:5003/api/application/update/party/${party.registrationId}/address/line2`,
+              { address: { addressLine_2: data.addressLine_2} },  
+              {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+              }
+          );
+
+          MySwal.close();
+          MySwal.fire({
+              title: 'Updated!',
+              text: 'Address Line 2 has been successfully updated.',
+              icon: 'success',
+              confirmButtonText: 'OK',
+          }).then(() => {
+            handleClose?.();
+            window.location.href = `/party/registration/application/${partyId}`;
+        });
+        } catch (error) {
+            MySwal.fire({
+                title: 'Error!',
+                text: 'Failed to update Address Line 2.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+            console.error(error);
+        }
+    }
+  };
+
+  const submitCity = async (data) => {
+    const { isConfirmed } = await MySwal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to update the city?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'Cancel',
+    });
+
+    if (isConfirmed) {
+        try {
+            MySwal.fire({
+              title: 'Updating...',
+              text: 'Please wait while we update the city.',
+              icon: 'info',
+              showCancelButton: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                  MySwal.showLoading();
+              }
+          });
+
+          const token = KeycloakService.getToken();
+          const response = await axios.put(
+              `http://localhost:5003/api/application/update/party/${party.registrationId}/city`,
+              { address: { city: data.city } }, // Assuming the API expects an address object with a city field
+              {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+              }
+          );
+
+          MySwal.close();
+          MySwal.fire({
+            title: 'Updated!',
+            text: 'City has been successfully updated.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+        }).then(() => {
+          handleClose?.();
+          window.location.href = `/party/registration/application/${partyId}`;
+      });
+        } catch (error) {
+            MySwal.fire({
+                title: 'Error!',
+                text: 'Failed to update the city.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+            console.error(error);
+        }
+    }
+  };
+
+  const submitPostalCode = async (data) => {
+    const { isConfirmed } = await MySwal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to update the postal code?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'Cancel',
+    });
+
+    if (isConfirmed) {
+        try {
+            MySwal.fire({
+              title: 'Updating...',
+              text: 'Please wait while we update the postal code.',
+              icon: 'info',
+              showCancelButton: false,
+              showConfirmButton: false,
+              willOpen: () => {
+                  MySwal.showLoading();
+              }
+          });
+
+          const token = KeycloakService.getToken();
+          const response = await axios.put(
+              `http://localhost:5003/api/application/update/party/${party.registrationId}/postal`,
+              { address: { postalCode: data.postalCode } }, // Assuming API expects postal code inside an address object
+              {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+              }
+          );
+
+          MySwal.close();
+          MySwal.fire({
+              title: 'Updated!',
+              text: 'Postal Code has been successfully updated.',
+              icon: 'success',
+              confirmButtonText: 'OK',
+          }).then(() => {
+            handleClose?.();
+            window.location.href = `/party/registration/application/${partyId}`;
+        });
+        } catch (error) {
+            MySwal.fire({
+                title: 'Error!',
+                text: 'Failed to update the postal code.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+            console.error(error);
+        }
+    }
+  };
 
   const handleFileChange = (documentId) => (event) => {
     const file = event.target.files[0];
     if (file) {
-      console.log(`File uploaded for ${documentId}:`, file.name);
-      if(documentId === "constitution"){
-        setValue("constitution", file);
-        setConstitution(file.name);
-      }else if(documentId === "logo"){
-        setValue("logo", file);
-        setLogo(file.name);
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setValue("partySymbol", reader.result.split(",")[1]);
-        };
-        reader.readAsDataURL(file);
-      }else if(documentId === "membership"){
-        setValue("membership", file);
-        setMembership(file.name);
-      }else if(documentId === "financial"){
-        setValue("financial", file);
-        setFinancial(file.name);
-      }else if(documentId === "leadership"){
-        setValue("leadership", file);
-        setLeadership(file.name);
-      }else{
-        alert("Invalid File Type");
-      }
+      MySwal.fire({
+        title: "Are you sure?",
+        text: `You are about to upload the file: ${file.name}`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, upload it!",
+        cancelButtonText: "Cancel",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log(`File uploaded for ${documentId}:`, file.name);
+    
+          const originalFileName = file.name.split('.').slice(0, -1).join('.'); 
+          const fileExtension = file.name.split('.').pop(); 
+          const renamedFileName = `${originalFileName}_${documentId}.${fileExtension}`;
+  
+          const renamedFile = new File([file], renamedFileName, { type: file.type });
+
+          if (documentId === "constitution") {
+            setValue("constitution", renamedFile);
+            setConstitution(renamedFileName);
+          } else if (documentId === "logo") {
+            setValue("logo", renamedFile);
+            setLogo(renamedFileName);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              setValue("partySymbol", reader.result.split(",")[1]);
+            };
+            reader.readAsDataURL(file);
+          } else if (documentId === "membership") {
+            setValue("membership", renamedFile);
+            setMembership(renamedFileName);
+          } else if (documentId === "financial") {
+            setValue("financial", renamedFile);
+            setFinancial(renamedFileName);
+          } else if (documentId === "leadership") {
+            setValue("leadership", renamedFile);
+            setLeadership(renamedFileName);
+          } else {
+            alert("Invalid File Type");
+          }
+
+          MySwal.fire({
+            title: "Success!",
+            text: `${file.name} has been uploaded successfully.`,
+            icon: "success",
+          });
+        } else {
+          MySwal.fire({
+            title: "Cancelled",
+            text: "Your upload was cancelled.",
+            icon: "error",
+          });
+        }
+      });
     }
   };
 
+  const handleUpload = async (documentId, partyId) => {
+    const file =
+      documentId === "constitution"
+        ? getValues("constitution")
+        : documentId === "logo"
+        ? getValues("logo")
+        : documentId === "membership"
+        ? getValues("membership")
+        : documentId === "financial"
+        ? getValues("financial")
+        : getValues("leadership");
+  
+    if (!file) {
+      MySwal.fire({
+        title: "Error!",
+        text: "No file selected to upload.",
+        icon: "error",
+      });
+      return;
+    }
+  
+    // Prepare FormData
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("documentType", documentId);
+    formData.append("partyId", party.registrationId); // Pass party ID
+  
+    try {
+      MySwal.fire({
+        title: "Uploading...",
+        text: "Please wait while your file is being uploaded.",
+        icon: "info",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+          MySwal.showLoading();
+        },
+      });
+      const token = KeycloakService.getToken();
+      const response = await axios.post("http://localhost:5003/api/application/document/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`
+        },
+      });
+  
+      MySwal.fire({
+        title: "Uploaded Successfully!",
+        text: `${file.name} has been uploaded.`,
+        icon: "success",
+      });
+    } catch (error) {
+      MySwal.fire({
+        title: "Error!",
+        text: `An error occurred while uploading ${file.name}: ${error.response?.data?.message || error.message}`,
+        icon: "error",
+      });
+    }
+  };
+
+  const handleDownload = async (documentId) => {
+    try {
+      // Show loading alert
+      MySwal.fire({
+        title: "Preparing Download...",
+        text: "Fetching the file from the server.",
+        icon: "info",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+          MySwal.showLoading();
+        },
+      });
+  
+      const token = KeycloakService.getToken();
+
+      var documentName = "";
+      party.documents.forEach((document) => {
+        if (document.documentType === documentId){
+          documentName = document.documentName
+        }
+      });
+
+      const response = await axios.post(
+        `http://localhost:5003/api/document/url/${documentName}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("File download");
+      console.log(response);
+      
+      const fileUrl = response.data;
+  
+      const link = document.createElement("a");
+      link.href = fileUrl;
+      link.setAttribute("download", ""); 
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  
+      // Show success alert
+      MySwal.fire({
+        title: "Download Started!",
+        text: "Your file is being downloaded.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } catch (error) {
+      console.error("Error fetching download URL:", error);
+      MySwal.fire({
+        title: "Download Failed",
+        text:
+          error.response?.data?.message ||
+          "An error occurred while fetching the file. Please try again.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+
+  //state update of the application
   const handleStateUpdate = async (state) => {
     const confirmation = await MySwal.fire({
       title: "Are you sure?",
@@ -318,7 +856,7 @@ export const PartyApplication = () => {
         const updatedToken = KeycloakService.getToken();
         const partyMember = await axios.put(
           `http://localhost:5003/api/party/state?party=${partyId}&state=${state}`,
-          null, // If no request body, pass `null` here
+          null, 
           {
             headers: {
               Authorization: `Bearer ${updatedToken}`
@@ -460,6 +998,57 @@ export const PartyApplication = () => {
     },
   }));
 
+  // Delete handler function
+  const handleDeleteInquiry = async (inquiryId) => {
+    const confirmDeletion = await MySwal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to delete this inquiry? This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Delete',
+      cancelButtonText: 'Cancel',
+    });
+
+    if (!confirmDeletion.isConfirmed) {
+      return;
+    }
+
+    // Show loading while deleting
+    MySwal.fire({
+      title: 'Deleting Inquiry...',
+      text: 'Please wait while we delete your inquiry',
+      didOpen: () => {
+        MySwal.showLoading();
+      },
+    });
+
+    try {
+      const token = KeycloakService.getToken();
+      await axios.delete(`http://localhost:5003/api/inquiry/${inquiryId}`,{
+        headers: {
+            Authorization: `Bearer ${token}`                
+        }
+    });
+
+      // Show success message
+      MySwal.fire({
+        icon: 'success',
+        title: 'Deleted Successfully!',
+        text: 'Your inquiry has been deleted.',
+      });
+
+      // Refresh the inquiry list after deletion
+      setInquiryList((prevList) => prevList.filter((inquiry) => inquiry.id !== inquiryId));
+    } catch (error) {
+      // Show error message
+      MySwal.fire({
+        icon: 'error',
+        title: 'Deletion Failed',
+        text: error.response?.data?.message || 'An error occurred while deleting the inquiry.',
+      });
+    }
+  };
+
   // State for managing edit modals
   const [openPartyNameModal, setOpenPartyNameModal] = useState(false);
   const [openAbbreviationModal, setOpenAbbreviationModal] = useState(false);
@@ -470,6 +1059,32 @@ export const PartyApplication = () => {
   const [openPostalCodeModal, setOpenPostalCodeModal] = useState(false);
   const [openLeaderNicModal, setOpenLeaderNicModal] = useState(false);
 
+  // Custom input with edit icon
+  const EditableInput = ({ 
+    children, 
+    onEditClick, 
+    className = '',
+    editClassName = ''
+  }) => (
+    <div className={`relative w-full ${className}`}>
+      {children}
+      <IconButton 
+        size="small"
+        onClick={onEditClick}
+        className={`absolute right-2 top-1/2 -translate-y-1/2 ${editClassName}`}
+        sx={{
+          position: 'absolute',
+          right: 8,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 10,
+        }}
+      >
+        <EditIcon fontSize="small" />
+      </IconButton>
+    </div>
+  );
+  
   // Generic edit modal component
   const EditFieldModal = ({ 
     open, 
@@ -506,170 +1121,209 @@ export const PartyApplication = () => {
         </DialogContent>
         <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit" onClick={handleSubmit(onSubmit)}>Save</Button>
+            <Button type="submit" onClick={handleSubmit(onSubmit)}>Update</Button>
         </DialogActions>
     </FieldEditDialog>
   );
-
+  const isVerificationOfficer = KeycloakService.hasRole("VerificationOfficer");
   const renderPartyInformationForm = () => (
-    <Box className="w-full max-w-4xl mb-1.5">
-      <Stack spacing={3}>
-          {/* First Row: Party Name and Abbreviation */}
-          <Stack direction="row" spacing={2} alignItems="center">
-              <Stack direction="row" alignItems="center" flexGrow={1}>
-                  <TextField
-                      fullWidth
-                      label="Party Name"
-                      variant="outlined"
-                      {...register("partyName", { required: true })}
-                      margin="normal"
-                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
-                  />
-                  <IconButton onClick={() => setOpenPartyNameModal(true)}>
-                      <EditIcon />
-                  </IconButton>
-              </Stack>
-              
-              <Stack direction="row" alignItems="center" flexGrow={1}>
-                  <TextField
-                      fullWidth
-                      label="Abbreviation"
-                      variant="outlined"
-                      {...register("abbreviation", { required: true })}
-                      margin="normal"
-                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
-                  />
-                  <IconButton onClick={() => setOpenAbbreviationModal(true)}>
-                      <EditIcon />
-                  </IconButton>
-              </Stack>
-          </Stack>
+    <Box className="w-full mb-1.5" >
+      {/* First Row: Party Details */}
+      <Grid container alignItems="center" spacing={2} mb={2}>
+        <Grid item xs={12} md={4}>
+          <EditableInput 
+            onEditClick={() => setOpenPartyNameModal(true)}
+          >
+            <TextField
+              fullWidth
+              label="Party Name"
+              variant="outlined"
+              defaultValue={party.partyName}
+              {...register("partyName", { required: true })}
+              InputProps={{
+                endAdornment: null, // Remove default end adornment
+                readOnly: isVerificationOfficer, // Disable input if the role is verificationofficer
+              }}
+              disabled={isVerificationOfficer} 
+            />
+          </EditableInput>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <EditableInput 
+            onEditClick={() => setOpenAbbreviationModal(true)}
+          >
+            <TextField
+              fullWidth
+              label="Abbreviation"
+              variant="outlined"
+              defaultValue={party.abbreviation}
+              {...register("abbreviation", { required: true })}
+              InputProps={{
+                endAdornment: null
+              }}
+              disabled={isVerificationOfficer} 
+            />
+          </EditableInput>
+        </Grid>
 
-          {/* Second Row: Founded Date */}
-          <Stack direction="row" spacing={2} alignItems="center">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <Controller
-                      name="foundedDate"
-                      control={control}
-                      render={({ field, fieldState }) => (
-                          <Stack direction="row" alignItems="center" flexGrow={1}>
-                              <DatePicker
-                                  {...field}
-                                  label="Established Date"
-                                  renderInput={(params) => (
-                                      <TextField 
-                                          {...params} 
-                                          fullWidth
-                                          error={!!fieldState.error} 
-                                          helperText={fieldState.error?.message} 
-                                          margin="normal"
-                                      />
-                                  )}
-                              />
-                              <IconButton onClick={() => setOpenFoundedDateModal(true)}>
-                                  <EditIcon />
-                              </IconButton>
-                          </Stack>
-                      )}
-                  />
-              </LocalizationProvider>
-          </Stack>
-
-          {/* Third Row: Address Line 1 and Address Line 2 */}
-          <Stack direction="row" spacing={2} alignItems="center">
-              <Stack direction="row" alignItems="center" flexGrow={1}>
-                  <TextField
-                      fullWidth
-                      label="Address Line 1"
-                      variant="outlined"
-                      {...register("addressLine1", { required: true })}
-                      margin="normal"
-                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
-                  />
-                  <IconButton onClick={() => setOpenAddressLine1Modal(true)}>
-                      <EditIcon />
-                  </IconButton>
-              </Stack>
-              
-              <Stack direction="row" alignItems="center" flexGrow={1}>
-                  <TextField
-                      fullWidth
-                      label="Address Line 2"
-                      variant="outlined"
-                      {...register("addressLine2")}
-                      margin="normal"
-                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
-                  />
-                  <IconButton onClick={() => setOpenAddressLine2Modal(true)}>
-                      <EditIcon />
-                  </IconButton>
-              </Stack>
-          </Stack>
-
-          {/* Fourth Row: City and Postal Code */}
-          <Stack direction="row" spacing={2} alignItems="center">
-              <Stack direction="row" alignItems="center" flexGrow={1}>
-                  <FormControl fullWidth margin="normal">
-                      <InputLabel id="city-label">City</InputLabel>
-                      <Select
-                          labelId="city-label"
-                          label="City"
-                          variant="outlined"
-                          {...register("city")}
-                      >
-                          {cities.map((city, index) => (
-                              <MenuItem key={index} value={city}>
-                                  {city}
-                              </MenuItem>
-                          ))}
-                      </Select>
-                  </FormControl>
-                  <IconButton onClick={() => setOpenCityModal(true)}>
-                      <EditIcon />
-                  </IconButton>
-              </Stack>
-              
-              <Stack direction="row" alignItems="center" flexGrow={1}>
-                  <TextField
-                      fullWidth
-                      label="Postal Code"
-                      variant="outlined"
-                      {...register("postalCode", { required: true })}
-                      margin="normal"
-                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
-                  />
-                  <IconButton onClick={() => setOpenPostalCodeModal(true)}>
-                      <EditIcon />
-                  </IconButton>
-              </Stack>
-          </Stack>
-
-          {/* Fifth Row: Leader NIC and Leader Name */}
-          <Stack direction="row" spacing={2} alignItems="center">
-              <Stack direction="row" alignItems="center" flexGrow={1}>
-                  <TextField
-                      fullWidth
-                      label="Leader NIC"
-                      variant="outlined"
-                      {...register("leaderNic", { required: true })}
-                      margin="normal"
-                      sx={{ fontSize: '1rem', fontWeight: 'bold' }}
-                  />
-                  <IconButton onClick={() => setOpenLeaderNicModal(true)}>
-                      <EditIcon />
-                  </IconButton>
-              </Stack>
-              
-              <TextField
-                  fullWidth
-                  label="Leader Name"
-                  variant="outlined"
-                  disabled
-                  margin="normal"
-                  sx={{ fontSize: '1rem', fontWeight: 'bold' }}
+        <Grid item xs={12} md={4}>
+          <EditableInput 
+            onEditClick={() => setOpenFoundedDateModal(true)}
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Controller
+                name="foundedDate"
+                control={control}
+                defaultValue={party.foundedDate} // Use null as the initial value
+                rules={{ required: "Founded Date is required" }}
+                render={({ field, fieldState }) => (
+                <DatePicker
+                    {...field}
+                    label="Established Date"
+                    value={field.value ? dayjs(field.value) : null} // Ensure compatibility
+                    disabled={isVerificationOfficer} 
+                    slotProps={{ 
+                      textField: { 
+                        fullWidth: true,
+                        variant: 'outlined',
+                        error: !!fieldState.error,
+                        helperText: fieldState.error?.message,
+                        InputProps: {
+                          endAdornment: null
+                        }
+                      } 
+                    }}
+                    renderInput={(params) => (
+                    <TextField 
+                        {...params} 
+                        error={!!fieldState.error} 
+                        helperText={fieldState.error?.message} 
+                    />
+                    )}
+                    // onChange={(newValue) => {
+                    // field.onChange(newValue ? newValue.toISOString() : null); // Convert to ISO
+                    // }}
+                />
+                )}
               />
-          </Stack>
-      </Stack>
+            </LocalizationProvider>
+          </EditableInput>
+        </Grid>
+      </Grid>
+
+      {/* Second Row: Address Details */}
+      <Grid container alignItems="center" spacing={2} mb={2}>
+        <Grid item xs={12} md={3}>
+          <EditableInput 
+            onEditClick={() => setOpenAddressLine1Modal(true)}
+          >
+            <TextField
+              fullWidth
+              label="Address Line 1"
+              variant="outlined"
+              defaultValue={party.address.addressLine_1}
+              {...register("addressLine_1", { required: true })}
+              InputProps={{
+                endAdornment: null
+              }}
+              disabled={isVerificationOfficer} 
+            />
+          </EditableInput>
+        </Grid>
+
+        <Grid item xs={12} md={3}>
+          <EditableInput 
+            onEditClick={() => setOpenAddressLine2Modal(true)}
+          >
+            <TextField
+              fullWidth
+              label="Address Line 2"
+              variant="outlined"
+              defaultValue={party.address.addressLine_2}
+              {...register("addressLine_2")}
+              InputProps={{
+                endAdornment: null
+              }}
+              disabled={isVerificationOfficer} 
+            />
+          </EditableInput>
+        </Grid>
+
+        <Grid item xs={12} md={3}>
+          <EditableInput 
+            onEditClick={() => setOpenCityModal(true)}
+          >
+            <FormControl fullWidth variant="outlined">
+              <InputLabel id="city-label">City</InputLabel>
+              <Select
+                labelId="city-label"
+                label="City"
+                defaultValue={party.address.city}
+                {...register("city")}
+                disabled={isVerificationOfficer} 
+              >
+                {cities.map((city, index) => (
+                  <MenuItem key={index} value={city}>
+                    {city}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </EditableInput>
+        </Grid>
+
+        <Grid item xs={12} md={3}>
+          <EditableInput 
+            onEditClick={() => setOpenPostalCodeModal(true)}
+          >
+            <TextField
+              fullWidth
+              label="Postal Code"
+              variant="outlined"
+              defaultValue={party.address.postalCode}
+              {...register("postalCode", { required: true })}
+              InputProps={{
+                endAdornment: null
+              }}
+              disabled={isVerificationOfficer} 
+            />
+          </EditableInput>
+        </Grid>
+      </Grid>
+
+      {/* Third Row: Leader Details */}
+      <Grid container alignItems="center" spacing={2}>
+        <Grid item xs={12} md={6}>
+          <EditableInput 
+            onEditClick={() => setOpenLeaderNicModal(true)}
+          >
+            <TextField
+              fullWidth
+              label="Leader NIC"
+              variant="outlined"
+              defaultValue={party.leaderId}
+              {...register("leaderNic", { required: true })}
+              InputProps={{
+                endAdornment: null
+              }}
+              disabled={isVerificationOfficer} 
+            />
+          </EditableInput>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label="Leader Name"
+            defaultValue={party.leaderName}
+            variant="outlined"
+            InputProps={{
+              endAdornment: null
+            }}
+            disabled={isVerificationOfficer} 
+          />
+        </Grid>
+      </Grid>
 
       {/* Modals for each field */}
       {/* Party Name Modal */}
@@ -678,6 +1332,7 @@ export const PartyApplication = () => {
           handleClose={() => setOpenPartyNameModal(false)}
           title="Edit Party Name"
           onSubmit={(data) => {
+              submitPartyName(data);
               console.log('Party Name Updated:', data.partyName);
               setOpenPartyNameModal(false);
           }}
@@ -687,6 +1342,7 @@ export const PartyApplication = () => {
               label="Party Name"
               variant="outlined"
               {...register("partyName", { required: true })}
+              disabled={isVerificationOfficer} 
           />
       </EditFieldModal>
 
@@ -696,6 +1352,7 @@ export const PartyApplication = () => {
           handleClose={() => setOpenAbbreviationModal(false)}
           title="Edit Abbreviation"
           onSubmit={(data) => {
+              submitAbbreviation(data);
               console.log('Abbreviation Updated:', data.abbreviation);
               setOpenAbbreviationModal(false);
           }}
@@ -705,6 +1362,7 @@ export const PartyApplication = () => {
               label="Abbreviation"
               variant="outlined"
               {...register("abbreviation", { required: true })}
+              disabled={isVerificationOfficer} 
           />
       </EditFieldModal>
 
@@ -714,6 +1372,7 @@ export const PartyApplication = () => {
           handleClose={() => setOpenFoundedDateModal(false)}
           title="Edit Founded Date"
           onSubmit={(data) => {
+              submitFoundedDate(data);
               console.log('Founded Date Updated:', data.foundedDate);
               setOpenFoundedDateModal(false);
           }}
@@ -722,17 +1381,24 @@ export const PartyApplication = () => {
               <Controller
                   name="foundedDate"
                   control={control}
-                  render={({ field }) => (
+                  defaultValue={party.foundedDate}
+                  render={({ field, fieldState }) => (
                       <DatePicker
                           {...field}
                           label="Established Date"
-                          renderInput={(params) => (
-                              <TextField 
-                                  {...params} 
-                                  fullWidth 
-                                  variant="outlined"
-                              />
-                          )}
+                          disabled={isVerificationOfficer} 
+                          value={field.value ? dayjs(field.value) : null}
+                          onChange={(newValue) => {
+                              field.onChange(newValue ? newValue.toISOString() : null); // Convert to ISO format
+                          }}
+                          slotProps={{
+                              textField: {
+                                  fullWidth: true,
+                                  variant: 'outlined',
+                                  error: !!fieldState.error,
+                                  helperText: fieldState.error?.message,
+                              },
+                          }}
                       />
                   )}
               />
@@ -745,6 +1411,7 @@ export const PartyApplication = () => {
           handleClose={() => setOpenAddressLine1Modal(false)}
           title="Edit Address Line 1"
           onSubmit={(data) => {
+              submitAddressLine1(data);
               console.log('Address Line 1 Updated:', data.addressLine1);
               setOpenAddressLine1Modal(false);
           }}
@@ -753,7 +1420,8 @@ export const PartyApplication = () => {
               fullWidth
               label="Address Line 1"
               variant="outlined"
-              {...register("addressLine1", { required: true })}
+              {...register("addressLine_1", { required: true })}
+              disabled={isVerificationOfficer} 
           />
       </EditFieldModal>
 
@@ -763,6 +1431,7 @@ export const PartyApplication = () => {
           handleClose={() => setOpenAddressLine2Modal(false)}
           title="Edit Address Line 2"
           onSubmit={(data) => {
+              submitAddressLine2(data);
               console.log('Address Line 2 Updated:', data.addressLine2);
               setOpenAddressLine2Modal(false);
           }}
@@ -771,7 +1440,8 @@ export const PartyApplication = () => {
               fullWidth
               label="Address Line 2"
               variant="outlined"
-              {...register("addressLine2")}
+              {...register("addressLine_2")}
+              disabled={isVerificationOfficer} 
           />
       </EditFieldModal>
 
@@ -781,6 +1451,7 @@ export const PartyApplication = () => {
           handleClose={() => setOpenCityModal(false)}
           title="Edit City"
           onSubmit={(data) => {
+              submitCity(data);
               console.log('City Updated:', data.city);
               setOpenCityModal(false);
           }}
@@ -790,6 +1461,7 @@ export const PartyApplication = () => {
               <Select
                   labelId="city-label"
                   label="City"
+                  disabled={isVerificationOfficer} 
                   {...register("city")}
               >
                   {cities.map((city, index) => (
@@ -807,6 +1479,7 @@ export const PartyApplication = () => {
           handleClose={() => setOpenPostalCodeModal(false)}
           title="Edit Postal Code"
           onSubmit={(data) => {
+              submitPostalCode(data);
               console.log('Postal Code Updated:', data.postalCode);
               setOpenPostalCodeModal(false);
           }}
@@ -834,6 +1507,7 @@ export const PartyApplication = () => {
               label="Leader NIC"
               variant="outlined"
               {...register("leaderNic", { required: true })}
+              disabled={isVerificationOfficer} 
           />
       </EditFieldModal>
     </Box>
@@ -879,120 +1553,170 @@ export const PartyApplication = () => {
 
       {activeTab === 'details' && (
         <Paper sx={{p: 1,mt: 2 }}>
-          <Grid container spacing={2}>
+          <Box spacing={2}>
             {renderPartyInformationForm()}
-          </Grid>
+          </Box>
 
           <Divider sx={{ my: 4 }} />
 
-          <Typography variant="h6" gutterBottom>Required Documents</Typography>
+          <Typography variant="h6" gutterBottom>Update Documents</Typography>
           <Box className="w-full">
-            {/* <CardContent> */}
             <div className="flex flex-col gap-2">
-                {documents.map(({ id, title, icon, acceptedTypes }) => (
-                <div 
-                    key={id} 
-                    className="p-2 border rounded-lg hover:border-blue-500 transition-colors"
+              {documents.map(({ id, title, icon, acceptedTypes }) => (
+                <div
+                  key={id}
+                  className="p-2 border rounded-lg hover:border-blue-500 transition-colors"
                 >
-                    <div className="flex items-center justify-between">
-                        <div className='flex items-center'>
-                            {icon}
-                            <span className="font-medium">{title}</span>
-                        </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      {icon}
+                      <span className="font-medium">{title}</span>
+                    </div>
 
-                        <input
-                            accept={acceptedTypes}
-                            id={`${id}-input`}
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={handleFileChange(id)}
-                        />
-                    
+                    <input
+                      accept={acceptedTypes}
+                      id={`${id}-input`}
+                      type="file"
+                      style={{ display: "none" }}
+                      onChange={handleFileChange(id)}
+                    />
+
+                    <div className='flex'>
+                      {
+                        KeycloakService.hasRole("VerificationOfficer") && 
                         <div>
-                            <label htmlFor={`${id}-input`}>
-                                <Button
-                                component="span"
-                                role={undefined}
-                                variant="outline"
-                                className="w-full"
-                                >
-                                <Upload className="h-4 w-4 mr-2" />
-                                Choose File
-                                </Button>
-                            </label>
+                          <Button
+                            variant="outline"
+                            color="primary"
+                            onClick={() => handleDownload(id)}
+                          >
+                            Download
+                          </Button>
                         </div>
+                      }
+                      {
+                        !KeycloakService.hasRole("VerificationOfficer") && 
+                        <>
+                        <label htmlFor={`${id}-input`}>
+                          <Button
+                            component="span"
+                            role={undefined}
+                            variant="outline"
+                            className="w-full"
+                          >
+                            <Upload className="h-4 w-4 mr-2" />
+                            Choose File
+                          </Button>
+                        </label>
+                        <div><Divider orientation='vertical'/></div>
+                        <div>
+                          <Button
+                            variant="outline"
+                            color="primary"
+                            onClick={() => handleUpload(id)}
+                          >
+                            Upload
+                          </Button>
+                        </div>
+                        </>
+                      }
                     </div>
-                    <div className='flex justify-between mr-4'>
-                        <div className="truncate max-w-[400px] ">
-                            <span>File: </span> 
-                            {
-                                id === "constitution" ? constitution :
-                                id === "logo" ? logo :
-                                id === "membership" ? membership :
-                                id === "financial" ? financial :
-                                id === "leadership" ? leadership :
-                                null 
-                            }
-                        </div>
-                        <div className="text-sm text-gray-500 flex items-center">
-                            <FileCheck className="h-4 w-4 inline mr-1" />
-                            <span>{acceptedTypes.replace(/\./g, '').replace(/,/g, ', ')}</span>
-                        </div>
+                  </div>
+                  <div className="flex justify-between items-center mr-4">
+                    <div className="truncate max-w-[400px]">
+                      <span>File: </span>
+                      {id === "constitution"
+                        ? constitution
+                        : id === "logo"
+                        ? logo
+                        : id === "membership"
+                        ? membership
+                        : id === "financial"
+                        ? financial
+                        : id === "leadership"
+                        ? leadership
+                        : null}
                     </div>
+
+                    <div className="text-sm text-gray-500 flex items-center">
+                      <FileCheck className="h-4 w-4 inline mr-1" />
+                      <span>{acceptedTypes.replace(/\./g, "").replace(/,/g, ", ")}</span>
+                    </div>
+                  </div>
                 </div>
-                ))}
+              ))}
             </div>
-            {/* </CardContent> */}
           </Box>
           <Box sx={{ mt: 4, display: 'flex', gap: 2 }} className="flex justify-end">
-            <Button variant="contained" color="success" onClick={() => handleStateUpdate("verified")}>Accept</Button>
-            <Button variant="outlined" color="error" onClick={() => handleStateUpdate("rejected")}>Reject</Button>
-            <Button variant="contained" color="error" onClick={() => handleStateUpdate("banned")}>Ban</Button>
+            {
+              KeycloakService.hasRole("VerificationOfficer") && 
+              <>
+                <Button variant="contained" color="success" onClick={() => handleStateUpdate("verified")}>Accept</Button>
+                <Button variant="outlined" color="error" onClick={() => handleStateUpdate("rejected")}>Reject</Button>
+              </>
+            }
             <Button variant="outlined" onClick={() => setShowInquiryDialog(true)}>Submit Inquiry</Button>
           </Box>
         </Paper>
       )}
 
-      {/* Other sections for inquiries and history */}
       {activeTab === 'inquiries' && (
-        <Paper sx={{ p: 1, mt: 2 }}>
-          {/* <Typography variant="h6" gutterBottom>Inquiries and Requests</Typography> */}
-          {inquiries.map((inquiry) => (
-            <Alert key={inquiry.id} severity={inquiry.status === "resolved" ? "success" : "warning"} sx={{ mb: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <Typography variant="subtitle1">{inquiry.type.replace('_', ' ').toUpperCase()}</Typography>
-                {getStatusBadge(inquiry.status)}
-              </Box>
-              <Typography>{inquiry.request}</Typography>
-              <Typography variant="caption" color="text.secondary">
-                {inquiry.date} • {inquiry.submittedBy}
-              </Typography>
+        <Paper sx={{ p: 1, mt: 2 }} className='w-full'>
+          {inquiryList.map((inquiry) => (
+            <Alert
+              key={inquiry.id}
+              severity={(KeycloakService.getUserName() === inquiry.createdBy) ? "success" : "warning"}
+              sx={{ mb: 2, position: 'relative' }}
+              className="flex items-center w-full"
+            >
+              <div className='flex justify-between w-full'>
+                <div>
+                  <Box className="flex justify-between items-center w-full">
+                    <Typography variant="subtitle1">{inquiry.subject.replace('_', ' ').toUpperCase()}</Typography>
+                  </Box>
+                  <Typography>{inquiry.description}</Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    {inquiry.createdAt} • {inquiry.createdBy}
+                  </Typography>
+                </div>
+              </div>
+              {KeycloakService.getUserName() === inquiry.createdBy && (
+                <IconButton
+                  color="error"
+                  onClick={() => handleDeleteInquiry(inquiry.id)}
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              )}
             </Alert>
           ))}
         </Paper>
       )}
 
       {activeTab === 'history' && (
-        <Paper sx={{ p: 1, mt: 2, bgcolor: 'background.default' }}>
-          {/* <Typography variant="h6" gutterBottom>Application History</Typography> */}
-          <Box sx={{ position: 'relative', pl: 3 }}>
-            {history.map((item, index) => (
-              <Box key={index} sx={{ position: 'relative', mb: 3 }}>
+        <Paper sx={{ p: 1, mt: 2 }}>
+          <Box>
+            {applicationHistory.map((item, index) => (
+              <Box key={index} sx={{ mb: 2 }}>
                 <Box
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
                     pl: 4,
-                    py: 2,
+                    py: 1,
                     bgcolor: 'background.paper',
                     boxShadow: 1,
                     borderRadius: 2,
+                    gap: 1
                   }}
                 >
                   <Box
                     sx={{
-                      position: 'absolute',
-                      left: 0,
                       width: 24,
                       height: 24,
                       bgcolor: 'primary.main',
@@ -1006,9 +1730,9 @@ export const PartyApplication = () => {
                     <HistoryIcon fontSize="small" />
                   </Box>
                   <Box ml={3}>
-                    <Typography variant="subtitle1">{item.action}</Typography>
+                    <Typography variant="subtitle1"><b>{item.changedField}</b> was changed from <b>{item.oldValue}</b> to <b>{item.newValue}</b></Typography>
                     <Typography variant="caption" color="text.secondary">
-                      {item.date} • {item.user}
+                      {item.dateTime}
                     </Typography>
                   </Box>
                 </Box>
@@ -1019,25 +1743,9 @@ export const PartyApplication = () => {
       )}
 
       {/* Inquiry Dialog */}
-      <Dialog open={showInquiryDialog} onClose={() => setShowInquiryDialog(false)} maxWidth="md">
-        <DialogTitle>Submit Inquiry</DialogTitle>
-        <DialogContent>
-          <TextField
-            label="Inquiry Details"
-            variant="outlined"
-            fullWidth
-            multiline
-            rows={4}
-            value={inquiryText}
-            onChange={(e) => setInquiryText(e.target.value)}
-            sx={{ mt: 2 }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowInquiryDialog(false)}>Cancel</Button>
-          <Button onClick={handleSubmitInquiry} variant="contained">Submit Inquiry</Button>
-        </DialogActions>
-      </Dialog>
+      {
+        showInquiryDialog && <SubmitInquiry open={showInquiryDialog} handleClose={handleClose} partyId={party.registrationId}/>
+      }
     </Box>
   );
 };

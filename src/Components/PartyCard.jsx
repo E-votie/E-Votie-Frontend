@@ -86,6 +86,13 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 }));
 
+const capitalizeWords = (str) => {
+  return str
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+};
+
 const PartyCard = ({ party, state, viewMode }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -105,7 +112,7 @@ const PartyCard = ({ party, state, viewMode }) => {
     };
 
     // Only fetch if there's a document URL and we're not in pending verification state
-    if (party.documents && party.documents[1] && party.documents[1].documentUrl && state !== "pending verification") {
+    if (party.documents && party.documents[1] && party.documents[1].documentUrl) {
       fetchPartyImage();
     }
   }, [party, state]);
@@ -122,30 +129,16 @@ const PartyCard = ({ party, state, viewMode }) => {
     <StyledCard className='w-full' sx={{width: "100%"}}>
       <CardActionArea className="flex-grow w-full" onClick={openParty}>
         <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
-          {state !== "pending verification" && (
-            <CardMedia
-              component="img"
-              sx={{ 
-                width: { xs: '100%', sm: 120 }, 
-                height: { xs: 200, sm: 120 },
-              }}
-              src={partyImageUrl || unpImage}
-              alt={party.name}
-              className='object-cover'
-            />
-          )}
-          {state === "pending verification" && (
-            <CardMedia
-              component="img"
-              sx={{ 
-                width: { xs: '100%', sm: 120 }, 
-                height: { xs: 200, sm: 120 },
-              }}
-              src={partyImageUrl || unpImage}
-              alt={party.name}
-              className='object-cover'
-            />
-          )}
+          <CardMedia
+            component="img"
+            sx={{ 
+              width: { xs: '100%', sm: 120 }, 
+              height: { xs: 200, sm: 120 },
+            }}
+            src={partyImageUrl || unpImage}
+            alt={party.name}
+            className='object-cover'
+          />
           <CardContent className="flex border-b-2">
             <Box>
               <Typography gutterBottom variant="h6" component="div" sx={{ color: "black" }} className="font-semibold text-gray-900 flex justify-between">
@@ -161,10 +154,10 @@ const PartyCard = ({ party, state, viewMode }) => {
                 )}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Party Leader: {party.leader}
+                Party Leader: Mr.{capitalizeWords(party.leaderName)}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Party Secretary: {party.secretary}
+                Party Secretary: Mr.{capitalizeWords(party.secretoryName)}
               </Typography>
             </Box>
           </CardContent>

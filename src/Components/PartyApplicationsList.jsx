@@ -1,9 +1,22 @@
 import * as React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination, Typography, Divider } from '@mui/material';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TablePagination,
+  Typography,
+  Divider
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export const PartyApplicationsList = ({ topic, partyData }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const navigate = useNavigate();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -14,8 +27,12 @@ export const PartyApplicationsList = ({ topic, partyData }) => {
     setPage(0);
   };
 
+  const handleRowClick = (registrationId) => {
+    navigate(`/party/registration/application/${registrationId}`);
+  };
+
   return (
-    <div className="pb-2 mb-8">
+    <div>
       <Typography variant="h6" color="textSecondary" gutterBottom>
         {topic}
       </Typography>
@@ -26,21 +43,54 @@ export const PartyApplicationsList = ({ topic, partyData }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell><Typography variant='body1' fontWeight="bold">Registration ID</Typography></TableCell>
-                <TableCell><Typography variant='body1' fontWeight="bold">Party Name</Typography></TableCell>
-                <TableCell><Typography variant='body1' fontWeight="bold">State</Typography></TableCell>
-                <TableCell><Typography variant='body1' fontWeight="bold">Registered Date</Typography></TableCell>
+                <TableCell>
+                  <Typography variant="body1" fontWeight="bold">
+                    Registration ID
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body1" fontWeight="bold">
+                    Party Name
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body1" fontWeight="bold">
+                    State
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body1" fontWeight="bold">
+                    Secretory
+                  </Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {partyData.map((party, index) => (
-                <TableRow key={index} hover className='cursor-pointer'>
-                  <TableCell><Typography variant='body1'>{party.registrationId}</Typography></TableCell>
-                  <TableCell><Typography variant='body1'>{party.partyName}</Typography></TableCell>
-                  <TableCell><Typography variant='body1'>{party.status}</Typography></TableCell>
-                  <TableCell><Typography variant='body1'>{party.foundedDate}</Typography></TableCell>
-                </TableRow>
-              ))}
+              {partyData
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((party, index) => (
+                  <TableRow
+                    key={index}
+                    hover
+                    className="cursor-pointer"
+                    onClick={() => handleRowClick(party.registrationId)}
+                  >
+                    <TableCell>
+                      <Typography variant="body1">{party.registrationId}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body1">{party.partyName}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body1">{party.state}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body1">
+                        Mr. {party.secretoryName}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
