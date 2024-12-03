@@ -112,7 +112,10 @@ export const SendNomineesModal = ({ open, handleClose, partyId }) => {
           title: 'Success!',
           text: 'Nominee has been successfully submitted',
           icon: 'success'
-        });
+        }).then(() => {
+          handleClose?.();
+          window.location.href = `/party/${partyId}`;
+      });
 
         handleClose();
       } catch (error) {

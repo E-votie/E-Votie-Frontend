@@ -49,7 +49,7 @@ const candidates = [
 
 const CoverImage = styled('div')({
   height: 300,
-  backgroundImage: 'url("../src/assets/politician-bg.png")',
+  backgroundImage: 'url("../public/politician-bg.png")',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   position: 'relative',
