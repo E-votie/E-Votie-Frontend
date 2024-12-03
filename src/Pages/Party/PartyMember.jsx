@@ -26,7 +26,7 @@ const candidates = [1,1,1,1,1,1,1,1,1,1,1,1];
 const partyMember = {
     name: "Percy Mahinda Rajapaksa",
     position: "Prime Minister - Finance, Economic and Policy Planning",
-    profilePicture: "../src/assets/mr.jpg",
+    profilePicture: "../assets/mr.jpg",
     summary: {
       overallRank: 146,
       partyRank: 39,

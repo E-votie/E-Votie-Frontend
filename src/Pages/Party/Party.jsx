@@ -17,32 +17,32 @@ const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 const candidates = [
   {
     name: 'Mahinda Rajapaksa',
-    profilePicture: '/src/assets/mr.jpg',
+    profilePicture: '/assets/mr.jpg',
     description: 'Former President and Prime Minister of Sri Lanka, serving as a Member of Parliament for Kurunegala GeoData.'
   },
   {
     name: 'Gotabaya Rajapaksa',
-    profilePicture: '/src/assets/gr.jpg',
+    profilePicture: '/assets/gr.jpg',
     description: 'Former President of Sri Lanka, previously served as the Minister of Defence and Urban Development.'
   },
   {
     name: 'Basil Rajapaksa',
-    profilePicture: '/src/assets/br.jpg',
+    profilePicture: '/assets/br.jpg',
     description: 'Founder and National Organizer of the SLPP, serving as a Member of Parliament for Gampaha GeoData.'
   },
   {
     name: 'Namal Rajapaksa',
-    profilePicture: '/src/assets/nr.jpg',
+    profilePicture: '/assets/nr.jpg',
     description: 'Minister of Youth and Sports, serving as a Member of Parliament for Hambantota GeoData.'
   },
   {
     name: 'Chamal Rajapaksa',
-    profilePicture: '/src/assets/cr.jpg',
+    profilePicture: '/assets/cr.jpg',
     description: 'Former Speaker of the Parliament of Sri Lanka, serving as a Member of Parliament for Hambantota GeoData.'
   },
   {
     name: 'Dinesh Gunawardena',
-    profilePicture: '/src/assets/dr.jpg',
+    profilePicture: '/assets/dr.jpg',
     description: 'Current Prime Minister of Sri Lanka, serving as a Member of Parliament for Colombo GeoData.'
   }
 ];
@@ -112,7 +112,7 @@ export const Party = () => {
         if (fetchedParty.partyMembers && fetchedParty.partyMembers.length > 0) {
           const transformedCandidates = fetchedParty.partyMembers.map(member => ({
             name: member.name,
-            profilePicture: member.profilePicture || "../src/assets/default-profile.jpg",
+            profilePicture: member.profilePicture || "../assets/default-profile.jpg",
             position: member.position || "Party Member",
             // Add any other necessary transformations
           }));
@@ -170,7 +170,7 @@ export const Party = () => {
     <div className="min-h-[600px] flex flex-col bg-gray-100 shadow-2xl pb-4 rounded-lg">
       <CoverImage>
         <PartyLogo 
-          src={partyLogo || "../src/assets/defaultPartyLogo.jpg"} 
+          src={partyLogo || "../assets/defaultPartyLogo.jpg"} 
           alt="Party Logo" 
           className='object-fill'
         />
