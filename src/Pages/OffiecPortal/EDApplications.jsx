@@ -14,38 +14,44 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 
-export default function PostalVoteApplications() {
-  // New dummy data for the table
+export default function ElectionDutyApplications() {
+  // Dummy data for the table
   const data = [
     {
-      id: 1,
-      name: "Amara Dissanayake",
-      applicationLink: "https://example.com/application-1",
+      id: 101,
+      applicantId: "ED-001",
+      name: "Sanduni Perera",
+      applicationLink: "https://example.com/application-101",
     },
     {
-      id: 2,
-      name: "Chandana Kumara",
-      applicationLink: "https://example.com/application-2",
+      id: 102,
+      applicantId: "ED-002",
+      name: "Nuwan Abeysekara",
+      applicationLink: "https://example.com/application-102",
     },
     {
-      id: 3,
-      name: "Ruwini Fernando",
-      applicationLink: "https://example.com/application-3",
+      id: 103,
+      applicantId: "ED-003",
+      name: "Thilini Jayawardena",
+      applicationLink: "https://example.com/application-103",
     },
     {
-      id: 4,
-      name: "Harsha Wijesinghe",
-      applicationLink: "https://example.com/application-4",
+      id: 104,
+      applicantId: "ED-004",
+      name: "Pradeep Senanayake",
+      applicationLink: "https://example.com/application-104",
     },
     {
-      id: 5,
-      name: "Nadeesha Rathnayake",
-      applicationLink: "https://example.com/application-5",
+      id: 105,
+      applicantId: "ED-005",
+      name: "Samanthi Ekanayake",
+      applicationLink: "https://example.com/application-105",
     },
     {
-      id: 6,
-      name: "Lakmini Herath",
-      applicationLink: "https://example.com/application-6",
+      id: 106,
+      applicantId: "ED-006",
+      name: "Kasun Bandara",
+      applicationLink: "https://example.com/application-106",
     },
   ];
 
@@ -84,25 +90,25 @@ export default function PostalVoteApplications() {
             variant="h4"
             component="h2"
             className="text-3xl font-semibold text-center mb-8"
-            style={{ color: "#EC4899" }}
+            style={{ color: "#3B82F6" }}
           >
-            Postal Vote Applications
+            Election Duty Applications
           </Typography>
 
           {/* Search Section */}
           <Box className="mb-6 flex justify-end items-center">
             <TextField
               variant="outlined"
-              placeholder=""
+              placeholder="Search by Name"
               size="small"
               value={searchQuery}
               onChange={handleSearchChange}
               InputProps={{
-                style: { borderRadius: "20px", borderColor: "#EC4899" },
+                style: { borderRadius: "20px", borderColor: "#3B82F6" },
               }}
               sx={{
-                "& fieldset": { borderColor: "#EC4899" },
-                "&:hover fieldset": { borderColor: "#EC4899" },
+                "& fieldset": { borderColor: "#3B82F6" },
+                "&:hover fieldset": { borderColor: "#3B82F6" },
               }}
             />
             <Button
@@ -110,7 +116,7 @@ export default function PostalVoteApplications() {
               size="medium"
               style={{
                 marginLeft: "10px",
-                backgroundColor: "#EC4899",
+                backgroundColor: "#3B82F6",
                 color: "#fff",
                 borderRadius: "20px",
                 padding: "5px 20px",
@@ -125,6 +131,8 @@ export default function PostalVoteApplications() {
             <Table>
               <TableHead>
                 <TableRow>
+                  <TableCell><strong>ID</strong></TableCell>
+                  <TableCell><strong>Applicant ID</strong></TableCell>
                   <TableCell><strong>Applicant Name</strong></TableCell>
                   <TableCell><strong>Application</strong></TableCell>
                   <TableCell><strong>Action</strong></TableCell>
@@ -134,6 +142,8 @@ export default function PostalVoteApplications() {
                 {currentRows.length > 0 ? (
                   currentRows.map((row) => (
                     <TableRow key={row.id}>
+                      <TableCell>{row.id}</TableCell>
+                      <TableCell>{row.applicantId}</TableCell>
                       <TableCell>{row.name}</TableCell>
                       <TableCell>
                         <a href={row.applicationLink} target="_blank" rel="noreferrer">
@@ -165,7 +175,7 @@ export default function PostalVoteApplications() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={3} align="center">
+                    <TableCell colSpan={5} align="center">
                       No results found
                     </TableCell>
                   </TableRow>
