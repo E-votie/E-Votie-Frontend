@@ -4,7 +4,7 @@ import { DataProvider } from '../../services/TableDataContext.jsx';
 import ColumnGroupingTable from '../../Components/Table.jsx';
 import KeycloakService from "../../services/KeycloakService.jsx";
 import { PartyApplicationsList } from '../../Components/PartyApplicationsList.jsx';
-
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 export const PartyApplications = () => {
     const [partyList, setPartyList] = useState([]);
 
@@ -12,7 +12,7 @@ export const PartyApplications = () => {
         const fetchPartyList = async () => {
             try {
                 const updatedToken = KeycloakService.getToken();
-                const response = await axios.get(`http://localhost:5003/api/party/all`, {
+                const response = await axios.get(`${partyUrl}/api/party/all`, {
                     headers: {
                         Authorization: `Bearer ${updatedToken}`
                     }

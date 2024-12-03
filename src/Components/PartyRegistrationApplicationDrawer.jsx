@@ -18,6 +18,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import KeycloakService from "../services/KeycloakService";
 const MySwal = withReactContent(Swal)
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 
 const initialApplicationDetails = {
   partyName: 'Green Party',
@@ -68,7 +69,7 @@ export const PartyRegistrationApplicationDrawer = () => {
     const nic = e.target.value;
     setIsLoading(true); 
     try {
-        const response = await axios.get(`http://localhost:5003/api/voter/${nic}`,
+        const response = await axios.get(`${partyUrl}/api/voter/${nic}`,
         {  
           headers: {
               Authorization: `Bearer ${updatedToken}`

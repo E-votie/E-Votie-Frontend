@@ -89,7 +89,7 @@ function FingerprintScanner({ ApplicationID, action }) {
                         icon: 'success',
                         confirmButtonText: 'OK',
                     }).then((result) => {
-                        if (result.isConfirmed) navigate('/polling_station/voter_verify');
+                        if (result.isConfirmed) navigate('/');
                     });
                     break;
 

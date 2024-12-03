@@ -39,7 +39,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Upload, FileText, Image, Users, DollarSign, Landmark, FileCheck } from 'lucide-react';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
-
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 
 const MySwal = withReactContent(Swal);
 
@@ -166,7 +166,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
         setIsCheckedLeaderNIC(true);
 
         try {
-            const leader = await axios.get(`http://localhost:5003/api/voter/${nic}`, {
+            const leader = await axios.get(`${partyUrl}/api/voter/${nic}`, {
                 headers: {
                     Authorization: `Bearer ${updatedToken}`
                 }
@@ -188,7 +188,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
     const getPartyMemberByNIC = async (nic) => {
         try{
             const updatedToken = KeycloakService.getToken();
-            const partyMember = await axios.get(`http://localhost:5003/api/party/member/by/nic/${nic}`, {
+            const partyMember = await axios.get(`${partyUrl}/api/party/member/by/nic/${nic}`, {
                 headers: {
                     Authorization: `Bearer ${updatedToken}`
                 }
@@ -343,7 +343,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                     },
                 });
         
-                const response = await axios.post('http://localhost:5003/api/party', formData, {
+                const response = await axios.post(`${partyUrl}/api/party`, formData, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data',

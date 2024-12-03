@@ -3,6 +3,9 @@ import axios from "axios";
 import { Button, CircularProgress, TextField } from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {uploadFile} from "../../api/FileUpload.jsx";
+import MySwal from "sweetalert2";
+import { CloudUpload } from '@mui/icons-material';
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 
 const PartyRequestDetails = () => {
     const [data, setData] = useState(null);
@@ -16,7 +19,7 @@ const PartyRequestDetails = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5003/api/request/party/${partyId}/receiver/${receiverNIC}`);
+            const response = await axios.get(`${partyUrl}/api/request/party/${partyId}/receiver/${receiverNIC}`);
             setData(response.data);
             setLoading(false);
             console.error(response.data);
@@ -54,17 +57,42 @@ const PartyRequestDetails = () => {
         console.log(formData);
         // Submit the form data
         try {
-            const response = await axios.post(`http://localhost:5003/api/request/accept/${data.requestId}`, formData, {
+            const response = await axios.post(`${partyUrl}/api/request/accept/${data.requestId}`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data', // Ensure the request is sent as multipart/form-data
+                    'Content-Type': 'multipart/form-data',
                 },
             });
-            alert("Request accepted successfully!");
+            MySwal.fire({
+                title: <p>You are now a member of the ${data.party.partyName} party</p>,
+                icon: 'success',
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+                didOpen: () => {
+                    // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/');
+                }
+            })
             console.log("Response:", response.data);
         } catch (err) {
             console.error("Error accepting request:", err);
-            alert("Failed to accept the request.");
+            MySwal.fire({
+                title: <p>There was an error</p>,
+                icon: 'error',
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+                didOpen: () => {
+                    // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/');
+                }
+            })
         }
+
     };
 
 
@@ -152,8 +180,11 @@ const PartyRequestDetails = () => {
             </div>
 
             {/* Description and Image Upload */}
-            <div className="mb-6">
-                <h2 className="text-lg font-semibold">Additional Details</h2>
+            <div className="space-y-6">
+                {/* Section Header */}
+                <h2 className="text-xl font-semibold text-gray-900">Additional Details</h2>
+
+                {/* Description Field */}
                 <TextField
                     label="Description"
                     variant="outlined"
@@ -162,9 +193,26 @@ const PartyRequestDetails = () => {
                     rows={4}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="mb-4"
+                    className="border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 />
-                <input type="file" onChange={handleImageChange} className="mb-4" />
+
+                {/* File Upload */}
+                <div className="flex items-center space-x-3">
+                    <Button
+                        variant="contained"
+                        component="label"
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                        startIcon={<CloudUpload/>}
+                    >
+                        Upload Image
+                        <input
+                            type="file"
+                            hidden
+                            onChange={handleImageChange}
+                        />
+                    </Button>
+                    <span className="text-sm text-gray-500">Max file size: 5MB</span>
+                </div>
             </div>
 
             {/* Buttons */}
