@@ -306,7 +306,7 @@ export const PartyMember = () => {
       <div className="relative">
         {/* Cover Image */}
         <img
-          src="..\src\assets\politician-bg.png"
+          src="\assets\politician-bg.png"
           alt="Cover"
           className="w-full h-64 object-cover"
         />
