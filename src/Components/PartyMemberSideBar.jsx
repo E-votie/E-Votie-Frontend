@@ -36,7 +36,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   fontWeight: 'bold',
 }));
 
-export const PartyMemberSideBar = ({ party, partyRequests }) => {
+export const PartyMemberSideBar = ({ party, partyRequests, partyLogo }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [openAddPolitician, setOpenAddPolitician] = useState(false);
   const [openSendNomineesModal, setOpenSendNomineesModal] = useState(false);
@@ -111,7 +111,7 @@ export const PartyMemberSideBar = ({ party, partyRequests }) => {
       </StyledDrawer>
 
       <AddNewPartyMemberWithNic open={openAddPolitician} handleClose={handleCloseAddPolitician} handleCloseSideBar={setIsDrawerOpen} partyInfo={party} />
-      <SendNomineesModal open={openSendNomineesModal} handleClose={handleCloseNomineesModal} partyId={party.registrationId} />
+      <SendNomineesModal open={openSendNomineesModal} handleClose={handleCloseNomineesModal} partyId={party.registrationId} party={party} partyLogo={partyLogo} />
     </Box>
   );
 };

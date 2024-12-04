@@ -14,38 +14,38 @@ import KeycloakService from "../../services/KeycloakService";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 const partyUrl = import.meta.env.VITE_API_PARTY_URL;
-const candidates = [
-  {
-    name: 'Mahinda Rajapaksa',
-    profilePicture: '/src/assets/mr.jpg',
-    description: 'Former President and Prime Minister of Sri Lanka, serving as a Member of Parliament for Kurunegala GeoData.'
-  },
-  {
-    name: 'Gotabaya Rajapaksa',
-    profilePicture: '/src/assets/gr.jpg',
-    description: 'Former President of Sri Lanka, previously served as the Minister of Defence and Urban Development.'
-  },
-  {
-    name: 'Basil Rajapaksa',
-    profilePicture: '/src/assets/br.jpg',
-    description: 'Founder and National Organizer of the SLPP, serving as a Member of Parliament for Gampaha GeoData.'
-  },
-  {
-    name: 'Namal Rajapaksa',
-    profilePicture: '/src/assets/nr.jpg',
-    description: 'Minister of Youth and Sports, serving as a Member of Parliament for Hambantota GeoData.'
-  },
-  {
-    name: 'Chamal Rajapaksa',
-    profilePicture: '/src/assets/cr.jpg',
-    description: 'Former Speaker of the Parliament of Sri Lanka, serving as a Member of Parliament for Hambantota GeoData.'
-  },
-  {
-    name: 'Dinesh Gunawardena',
-    profilePicture: '/src/assets/dr.jpg',
-    description: 'Current Prime Minister of Sri Lanka, serving as a Member of Parliament for Colombo GeoData.'
-  }
-];
+// const candidates = [
+//   {
+//     name: 'Mahinda Rajapaksa',
+//     profilePicture: '/src/assets/mr.jpg',
+//     description: 'Former President and Prime Minister of Sri Lanka, serving as a Member of Parliament for Kurunegala GeoData.'
+//   },
+//   {
+//     name: 'Gotabaya Rajapaksa',
+//     profilePicture: '/src/assets/gr.jpg',
+//     description: 'Former President of Sri Lanka, previously served as the Minister of Defence and Urban Development.'
+//   },
+//   {
+//     name: 'Basil Rajapaksa',
+//     profilePicture: '/src/assets/br.jpg',
+//     description: 'Founder and National Organizer of the SLPP, serving as a Member of Parliament for Gampaha GeoData.'
+//   },
+//   {
+//     name: 'Namal Rajapaksa',
+//     profilePicture: '/src/assets/nr.jpg',
+//     description: 'Minister of Youth and Sports, serving as a Member of Parliament for Hambantota GeoData.'
+//   },
+//   {
+//     name: 'Chamal Rajapaksa',
+//     profilePicture: '/src/assets/cr.jpg',
+//     description: 'Former Speaker of the Parliament of Sri Lanka, serving as a Member of Parliament for Hambantota GeoData.'
+//   },
+//   {
+//     name: 'Dinesh Gunawardena',
+//     profilePicture: '/src/assets/dr.jpg',
+//     description: 'Current Prime Minister of Sri Lanka, serving as a Member of Parliament for Colombo GeoData.'
+//   }
+// ];
 
 const CoverImage = styled('div')({
   height: 300,
@@ -73,6 +73,8 @@ export const Party = () => {
   const [partyLogo, setPartyLogo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [partyRequests, setPartyRequests] = useState([]);
+  const [candidates, setCandidates] = useState([]);
+  const [partyLogoName, setPartyLogoName] = useState(null);
   const { partyId } = useParams();
 
   const handleOpenEditPartyInfoModal = () => {
@@ -91,47 +93,48 @@ export const Party = () => {
         const config = {
           headers: { Authorization: `Bearer ${token}` }
         };
-
+  
+        // Fetch party data
         const partyResponse = await axios.get(`${partyUrl}/api/party/${partyId}`);
         const fetchedParty = partyResponse.data;
         setParty(fetchedParty);
-        
-        if (KeycloakService.isLoggedIn()){
-          const token = KeycloakService.getToken();
-          const partyRequests = await axios.get(`${partyUrl}/api/request/party/${partyId}`,{
-              headers: {
-                  Authorization: `Bearer ${token}`
-              }
-          });
+  
+        if (KeycloakService.isLoggedIn()) {
+          const partyRequests = await axios.get(
+            `${partyUrl}/api/request/party/${partyId}`,
+            config
+          );
           setPartyRequests(partyRequests.data);
-          console.log("Party requests");
-          console.log(partyRequests);
+          console.log("Party requests", partyRequests);
         }
-        
-        // Transform party members to match expected Politician component props
+  
+        // Transform party members directly from fetchedParty
         if (fetchedParty.partyMembers && fetchedParty.partyMembers.length > 0) {
           const transformedCandidates = fetchedParty.partyMembers.map(member => ({
-            name: member.name,
+            name: member.partyMemberName,
             profilePicture: member.profilePicture || "../src/assets/default-profile.jpg",
-            position: member.position || "Party Member",
-            // Add any other necessary transformations
+            position: member.role || "Party Member",
+            description: member.partyMemberDescription 
           }));
-          // setCandidates(transformedCandidates);
+          setCandidates(transformedCandidates);
         }
-
-        const logoDocument = fetchedParty.documents?.find(doc => doc.documentType === "logo");        
+  
+        const logoDocument = fetchedParty.documents?.find(
+          doc => doc.documentType === "logo"
+        );
         if (logoDocument) {
+          setPartyLogoName(logoDocument.documentName);
           await getPartyLogoUrl(logoDocument.documentName);
         }
-
+  
       } catch (err) {
-        console.error('Error fetching data:', err);
-        setError('Failed to load party data. Please try again later.');
+        console.error("Error fetching data:", err);
+        setError("Failed to load party data. Please try again later.");
       } finally {
         setIsLoading(false);
       }
     };
-
+  
     fetchData();
   }, [partyId]);
 
@@ -227,7 +230,7 @@ export const Party = () => {
                   Politicians
                 </Typography>
                 { ( party.secretaryId == KeycloakService.getNIC() || party.leaderId == KeycloakService.getNIC() ) && 
-                  <PartyMemberSideBar party={party} partyRequests={partyRequests}/>
+                  <PartyMemberSideBar party={party} partyRequests={partyRequests} partyLogo={partyLogoName}/>
                 }
               </Box>
               <Divider />
@@ -240,7 +243,8 @@ export const Party = () => {
                       politician={{
                         name: candidate.name,
                         profilePicture: candidate.profilePicture,
-                        position: candidate.position
+                        position: candidate.position,
+                        description: candidate.description
                       }} 
                       className="w-3/4"
                     />

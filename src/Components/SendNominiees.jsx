@@ -25,6 +25,7 @@ import Swal from 'sweetalert2';
 import KeycloakService from "../services/KeycloakService";
 const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
   },
@@ -37,7 +38,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export const SendNomineesModal = ({ open, handleClose, partyId }) => {
+export const SendNomineesModal = ({ open, handleClose, partyId, party, partyLogo }) => {
   const [elections, setElections] = React.useState([]);
   const [partyMembers, setPartyMembers] = React.useState([]);
   const [selectedElection, setSelectedElection] = React.useState('');
@@ -102,11 +103,19 @@ export const SendNomineesModal = ({ open, handleClose, partyId }) => {
     if (result.isConfirmed) {
       setLoading(true);
       try {
-        await axios.post(`${partyUrl}/api/submit-nominee`, {
-          partyId,
+        const token = KeycloakService.getToken();
+        await axios.post(`${partyUrl}/api/nomination/new`, {
+          name: selectedNominee,
+          party: party.partyName,
+          symbol: partyLogo,
+          number: 448,
+          status: 'Pending',
           electionId: selectedElection,
-          nomineeId: selectedNominee
-        });
+        },{
+          headers: {
+              Authorization: `Bearer ${token}`,
+          },
+      });
 
         await Swal.fire({
           title: 'Success!',
@@ -137,6 +146,7 @@ export const SendNomineesModal = ({ open, handleClose, partyId }) => {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        style={{ zIndex: 1000 }}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
           Send Nominee for Election
@@ -197,7 +207,7 @@ export const SendNomineesModal = ({ open, handleClose, partyId }) => {
                         >
                           <Checkbox
                             edge="start"
-                            checked={selectedNominee === member.partyMemberId} // Ensure only one checkbox is checked
+                            checked={selectedNominee === member.partyMemberId} 
                             tabIndex={-1}
                             disableRipple
                           />

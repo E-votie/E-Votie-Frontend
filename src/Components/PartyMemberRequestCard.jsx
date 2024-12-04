@@ -3,6 +3,8 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardActions, Button, Typography, Avatar, Box } from '@mui/material';
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
+import KeycloakService from "../services/KeycloakService";
 
 export const PartyMemberRequestCard = ({ partyId, request, ownership, onDelete }) => {
   const navigate = useNavigate();
@@ -21,10 +23,10 @@ export const PartyMemberRequestCard = ({ partyId, request, ownership, onDelete }
       if (result.isConfirmed) {
         try {
           // Replace with your actual API endpoint
-          await axios.delete(`/api/party-requests/${request.requestId}`, {
+          const token = KeycloakService.getToken();
+          await axios.delete(`${partyUrl}/api/request/${request.requestId}`, {
             headers: {
-              // Add any necessary authentication headers
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
+              'Authorization': `Bearer ${token}`
             }
           });
           
@@ -41,7 +43,7 @@ export const PartyMemberRequestCard = ({ partyId, request, ownership, onDelete }
             }
             
             // Navigate back to party page
-            navigate(`/party/${partyId}`);
+            window.location.href = `/party/${partyId}`;
           });
         } catch (error) {
           // Show error message
