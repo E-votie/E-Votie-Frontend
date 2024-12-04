@@ -20,6 +20,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
 import KeycloakService from '../services/KeycloakService';
 import { useNavigate } from 'react-router-dom';
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 
 export const SubmitInquiry = ({ open, handleClose, partyId }) => {
     const { control, handleSubmit, register, reset } = useForm();
@@ -56,7 +57,7 @@ export const SubmitInquiry = ({ open, handleClose, partyId }) => {
             };
     
             const token = KeycloakService.getToken();
-            const response = await axios.post('http://localhost:5003/api/inquiry/submit', requestBody, {
+            const response = await axios.post(`${partyUrl}/api/inquiry/submit`, requestBody, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`                

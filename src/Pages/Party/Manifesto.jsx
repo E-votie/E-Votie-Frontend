@@ -217,7 +217,7 @@ export const Manifesto = ({ overallProgress, items }) => {
                     <Box display="flex" justifyContent="space-between" alignItems="flex-start">
                         <Box display="flex" gap={4}>
                             <Avatar
-                                src="../../src/assets/mr.jpg"
+                                src="../../assets/mr.jpg"
                                 alt="Profile"
                                 sx={{ width: 120, height: 120, borderRadius: 2 }}
                             />

@@ -49,7 +49,7 @@ const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 
 const CoverImage = styled('div')({
   height: 300,
-  backgroundImage: 'url("../public/politician-bg.png")',
+  backgroundImage: 'url("/politician-bg.png")',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   position: 'relative',
@@ -173,7 +173,7 @@ export const Party = () => {
     <div className="min-h-[600px] flex flex-col bg-gray-100 shadow-2xl pb-4 rounded-lg">
       <CoverImage>
         <PartyLogo 
-          src={partyLogo || "../src/assets/defaultPartyLogo.jpg"} 
+          src={partyLogo || "../assets/defaultPartyLogo.jpg"} 
           alt="Party Logo" 
           className='object-fill'
         />
