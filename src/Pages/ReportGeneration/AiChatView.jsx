@@ -6,7 +6,7 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line, Doughnut } from "react-chartjs-2";
 import axios from "axios";
 
 export const AiChatView = () => {
@@ -68,7 +68,7 @@ export const AiChatView = () => {
               }}
             />
           </Box>
-        ) : resource?.type === "graph" ? (
+        ) : resource?.type === "bar-graph" ? (
           <>
             <Typography variant="body1" sx={{ mb: 2 }}>
               {answer}
@@ -90,7 +90,7 @@ export const AiChatView = () => {
                   legend: { display: false },
                   title: {
                     display: true,
-                    text: `${resource.x_label} vs ${resource.y_label}`,
+                    text: resource.title,
                   },
                 },
                 scales: {
@@ -105,7 +105,98 @@ export const AiChatView = () => {
               }}
             />
           </>
-        ) : (
+        ) : resource?.type === "line-graph" ? (
+          <Box
+            sx={{
+              bgcolor: "background.paper",
+              boxShadow: 3,
+              borderRadius: 2,
+              p: 3,
+              mt: 3,
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              {answer}
+            </Typography>
+            <Line
+              data={{
+                labels: resource.x_values,
+                datasets: resource.lines.map((line) => ({
+                  label: line.line_name,
+                  data: line.values,
+                  borderColor: line.color,
+                  backgroundColor: line.color,
+                  tension: 0.4,
+                  fill: true,
+                })),
+              }}
+              options={{
+                responsive: true,
+                plugins: {
+                  legend: { display: true },
+                  title: {
+                    display: true,
+                    text: resource.title,
+                  },
+                },
+                scales: {
+                  x: {
+                    title: { display: true, text: resource.x_label },
+                    grid: { display: false },
+                  },
+                  y: {
+                    title: { display: true, text: resource.y_label },
+                    beginAtZero: true,
+                  },
+                },
+              }}
+            />
+          </Box>
+        ) : resource?.type === "doughnut-chart" ? (
+          <Box
+            sx={{
+              bgcolor: "background.paper",
+              boxShadow: 3,
+              borderRadius: 2,
+              p: 3,
+              mt: 3,
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body1" sx={{ mb: 2, textAlign: "center" }}>
+              {answer}
+            </Typography>
+            <Doughnut
+              data={{
+                labels: resource.labels,
+                datasets: [
+                  {
+                    data: resource.values,
+                    backgroundColor: resource.colors,
+                    borderColor: "#ffffff",
+                    borderWidth: 2,
+                  },
+                ],
+              }}
+              options={{
+                responsive: true,
+                plugins: {
+                  legend: { display: true, position: "bottom" },
+                  title: {
+                    display: true,
+                    text: "Doughnut Chart Representation",
+                  },
+                },
+              }}
+            />
+          </Box>
+        ): (
           // Text only
           <Typography variant="body1">{answer}</Typography>
         )}
