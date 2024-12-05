@@ -14,11 +14,9 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
-  width: 120,
-  height: 120,
+  width: 100,
+  height: 100,
   border: `4px solid ${theme.palette.background.paper || '#fff'}`, // Fallback to white if undefined
-  marginTop: -30,
-  marginLeft: theme.spacing(2),
   boxShadow: '0 4px 10px rgba(0,0,0,0.15)',
 }));
 
@@ -31,30 +29,23 @@ export const Politician = ({ politician }) => {
   };
 
   return (
-    <StyledCard onClick={handleClick} className="w-[calc(90%-0.5rem)]">
+    <StyledCard onClick={handleClick} >
       <CardActionArea>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           {/* <Box sx={{ height: 80, bgcolor: 'primary.main' }} /> */}
-          <CardContent sx={{ display: 'flex', alignItems: "center", justifyContent: "space-between", pt: 4 }}>
-            <StyledAvatar src={politician.profilePicture} alt={politician.name} />
-            <Box sx={{ ml: 3, flex: 1 }}>
-              <Typography variant="h5" component="div" gutterBottom>
+          { console.log(politician)}
+          <CardContent sx={{ display: 'flex', alignItems: "center", justifyContent: "space-between" }}>
+            <StyledAvatar src={politician.profilePicture} alt={politician.partyMemberName} />
+            <Box sx={{ ml: 2, flex: 1 }}>
+              <Typography className='md' component="div">
                 {politician.name}
               </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
+              <Typography variant="body2" color="text.secondary" >
+                {politician.position}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" >
                 {politician.description}
               </Typography>
-              <Chip 
-                label={politician.party} 
-                color="primary" 
-                size="small" 
-                sx={{ mr: 1 }}
-              />
-              <Chip 
-                label={politician.position} 
-                color="secondary" 
-                size="small" 
-              />
             </Box>
           </CardContent>
         </Box>

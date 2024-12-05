@@ -9,7 +9,7 @@ import KeycloakService from "../services/KeycloakService.jsx";
 import {Link, useNavigate} from 'react-router-dom';
 
 const ElectionCard = ({image, Title, description, EnrollLink, TimeLine, Special}) => {
-    const navigate = useNavigate();
+    console.log(TimeLine)
     return (
         <Card sx={{ maxWidth: 500 }}>
             <CardActionArea>

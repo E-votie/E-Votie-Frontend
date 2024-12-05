@@ -39,7 +39,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Upload, FileText, Image, Users, DollarSign, Landmark, FileCheck } from 'lucide-react';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
-
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 
 const MySwal = withReactContent(Swal);
 
@@ -153,6 +153,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
     const [leaderName, setLeaderName] = useState("");
+    const [secretoryName, setSecretoryName] = useState("");
     const steps = ['Party Information', 'Documents'];
     const navigate = useNavigate();
     
@@ -166,12 +167,15 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
         setIsCheckedLeaderNIC(true);
 
         try {
-            const leader = await axios.get(`http://localhost:5003/api/voter/${nic}`, {
+            const leader = await axios.get(`${partyUrl}/api/voter/${nic}`, {
                 headers: {
                     Authorization: `Bearer ${updatedToken}`
                 }
             });
 
+            setLeaderName(leader.data.Name);
+            console.log(leader);
+            
             return leader;
         } catch (error) {
             console.log(error);
@@ -184,11 +188,31 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
         console.log("isLeaderVerified "+ isLeaderVerified);
     }, []);
 
+    //get secretory name
+    const getSecretoryName = async () => {
+        const updatedToken = KeycloakService.getToken();
+        try {
+            const secretory = await axios.get(`${partyUrl}/api/voter/${KeycloakService.getUserName()}`, {
+                headers: {
+                    Authorization: `Bearer ${updatedToken}`
+                }
+            });
+            console.log("Secretory");
+            console.log(secretory);
+            setSecretoryName(secretory.data.Name);
+        } catch (error) {
+            console.log(error);
+            setIsSubmitDisabled(true);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     //check if the user is already a leader/secretary or not
-    const getPartyMemberByNIC = async (nic) => {
+    const getPartyMemberByNIC = useCallback(async (nic) => {
         try{
             const updatedToken = KeycloakService.getToken();
-            const partyMember = await axios.get(`http://localhost:5003/api/party/member/by/nic/${nic}`, {
+            const partyMember = await axios.get(`${partyUrl}/api/party/member/by/nic/${nic}`, {
                 headers: {
                     Authorization: `Bearer ${updatedToken}`
                 }
@@ -198,9 +222,9 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
             console.log(err);
             return null;
         }
-    }
+    }, [])
 
-    const handleLeaderNicBlur = async (e) => {
+    const handleLeaderNicBlur = useCallback(async (e) => {
         const nic = e.target.value;
         if (!nic) return;
     
@@ -215,6 +239,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
     
         const voter = await validateLeaderNic(nic);
         const partyMember = await getPartyMemberByNIC(nic);
+        await getSecretoryName();
     
         if (!voter) {
             console.log("inside block 1");
@@ -253,7 +278,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
         console.log("Updated State: ", updatedState);
     
         setIsLoading(false);
-    };
+    },[validateLeaderNic, getPartyMemberByNIC, setIsLoading, setIsLeaderVerified, setIsLeaderAvailable, setIsSubmitDisabled]);
     
 
     const handleNext = () => {
@@ -315,7 +340,8 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                 totalSeats: 0,
                 contactNumber: "Not available",
                 partyWebsite: "Not available",
-                // partySymbol: getValues("partySymbol"),
+                leaderName: leaderName,
+                secretoryName: secretoryName,
             };
         
             formData.append("party", JSON.stringify(partyDetails));
@@ -343,7 +369,7 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                     },
                 });
         
-                const response = await axios.post('http://localhost:5003/api/party', formData, {
+                const response = await axios.post(`${partyUrl}/api/party`, formData, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data',
@@ -631,7 +657,9 @@ export const PartyRegistrationApplication = ({ open, handleClose }) => {
                         {...register("leaderNic", { required: true })}
                         error={!!errors.leaderNic}
                         helperText={errors.leaderNic && 'Leader NIC is required'}
-                        onBlur={handleLeaderNicBlur}
+                        onBlur={(e) => {
+                            handleLeaderNicBlur(e); 
+                        }}
                         margin="normal"
                         padding="normal"
                         sx={{ fontSize: '1rem', fontWeight: 'bold' }}

@@ -9,7 +9,7 @@ import PostalVoteForm from "../Pages/Voter/PostalVote.jsx";
 import {VoterDetails} from "../Pages/Voter/VoterDetails.jsx";
 import {ElectionRegistration} from "../Pages/Voter/ElectionRegistration.jsx";
 import ElectionSlip from "../Pages/Voter/ElectionSlip.jsx";
-
+import PartyRequestDetails from "../Pages/Voter/VoterPartyNotification.jsx";
 
 const VoterRoutes = () => {
     return (
@@ -65,6 +65,15 @@ const VoterRoutes = () => {
                 element={
                     <ProtectedRoute
                         element={ElectionSlip}
+                        role="Voter"
+                    />
+                }
+            />
+            <Route
+                path="/voter/party_request_details/:partyID/:receiverNIC"
+                element={
+                    <ProtectedRoute
+                        element={PartyRequestDetails}
                         role="Voter"
                     />
                 }

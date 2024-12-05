@@ -3,19 +3,23 @@ import {authGet} from "../../Auth/authFetch.jsx";
 import {useNavigate} from "react-router-dom";
 import { motion } from 'framer-motion';
 import CircularProgress from '@mui/material/CircularProgress';
+import keycloakService from "../../services/KeycloakService.jsx";
+import MySwal from "sweetalert2";
 
-export const ElectionRegistrationForm = () => {
-
+export const ElectionRegistrationForm = (electionID) => {
+    console.log(electionID);
     const [loading, setLoading] = useState(true);
     const [responseData, setResponseData] = useState(null);
     const [responseDataElection, setResponseDataElection] = useState(null);
     const navigate = useNavigate();
-
+    const NIC = keycloakService.getUserName()
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
                 console.log("This is the plase")
+                const registerdata = authGet(`/voter/is_registered/${electionID.electionID}/${NIC}`)
+                console.log(registerdata);
                 const data = await authGet(`/voter/my_details`);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 setResponseData(data.voter)
@@ -31,11 +35,25 @@ export const ElectionRegistrationForm = () => {
 
     const handleRegister = async () => {
         try {
-            setLoading(true);
-            const data = await authGet(`/voter/election_registration//${responseData.NIC}`);
+            MySwal.fire({
+                title: 'Please wait Registration is in progress',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => MySwal.showLoading(),
+            });
+            const data = await authGet(`/voter/election_registration/${electionID.electionID}/${responseData.NIC}`);
             await new Promise(resolve => setTimeout(resolve, 1000));
-            setLoading(false);
-            navigate("/voter/profile");
+            MySwal.close();
+            MySwal.fire({
+                title: 'Successfully registered with the election',
+                icon: 'success',
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/');
+                }
+            });
         } catch (error) {
             console.error('Error fetching data:', error);
             setLoading(false);

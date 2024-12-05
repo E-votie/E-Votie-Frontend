@@ -1,25 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, CardMedia, Stack, Box, Chip, LinearProgress  } from '@mui/material';
-import Button from '@mui/material/Button';
+import { CardActionArea, CardMedia, Stack, Box  } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import PendingActionsIcon from '@mui/icons-material/PendingActions';
-import PageviewIcon from '@mui/icons-material/Pageview';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-
 import { keyframes } from '@mui/material';
-
 import unpImage from '../assets/pending.jpg';
-
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 const rotate = keyframes`
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -94,16 +86,36 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-const MemberCountChip = styled(Chip)(({ theme, count }) => ({
-  backgroundColor: count > 50 ? theme.palette.success.main : theme.palette.warning.main,
-  color: theme.palette.common.white,
-  fontWeight: 'bold',
-}));
+const capitalizeWords = (str) => {
+  return str
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+};
 
 const PartyCard = ({ party, state, viewMode }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [partyImageUrl, setPartyImageUrl] = useState(null);
 
+  useEffect(() => {
+    const fetchPartyImage = async () => {
+      try {
+        const imageUrl = `${partyUrl}/api/document/url/${party.documents[1].documentName}`;
+        const response = await axios.post(imageUrl);
+        setPartyImageUrl(response.data);
+      } catch (error) {
+        console.error('Error fetching party image:', error);
+        // Fallback to default image if fetch fails
+        setPartyImageUrl(unpImage);
+      }
+    };
+
+    // Only fetch if there's a document URL and we're not in pending verification state
+    if (party.documents && party.documents[1] && party.documents[1].documentUrl) {
+      fetchPartyImage();
+    }
+  }, [party, state]);
 
   const openParty = () => {
     if(viewMode === 'application') {
@@ -113,68 +125,24 @@ const PartyCard = ({ party, state, viewMode }) => {
     }
   };
 
-  const handleMenuOpen = (event) => {
-    event.stopPropagation();
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const getPartyColor = () => {
-    // This is a simplified example. You'd need to define your own color scheme.
-    const colorMap = {
-      'Republican': '#ff0000',
-      'Democrat': '#0000ff',
-      'Independent': '#006400',
-    };
-    return colorMap[party.affiliation] || '#808080';
-  };
-
-  const handleChipClick = (event) => {
-
-  };
-
-  const getPartyImage = () => {
-    if (state === "pending verification") {
-      return unpImage;
-    }
-    return party.image || unpImage; 
-  };
-
   return (
     <StyledCard className='w-full' sx={{width: "100%"}}>
       <CardActionArea className="flex-grow w-full" onClick={openParty}>
         <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
-          {state != "pending verification" && 
           <CardMedia
             component="img"
             sx={{ 
               width: { xs: '100%', sm: 120 }, 
               height: { xs: 200, sm: 120 },
             }}
-            src={party.documents[1].documentUrl}
-            image={party.image}
+            src={partyImageUrl || unpImage}
             alt={party.name}
             className='object-cover'
           />
-          }
-          {state === "pending verification" && <CardMedia
-            component="img"
-            sx={{ 
-              width: { xs: '100%', sm: 120 }, 
-              height: { xs: 200, sm: 120 },
-            }}
-            src={party.documents[1].documentUrl}
-            alt={party.name}
-            className='object-cover'
-          />
-          }
           <CardContent className="flex border-b-2">
             <Box>
               <Typography gutterBottom variant="h6" component="div" sx={{ color: "black" }} className="font-semibold text-gray-900 flex justify-between">
-                {party.partyName}({party.abreviation})
+                {party.partyName}-{party.abbreviation}
                 {state === "verified" && (
                   <Stack spacing={1} className='flex flex-col items-center justify-center'>
                     <Tooltip title="Verified">
@@ -186,10 +154,10 @@ const PartyCard = ({ party, state, viewMode }) => {
                 )}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Party Leader: {party.leader}
+                Party Leader: Mr.{capitalizeWords(party.leaderName)}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Party Secretary: {party.secretary}
+                Party Secretary: Mr.{capitalizeWords(party.secretoryName)}
               </Typography>
             </Box>
           </CardContent>

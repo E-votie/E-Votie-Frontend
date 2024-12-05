@@ -8,35 +8,35 @@ import { DeleteModal } from './DeleteModal';
 const getIcon = (topic) => {
     switch(topic){
         case "Agriculture, Plantations, Livestock & Fisheries":
-            return "../src/assets/topics/t1.avif";
+            return "../assets/topics/t1.avif";
         case "Natural Resources & Environment":
-            return "../src/assets/topics/t2.avif";
+            return "../assets/topics/t2.avif";
         case "Reconciliation & Resettlement":
-            return "../src/assets/topics/t3.avif";
+            return "../assets/topics/t3.avif";
         case "Trade & Industry":
-            return "../src/assets/topics/t4.avif";
+            return "../assets/topics/t4.avif";
         case "Welfare & Social Services":
-            return "../src/assets/topics/t5.avif";
+            return "../assets/topics/t5.avif";
         case "Justice, Defence & Public Order":
-            return "../src/assets/topics/t6.avif";
+            return "../assets/topics/t6.avif";
         case "National Heritage, Media & Sports":
-            return "../src/assets/topics/t7.jpg";
+            return "../assets/topics/t7.jpg";
         case "Economy and Finance":
-            return "../src/assets/topics/t8.avif";
+            return "../assets/topics/t8.avif";
         case "Education":
-            return "../src/assets/topics/t9.avif";
+            return "../assets/topics/t9.avif";
         case "Labour & Employment":
-            return "../src/assets/topics/t10.avif";
+            return "../assets/topics/t10.avif";
         case "Technology, Communications & Energy":
-            return "../src/assets/topics/t11.avif";
+            return "../assets/topics/t11.avif";
         case "Governance, Administration and Parliamentary Affairs":
-            return "../src/assets/topics/t12.avif";
+            return "../assets/topics/t12.avif";
         case "Health":
-            return "../src/assets/topics/t13.avif";
+            return "../assets/topics/t13.avif";
         case "Urban Planning, Infrastructure and Transportation":
-            return "../src/assets/topics/t14.avif";
+            return "../assets/topics/t14.avif";
         case "Rights & Representation":
-            return "../src/assets/topics/t15.avif";
+            return "../assets/topics/t15.avif";
     }
 }
 

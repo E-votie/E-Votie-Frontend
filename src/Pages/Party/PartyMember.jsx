@@ -26,7 +26,7 @@ const candidates = [1,1,1,1,1,1,1,1,1,1,1,1];
 const partyMember = {
     name: "Percy Mahinda Rajapaksa",
     position: "Prime Minister - Finance, Economic and Policy Planning",
-    profilePicture: "../src/assets/mr.jpg",
+    profilePicture: "../assets/mr.jpg",
     summary: {
       overallRank: 146,
       partyRank: 39,
@@ -306,7 +306,7 @@ export const PartyMember = () => {
       <div className="relative">
         {/* Cover Image */}
         <img
-          src="..\src\assets\politician-bg.png"
+          src="\assets\politician-bg.png"
           alt="Cover"
           className="w-full h-64 object-cover"
         />

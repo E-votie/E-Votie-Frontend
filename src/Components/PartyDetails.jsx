@@ -29,8 +29,8 @@ export const PartyDetails = ({ party }) => {
     {
       icon: Users,
       label: 'Leadership',
-      value: leader ? leader.nic : 'Not Available',
-      subtext: `Secretary: ${secretary ? secretary.nic : 'Not Available'}`,
+      value: leader ? party.leaderName : 'Not Available',
+      subtext: `Secretary: ${secretary ? party.secretoryName : 'Not Available'}`,
     },
     {
       icon: MapPin,

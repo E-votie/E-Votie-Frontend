@@ -39,6 +39,9 @@ export const NewHome = () => {
         if(keycloakService.hasRole("pollingStation")){
             navigate("/polling_station");
         }
+        if(keycloakService.hasRole("Office")){
+            navigate("/OpHome");
+        }
         const handleScroll = () => {
             const element = document.getElementById('animatedDiv');
             const rect = element.getBoundingClientRect();

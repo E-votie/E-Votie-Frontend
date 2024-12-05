@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useForm, Controller } from "react-hook-form";
+import Swal from 'sweetalert2';
+import ReactQuill from 'react-quill';
 import {
     Button,
     Box,
@@ -11,83 +15,84 @@ import {
     IconButton,
     DialogTitle,
     Stack,
-    Divider,
-    Select,
-    MenuItem,
-    InputLabel,
-    FormHelperText
 } from '@mui/material';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
-import { useForm, Controller } from "react-hook-form";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Import Quill's CSS
+import KeycloakService from '../services/KeycloakService';
+import { useNavigate } from 'react-router-dom';
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
-  height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  whiteSpace: 'nowrap',
-  width: 1,
-});
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-        padding: theme.spacing(2),
-    },
-    '& .MuiDialogActions-root': {
-        padding: theme.spacing(1),
-    },
-    '& .MuiPaper-root': {
-        width: '80%',
-        maxWidth: '600px',
-    },
-}));
-
-const customStyle = `
-    .custom-quill .ql-editor {
-        font-size: 1rem; /* Adjust this value to match the body1 font size */
-        line-height: 1.5;
-    }
-`;
-
-export const SubmitInquiry = ({ open, handleClose }) => {
-    const { control, handleSubmit, register } = useForm();
+export const SubmitInquiry = ({ open, handleClose, partyId }) => {
+    const { control, handleSubmit, register, reset } = useForm();
     const [attachments, setAttachments] = useState([]);
-    const [promise, setPromise] = useState('');
+    const navigate = useNavigate();
 
-    const onSubmit = (data) => {
-        // Handle form submission here
-        console.log(data, attachments);
-        handleClose();
-    };
-
-    const handleFileChange = (event) => {
-        console.log("handleFileChange called");
+    const onSubmit = async (data) => {
+        const confirmSubmission = await Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want to submit this inquiry? This action cannot be undone.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Submit',
+            cancelButtonText: 'Cancel',
+        });
+    
+        if (!confirmSubmission.isConfirmed) {
+            return;
+        }
+    
+        Swal.fire({
+            title: 'Submitting Inquiry...',
+            text: 'Please wait while we process your request',
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+    
         try {
-            const files = Array.from(event.target.files);
-            console.log("Files selected:", files);
-            setAttachments(files);
-            console.log("Attachments updated:", files);
+            const requestBody = {
+                subject: data.subject,
+                description: data.inquiryDescription,
+                partyId: partyId,
+            };
+    
+            const token = KeycloakService.getToken();
+            const response = await axios.post(`${partyUrl}/api/inquiry/submit`, requestBody, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`                
+                }
+            });
+    
+            reset();
+            setAttachments([]);
+    
+            Swal.fire({
+                icon: 'success',
+                title: 'Inquiry Submitted Successfully!',
+                text: response.data.message || 'Your inquiry has been received.',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                handleClose?.();
+                window.location.href = `/party/registration/application/${partyId}`;
+            });
+    
         } catch (error) {
-            console.error("Error in handleFileChange:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Submission Failed',
+                text: error.response?.data?.message || 'An error occurred while submitting your inquiry. Please try again.',
+                confirmButtonText: 'Try Again'
+            });
         }
     };
-
-    const handlePromiseChange = (event) => {
-        setPromise(event.target.value);
-    };
-
+    
     return (
         <BootstrapDialog
             onClose={handleClose}
             aria-labelledby="customized-dialog-title"
             open={open}
+            style={{ zIndex: 1000 }}
         >
             <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
                 Inquiry Submission
@@ -105,103 +110,47 @@ export const SubmitInquiry = ({ open, handleClose }) => {
                 <CloseIcon />
             </IconButton>
             <DialogContent dividers>
-                <FormControl fullWidth variant="outlined">
-                    <Stack spacing={3}>
-                        <Box>
-                            <Typography variant="body1" >
-                                Subject
-                            </Typography>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                            />
-                        </Box>
-                        <Box mb={3}>
-                            <Typography variant="body1">
-                                Description
-                            </Typography>
-                            <Controller
-                                name="inquiryDescription"
-                                control={control}
-                                render={({ field }) => (
-                                    <ReactQuill
-                                        value={field.value}
-                                        onChange={field.onChange}
-                                        modules={modules}
-                                        formats={formats}
-                                        style={{ height: 200, marginBottom: '2rem' }}
-                                        className="custom-quill"
-                                    />
-                                )}
-                            />
-                        </Box>
-                        <Box>
-                            <Typography variant="body1" gutterBottom>
-                                Promise
-                            </Typography>
-                            <FormControl fullWidth>
-                                {/* <InputLabel id="promise-select-label">Select Promise</InputLabel> */}
-                                <Select
-                                    labelId="promise-select-label"
-                                    value={promise}
-                                    onChange={handlePromiseChange}
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={10}>Promise 1</MenuItem>
-                                    <MenuItem value={20}>Promise 2</MenuItem>
-                                    <MenuItem value={30}>Promise 3</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                        <Box>
-                            <Typography variant="body1">
-                                Attachments
-                            </Typography>
-                            <Button
-                                component="label"
-                                variant="outlined"
-                                startIcon={<CloudUploadIcon />}
-                                sx={{ mt: 1 }}
-                            >
-                                Upload file(s)
-                                <VisuallyHiddenInput 
-                                    type="file" 
-                                    multiple 
-                                    onChange={(e) => {
-                                        console.log("File input change event triggered");
-                                        handleFileChange(e);
-                                    }}                                    
-                                    accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" 
-                                    {...register("attachments")}
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <FormControl fullWidth variant="outlined">
+                        <Stack spacing={3}>
+                            <Box>
+                                <Typography variant="body1">Subject</Typography>
+                                <TextField
+                                    {...register('subject', { required: 'Subject is required' })}
+                                    variant="outlined"
+                                    fullWidth
                                 />
-                            </Button>
-                            {attachments.length > 0 && (
-                                <Box mt={2}>
-                                    <Typography variant="body2">Attachments:</Typography>
-                                    <ul>
-                                        {attachments.map((file, index) => (
-                                            <li key={index}>{file.name}</li>
-                                        ))}
-                                    </ul>
-                                </Box>
-                            )}
-                        </Box>
-                    </Stack>
-                </FormControl>
+                            </Box>
+                            <Box mb={3}>
+                                <Typography variant="body1">Description</Typography>
+                                <Controller
+                                    name="inquiryDescription"
+                                    control={control}
+                                    rules={{ required: 'Description is required' }}
+                                    render={({ field }) => (
+                                        <ReactQuill
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                            modules={modules}
+                                            formats={formats}
+                                            style={{ height: 200, marginBottom: '2rem' }}
+                                            className="custom-quill"
+                                        />
+                                    )}
+                                />
+                            </Box>
+                        </Stack>
+                    </FormControl>
+                </form>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
+                <Button type="submit" onClick={handleSubmit(onSubmit)}>Submit</Button>
             </DialogActions>
-            <style>
-                {customStyle}
-            </style>
         </BootstrapDialog>
     );
 };
 
-// React Quill modules and formats
+// Existing modules and formats for ReactQuill
 const modules = {
     toolbar: [
         [{ 'header': '1' }, { 'header': '2' }],
@@ -218,3 +167,16 @@ const formats = [
     'list', 'bullet', 'indent',
     'link', 'image'
 ];
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+        padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+        padding: theme.spacing(1),
+    },
+    '& .MuiPaper-root': {
+        width: '80%',
+        maxWidth: '600px',
+    },
+}));

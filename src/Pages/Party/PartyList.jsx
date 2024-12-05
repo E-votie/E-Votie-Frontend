@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -6,31 +6,32 @@ import {
   Card,
   CardContent,
   CardActions,
-  Grid,
-  Tab,
+  Paper,
   Tabs,
+  Tab,
   Typography,
   CircularProgress,
-  Paper,
   InputBase,
   IconButton,
   Fade,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from '@mui/material';
 import {
   Search as SearchIcon,
-  CheckCircle as CheckCircleIcon,
-  Schedule as ClockIcon,
-  Block as BanIcon,
-  Warning as AlertIcon,
   Clear as ClearIcon,
 } from '@mui/icons-material';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+
 import PartyCard from '../../Components/PartyCard';
 import KeycloakService from '../../services/KeycloakService';
-import { motion } from 'framer-motion';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-
-// SearchBar Component
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
+// SearchBar Component (extracted for better modularity)
 const SearchBar = ({ searchTerm, onSearchChange }) => (
   <Paper
     elevation={3}
@@ -84,6 +85,36 @@ const SearchBar = ({ searchTerm, onSearchChange }) => (
   </Paper>
 );
 
+// Party Statistics Table Component
+const PartyStatisticsTable = ({ partyList }) => {
+  const filteredParties = partyList
+    .filter(party => party.state === 'verified' && party.registrationId != 2000)
+    .sort((a, b) => b.totalSeats - a.totalSeats);
+
+  return (
+    <TableContainer component={Paper} elevation={3}>
+      <Table size="small" aria-label="party statistics">
+        <TableHead>
+          <TableRow>
+            <TableCell className="font-bold">Party</TableCell>
+            <TableCell align="right" className="font-bold">
+              No. Of MPs
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {filteredParties.map((party) => (
+            <TableRow key={party.id}>
+              <TableCell>{party.partyName}</TableCell>
+              <TableCell align="right">{party.totalSeats}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};
+
 export const PartyList = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -94,8 +125,11 @@ export const PartyList = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [error, setError] = useState(null);
 
-  // Calculate verified parties once when partyList changes
-  const verifiedParties = partyList.filter(party => party.state === 'verified');
+  // Memoized calculations
+  const verifiedParties = React.useMemo(() => 
+    partyList.filter(party => party.state === 'verified'), 
+    [partyList]
+  );
   const hasVerifiedParties = verifiedParties.length > 0;
 
   useEffect(() => {
@@ -108,13 +142,15 @@ export const PartyList = () => {
         setIsLoggedIn(loggedIn);
 
         const token = KeycloakService.getToken();
-        const partyResponse = await axios.get('http://localhost:5003/api/party/all');
+        const partyResponse = await axios.get(`${partyUrl}/api/party/all`);
+        console.log("Party response: ");
+        console.log(partyResponse);
         setPartyList(partyResponse.data);
         
         if (loggedIn) {
           try {
             const userPartyResponse = await axios.get(
-              'http://localhost:5003/api/party/member',
+              `${partyUrl}/api/party/member`,
               { headers: { Authorization: `Bearer ${token}` } }
             );
             setUserParty(userPartyResponse.data.party);
@@ -144,24 +180,6 @@ export const PartyList = () => {
     );
   }
 
-  const renderVerifiedParties = () => (
-    <Box sx={{ mb: 3 }} className="w-full">
-      {hasVerifiedParties ? (
-        verifiedParties.map(party => (
-          <div key={party.registrationId}>
-            <PartyCard party={party} state="verified" />
-          </div>
-        ))
-      ) : (
-        <div>
-          <Typography variant="body1" color="text.secondary" textAlign="center" py={4}>
-            No verified parties found
-          </Typography>
-        </div>
-      )}
-    </Box>
-  );
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -171,13 +189,20 @@ export const PartyList = () => {
     >
       {/* Header and Search Bar */}
       <div className="header my-8 flex justify-between items-center">
-        <div className="text-3xl font-semibold text-gray-900 flex justify-between">Registered Parties</div>
+        <div className="text-3xl font-semibold text-gray-900 flex justify-between">
+          Registered Parties
+        </div>
         <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
       </div>
 
       {/* Tabs */}
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <Tabs value={activeTab} onChange={handleTabChange} indicatorColor="primary" textColor="primary">
+        <Tabs 
+          value={activeTab} 
+          onChange={handleTabChange} 
+          indicatorColor="primary" 
+          textColor="primary"
+        >
           {isLoggedIn && <Tab label="My Party" />}
           <Tab label="Verified Parties" />
         </Tabs>
@@ -193,44 +218,35 @@ export const PartyList = () => {
       {/* Tab Content */}
       {!loading && (
         <>
+          {/* My Party Tab */}
           {isLoggedIn && activeTab === 0 && (
             <Box sx={{ mb: 3 }} className="w-full">
               {userParty ? (
                 <div className='flex justify-between'>
                   <div className='w-1/2'>
-                    <PartyCard party={userParty} state="pending verification" viewMode="application" />
+                    <PartyCard 
+                      party={userParty} 
+                      state={userParty.state} 
+                      viewMode="application" 
+                    />
                   </div>
                   <aside className="w-full md:w-1/3">
-                    <TableContainer component={Paper} elevation={3}>
-                      <Table size="small" aria-label="party statistics">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell className="font-bold">Party</TableCell>
-                            <TableCell align="right" className="font-bold">
-                              No. Of MPs
-                            </TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {partyList.map((party) => (
-                            <TableRow key={party.id}>
-                              <TableCell>{party.partyName}</TableCell>
-                              <TableCell align="right">{party.totalSeats}</TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
+                    <PartyStatisticsTable partyList={partyList} />
                   </aside>
                 </div>
               ) : (
                 <Card>
                   <CardContent>
                     <Typography variant="h6">No Party Association</Typography>
-                    <Typography color="text.secondary">You are not currently associated with any political party.</Typography>
+                    <Typography color="text.secondary">
+                      You are not currently associated with any political party.
+                    </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button variant="contained" onClick={() => navigate('/party/registration')}>
+                    <Button 
+                      variant="contained" 
+                      onClick={() => navigate('/party/registration')}
+                    >
                       Register a Party
                     </Button>
                   </CardActions>
@@ -239,49 +255,36 @@ export const PartyList = () => {
             </Box>
           )}
           
-          {(!isLoggedIn || activeTab === 1) && 
-          
-            <Box sx={{ mb: 3 }} className="w-full">
-              {hasVerifiedParties ? (
-                verifiedParties.map(party => (
-                  <div className='flex justify-between' key={party.registrationId}>
-                    <div className='w-1/2'>
-                      <PartyCard party={party} state="verified" viewMode="public" />
+          {/* Verified Parties Tab */}
+          {(!isLoggedIn || activeTab === 1) && (
+            <Box sx={{ mb: 3 }} className="w-full flex justify-between">
+              <div className='w-1/2 flex flex-col gap-3'>
+                {hasVerifiedParties ? (
+                  verifiedParties.map(party => (
+                    <div key={party.registrationId}>
+                      <PartyCard 
+                        party={party} 
+                        state="verified" 
+                        viewMode="public" 
+                      />
                     </div>
-                    <aside className="w-full md:w-1/3">
-                      <TableContainer component={Paper} elevation={3}>
-                        <Table size="small" aria-label="party statistics">
-                          <TableHead>
-                            <TableRow>
-                              <TableCell className="font-bold">Party</TableCell>
-                              <TableCell align="right" className="font-bold">
-                                No. Of MPs
-                              </TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {partyList.map((party) => (
-                              <TableRow key={party.id}>
-                                <TableCell>{party.partyName}</TableCell>
-                                <TableCell align="right">{party.totalSeats}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    </aside>
-                  </div>
-                ))
-              ) : (
-                <div>
-                  <Typography variant="body1" color="text.secondary" textAlign="center" py={4}>
+                  ))
+                ) : (
+                  <Typography 
+                    variant="body1" 
+                    color="text.secondary" 
+                    textAlign="center" 
+                    py={4}
+                  >
                     No verified parties found
                   </Typography>
-                </div>
-              )}
+                )}
+              </div>
+              <aside className="w-full md:w-1/3">
+                <PartyStatisticsTable partyList={partyList} />
+              </aside>
             </Box>
-            
-          }
+          )}
         </>
       )}
     </motion.div>

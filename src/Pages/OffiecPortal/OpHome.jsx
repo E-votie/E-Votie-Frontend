@@ -16,22 +16,31 @@ const actions = [
         "action": "Postal Voter Applications",
         "icon": "application",
         "description": "Postel Voter's Applications",
-        "link": "/OP/Postal_Voter_Applications",
-        "roles": ["Officer"],
+        "link": "/PostalVoteApplications",
+        "roles": ["Office"],
     },
+
+    {
+            "action": "Election Duty Applications",
+            "icon": "application",
+            "description": "Applications for election duties",
+            "link": "/ElectionDutyApplications",
+            "roles": ["Office"]
+    },
+
     {
         "action": "Past Election Duty Log",
         "icon": "candidate",
         "description": "Election duty record of office members",
-        "link": "/inquiries",
-        "roles": ["Officer"]
+        "link": "/ElectionDutyLog",
+        "roles": ["Office"]
     },
     {
         "action": "Notifications",
         "icon": "inquiry",
         "description": "TO Dos",
-        "link": "/inquiries",
-        "roles": ["Officer"]
+        "link": "/announcements",
+        "roles": ["Office"]
     },
 ];
 

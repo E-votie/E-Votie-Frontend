@@ -9,7 +9,7 @@ import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
 
 const MySwal = withReactContent(Swal)
-
+const partyUrl = import.meta.env.VITE_API_PARTY_URL;
 const politicians = [
     'Mahinda Rajapaksa',
     'Ranil Wickremesinghe',
@@ -74,7 +74,7 @@ export const PartyRegistrationForm = () => {
         // Function to handle leader validation
         const validateLeader = async (leaderData) => {
             try {
-                const response = await axios.post('http://localhost:5003/api/party/leader/confirmation', leaderData);
+                const response = await axios.post(`${partyUrl}/api/party/leader/confirmation`, leaderData);
                 if (![200, 201].includes(response.status)) {
                     showErrorModal('Leader Validation Failed', '/party/list/');
                     return false;
@@ -96,7 +96,7 @@ export const PartyRegistrationForm = () => {
             }
 
             try {
-                const response = await axios.post('http://localhost:5003/api/party', formData);
+                const response = await axios.post(`${partyUrl}/api/party`, formData);
                 if ([200, 201].includes(response.status)) {
                     showSuccessModal('Application Submitted Successfully!', '/party/list');
                 } else {

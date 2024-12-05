@@ -5,8 +5,52 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import TransferList from './../../Components/TransferList.jsx';
+import {authGet} from "../../Auth/authFetch.jsx";
+import MySwal from "sweetalert2";
+import {useNavigate} from "react-router-dom";
 
 export default function AddCandidates() {
+
+    const electionId = window.location.pathname.split("/").pop();
+    const navigate = useNavigate();
+
+    const deployContract = async () => {
+        MySwal.fire({
+            title: 'Please wait deploying election contract',
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            willOpen: () => MySwal.showLoading(),
+        });
+
+        try {
+            // Make sure 'authGet' is an async function returning a promise
+            const contractData = await authGet(`/election/deploy_contract/${electionId}`);
+            console.log(contractData);
+            MySwal.close();
+
+            MySwal.fire({
+                title: `Contract successfully deployed. Contract address: ${contractData.data.contractAddress}`,
+                icon: 'success',
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/');
+                }
+            });
+        } catch (error) {
+            MySwal.close();
+            MySwal.fire({
+                title: 'An error occurred',
+                text: error.message || 'Something went wrong.',
+                icon: 'error',
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+            });
+        }
+    };
+
+
     return (
         <Box className="max-w-full h-full mx-auto mt-12 px-4">
             {/* Card Container */}
@@ -34,6 +78,7 @@ export default function AddCandidates() {
                                 size="large"
                                 aria-label="submit"
                                 className="py-3 px-8 text-lg font-semibold"
+                                onClick={() => deployContract()}
                             >
                                 Submit
                             </Button>

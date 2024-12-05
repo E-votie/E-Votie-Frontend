@@ -79,9 +79,6 @@ export const AccountMenu = () => {
         <MenuItem onClick={() => {navigate("/voter/profile")}}>
           <Avatar /> Profile
         </MenuItem>
-        <MenuItem onClick={() => {navigate("/voter/profile")}}>
-          <Avatar /> My account
-        </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
